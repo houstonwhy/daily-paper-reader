@@ -2436,6 +2436,27 @@ window.$docsify = {
         });
       };
 
+      const neutralizeSidebarNoactiveLinks = () => {
+        const nav = document.querySelector('.sidebar-nav');
+        if (!nav) return;
+        const links = nav.querySelectorAll('a.dpr-sidebar-noactive-link');
+        links.forEach((a) => {
+          try {
+            a.classList.remove('active', 'router-link-active');
+          } catch {
+            // ignore
+          }
+          try {
+            const li = a.closest('li');
+            if (li) {
+              li.classList.remove('active');
+            }
+          } catch {
+            // ignore
+          }
+        });
+      };
+
       // 侧边栏/正文的论文页标题条：英文右侧，中文左侧，中间竖线
       const isPaperRouteFile = (file) => {
         const f = String(file || '');
@@ -3700,6 +3721,7 @@ window.$docsify = {
         // ----------------------------------------------------
         setupCollapsibleSidebarByDay();
         hydrateStructuredSidebarItems();
+        neutralizeSidebarNoactiveLinks();
 
         // ----------------------------------------------------
         // G. 侧边栏已阅读论文状态高亮
