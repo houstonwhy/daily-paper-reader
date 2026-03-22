@@ -1,0 +1,440 @@
+Title: Geometry-as-context: Modulating Explicit 3D in Scene-consistent Video Generation to Geometry Context
+
+URL Source: https://arxiv.org/pdf/2602.21929v1
+
+Published Time: Thu, 26 Feb 2026 02:07:53 GMT
+
+Number of Pages: 17
+
+Markdown Content:
+# Geometry-as-context: Modulating Explicit 3D in Scene-consistent Video Generation to Geometry Context 
+
+## JiaKui Hu 1,2*, Jialun Liu 2†, ‡ , Liying Yang 3,2,Xinliang Zhang 1, Kaiwen Li 1, Shuang Zeng 1, Yuanwei Li 1, Haibin Huang 2, Chi Zhang 2, Yanye Lu 1†
+
+> 1
+
+## Institute of Medical Technology, Peking University 2TeleAI 3MUST Input            
+
+> Outdoor Indoor
+> 916 27 36
+> In the wild Forth -and -back
+> Camera Generated scene video
+> 64 16 32 48
+> 100 25 50 75
+> 64 16 32 48
+
+Figure 1. Teaser demonstration. We introduce Geometry-as-Context (GaC), a framework that leverages explicit 3D information into reconstruction-based scene video generation. GaC mitigates cumulative errors from non-differentiable reconstruction and non-end-to-end training pipelines. Furthermore, GaC enhances the 3D consistency and long-term 3D memory of generative video models. We showcase GaC under four settings:on outdoor, indoor, in-the-wild, and forth-and-back camera trajectory. GaC maintains consistency under cyclic motion: even when an object (e.g., a computer) disappears in the 32-nd frame of the last row, it is faithfully restored in later frames. 
+
+## Abstract 
+
+Scene-consistent video generation aims to create videos that explore 3D scenes based on a camera trajectory. Previ-ous methods rely on video generation models with external memory for consistency, or iterative 3D reconstruction and inpainting, which accumulate errors during inference due to incorrect intermediary outputs, non-differentiable pro-cesses, and separate models. To overcome these limitations, we introduce “geometry-as-context”. It iteratively com-pletes the following steps using an autoregressive camera-controlled video generation model: (1) estimates the ge-ometry of the current view necessary for 3D reconstruc-tion, and (2) simulates and restores novel view images ren-dered by the 3D scene. Under this multi-task framework, we develop the camera gated attention module to enhance 
+
+> *This work was done when he interned in TeleAI.
+> †Corresponding author.
+> ‡Project leader.
+
+the model’s capability to effectively leverage camera poses. During the training phase, text contexts are utilized to as-certain whether geometric or RGB images should be gen-erated. To ensure that the model can generate RGB-only outputs during inference, the geometry context is randomly dropped from the interleaved text-image-geometry training sequence. The method has been tested on scene video gen-eration with one-direction and forth-and-back trajectories. The results show its superiority over previous approaches in maintaining scene consistency and camera control. 
+
+## 1. Introduction 
+
+Scene-consistent video generation aims to explore a scene with high 3D consistency starting from reference images, using a user-given camera trajectory, and returning its spa-tiotemporal RGB information. This task is significant for applications requiring 3D experiences or simulations, such as games, AR/VR, and embodied intelligence. The chal-
+
+> arXiv:2602.21929v1 [cs.CV] 25 Feb 2026
+
+lenge of this task lies in ensuring that after any view trans-formation by the user, the geometry and texture of the same object in the simulated scene remain consistent. Existing methods can be categorized into two primary classifications. Video-based methods [10, 19, 37, 39, 44, 45] focus on achieving scene consistency solely through video generation models. Memory retrieval [19, 39, 44] can preliminarily achieve this objective. However, it is still diffi-cult to maintain 3D consistency in complex scenes and with large camera movements. In contrast, reconstruction-based methods [5, 25, 26, 28, 38, 43, 47] use explicit 3D signals to iteratively synthesize images from novel viewpoints. This process starts by pre-dicting the geometry of the current view. Subsequently, this predicted geometry is used to reconstruct the 3D represen-tation of the target scene, exemplified by structures such as the point cloud [47] and the 3DGS [26]. The constructed 3D representation is utilized to render images within the speci-fied camera poses. Due to the presence of texture degrada-tions, such as voids or occlusions in the rendered images, an inpainting step is needed to produce photorealistic re-sults. The inpainted images are then reintegrated into the above steps, allowing autoregressive updates to the existing 3D scene and inpainting of images for future views. Reconstruction-based methods exhibit the capability to maintain robust scene consistency over limited spatial ex-tents. However, their applicability to extended long ranges is hindered by unavoidable cumulative errors [19]. These errors primarily originate from inaccuracies in reconstruc-tions or inpaintings, compounded by the iterative process-ing. For long-range video generation affected by sim-ilar accumulated errors, it is feasible to mitigate these cumulative errors by training [3, 15]. Nevertheless, in reconstruction-based scene generation, the presence of (1) non-differentiable operators in inverse rendering, coupled with (2) non-end-to-end training between reconstruction and inpainting networks, makes it impractical to alleviate such errors through improved forcing methods [3, 15]. We propose the geometry-as-context (GaC) frame-work to mitigate the cumulative errors that arise in reconstruction-based scene video generation. The core idea is to replace the non-differentiable part in reconstruction-based scene video generation pipelines with a fully differ-entiable generative model. Leveraging the strong priors of generative models, GaC can estimate geometry, simulate novel-view rendering, and perform inpainting or restoration in a unified manner. To enable end-to-end optimization, we interleave the intermediate outputs—such as geometry and rendered images—into a single video sequence. An autore-gressive camera-controlled video generation model is then used to synthesize this sequence, effectively unfolding and jointly training the iterative processes of geometry estima-tion, 3D reconstruction, rendering, and image inpainting. However, directly implementing this idea presents two key challenges. First, existing camera-conditioning mecha-nisms (e.g., simple addition or concatenation) lack the ca-pacity to simultaneously support multiple tasks such as ge-ometry estimation and view synthesis. Second, interleav-ing RGB and geometry frames can confuse the model about which modality to generate next, potentially resulting in re-dundant or unstable geometric predictions. To address these issues, we introduce both a tailored architecture and a spe-cialized training strategy for GaC. Architecturally, we pro-pose a camera-gated attention mechanism that enhances the model’s camera controlability: camera poses are encoded in Pl¨ ucker rays and used to enhance the query and produce a gating matrix that modulates self-attention outputs. This design helps the model distinguish how camera information should drive geometry prediction versus novel-view image synthesis. During training, a geometry dropout strategy is implemented, which randomly drops geometry contexts during the training process. This approach ensures that the model can learn the scene-consistency from the geometry context modeling, while also allowing it to bypass redun-dant geometry output during inference. We evaluate the model on the task of scene video gener-ation. Given a single reference image and a camera trajec-tory, the model generates high-fidelity scene videos while maintaining 3D consistency. Both quantitative and qualita-tive results demonstrate that the proposed method surpasses previous methods in terms of camera pose control and fi-delity, and demonstrates robust generalization to scenes with large camera dynamics. Furthermore, ablation studies corroborate the effectiveness of the proposed framework, architecture, and training strategy. 
+
+## 2. Related Work 
+
+Novel View Synthesis (NVS). The advent of neural rep-resentations such as Neural Radiance Fields (NeRF) [24] and 3D Gaussian Splatting (3DGS) [16] has significantly transformed the NVS task. [6, 31] primarily aims to re-construct NeRF from synchronized multi-view images, a capability that remains inaccessible to the average user. [7, 34] leverage the efficiency of 3DGS to generate novel views from monocular video inputs, often integrating sup-plementary regularizations such as optical flow or depth in-formation to enhance output quality. However, these meth-ods are constrained to reconstructing observable regions, thereby producing artifacts when viewed from notably di-vergent views. Advanced generation methods [29, 32] are increasingly used in NVS due to their sufficient prior knowl-edge. The 3D object generation models [8, 12, 21, 22, 30] use diffusion [29] or autoregressive [32] models to generate novel views of the 3D object. For scene-level NVS, existing methods often incorporate conditions such as camera em-beddings [20, 37], depth-warped imaging [23, 25], Pl¨ ucker rays [9, 12], and point cloud renderings [47] into the video diffusion model. 
+
+Scene-consistent Video Generation. Recent studies lever-age the capabilities of pre-trained video generation mod-els [2, 41] to produce interactive, scene-level videos through the integration of camera or action control. They are dedi-cated to modulating the explicit 3D representation of scenes and refining the 3D scene consistency within the predicted frames of these models. The depth map, point cloud, and 3DGS serve as a source of explicit 3D information, which is instrumental in enhancing the consistency of generated scenes. SceneScape [5] employs an additional depth es-timator to construct a mesh from a given image. Subse-quently, it generates the projected novel views through dif-fusion models and then reprojects the novel views to re-fine and extend the mesh. Similarly, ViewCrafter [47] exe-cutes an iterative method. However, it replaces depth maps with point clouds as explicit 3D. It utilizes a pre-trained reconstruction model to generate a point cloud and em-ploys a video diffusion model to facilitate image inpaint-ing or restoration4 [11, 42]. GEN3C [27] reconstructs point clouds with pixel-level depth maps, using them as the 3D cache for more precise camera manipulation dur-ing viewpoint extrapolation. Both Voyager [14] and Tra-jectoryCrafter [46] leverage point clouds to maintain ex-plicit 3D representation. Likewise, RenconDreamer [26] and Wonderworld [43] make use of 3DGS as explicit 3D representation. They also adopt an iterative approach, ren-dering and restoring novel view images using existing geo-metric structures, and subsequently employing these images to complete the 3DGS. To achieve more flexible and interac-tive scene generation, [44] use the auto-regressive diffusion model to predict more scene-consistent images by selecting more relevant preceding views. 
+
+## 3. Preliminary 
+
+3.1. Reconstruction-based Scene Video Generation 
+
+Given an image I0 ∈ RH×W ×3, the scene video generation models expand the view based on the image I0 and the cam-era poses Pi, i ∈ [1 , T ] of T novel views. The generated novel views need to maintain high 3D scene consistency while ensuring photorealistic quality. Reconstruction-based methods primarily enforce the output images to satisfy 3D scene consistency by in-troducing explicit 3D representations. Based on related works in Sec. 2 and above definitions, we can formulate reconstruction-based scene video generation methods as Algorithm 1. Through iterative reconstruction and next-view generation, the scene generation model can perform view expansion while ensuring 3D scene consistency. They use depth or normal maps, point clouds, 3DGS, etc., as 3D representations. The pre-trained large reconstruction 
+
+Algorithm 1 Reconstruction-based Scene Video Generation 
+
+Require: Reference image I0
+
+Ensure: T novel view images.  
+
+> 1:
+
+Initialize view index i ← 0 
+
+> 2:
+
+while i ≤ T do  
+
+> 3:
+
+Estimate geometry information Gi from image Ii
+
+using geometry estimator ϵ(·); 
+
+> 4:
+
+Unproject Gi into a 3D representation, or update the existing 3D representation;  
+
+> 5:
+
+Render the 3D representation from pose Pi+1 into a novel view I′
+
+> i+1
+
+; 
+
+> 6:
+
+Inpaint or restore I′ 
+
+> i+1
+
+into a photorealistic image 
+
+Ii+1 using the generation model ϱ(·); 
+
+> 7:
+
+i ← i + 1  
+
+> 8:
+
+end while 
+
+model [33, 35, 36] is used as the geometry estimator ϵ(·).The above steps can be represented by the Algorithm 1 and the following formulas. 
+
+Gi = ϵ(Ii); (1) 3D = Unproject (Ii, G i); (2) 
+
+I′ 
+
+> i+1
+
+= Render (3D , P i+1 ); (3) 
+
+Ii+1 = ϱ(I′
+
+> i+1
+
+, P i+1 ). (4) 
+
+Discussion: cumulative errors. Although these methods can generate high-consistent scene images, they are also af-fected by cumulative errors. When the geometric estimator 
+
+ϵ(·) fails to provide accurate geometric information, the re-sulting 3D representation will deviate from the real scene, further impacting subsequent rendering and novel view gen-eration. This error will gradually expand with the increase in iterations, much like the “butterfly effect”, ultimately leading to the ambiguous scene data. This cumulative error is more severe than the cumula-tive error in long-range video generation. The latter can be alleviated through an autoregressive rolling [15], while the former is difficult to improve through learning due to its non-differentiability . This is because we use two inde-pendent models for geometry prediction and novel view in-painting, respectively. The non-differentiable unprojection and rendering operations in the algorithm make the gradi-ents cannot be transmitted between the two models. This also makes end-to-end training of these models impossible. 
+
+## 4. Method 
+
+To address these cumulative errors, we propose to internal-ize the geometry estimation, reconstruction, and rendering operators into one model. We aim to unify these subtasks in Algorithm 1, thereby alleviating the cumulative errors caused by separate models and non-differentiable operators. Estimate Estimate Estimate    
+
+> Camera -controlled generation Camera -controlled generation Camera -controlled generation
+> (a) Reconstruction based Scene Video Generation
+> (b) Geometry -as -context Scene Video Generation
+> Unproject
+> Unproject Unproject
+
+Figure 2. Reconstruction-based scene video generation (a) v.s. our geometry-as-context (GaC) (b). Reconstruction-based scene video generation uses non-differentiable operators in reconstruction, which tend to worsen cumulative errors caused by inaccurate geometry estimates or image inpainting. In contrast, GaC replaces these operations with camera-controllable generation, turning reconstruction-based scene video generation into an autoregressive video generation framework with one single DiT. It can effectively reduce cumulative errors caused by non-differentiable reconstruction and non-end-to-end training. 
+
+4.1. Geometry-as-context 
+
+We integrate non-differentiable in Eq. 2 within the genera-tion model framework. Using geometric information, e.g. 
+
+depth maps, as contexts, the iterative algorithm in Algo-rithm 1 can be flattened into an autoregressive model. Specifically, we merge Eq. 2 with Eq. 3 as follows. 
+
+I′ 
+
+> i+1
+
+= Func (Ii, G i, P i+1 ), (5) where Func (·) is a function composed of Eq. 2and Eq. 3. It satisfies Func (Ii, G i, P i+1 ) =
+
+Render (Unproject (Ii, G i), P i+1 ).In this scenario, the function F (·) can be represented by a video generation model with camera and geometry con-trol. We use a differentiable generation model φ(·) to re-place the non-differentiable Eq. 2. The task of the model 
+
+φ(·) is to warp the previous image Ii by its geometric in-formation Gi and the camera pose Pi+1 of the target view, similar to the depth-warped imaging in [5, 14, 47]. This ad-justment can help alleviate the cumulative error exacerbated by non-differentiable operators. In summary, the equations for scene generation can be reformulated as follows. 
+
+Gi = ϵ(Ii); (6) 
+
+I′ 
+
+> i+1
+
+= φ(Ii, G i, P i+1 ), (7) 
+
+Ii+1 = ϱ(I′
+
+> i+1
+
+, P i+1 ). (8) In the above equations, we use three independent net-works for geometric prediction (Eq. 6), image warping (Eq. 7), and image completion (Eq. 8), respectively. How-ever, the model parameters used are separate, which may still exacerbate cumulative errors. We explore a basic solu-tion: using a single model to handle the above three steps in a unified manner. In other words, we reformulate the above equations in the following form. 
+
+{Gi, I ′
+
+> i+1
+
+, I i+1 } = ϱ({Ii, G i, I ′
+
+> i+1
+
+}, P i+1 ), (9) where ϱ is a camera controlled generation model. The model ϱ can process multiple images in sequence 
+
+and output the required results for the corresponding tasks. Following ReCamMaster [1], we adopt the frame-dimension concatenation for parallel processing images 
+
+{Ii, G i, I ′
+
+> i+1
+
+} due to its ease of implementation and bet-ter performance. When the images {Ii, G i, I ′
+
+> i+1
+
+} are con-catenated along the frame dimension, Eq. 9 admits an au-toregressive manner with a context length of 1. This for-mulation can be further generalized to accommodate longer contexts, as shown in Figure 2 (b). Note that there is a clear sequence among these subtasks. For example, when performing image warping (Eq. 7), we rely on the predicted geometric information as a condition. This means that before predicting the warped image, we need to first predict the geometric information of the given image. Therefore, the sequence of frame inputs that are fed into the model ϱ should be strictly controlled as follows: the 
+
+i-th frame, the geometry of the i-th frame, the i-th warped image, the (i + 1) -th frame, etc. 
+
+Variants. Eq. 9 can be further combined to produce the following three variants. 
+
+Variant #1: geometry as context. By combining image warping (Eq. 7) and image completion (Eq. 8), Eq. 9 can be reformulated as follows. 
+
+{Gi, I i+1 } = ϱ({Ii, G i}, P i+1 ). (10) In Eq. 10, the model ϱ estimates geometry information 
+
+Gi, subsequently generating the RGB image Ii+1 for the next view. Firstly, compared to Eq. 9, this variant results in a reduced sequence length, thus improving efficiency dur-ing the training process. Secondly, the inclusion of explicit geometric estimation operations enables the model to ac-quire the ability to recognize three-dimensional informa-tion, consequently augmenting the 3D scene consistency of the generated images. Lastly, the two targets that require generation exist in distinct modalities and exhibit significant differences in texture and form, which allows the model to distinctly identify the subsequent tasks to be addressed with minimal prompting. Consequently, we employ this variant as the training scheme. 
+
+Variant #2: warped image as context. By combining ge-ometry prediction (Eq. 6) and image warping (Eq. 7), Eq. 9 can be reformulated as follows. 
+
+{I′
+
+> i+1
+
+, I i+1 } = ϱ({Ii, I ′
+
+> i+1
+
+}, P i+1 ). (11) In Eq. 11, the model ϱ simulates point cloud rendered image I′ 
+
+> i+1
+
+while generating image Ii with clean textures. This variant eschews the comprehension of 3D geometric information entirely, which consequently complicates the extrapolation of 3D scene-consistency. As a result, this vari-ant is not employed in the training process. 
+
+Variant #3: without context. In this extreme case, Eq. 9 can degenerate into the following: 
+
+{Ii+1 } = ϱ(Ii, P i+1 ). (12) Under this variant, the model is effectively reduced to a purely video generation framework, resulting in the com-plete omission of the 3D reconstruction component. Con-sequently, this leads to the forfeiture of the capability to ex-plicitly achieve 3D consistency. Therefore, this variant is not used during the training process. 
+
+4.2. Architecture 
+
+Since we perform multiple tasks within a model, we need to enable the model to discern the distinct functions that camera poses fulfill in the contexts of geometry prediction and novel view synthesis. We design a more precise camera control to meet this need. Feed Forward Network     
+
+> Basic Transformer Block x N
+> Estimate Geometry
+> Render and In -paint Novel View Images
+> context
+> image
+> geometry
+> noise
+> geometry novel view
+> image
+> novel view
+> image noise
+> novel view
+> camera pose
+> Key
+> Query
+> Value Updated Query Gate
+> Scaled Dot Product Attention
+> <Geometry> <Image>
+> Linear
+> Linear
+> Linear
+> Camera Gated
+> Attention
+
+Figure 3. Detailed architecture of geometry-as-context. 
+
+Camera gated attention (CGA) modulates the query of self-attention through the incorporation of camera pose fea-tures, subsequently generating gates to regulate the output of the self-attention layer. Given a latent feature Fi ∈
+
+RN ×D of the image Ii and patchified Pl¨ ucker rays ri ∈RN ×D of the target camera pose Pi, CGA processes them as follows. 
+
+{Q, K, V } = Linear 1(Fi); (13) 
+
+{Qres , Gate } = Linear 2(Q + ri); (14) 
+
+O = SDPA (Q + Qres , K, V ); (15) 
+
+O = Linear 3(O ∗ σ(Gate )) , (16) where σ(·) is the sigmoid function and SDPA (·) is the scaled dot product attention. We use a convolution to patch-ify the Pl¨ ucker rays. The CGA integrates camera pose information into the self-attention mechanism, thereby enabling the model to in-corporate pose information for both feature querying and output gating. This integration facilitates the model’s ability to differentiate the distinct roles that camera pose informa-tion plays in various applications, including geometry esti-mation and novel view synthesis. 
+
+4.3. Training 
+
+Under the autoregressive framework in Figure 2 (b), we need to tell the model when to perform geometry and when to generate images. Otherwise, the model may be con-fused about the output format, leading to a decline in per-formance. 
+
+Text-guided interleaved modeling. As shown in Figure 3, we use text to inform the model about the next task it will process. Specifically, we design the input sequence in an interleaved form. 
+
+{Ii, <Geometry> , G i, <Image> , I i+1 , · · · } 
+
+This sequence helps the model’s acquisition of task-related information based on text contexts. Meanwhile, em-ploying human language for task scheduling enables users to actively intervene in the generation process. However, this interleaved text-image-geometry sequence presents new challenges related to the efficiency of training and inference. (1) The presence of geometry contexts re-sults in reduced training efficiency by doubling the length of the sequence. (2) Inference outputs may be redundant if the user does not require geometry output. We address these challenges by implementing a strategy of randomly dropping geometry context during the training phase. 
+
+Geometry Dropout. Given an interleaved image-geometry sequence, we randomly remove the geometry context in the sequence based on a specified ratio r ∈ (0 , 1) . When the geometry context is removed, the preceding and follow-ing frames satisfy the Variant #3 (Eq. 12). In this frame-work, the model directly predicts the novel view image based on the previous frame. This method effectively re-duces the sequence length while maintaining the model’s capacity to acquire explicit 3D consistency from geome-try modeling. Therefore, it facilitates the model’s ability to generalize across image-to-image transformations, thereby enabling purely image-contexted generation during the in-ference phase. It is noteworthy that, despite employing the geometry dropout, the model is capable of producing the geometry of the present view via the <Geometry> prompt. This offers certain advantages for applications that require simultane-ous video generation and 3D reconstruction. To substantiate this claim, we provide some test samples in the appendix. Due to the varied geometry dropout rates in each sample, the sequence length across samples is inconsistent. We need to employ Fully Sharded Data Parallel (FSDP) as the model parallelization strategy and maintain a batch size of one. 
+
+## 5. Experients 
+
+5.1. Experimental setup 
+
+Implementation details. We use Bagel-7B [4] as the base model due to its text-image interleaved modeling capabil-ity. Following VMem [19], we train our model on 8-frame sequences. We randomly select the first 1-4 frames as con-text views and the subsequent frames as target views. We combine images captured from four consecutive views into a single frame in a grid pattern [13], which enhances the consistency between the various viewpoints. The resolution of each view is 640 ×352 . The images are encoded as latent using FLUX-VAE [18]. The model needs to be trained on 8 H100 for 40,000 iterations, which is expected to take two days. During inference, we select context views using the context-as-memory [44] approach. We do not use classifier-free guidance techniques during sampling. 
+
+Datasets. We train our model on 66033 video clips from RealEstate10K [49] train set. We randomly select 150 video clips from RealEstate10K [49] test set and Tanks-and-Temples [17] for testing. The latter has larger camera pose motions. To collect the depth maps used during train-ing, we improve the depth estimation strategy provided by Hunyuan-Voyager [14], which is presented in the appendix. 
+
+Evaluation. During inference, the camera trajectory in-corporates both the trajectory provided in the dataset and a forth-and-back trajectory. Specifically, in the forth-and-back trajectory, the initial 32 frames utilize the camera tra-jectory provided by the dataset, while the subsequent 32 frames return the camera to the camera pose of the first view. This forth-and-back trajectory serves to validate the model’s scene-consistency. The evaluation metrics are: (1) Fr´ echet Image Distance (FID) for the assessment of video quality; (2) Peak Signal-to-Noise Ratio (PSNR), Structural Similarity Index Metric (SSIM), and Learned Perceptual Image Patch Similarity (LPIPS) for pixel-wise discrepan-cies between different views; (3) Alignment between cam-RealEstate10K [49] Tanks-and-Temples [17]                                                                                          
+
+> Method PSNR ↑SSIM ↑LPIPS ↓FID ↓Rerr ↓Terr ↓PSNR ↑SSIM ↑LPIPS ↓FID ↓Rerr ↓Terr ↓
+> CameraCtrl [9] 15.93 0.550 0.440 77.93 0.020 0.266 12.28 0.389 0.642 201.72 0.080 0.533 ViewCrafter [47] 16.72 0.585 0.417 80.47 0.022 0.327 12.59 0.438 0.549 115.16 0.058 0.399
+> GEN3C [27] 18.12 0.624 0.402 66.20 0.027 0.344 15.32 0.506 0.509 90.52 0.074 0.430 SEVA [48] 17.42 0.601 0.431 73.95 0.021 0.284 15.60 0.518 0.490 88.76 0.072 0.477 Voyager [14] 18.70 0.616 0.395 65.12 0.035 0.596 15.24 0.487 0.510 90.06 0.081 0.515
+> GaC (Ours) 19.01 0.656 0.354 55.76 0.024 0.270 15.77 0.532 0.507 93.29 0.072 0.442
+> Table 1. Quantitative results of scene video generation from single view with given camera trajectory.
+
+Input Target GaC (Ours) ViewCrafter Voyager 
+
+> Figure 4. Qualitative results of scene video generation from single view. Compared to the baselines, our model generates more consistent novel views. These images are the 20-th frame of the generated video clip except the input one. For a clearer visualization, please zoom in.
+
+era poses of predicted views and their ground truth, as fol-lows [9]. We use VGGT [33] to extract poses from the pre-dicted views. The camera accuracy is calculated using the formula from prior research [19]. 
+
+5.2. Main results 
+
+Scene video generation from single-view. We first pro-pose quantitative results in Table 1. GaC demonstrates su-perior performance compared to other models in a range of metrics. Specifically, the reduced FID values suggest that our model is more accurately aligned with the intended data distribution. Furthermore, lower LPIPS scores, in conjunc-tion with higher PSNR and SSIM values, indicate enhanced visual quality and improved pixel-level and structural fi-delity relative to the targets. Additionally, our approach exhibits improved precision in camera control compared to video-based models, as evidenced by Rerr and Terr .Qualitative comparisons are presented in Figure 4. Com-pared to the previous reconstruction-based scene video gen-eration method [47], our approach excels in visual quality. This is evidenced by enhanced color fidelity, as observed in the color of the wall in the first row of Figure 4, and the presence of more intricate texture details, exemplified by the flowers’ texture in the second row of Figure 4. Addi-tionally, our approach offers improved precision in camera manipulation than the video generation-based method [14], illustrated by the chair backrest in the third row of Figure 4, and ensures greater consistency in inter-frame textures, as seen in the texture of the picture located centrally in the last row of Figure 4. 
+
+Scene video generation on the forth-and-back trajec-tory. Quantitative results are presented in Table 2 (next page). The GaC continues to demonstrate superior numer-ical performance relative to other methods. However, it is observed that, in forth-and-back camera trajectories, the ef-ficacy of all methods experiences a marked decline. Con-sequently, the development of advanced context memory strategies emerges as a crucial area for enhancing scene consistency. Due to the page limit, we put the qualitative comparisons in the appendix. RealEstate10K [49] Tanks-and-Temples [17] 
+
+Method PSNR ↑ SSIM ↑ LPIPS ↓ FID ↓ Rerr ↓ Terr ↓ PSNR ↑ SSIM ↑ LPIPS ↓ FID ↓ Rerr ↓ Terr ↓
+
+CameraCtrl [9] 13.80 0.391 0.501 98.32 0.044 0.325 11.42 0.282 0.769 171.88 0.110 0.0766 ViewCrafter [47] 15.77 0.437 0.430 72.14 0.042 0.411 13.96 0.358 0.640 133.66 0.134 0.576 
+
+GEN3C [27] 15.28 0.524 0.431 80.03 0.081 0.454 13.80 0.321 0.648 129.91 0.098 0.778 SEVA [48] 15.12 0.528 0.472 85.39 0.048 0.422 14.00 0.349 0.620 101.62 0.100 0.662 Voyager [14] 15.80 0.521 0.409 79.81 0.077 0.638 14.06 0.337 0.652 89.37 0.120 0.650 
+
+GaC (Ours) 16.34 0.547 0.399 64.31 0.050 0.429 14.29 0.359 0.629 101.24 0.093 0.638 
+
+Table 2. Quantitative results of scene video generation from single view with forth-and-back camera trajectory. 
+
+5.3. Ablation studies 
+
+We conduct ablation studies on the RealEstate10K test set to verify the effectiveness of our proposed method. 
+
+Variants. In Section 4.1, we outline three variants of geometry-as-context. We conduct ablation studies on these variants. The variation #3 shows the least effective perfor-mance due to its exclusive reliance on the autoregressive video generation model to ensure the scene consistency. Variant #2 incorporates warped images as contextual infor-mation, resulting in a slight performance improvement over Variant #3. However, the lack of 3D geometric constraints during training suggests that there is room for further en-hancement. Adding geometric context helps the model to better learn a 3D representation of the scene, leading to im-proved performance in scene video generation. Context PSNR ↑ SSIM ↑ LPIPS ↓ FID ↓ Rerr ↓ Terr ↓                  
+
+> None ( Varient #3 )16.34 0.551 0.412 89.03 0.029 0.351 Warped image ( Varient #2 )18.33 0.671 0.383 59.12 0.024 0.299 Geometry ( Varient #1 )19.01 0.656 0.354 55.76 0.024 0.270
+
+Table 3. Ablation on different variants of geometry-as-context. 
+
+Choices of geometry. Besides depth maps, point maps can also be unprojected into 3D representations. We compare the impact of different geometry representations on scene video generation performance. The results are shown in Ta-ble 4. In this experiment, the FLUX-VAE model is used for data processing. The variation in geometry context types has a minimal effect on performance. However, depth maps perform slightly better than point maps. This can be at-tributed to the smaller modality gap between depth maps and natural images, which allows the VAE trained on nat-ural images to more effectively extract geometric features from depth maps. In contrast, point maps generally require more precise encoding processes [40]. Choices PSNR ↑ SSIM ↑ LPIPS ↓ FID ↓ Rerr ↓ Terr ↓            
+
+> Point map 19.04 0.648 0.381 56.37 0.027 0.303 Depth map 19.01 0.656 0.354 55.76 0.024 0.270
+
+Table 4. Ablation on different choices of geometry. 
+
+Effect of the Camera Gated Attention (CGA). We verify the effectiveness of CGA. Specifically, the application of CGA results in a marked reduction in both rotation error (Rerr ) and translation error ( Terr ). This indicates that the model is capable of producing images with camera poses that exhibit a higher degree of congruence with the ground truth images. CGA PSNR ↑ SSIM ↑ LPIPS ↓ FID ↓ Rerr ↓ Terr ↓            
+
+> ✘18.57 0.581 0.461 68.42 0.032 0.469
+> ✔19.01 0.656 0.354 55.76 0.024 0.270
+
+Table 5. Effect of the CGA. 
+
+Effect of the geometry dropout. The introduction of the geometry dropout technique has demonstrably resulted in a substantial reduction in both the training and inference cost, with a negligible decline in performance. The evaluation of training and inference time is performed on the H100. Geometry PSNR ↑ SSIM ↑ LPIPS ↓ FID ↓ Rerr ↓ Terr ↓ Training Inference Dropout Time Time                 
+
+> ✘19.23 0.660 0.342 57.18 0.025 0.248 24 s/step 4.6 s/img
+> ✔19.01 0.656 0.354 55.76 0.024 0.270 11 s/step 2.2 s/img
+
+Table 6. Effect of the geometry dropout. The unit “s/step” means how long it takes to perform one iteration. Unit “s/img” means how long it takes to generate one image during inference. 
+
+## 6. Conclusion 
+
+This study attributes the cumulative inference errors in reconstruction-based scene video generation methods to two primary causes: (1) the presence of non-differentiable 3D reconstruction and rendering operators, and (2) the lack of end-to-end training arising from the decoupling of geo-metric prediction and novel view generation modules. To address these issues, we propose the Geometry-as-Context (GaC) framework. By leveraging generative models for ge-ometric estimation and simulating the novel view render-ing process, GaC effectively eliminates non-differentiable operations during inference. Furthermore, by unfolding the iterative processes of geometry prediction, view render-ing, and inpainting, GaC enables fully end-to-end training through autoregressive video generation over interleaved RGB–geometry sequences. Experimental results demon-strate that GaC produces videos with high visual fidelity and improved 3D consistency. References 
+
+[1] Jianhong Bai, Menghan Xia, Xiao Fu, Xintao Wang, Lianrui Mu, Jinwen Cao, Zuozhu Liu, Haoji Hu, Xiang Bai, Pengfei Wan, et al. Recammaster: Camera-controlled generative ren-dering from a single video. In Proceedings of the IEEE/CVF International Conference on Computer Vision , pages 14834– 14844, 2025. 5 [2] Andreas Blattmann, Tim Dockhorn, Sumith Kulal, Daniel Mendelevitch, Maciej Kilian, Dominik Lorenz, Yam Levi, Zion English, Vikram Voleti, Adam Letts, et al. Stable video diffusion: Scaling latent video diffusion models to large datasets. arXiv preprint arXiv:2311.15127 , 2023. 3 [3] Boyuan Chen, Diego Mart´ ı Mons´ o, Yilun Du, Max Sim-chowitz, Russ Tedrake, and Vincent Sitzmann. Diffusion forcing: Next-token prediction meets full-sequence diffu-sion. Advances in Neural Information Processing Systems ,37:24081–24125, 2024. 2 [4] Chaorui Deng, Deyao Zhu, Kunchang Li, Chenhui Gou, Feng Li, Zeyu Wang, Shu Zhong, Weihao Yu, Xiaonan Nie, Ziang Song, et al. Emerging properties in unified multimodal pretraining. arXiv preprint arXiv:2505.14683 , 2025. 6 [5] Rafail Fridman, Amit Abecasis, Yoni Kasten, and Tali Dekel. Scenescape: Text-driven consistent scene genera-tion. Advances in Neural Information Processing Systems ,36:39897–39914, 2023. 2, 3, 4 [6] Sara Fridovich-Keil, Giacomo Meanti, Frederik Rahbæk Warburg, Benjamin Recht, and Angjoo Kanazawa. K-planes: Explicit radiance fields in space, time, and appearance. In 
+
+Proceedings of the IEEE/CVF Conference on Computer Vi-sion and Pattern Recognition , pages 12479–12488, 2023. 2 [7] Quankai Gao, Qiangeng Xu, Zhe Cao, Ben Mildenhall, Wen-chao Ma, Le Chen, Danhang Tang, and Ulrich Neumann. Gaussianflow: Splatting gaussian dynamics for 4d content creation. Transactions on Machine Learning Research . 2 [8] Ruiqi Gao, Aleksander Holynski, Philipp Henzler, Arthur Brussee, Ricardo Martin Brualla, Pratul Srinivasan, Jonathan Barron, and Ben Poole. Cat3d: Create anything in 3d with multi-view diffusion models. Advances in Neural Informa-tion Processing Systems , 37:75468–75494, 2024. 2 [9] Hao He, Yinghao Xu, Yuwei Guo, Gordon Wetzstein, Bo Dai, Hongsheng Li, and Ceyuan Yang. Cameractrl: En-abling camera control for video diffusion models. In The Thirteenth International Conference on Learning Represen-tations , 2025. 3, 7, 8 [10] Xianglong He, Chunli Peng, Zexiang Liu, Boyang Wang, Yifan Zhang, Qi Cui, Fei Kang, Biao Jiang, Mengyin An, Yangyang Ren, Baixin Xu, Hao-Xiang Guo, Kaixiong Gong, Cyrus Wu, Wei Li, Xuchen Song, Yang Liu, Eric Li, and Yahui Zhou. Matrix-game 2.0: An open-source, real-time, and streaming interactive world model. arXiv preprint arXiv:2508.13009 , 2025. 2 [11] JiaKui Hu, Lujia Jin, Zhengjian Yao, and Yanye Lu. Univer-sal image restoration pre-training via degradation classifica-tion. The Thirteenth International Conference on Learning Representations , 2025. 3 [12] JiaKui Hu, Yuxiao Yang, Jialun Liu, Jinbo Wu, Chen Zhao, and Yanye Lu. Auto-regressively generating multi-view con-sistent images. In Proceedings of the IEEE/CVF Interna-tional Conference on Computer Vision , pages 2556–2566, 2025. 2, 3 [13] JiaKui Hu, Shanshan Zhao, Qing-Guo Chen, Xuerui Qiu, Jialun Liu, Zhao Xu, Weihua Luo, Kaifu Zhang, and Yanye Lu. Omni-view: Unlocking how generation facilitates under-standing in unified 3d model based on multiview images. In 
+
+The Fourteenth International Conference on Learning Rep-resentations , 2026. 6 [14] Tianyu Huang, Wangguandong Zheng, Tengfei Wang, Yuhao Liu, Zhenwei Wang, Junta Wu, Jie Jiang, Hui Li, Rynson Lau, Wangmeng Zuo, et al. Voyager: Long-range and world-consistent video diffusion for explorable 3d scene genera-tion. ACM Transactions on Graphics (TOG) , 44(6):1–15, 2025. 3, 4, 6, 7, 8 [15] Xun Huang, Zhengqi Li, Guande He, Mingyuan Zhou, and Eli Shechtman. Self forcing: Bridging the train-test gap in autoregressive video diffusion. In The Thirty-ninth An-nual Conference on Neural Information Processing Systems ,2025. 2, 3 [16] Bernhard Kerbl, Georgios Kopanas, Thomas Leimk¨ uhler, and George Drettakis. 3d gaussian splatting for real-time radiance field rendering. ACM Trans. Graph. , 42(4):139–1, 2023. 2 [17] Arno Knapitsch, Jaesik Park, Qian-Yi Zhou, and Vladlen Koltun. Tanks and temples: Benchmarking large-scale scene reconstruction. ACM Transactions on Graphics (ToG) , 36 (4):1–13, 2017. 6, 7, 8 [18] Black Forest Labs. Flux. https://github.com/ black-forest-labs/flux , 2024. 6 [19] Runjia Li, Philip Torr, Andrea Vedaldi, and Tomas Jakab. Vmem: Consistent interactive video scene generation with surfel-indexed view memory. In Proceedings of the IEEE/CVF International Conference on Computer Vision ,pages 25690–25699, 2025. 2, 6, 7 [20] Ruilong Li, Brent Yi, Junchen Liu, Hang Gao, Yi Ma, and Angjoo Kanazawa. Cameras as relative positional encoding. In The Thirty-ninth Annual Conference on Neural Informa-tion Processing Systems , 2025. 2 [21] Ruoshi Liu, Rundi Wu, Basile Van Hoorick, Pavel Tok-makov, Sergey Zakharov, and Carl Vondrick. Zero-1-to-3: Zero-shot one image to 3d object. In Proceedings of the IEEE/CVF international conference on computer vision ,pages 9298–9309, 2023. 2 [22] Xiaoxiao Long, Yuan-Chen Guo, Cheng Lin, Yuan Liu, Zhiyang Dou, Lingjie Liu, Yuexin Ma, Song-Hai Zhang, Marc Habermann, Christian Theobalt, et al. Wonder3d: Sin-gle image to 3d using cross-domain diffusion. In Proceed-ings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pages 9970–9980, 2024. 2 [23] Baorui Ma, Huachen Gao, Haoge Deng, Zhengxiong Luo, Tiejun Huang, Lulu Tang, and Xinlong Wang. You see it, you got it: Learning 3d creation on pose-free videos at scale. In 
+
+Proceedings of the Computer Vision and Pattern Recognition Conference , pages 2016–2029, 2025. 2 [24] Ben Mildenhall, Pratul P Srinivasan, Matthew Tancik, Jonathan T Barron, Ravi Ramamoorthi, and Ren Ng. Nerf: Representing scenes as neural radiance fields for view syn-thesis. Communications of the ACM , 65(1):99–106, 2021. 2[25] Norman M¨ uller, Katja Schwarz, Barbara R¨ ossle, Lorenzo Porzi, Samuel Rota Bulo, Matthias Nießner, and Peter Kontschieder. Multidiff: Consistent novel view synthesis from a single image. In Proceedings of the IEEE/CVF Con-ference on Computer Vision and Pattern Recognition , pages 10258–10268, 2024. 2 [26] Chaojun Ni, Guosheng Zhao, Xiaofeng Wang, Zheng Zhu, Wenkang Qin, Guan Huang, Chen Liu, Yuyin Chen, Yida Wang, Xueyang Zhang, et al. Recondreamer: Crafting world models for driving scene reconstruction via online restora-tion. In Proceedings of the Computer Vision and Pattern Recognition Conference , pages 1559–1569, 2025. 2, 3 [27] Xuanchi Ren, Tianchang Shen, Jiahui Huang, Huan Ling, Yifan Lu, Merlin Nimier-David, Thomas M¨ uller, Alexan-der Keller, Sanja Fidler, and Jun Gao. Gen3c: 3d-informed world-consistent video generation with precise camera con-trol. In Proceedings of the Computer Vision and Pattern Recognition Conference , pages 6121–6132, 2025. 3, 7, 8 [28] Chris Rockwell, David F Fouhey, and Justin Johnson. Pixel-synth: Generating a 3d-consistent experience from a single image. In Proceedings of the IEEE/CVF International Con-ference on Computer Vision , pages 14104–14113, 2021. 2 [29] Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Bj¨ orn Ommer. High-resolution image synthesis with latent diffusion models. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , pages 10684–10695, 2022. 2 [30] Yichun Shi, Peng Wang, Jianglong Ye, Long Mai, Kejie Li, and Xiao Yang. Mvdream: Multi-view diffusion for 3d gen-eration. In The Twelfth International Conference on Learn-ing Representations . 2 [31] Liangchen Song, Anpei Chen, Zhong Li, Zhang Chen, Lele Chen, Junsong Yuan, Yi Xu, and Andreas Geiger. Nerf-player: A streamable dynamic scene representation with de-composed neural radiance fields. IEEE Transactions on Visu-alization and Computer Graphics , 29(5):2732–2742, 2023. 2[32] Peize Sun, Yi Jiang, Shoufa Chen, Shilong Zhang, Bingyue Peng, Ping Luo, and Zehuan Yuan. Autoregressive model beats diffusion: Llama for scalable image generation. arXiv preprint arXiv:2406.06525 , 2024. 2 [33] Jianyuan Wang, Minghao Chen, Nikita Karaev, Andrea Vedaldi, Christian Rupprecht, and David Novotny. Vggt: Vi-sual geometry grounded transformer. In Proceedings of the Computer Vision and Pattern Recognition Conference , pages 5294–5306, 2025. 3, 7 [34] Qianqian Wang, Vickie Ye, Hang Gao, Weijia Zeng, Jake Austin, Zhengqi Li, and Angjoo Kanazawa. Shape of mo-tion: 4d reconstruction from a single video. In Proceedings of the IEEE/CVF International Conference on Computer Vi-sion , pages 9660–9672, 2025. 2 [35] Ruicheng Wang, Sicheng Xu, Cassie Dai, Jianfeng Xiang, Yu Deng, Xin Tong, and Jiaolong Yang. Moge: Unlocking accurate monocular geometry estimation for open-domain images with optimal training supervision. In Proceedings of the Computer Vision and Pattern Recognition Conference ,pages 5261–5271, 2025. 3 [36] Shuzhe Wang, Vincent Leroy, Yohann Cabon, Boris Chidlovskii, and Jerome Revaud. Dust3r: Geometric 3d vi-sion made easy. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pages 20697– 20709, 2024. 3 [37] Zhouxia Wang, Ziyang Yuan, Xintao Wang, Yaowei Li, Tianshui Chen, Menghan Xia, Ping Luo, and Ying Shan. Motionctrl: A unified and flexible motion controller for video generation. In ACM SIGGRAPH 2024 Conference Pa-pers , pages 1–11, 2024. 2 [38] Olivia Wiles, Georgia Gkioxari, Richard Szeliski, and Justin Johnson. Synsin: End-to-end view synthesis from a sin-gle image. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , pages 7467–7477, 2020. 2 [39] Zeqi Xiao, LAN Yushi, Yifan Zhou, Wenqi Ouyang, Shuai Yang, Yanhong Zeng, and Xingang Pan. Worldmem: Long-term consistent world simulation with memory. In The Thirty-ninth Annual Conference on Neural Information Pro-cessing Systems . 2 [40] Tian-Xing Xu, Xiangjun Gao, Wenbo Hu, Xiaoyu Li, Song-Hai Zhang, and Ying Shan. Geometrycrafter: Consistent ge-ometry estimation for open-world videos with diffusion pri-ors. In Proceedings of the IEEE/CVF International Confer-ence on Computer Vision , pages 6632–6644, 2025. 8 [41] Zhuoyi Yang, Jiayan Teng, Wendi Zheng, Ming Ding, Shiyu Huang, Jiazheng Xu, Yuanming Yang, Wenyi Hong, Xiaohan Zhang, Guanyu Feng, et al. Cogvideox: Text-to-video dif-fusion models with an expert transformer. In The Thirteenth International Conference on Learning Representations . 3 [42] Zhengjian Yao, Jiakui Hu, Kaiwen Li, Hangzhou He, Xinliang Zhang, Shuang Zeng, Lei Zhu, and Yanye Lu. Bridging information asymmetry: A hierarchical frame-work for deterministic blind face restoration. arXiv preprint arXiv:2601.19506 , 2026. 3 [43] Hong-Xing Yu, Haoyi Duan, Charles Herrmann, William T Freeman, and Jiajun Wu. Wonderworld: Interactive 3d scene generation from a single image. In Proceedings of the Computer Vision and Pattern Recognition Conference , pages 5916–5926, 2025. 2, 3 [44] Jiwen Yu, Jianhong Bai, Yiran Qin, Quande Liu, Xintao Wang, Pengfei Wan, Di Zhang, and Xihui Liu. Context as memory: Scene-consistent interactive long video generation with memory retrieval. In Proceedings of the SIGGRAPH Asia 2025 Conference Papers , pages 1–11, 2025. 2, 3, 6 [45] Jason J Yu, Fereshteh Forghani, Konstantinos G Derpanis, and Marcus A Brubaker. Long-term photometric consistent novel view synthesis with diffusion models. In Proceedings of the IEEE/CVF International Conference on Computer Vi-sion , pages 7094–7104, 2023. 2 [46] Mark Yu, Wenbo Hu, Jinbo Xing, and Ying Shan. Tra-jectorycrafter: Redirecting camera trajectory for monocu-lar videos via diffusion models. In Proceedings of the IEEE/CVF international conference on computer vision ,pages 100–111, 2025. 3 [47] Wangbo Yu, Jinbo Xing, Li Yuan, Wenbo Hu, Xiaoyu Li, Zhipeng Huang, Xiangjun Gao, Tien-Tsin Wong, Ying Shan, and Yonghong Tian. Viewcrafter: Taming video diffusion models for high-fidelity novel view synthesis. IEEE Trans-actions on Pattern Analysis and Machine Intelligence , 2025. 2, 3, 4, 7, 8 [48] Jensen Zhou, Hang Gao, Vikram Voleti, Aaryaman Vasishta, Chun-Han Yao, Mark Boss, Philip Torr, Christian Rup-precht, and Varun Jampani. Stable virtual camera: Gener-ative view synthesis with diffusion models. arXiv preprint arXiv:2503.14489 , 2025. 7, 8 [49] Tinghui Zhou, Richard Tucker, John Flynn, Graham Fyffe, and Noah Snavely. Stereo magnification: Learning view synthesis using multiplane images. arXiv preprint arXiv:1805.09817 , 2018. 6, 7, 8 Geometry-as-context: Modulating Explicit 3D in Scene-consistent Video Generation to Geometry Context 
+
+# Supplementary Material 
+
+## 7. More results 
+
+7.1. Indoor scenes 
+
+Please see Figure 5. 
+
+7.2. Outdoor scenes 
+
+Please see Figure 6. 
+
+7.3. Interleaved depth estimation 
+
+Please see Figure 7 and Figure 8. 
+
+7.4. Failure cases 
+
+We present two failure cases of GaC in Figure 9. As can be seen, GaC has not yet generalized well to humans and complex subjects. In addition, for some outdoor scenes, novel view synthesis may produce slightly darkened tex-tures around the boundaries. 
+
+## 8. Improved depth estimation strategy 
+
+Specifically, we make two modifications to the deep predic-tion pipeline of Hunyuan-Voyager: • We use MoGe2 for metric-scale depth prediction and in-corporate the VGGT depth confidence map to refine the depth map. • We extend most of the operators in the pipeline from numpy to pytorch to support parallelized depth prediction on the GPU. The relevant code will be open-sourced upon publica-tion. Reference 
+
+View-16 View-32 View-48 View-64 
+
+Reference 
+
+View-16 View-32 View-48 View-64 
+
+Reference 
+
+View-16 View-32 View-48 View-64 
+
+Reference 
+
+View-16 View-32 View-48 View-64 
+
+> Figure 5. Gac’s results on indoor scenes.
+
+Reference 
+
+View-6 View-12 View-18 View-24 
+
+Reference 
+
+View-6 View-12 View-18 View-24 
+
+Reference 
+
+View-8 View-16 View-24 View-32 
+
+> Figure 6. Gac’s results on outdoor scenes.
+
+Reference 
+
+View-3 View-6 View-9 View-12 
+
+Depth-3 Depth-6 Depth-9 Depth-12 
+
+View-15 View-18 View-21 View-24 
+
+Depth-15 Depth-18 Depth-21 Depth-24 
+
+> Figure 7. RGB-Depth interleaved output format in indoor scenes.
+
+Reference 
+
+View-2 View-4 View-6 View-8 
+
+Depth-2 Depth-4 Depth-6 Depth-8 
+
+View-10 View-12 View-14 View-16 
+
+Depth-10 Depth-12 Depth-14 Depth-16 
+
+> Figure 8. RGB-Depth interleaved output format in outdoor scenes.
+
+Reference 
+
+View-4 View-8 View-12 View-16 
+
+Reference 
+
+View-8 View-16 View-24 View-32
