@@ -25,3 +25,42 @@ subscriptions:
     stage: A
     diff_threshold_pct: 15
   keyword_recall_mode: or
+  intent_profiles:
+    - tag: 3DGEN
+      description: 查找与3D场景生成有关的论文
+      enabled: true
+      keywords:
+        - keyword: image-to-3D
+          keyword_cn: 图生3D
+          query: i
+        - keyword: text-to-3D
+          keyword_cn: 文本生成3D
+          query: text-to-3D scene generation methods
+        - keyword: 3D scene synthesis
+          keyword_cn: 3D场景合成
+          query: '3'
+        - keyword: 3D scene generation
+          keyword_cn: 3D场景生成
+          query: 3D scene generation and synthesis
+      intent_queries:
+        - query: research papers about 3D scene generation, including different methods, representations, and applications
+          query_cn: ''
+          enabled: true
+          source: manual
+          note: ''
+        - query: state of the art methods in 3D scene generation
+          query_cn: 3D场景生成的最新方法
+          enabled: true
+          source: manual
+          note: ''
+        - query: deep learning architectures for 3D environment synthesis
+          query_cn: 用于3D环境合成的深度学习架构
+          enabled: true
+          source: manual
+          note: ''
+        - query: comparative study of text to 3D scene generation
+          query_cn: 文本到3D场景生成的对比研究
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-03-22T19:02:34.070Z'
