@@ -1,0 +1,442 @@
+Title: BoxSplitGen: A Generative Model for 3D Part Bounding Boxes in Varying Granularity
+
+URL Source: https://arxiv.org/pdf/2602.20666v1
+
+Published Time: Wed, 25 Feb 2026 01:41:45 GMT
+
+Number of Pages: 28
+
+Markdown Content:
+# BOX SPLIT GEN : A Generative Model for 3D Part Bounding Boxes in Varying Granularity 
+
+## Juil Koo 1∗ Wei-Tung Lin 2∗ Chanho Park 1 Chanhyeok Park 1 Minhyuk Sung 11KAIST 2NVIDIA 
+
+{63days,charlieppark,chpark1111,mhsung}@kaist.ac.kr weitungl@nvidia.com 
+
+Figure 1. An overview of box-splitting-based 3D shape generative framework. The left shows our iterative box splitting and box-to-shape generation, where diverse shapes at the top of the tree become increasingly specific deeper in the tree. The right showcases our user-interactive box and shape editing demo. 
+
+## Abstract 
+
+Human creativity follows a perceptual process, moving from abstract ideas to finer details during creation. While 3D gen-erative models have advanced dramatically, models specifi-cally designed to assist human imagination in 3D creation– particularly for detailing abstractions from coarse to fine– have not been explored. We propose a framework that en-ables intuitive and interactive 3D shape generation by itera-tively splitting bounding boxes to refine the set of bounding boxes. The main technical components of our framework are two generative models: the box-splitting generative model and the box-to-shape generative model. The first model, named BOX SPLIT GEN , generates a collection of 3D part bounding boxes with varying granularity by iteratively split-ting coarse bounding boxes. It utilizes part bounding boxes created through agglomerative merging and learns the re-
+
+> *Equal contribution.
+
+verse of the merging process—the splitting sequences. The model consists of two main components: the first learns the categorical distribution of the box to be split, and the sec-ond learns the distribution of the two new boxes, given the set of boxes and the indication of which box to split. The second model, the box-to-shape generative model, is trained by leveraging the 3D shape priors learned by an existing 3D diffusion model while adapting the model to incorporate bounding box conditioning. In our experiments, we demon-strate that the box-splitting generative model outperforms token prediction models and the inpainting approach with an unconditional diffusion model. Also, we show that our box-to-shape model, based on a state-of-the-art 3D diffusion model, provides superior results compared to a previous model. Our project page is https://boxsplitgen.github.io. 
+
+> arXiv:2602.20666v1 [cs.CV] 24 Feb 2026
+
+## 1. Introduction 
+
+In recent years, significant progress has been made in 3D generative models, promising production-level quality in the near future. This success is largely driven by the rise of diffusion models and their applications across various 3D shape representations, including latent representations [ 13 ,30 , 44 , 89 ], point clouds [ 2], voxels [ 40 , 84 ], meshes [ 3,43 ], B-reps [ 85 ], and Gaussian splats [ 63 ]. As we witness these remarkable advancements in 3D generation, the next frontier lies in enhancing the controllability of the generation process. For conditional generation, text prompts have become the most popular conditioning input for both 2D image [ 7, 21 ,24 , 46 , 59 , 78 , 82 ] and 3D shape generation [ 30 , 52 , 66 , 92 ]. However, they offer limited controllability, particularly when it comes to spatial guidance. As an alternative, bounding box grounding has been explored for both 2D [ 36 , 42 ] and 3D guided generation [ 66 ], offering notable benefits, such as ease of manipulation by users and its effectiveness in abstracting shapes and providing spatial guidance. Particularly for 3D shapes, the key benefit of primitive-based abstraction lies in its ability to represent part-level structures [ 22 , 26 , 32 , 37 , 55 , 73 , 87 ] while effectively encod-ing hierarchical relationships across parts [ 37 , 55 , 57 , 73 ]. Notably, foundational studies from the 1970s and 1980s [ 5 ,47 , 81 ] revealed that the human visual system perceives 3D objects as hierarchically organized sets of primitives, progressing systematically from coarse to fine granularity. This hierarchical framework resonates with human creativ-ity, where the imaginative process similarly unfolds through structured, incremental levels of detail. Building on these studies, we propose a user-interactive 3D generation framework that reflects the hierarchical na-ture of human imagination. Figure 1 and our project page showcase user-interactive generation examples using part bounding boxes. Our framework enables users to create 3D objects starting with a rough design represented by coarse bounding boxes, progressively adding more detail by split-ting a bounding box into smaller, finer-grained boxes. This process allows users to explore diverse shapes using coarse bounding boxes (intermediate nodes in the tree shown in Figure 1) while specifying the design by increasing the level of granularity (bottom nodes). The iterative approach helps users efficiently create detailed and desired 3D shapes with minimal effort. In the interface shown on the right in Fig-ure 1 and our project page, users can transform bounding boxes and adjust their granularity by splitting them into finer components. Creating such a framework requires two generative mod-els: a box-splitting generative model and a box-to-shape generative model. The purpose of the first model is to gener-ate two finer-grained bounding boxes by splitting a coarse bounding box. Training this generative model necessitates a dataset containing sequences of box-splitting results. While extensive research has been conducted on extracting part-level primitives from raw 3D shapes [ 12 , 17 , 56 , 58 , 77 , 87 ], most previous methods are unable to generate bounding boxes at various granularity or capture their hierarchical re-lationships. Some prior works have introduced hand-crafted datasets [ 50 ], but these are limited in scalability and diver-sity across different shape categories. To address the lack of training data, we focus on leveraging a recent method [ 55 ]that generates bounding boxes for parts through hierarchical merging, starting from super-segments. This agglomerative merging approach naturally produces a set of bounding boxes with varying levels of granularity, down to a single bounding box, along with their two-to-one merging relationships. Our goal is to learn the reverse process of merging. We model the reverse process of hierarchical merging, it-erative splitting, using a generative model named B OX SPLIT -GEN . While iterative splitting can be viewed as a sequential process, it has unique characteristics that make it incom-patible with typical sequence generation models, such as GPT [ 6, 62 ]. First, the generation of the next token (bound-ing box) is conditioned not only on the previous tokens but also on the selection of the box to be split. Second, and more importantly, the selected box is removed after splitting. Con-sequently, the set of bounding boxes at an intermediate step is not a subset of those at the final step, making GPT-like models unsuitable for this task. To address this, we propose a two-step autoregressive model that leverages a classifier and a diffusion model. In the first step, we learn the distribution of boxes to be selected for splitting using a classification network. In the second step, we use a conditional diffusion model, where the given set of boxes, along with an indication of the box to split, is used as conditioning input to generate the two split boxes. The second generative model in our framework is a bounding-box-conditioned 3D shape generative model. To achieve this, we finetune 3DShape2VecSet [ 89 ] to incorpo-rate bounding box conditioning using the ControlNet [ 46 ]approach, while preserving the high-quality 3D shape pri-ors learned by 3DShape2VecSet. ControlNet requires the representations of the denoised data and the input condi-tion to be in the same format. Previous work [ 66 ], which uses Shape-E [ 30 ] as a base 3D diffusion model, addresses this by converting bounding box representations into multi-view images and processing them with a pretrained encoder. In contrast, we propose a simpler yet effective approach: directly encoding the bounding boxes into the latent repre-sentation using a learnable encoding layer, which is jointly trained with the ControlNet branch. In our experiments on the ShapeNet [ 8] dataset, we compare our method with several baselines for both box-splitting generation and bounding-box-conditioned shape generation. For box-splitting, we evaluate against a to-ken prediction model and an inpainting approach using an unconditional diffusion model that preserves existing boxes while filling two new ones. Our conditional diffu-sion model achieves the best performance, while the inpaint-ing baseline shows comparable but slightly inferior results. For bounding-box-conditioned shape generation, we com-pare with Spice-E [ 66 ], which uses Shape-E [ 66 ] instead of our 3DShape2VecSet, and with a finetuned version of 3DShape2VecSet [ 89 ] that replaces ControlNet with a Gated Mechanism. Our model outperforms these alternatives in both the quality of generated shapes and their alignment with the input bounding boxes. 
+
+## 2. Related Work 
+
+3D Shape Abstraction Methods There is a substantial body of prior work focused on abstracting raw 3D shapes into collections of basic shape representations, such as cuboids [ 32 , 55 , 74 , 77 , 87 ], superquadrics [ 56 ], primi-tives [ 35 , 38 , 41 , 91 ], and implicit fields [ 11 , 12 , 17 , 54 , 58 ]. While these methods effectively extract primitives that rep-resent parts of a given 3D shape, most do not capture the hierarchical relationships across these parts. However, a few approaches have been proposed that jointly extract both the primitives and their hierarchical structures. Sun et al . [ 74 ]present a method for extracting cuboids in a hierarchical structure while enforcing inclusion relationships across lev-els. However, the method is limited to three levels of hierar-chy, which restricts the range of granularities from coarse to fine. In contrast, SMART [ 55 ] offers an iterative approach for agglomeratively merging super-segments into more ab-stract bounding boxes. Since SMART starts with fine-level super-segments, it allows for a much wider range of gran-ularities. Thus, as training data for our generative model, we use the outputs of SMART while progressively merging bounding boxes until a single box remains. Our genera-tive framework learns the reverse process of this iterative merging: splitting a bounding box into two. 
+
+Shape Structure Generative Models Generative models for 3D shape structures have been explored in previous work, but they often face limitations in scalability or in controlling the number of primitives and the granularity of the abstrac-tion. StructureNet [ 50 ] and GRAINS [ 39 ] are methods for generating sets of part-level bounding boxes for individual objects and object-level bounding boxes for scenes, respec-tively. Both approaches use recursive neural networks to train variational autoencoders (VAE) for learning N-ary hi-erarchies. However, these methods rely heavily on anno-tated datasets such as PartNet [ 51 ] and SUNCG [ 71 ], which limit their scalability. SPAGHETTI [ 25 ], SALAD [ 34 ], and DiffFacto [ 33 ] represent another line of work that does not require hand-crafted datasets for training. Instead, these methods generate part-level structures by learning from data obtained in an unsupervised manner [ 34 ], or even while jointly learning the part-level structure [ 25 , 33 ]. However, these methods are limited in their ability to vary the num-ber of parts. GRASS [ 37 ], SAGNet [ 83 ], DSG-Net [ 86 ], and PASTA [ 72 ] are notable examples that generate vary-ing numbers of part bounding boxes without the need for hand-crafted datasets. However, these methods do not allow for adjusting the granularity of the part-level representations. To the best of our knowledge, we are the first to propose a generative model for 3D part bounding boxes that allows for controlling the granularity. 
+
+Structure-Conditioned Shape Generative Models Struc-tural 3D shape abstraction has been used as user-controllable guidance in 3D object generation. For instance, Neural Tem-plate [ 27 ] utilizes part-wise latent codes as conditions for 3D shape generation. SALAD [ 34 ] is a conditional diffusion model that takes a set of Gaussian blobs representing parts as input conditions. Note that the aforementioned methods do not allow for changes in the granularity of the abstract representation, unlike our approach. Spice-E [ 66 ] is the most recent generative model similar to ours, using a set of bounding boxes as a condition. It employs Shape-E [ 30 ]as a base unconditional 3D diffusion model and leverages the ControlNet [ 46 ] approach to transform it into a condi-tional model that incorporates bounding boxes. Similar to Spice-E, we propose a bounding-box-to-shape generative model but build it on a more advanced 3D diffusion model, 3DShape2VecSet [ 89 ]. While Spice-E represents bound-ing boxes as multi-view images and encodes them using Shape-E’s pretrained encoder, we propose a simpler yet ef-fective approach: introducing an encoder layer that directly maps input bounding boxes to the latent representation of 3DShape2VecSet, training it jointly with the ControlNet branch. Our experiments demonstrate that this novel box-to-shape generative model produces higher-quality 3D shapes than Spice-E, benefiting from the superior generative capa-bilities of 3DShape2VecSet. 
+
+## 3 . B OX SPLIT GEN : Box-Splitting Generative Model 
+
+3.1. Problem Definition and Overview 
+
+Our objective is to learn a generative model for sets of 3D bounding boxes as shape abstractions, which capture both a diverse collection of shapes and varying levels of granularity for each shape. To achieve this, we represent an arbitrary 3D shape using hierarchical shape abstractions [ 55 ] struc-tured as a binary tree , as illustrated in Figure 2. The root node of the binary tree is a single unit cube that completely encloses any arbitrary shape. As we traverse deeper into the tree, each internal node splits into two child nodes through 
+
+splitting operation . This operation refines the abstraction Pivot Logits            
+
+> ℬ!
+> ℬ!"#"$
+> Pivot Selection !(#!)Denoising Process
+> 1
+> 0
+> #=%#=0
+> (a) Binary Tree for Hierarchical Shape Abstraction (b) Overall Pipeline of BoxSplitGen
+> Box2Shape
+> (c) Box -to -Shape Generation
+
+Figure 2. Overview of our hierarchical bounding box splitting framework. On the left is a binary tree for 3D shape abstraction, where red-highlighted nodes bv are split into finer child nodes, with blue and green backgrounds showing split steps at s and s + 1 . On the right, the framework performs pivot classification, samples two red-highlighted child boxes, and generates 3D shapes using our B OX 2S HAPE model. 
+
+by subdividing a chosen box, called the pivot bv , into two child boxes denoted by C(bv ). Formally, at a given split step s in the tree structure, we have a set of 3D bounding boxes Bs = {bi}Ni=1 . Each split step can be expressed as 
+
+Bs+1 := Bs \ { bv } ∪ C (bv ), where the coarser pivot box is replaced with two newly generated child boxes with finer details (See Figure 2). This split process provides progres-sively more detailed approximations of the input shape. At the finest level of detail, a collection of the leaf nodes in the tree represents the most detailed shape abstraction. This hierarchical representation thus can provide diverse shape abstractions at any level of granularity, from a single coarse cube at the root to a detailed collection of boxes at the leaves. Given this tree structure, we design the generative pro-cess of the bounding box sets Bs at each split step s as a Markov process with conditional probability distributions 
+
+p(Bs+1 |B s), which models the splitting operation. The con-ditional probability distribution p(Bs+1 |B s) is further de-composed into two distributions: 1) the distribution of the pivot box, and 2) the distribution of the two child boxes from the selected pivot box: 
+
+p(Bs+1 |B s) = p(bv |B s)p(C(bv )|bv , Bs), (1) where bv ∈ B s is one of the bounding boxes in Bs se-lected as the pivot. In our method, named B OX SPLIT -GEN , we learn the probability distribution of the pivot bounding box p(bv |B s) using a classification network, while learning the probability distribution of the two child boxes 
+
+p(C(bv )|bv , Bs) using a diffusion model. Note that while our generative process is autoregressive, it cannot be modeled using typical sequence generation mod-els, such as GPT-based architectures (as utilized in recent mesh generation works [ 53 , 67 , 75 ]), for the following rea-sons. First, the generation of the next token (bounding box) is conditioned on the selection of a pivot box, which neces-sitates the use of a pivot classifier. Second, the pivot box is removed in the subsequent step, resulting in a binary tree at intermediate granularity that is not a subtree of the binary tree at the finest granularity. As a result, binary trees at arbitrary granularity cannot be generated simply by sequen-tializing the finest granularity binary tree and feeding it into GPT. Below, we first describe the data preparation process for training (Section 3.2). Next, we explain how the two models in our framework, pivot classifier and child-boxes diffusion model, are implemented (Sections 3.3 and 3.4). 
+
+3.2. Data Preparation 
+
+Our training data consists of hierarchical shape abstractions generated using SMART [ 55 ]. Given an initial set of over-segmented bounding boxes BS = {bi}Ni=1 , SMART iter-atively performs bottom-up merging. In each iteration, it selects two boxes and merges them into a single parent box that tightly encloses the combined region. This parent box serves as a pivot bv in our hierarchy, with the two merged boxes becoming its children C(bv ). SMART continues the merging process until reaching to an appropriate number of bounding boxes that best describe the given shape. These boxes are used as the leaf nodes in our binary tree; refer to Table A4 for the statistics on the number of leaf node boxes. Based on the leaf node boxes (SMART outputs), we further proceed with an iterative merging process until only a single box remains, building the binary tree up to the root. We set the root box to always be a unit cube; all raw shapes are normalized to fit within the unit cube. Each 3D bound-ing box bi = {ci, s i, o i} ∈ R15 is parameterized by center 
+
+ci ∈ R3, side lengths si ∈ R3, and a flatten orientation matrix oi ∈ R9.3.3. Pivot Classifier 
+
+The first component of B OX SPLIT GEN is the pivot classi-fier, which models the categorical distribution of the pivot bounding box given set of the bounding boxes ( p(bv |B s) in Equation 1). We adopt a Transformer-based architecture [ 60 ]to handle variable-sized input sets, where each box is en-coded as a token in the latent space and processed through self-attention layers [80]. 
+
+3.4. Child-Boxes Diffusion 
+
+The second component of B OX SPLIT GEN is the child-boxes diffusion model, a conditional diffusion model that learns the distribution of the two child bounding boxes C(bv ) given the input bounding boxes Bs and the selected pivot bv
+
+(p(C(bv )|bv , Bs) in Equation 1). The noise prediction net-work ϵθ of the diffusion model is trained with the condition-output pairs extracted from consecutive box sets Bs and 
+
+Bs+1 in the training dataset: 
+
+x0 = C(bv ) ∈ R2×15 (2) 
+
+L = E∥ϵθ (xt, t ; bv , Bs) − ϵ∥, ϵ ∼ N (0, I), (3) where xt is obtained through the forward process of diffu-sion models: xt = √¯αtx0 + √1 − ¯αtϵ. The network of 
+
+ϵθ consists of a Transformer encoder Eθ taking the input condition Bs and bv , and a decoder Dθ predicting the output noise. In the encoder Eθ , the input bounding boxes Bs are augmented with an indicator bit marking the pivot box bv ,and then processed through self-attention layers to produce a latent vector h = E(Bs, b v , |B s|) ∈ R|B s|× D ; the number of input boxes |B s| is also fed as an additional input. The decoder Dθ then predicts the injected noise for the two noisy boxes xt ∈ R2×15 through the cross-attention between xt
+
+and h. See Figure 3 (a) for details of the architecture. More implementation details are provided in Appendix A.6 and our project page. 
+
+3.5. Alternative: Inpainting with Unconditional Model 
+
+The conditional generation task performed by our Child-Boxes Diffusion can also be seen as a completion task, where missing parts are generated while keeping the given parts fixed. Previous work [ 45 ] has demonstrated that the com-pletion task (inpainting for images) can also be achieved using an unconditional diffusion model by combining one-step denoising outputs for the missing parts with forward process outputs for the given parts at each denoising step. We also explore this option by training another diffusion model that uses only the number of bounding boxes as its only condition. The details of this alternative approach are discussed in Section 5.1, where we evaluate it as one of the baselines. While this approach shows comparable per-formance, it yields slightly inferior results compared to the conditional model. 
+
+## 4 . BOX 2S HAPE : Box-to-Shape Generative Model 
+
+Next, we propose a bounding-box-conditioned 3D shape generative model named B OX 2S HAPE . In contrast to the aforementioned bounding box generative model trained from scratch, here we aim to fully leverage the 3D shape priors learned by the state-of-the-art 3D diffusion model, 3DShape2VecSet [ 89 ]. By finetuning this model, we ensure high fidelity in the generated shapes while effectively incor-porating bounding box conditioning across varying levels of granularity. A crucial requirement for finetuning pretrained networks to incorporate additional input conditions is smooth adapta-tion to conditional generation: the network should initially retain its original generation quality while gradually adapting to the specified condition. Two representative approaches for achieving this are the Gated Mechanism [ 1 , 36 , 42 , 66 ]and ControlNet [9, 46]. The Gated Mechanism introduces trainable layers gated by a gate parameter initialized to zero, ensuring unchanged output at the start of finetuning. However, it updates rela-tively few parameters, leading to slower convergence. In contrast, ControlNet duplicates existing layers, prepends a 
+
+1 × 1 zero-convolution layer with weights and biases initial-ized to zero, and merges outputs via residual connections. This approach updates more parameters, enabling faster and more effective convergence compared to the Gated Mecha-nism. See Section 5.2 for a detailed comparison of these two approaches. A notable example of adapting ControlNet to a 3D generative model is Spice-E [ 66 ], which uses Shape-E [ 30 ] as its backbone diffusion model whose generation quality is inferior to 3DShape2VecSet [89]. Adapting ControlNet [ 9, 46 ] to our setup presents a chal-lenge due to a mismatch in data representation between the input and the condition, as ControlNet requires these to be aligned. In our case, the backbone diffusion model, 3DShape2VecSet [ 89 ], represents 3D shapes as unordered latent sets  z ∈ RM ×D , while the input condition is a set of bounding boxes. Spice-E [ 66 ] addresses this issue by rep-resenting input bounding boxes in the same format as their 3D shapes—multi-view images in their case—and encod-ing them using a pretrained encoder. For 3DShape2VecSet, we find that a simpler approach performs effectively: in-corporating a trainable encoding layer,  F(·), which directly processes the input bounding boxes and outputs latent sets without relying on a pretrained encoder. This module is trained jointly with the ControlNet branch. The architec-ture is illustrated in Figure 3 (b). Our experiments detailed in Section 5 demonstrate that our box-to-shape generative model based on 3DShape2VecSet outperforms Spice-E [ 66 ]due to its strong priors for generating high-fidelity shapes. (b) Box2Shape architecture         
+
+> ℬ"
+>  !
+> $#Pivot Indicator
+> Embedding
+> |ℬ"|Box Count
+> Embedding
+> &Time
+> Embedding
+> …
+> Self Attention
+> Scale, Shift
+> '∈ℝℬ!×&
+> Self Attention
+> Scale, Shift
+> Cross Attention
+> *'+1
+
+# … *' ∈ ℝ2×15 
+
+ℰ-
+
+*-    
+
+> zero conv
+> Box Feature Extractor
+> …
+> Input Latents
+> …
+> …
+> Self Attention
+> Cross
+> Attention
+> …
+> …
+> Self Attention
+> Cross
+> Attention
+> …
+> …
+> zero conv zero conv
+> Class label c
+> Decoder
+> Box
+> Condition
+> Class label c
+> Frozen
+> Parameters
+> Trainable
+> Parameters
+> (a) Child -Boxes Diffusion architecture
+> Self Attention
+> Max pool +
+> MLP
+> Self Attention
+
+# …
+
+> Decoded Shape
+
+Figure 3. Diagram of network architectures. (a) Child-Boxes Diffusion. (b) B OX 2S HAPE . Starting from a unit cube, we iteratively split boxes using Child-Boxes Diffusion to obtain the box condition with desired granularity, which then guides B OX 2S HAPE to generate aligned 3D shapes. 
+
+## 5. Experiment Results 
+
+We evaluate both components of our framework—the box-splitting model and the box-conditioned shape generation model—through qualitative and quantitative results using the ShapeNet [ 8 ] dataset. Please see Appendix A.1 and our project page for user-interactive shape generation and editing demos. Additional experiment details are provided in Appendix A.3 and A.4. 
+
+5.1. Box-Splitting Generation 
+
+Baselines. As discussed in Section 3.1, our sequential gen-erative process exhibits a unique characteristic. As outlined in Equation 1, each step can be decomposed into (1) se-lecting and removing one existing element ( p(bv |B s)) and (2) producing two new elements at a time ( p(C(bv )|bv , Bs)). Given the novelty of this problem, we extensively explore potential generative approaches. Specifically, we use the same pivot classifier to model p(bv |B s), while exploring dif-ferent methods for modeling p(C(bv )|bv , Bs). This includes our Child-Boxes Diffusion, a conditional diffusion model, as well as two baselines: • Conditional Token Prediction Model : We propose an ap-proach based on sequence generation models that emulates the splitting process, departing from the typical sequential prediction of a single token at a time. The architecture is similar to the conditional diffusion model, taking Bs and 
+
+bv as conditions to generate two child boxes C(bv )) . How-ever, the input and output representations are replaced with discretized representations, as is typical in GPT-like mod-els. To enable the network to model a categorical distribu-tion over tokens, we first train a VQ-VAE [ 79 ] to encode continuous 15-dimensional box features into a discrete token space with a vocabulary size of |V | = 16 K. Un-like the conditional diffusion model, which predicts noise 
+
+ϵ ∈ R2×15 , this model outputs logits for two elements 
+
+{l1, l 2} ∈ R2×| V |. The tokens sampled from the predicted categorical distributions are then decoded into the original continuous box parameters using the pre-trained VQ-VAE. • Unconditional Diffusion Model with Inpainting : This model is trained to generate a varying number of com-plete bounding boxes without the pivot box as a condition but only the box count. During inference, we perform an inpainting technique. Specifically, given the set of in-put bounding boxes Bs and the pivot box bv ∈ B s, we first duplicate bv , increasing the total number of boxes to |B s| + 1 , and then perform the DDIM inversion [ 18 ], obtaining the standard normal sample xT from the input boxes. Next, we reset the portion of xT corresponding to the duplicates of bv to random standard normal samples. Then, we perform RePaint [ 45 ] while treating Bs \ { bv }
+
+as the background to guide the inpainting process. Unlike our conditional diffusion model, which explicitly uses the pivot box as a condition, the limitation of this approach is that it cannot leverage information about the pivot box, as it performs inpainting after the pivot box is removed. For further details on the baselines, please refer to Ap-pendix A.5. 
+
+Quantitative Evaluation. To quantitatively evaluate the quality and diversity of the generated bounding boxes, we measure Coverage (COV), Minimum Matching Distance (MMD), and 1-Nearest Neighbor Accuracy (1-NNA) be-tween the set of generated bounding boxes and the reference bounding box set. We use the training bounding box set as the reference set and generate 2,000 bounding boxes for each class by iteratively splitting them. We then compare the resulting boxes at various split levels to the reference set. For a comprehensive analysis, we evaluate the metrics separately at two split steps, s = 5 (coarser) and s = 8 
+
+(finer), and then take their average, since these steps fall Table 1. Quantitative comparison of shape abstraction generation with different pivot selection strategies. MMD-CD scores and MMD-EMD scores are scaled by 10 3 and 10 2, respectively. The best results are highlighted in bold . The numbers are the averages across split levels s = 5 and s = 8 .                                                                                                                                                                          
+
+> COV ↑MMD ↓1-NNA ↓COV ↑MMD ↓1-NNA ↓Pivot Selection Models CD EMD CD EMD CD EMD CD EMD CD EMD CD EMD Chair Airplane
+> Random Token Pred. Model 22.05 25.76 27.960 21.335 94.13 93.02 55.25 58.80 10.645 15.680 90.27 90.08 Uncond. Diffusion 29.70 30.97 18.784 18.128 88.68 87.93 63.82 68.21 7.207 12.953 88.50 87.90
+> Cond. Diffusion 32.84 33.97 16.896 16.910 85.28 83.43 77.75 77.38 6.842 12.599 86.35 85.64
+> Classifier Token Pred. Model 27.41 30.87 24.615 20.235 91.39 90.19 66.87 70.41 8.185 13.870 87.16 86.49 Uncond. Diffusion 33.03 35.68 18.174 17.598 88.53 85.77 71.76 77.75 6.811 12.505 86.15 85.55
+> Cond. Diffusion 46.08 47.08 14.166 15.580 75.87 73.33 82.89 80.56 6.478 12.188 85.62 84.81 Table Rifle
+> Random Token Pred. Model 18.77 17.24 32.175 22.580 90.77 92.59 57.42 58.67 3.400 9.475 87.18 86.72 Uncond. Diffusion 25.05 25.89 21.840 18.784 83.79 84.94 66.46 70.48 3.015 8.813 84.88 84.86 Cond. Diffusion 30.17 30.58 14.229 15.132 78.22 79.22 64.95 68.97 2.716 8.285 87.28 85.65 Classifier Token Pred. Model 25.45 24.47 25.895 19.680 87.47 88.72 68.72 71.86 3.495 9.230 84.28 82.67 Uncond. Diffusion 30.36 31.68 17.726 17.104 81.96 82.26 75.38 79.02 3.110 8.717 79.17 79.96 Cond. Diffusion 36.79 37.96 12.314 14.218 71.38 72.82 74.75 75.25 2.607 8.076 82.86 81.96
+
+Table 2. Quantitative comparison of box-conditioned shape generation. MMD-CD scores and MMD-EMD scores are scaled by 10 3 and 
+
+10 2, respectively. The best results are highlighted in bold .                                                 
+
+> Models COV ↑MMD ↓1-NNA ↓Box Alignment CD EMD CD EMD CD EMD Box-CD ↓Box-EMD ↓TOV ↓VIoU ↑
+> Spice-E [66] 38.33 40.93 14.762 15.308 87.09 85.98 0.043 0.255 2.44 0.27 Gated 3DS2V [89] 54.55 57.42 13.067 14.991 78.93 77.14 0.012 0.143 1.39 0.17
+> Box2Shape (Ours) 51.06 50.99 10.369 12.324 72.75 72.16 0.006 0.098 1.08 0.31
+
+within the average bounding box count. More detailed results for each split step and evaluation setups can be found in Appendix A.3. Table 1 shows the effectiveness of both our pivot classifier and our Child-Boxes Diffusion. Compared to random pivot selection, our pivot classifier improves overall box-splitting performance, enhancing both the quality and diversity of the produced abstractions. Under the same pivot selection strategy, B OX SPLIT GEN consistently outperforms them in most metrics, demonstrating its robustness in modeling con-ditional distribution p(C(bv )|B s, b v ).
+
+Qualitative Comparison. Figure 4 presents a qualitative comparison across different classes. Refer to Appendix A.11 for more qualitative results. As illustrated, our conditional diffusion model produces diverse bounding boxes that cap-ture fine details of the 3D structure across various classes. On the other hand, the conditional token prediction model often struggles to produce plausible shape abstractions, high-lighting the difficulty of modeling the splitting process using sequential token prediction models. Similarly, the inpainting approach with unconditional diffusion models often gener-ates boxes that miss parts of the shape. It demonstrates that enforcing the other remaining boxes to remain fixed during the denoising process can easily cause deviations from the learned data manifold of diffusion models. 
+
+5.2. Box-Conditioned Shape Generation 
+
+Baselines. We compare our method with two baselines: • Spice-E [66 ]: A recent box-conditioned shape generative model. We finetune a pre-trained model on our dataset to process bounding boxes at varying granularity. • Gated 3DShape2VecSet [89 ]: A variant of our model finetuned with the Gated Mechanism [ 1, 36 , 42 ] instead of ControlNet. Cross-attention layers gated by box features are injected into each Transformer block, while the rest of othe model is frozen. 
+
+Quantitative Evaluation. For quantitative evaluation, we use the same metrics as in the box-splitting stage—COV, MMD, and 1-NNA—to assess the fidelity and the diversity of generated meshes, but using 3D shapes as the reference set. Additionally, following SMART [ 55 ], we evaluate the alignment between the input shape abstraction and its gen-erated 3D shape using the following metrics: Total Outside Volume (TOV), Volumetric Intersection over Union (VIoU), Box-CD and Box-EMD. TOV and VIoU measure box align-ment based on mesh volumes, while Box-CD and Box-EMD assess geometric alignment using CD and EMD. See Ap-pendix A.4 for more details on the evaluation metrics and Token Pred. Model Uncond. Diffusion Cond. Diffusion Token Pred. Model Uncond. Diffusion Cond. Diffusion Token Pred. Model Uncond. Diffusion Cond. Diffusion Token Pred. Model Uncond. Diffusion Cond. Diffusion 
+
+Figure 4. Qualitative comparison of shape abstraction generation. For each pair of columns, we query the ground truth shape and retrieve the closest generated boxes measured with chamfer distance. Our method demonstrates higher-fidelity boxes.      
+
+> Input Boxes Spice-E [66] Gated 3DS2V [89] Ours Input Boxes Spice-E [66] Gated 3DS2V [89] Ours Input Boxes Spice-E [66] Gated 3DS2V [89] Ours
+
+Figure 5. Gallery of our generated bounding boxes and their final generated 3D shapes by box-conditioned shape generation models. 
+
+Each pair of columns shows the input bounding boxes (left) and their corresponding generated 3D shapes (right). 
+
+setups. Table 2 presents a quantitative comparison between our method and the baselines. Our method B OX 2S HAPE outper-forms others in shape fidelity and diversity metrics—COV, MMD, and 1-NNA—with a significant advantage in 1-NNA. While Gated 3DShape2VecSet achieves higher COV, this is due to its lack of adaptation to box-conditioned generation, often producing shapes deviated from the input boxes. This limitation is further reflected in its lacking box alignment performance across all box alignment metrics: Box-CD, Box-EMD, TOV, VIoU. Spice-E [ 66 ] demonstrates subop-timal performance compared to B OX 2S HAPE , largely due to its backbone model’s limited shape prior. These results demonstrate that our conditioning approach achieves supe-rior box alignment while preserving the original model’s superior performance to generate high-fidelity and diverse shapes. 
+
+Qualitative Results. Figure 5 presents a qualitative com-parison, where each pair of columns shows the input bound-ing boxes and their generated 3D shapes by different ap-proaches. Refer to Appendix A.12 for more results. Given an input set of bounding boxes, ours produces a plausible 3D shape while being well-aligned with the input boxes. In contrast, Spice-E [ 66 ] often fails to capture fine-grained details in the 3D shapes due to its backbone’s suboptimal per-formance. Compared to Gated 3DShape2VecSet, which is based on the Gated Mechanism, it often struggles to produce box-aligned 3D shapes, highlighting the limitations of the Gated Mechanism in modeling the conditional probability distribution with our diverse conditioning bounding boxes. 
+
+## 6. Conclusion 
+
+We presented a box-splitting-based interactive 3D shape gen-eration framework composed of two generative models. The first model, B OX SPLIT GEN , is an autoregressive model that enables the progressive refinement of bounding boxes via splitting. We introduce a pivot classifier and a child-box diffusion model to select which box to split and to generate the two new boxes, respectively. The second model is a box-to-shape generative model that effectively adapts a pre-trained unconditional 3D diffusion model. We demonstrate that the proposed framework facilitates intuitive 3D gener-ation by mimicking the human imagination process from abstract concepts to detailed structures. Users can split and manipulate bounding boxes to generate aligned 3D shapes, with diversity naturally decreasing as the bounding boxes become fine-grained. As future work, we plan to improve our user-interactive 3D shape generation framework to incorporate additional spatial guidance, including other primitives [ 25 , 34 , 77 ] and 3D sketches [90]. Acknowledgements. This work was supported by the IITP grants (RS-2022-00156435, RS-2024-00399817, RS-2025-25441313, RS-2025-25443318, RS-2025-02653113); and the Industrial Technology Innovation Program (RS-2025-02317326), all funded by the Korean government (MSIT and MOTIE), as well as by the DRB-KAIST SketchTheFuture Research Center. 
+
+## References 
+
+[1] Jean-Baptiste Alayrac, Jeff Donahue, Pauline Luc, Antoine Miech, Iain Barr, Yana Hasson, Karel Lenc, Arthur Mensch, Katherine Millican, Malcolm Reynolds, et al. Flamingo: a visual language model for few-shot learning. In NeurIPS ,2022. 5, 7 [2] Nichol Alex, Jun Heewoo, Dhariwal Prafulla, Mishkin Pamela, and Chen Mark. Point-E: A system for generat-ing 3d point clouds from complex prompts. arXiv preprint arXiv:2212.08751 , 2022. 2 [3] Antonio Alliegro, Yawar Siddiqui, Tatiana Tommasi, and Matthias Nießner. Polydiff: Generating 3d polygonal meshes with diffusion models. arXiv preprint arXiv:2312.11417 ,2023. 2 [4] Harry G Barrow, Jay M Tenenbaum, Robert C Bolles, and Helen Cf Wolf. Parametric correspondence and chamfer matching: Two new techniques for image matching. In IJCAI ,1977. 12 [5] Thomas O. Binford. Visual perception by computer. In 
+
+Proceedings of the IEEE Conference on Systems and Control (Miami, FL) , 1971. 2 [6] Tom Brown, Benjamin Mann, Nick Ryder, Melanie Sub-biah, Jared D Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, et al. Language models are few-shot learners. In NeurIPS , 2020. 2 [7] Mingdeng Cao, Xintao Wang, Zhongang Qi, Ying Shan, Xi-aohu Qie, and Yinqiang Zheng. Masactrl: Tuning-free mutual self-attention control for consistent image synthesis and edit-ing. In ICCV , 2023. 2 [8] Angel X Chang, Thomas Funkhouser, Leonidas Guibas, Pat Hanrahan, Qixing Huang, Zimo Li, Silvio Savarese, Manolis Savva, Shuran Song, Hao Su, et al. Shapenet: An information-rich 3d model repository. arXiv preprint arXiv:1512.03012 ,2015. 2, 6, 12 [9] Junsong Chen, Yue Wu, Simian Luo, Enze Xie, Sayak Paul, Ping Luo, Hang Zhao, and Zhenguo Li. Pixart-{\ delta }: Fast and controllable image generation with latent consistency models. arXiv preprint arXiv:2401.05252 , 2024. 5 [10] Zhiqin Chen and Hao Zhang. Learning implicit fields for generative shape modeling. In CVPR , 2019. 12 [11] Zhiqin Chen, Kangxue Yin, Matthew Fisher, Siddhartha Chaudhuri, and Hao Zhang. Bae-net: Branched autoencoder for shape co-segmentation. In ICCV , 2019. 3 [12] Zhiqin Chen, Andrea Tagliasacchi, and Hao Zhang. Bsp-net: Generating compact meshes via binary space partitioning. In 
+
+CVPR , 2020. 2, 3 [13] Gene Chou, Yuval Bahat, and Felix Heide. Diffusion-SDF: Conditional generative modeling of signed distance functions. In ICCV , 2023. 2 [14] Hyungjin Chung, Jeongsol Kim, Michael T Mccann, Marc L Klasky, and Jong Chul Ye. Diffusion posterior sam-pling for general noisy inverse problems. arXiv preprint arXiv:2209.14687 , 2022. 13 [15] Hyungjin Chung, Byeongsu Sim, Dohoon Ryu, and Jong Chul Ye. Improving diffusion models for inverse problems using manifold constraints. In NeurIPS , 2022. 13 [16] Matt Deitke, Dustin Schwenk, Jordi Salvador, Luca Weihs, Oscar Michel, Eli VanderBilt, Ludwig Schmidt, Kiana Ehsani, Aniruddha Kembhavi, and Ali Farhadi. Objaverse: A universe of annotated 3d objects. In CVPR , pages 13142–13153, 2023. 12 [17] Boyang Deng, Kyle Genova, Soroosh Yazdani, Sofien Bouaziz, Geoffrey Hinton, and Andrea Tagliasacchi. Cvxnet: Learnable convex decomposition. In CVPR , 2020. 2, 3 [18] Prafulla Dhariwal and Alexander Quinn Nichol. Diffusion models beat GANs on image synthesis. In NeurIPS , 2021. 6, 13, 14 [19] Emmett Lalish et al. Manifold. 12 [20] Jun Gao, Tianchang Shen, Zian Wang, Wenzheng Chen, Kangxue Yin, Daiqing Li, Or Litany, Zan Gojcic, and Sanja Fidler. GET3D: A generative model of high quality 3d tex-tured shapes learned from images. In NeurIPS , 2022. 13 [21] Michal Geyer, Omer Bar-Tal, Shai Bagon, and Tali Dekel. Tokenflow: Consistent diffusion features for consistent video editing. arXiv preprint arxiv:2307.10373 , 2023. 2 [22] Stefan Gottschalk, Ming C Lin, and Dinesh Manocha. OBB-Tree: a structure for rapid interference detection. In ACM SIGGRAPH , 1996. 2 [23] Yutong He, Naoki Murata, Chieh-Hsin Lai, Yuhta Takida, Toshimitsu Uesaka, Dongjun Kim, Wei-Hsiang Liao, Yuki Mitsufuji, J Zico Kolter, Ruslan Salakhutdinov, et al. Manifold preserving guided diffusion. arXiv preprint arXiv:2311.16424 , 2023. 13 [24] Amir Hertz, Ron Mokady, Jay Tenenbaum, Kfir Aberman, Yael Pritch, and Daniel Cohen-Or. Prompt-to-prompt im-age editing with cross attention control. arXiv preprint arXiv:2208.01626 , 2022. 2 [25] Amir Hertz, Or Perel, Raja Giryes, Olga Sorkine-Hornung, and Daniel Cohen-Or. SPAGHETTI: Editing implicit shapes through part aware generation. ACM TOG , 2022. 3, 8, 12 [26] Kai Huebner, Steffen Ruthotto, and Danica Kragic. Minimum volume bounding box decomposition for shape approximation in robot grasping. In ICRA , 2008. 2 [27] Ka-Hei Hui, Ruihui Li, Jingyu Hu, and Chi-Wing Fu. Neural template: Topology-aware reconstruction and disentangled generation of 3d meshes. In CVPR , 2022. 3, 12 [28] Jisung Hwang and Minhyuk Sung. Occupancy-based dual contouring. In SIGGRAPH Asia 2024 Conference Papers ,2024. 14 [29] Biing-Hwang Juang and A. Gray. Multiple stage vector quan-tization for speech coding. In ICASSP , 1982. 13 [30] Heewoo Jun and Alex Nichol. Shap-e: Generating conditional 3d implicit functions. arXiv preprint arXiv:2305.02463 , 2023. 2, 3, 5 [31] Bahjat Kawar, Michael Elad, Stefano Ermon, and Jiaming Song. Denoising diffusion restoration models. In NeurIPS ,2022. 13 [32] Jeonghyun Kim, Kaichun Mo, Minhyuk Sung, and Woontack Woo. Seg&Struct: The interplay between part segmentation and structure inference for 3d shape parsing. 2023. 2, 3 [33] Nakayama Kiyohiro, Angelina Uy Mikaela, Huang Jiahui, Hu Shi-Min, Li Ke, and Guibas Leonidas. DiffFacto: Con-trollable part-based 3d point cloud generation with cross dif-fusion. In ICCV , 2023. 3, 12 [34] Juil Koo, Seungwoo Yoo, Minh Hieu Nguyen, and Minhyuk Sung. SALAD: Part-level latent diffusion for 3d shape gener-ation and manipulation. In ICCV , 2023. 3, 8, 12 [35] Eric-Tuan Lê, Minhyuk Sung, Duygu Ceylan, Radomir Mech, Tamy Boubekeur, and Niloy J Mitra. CPFN: Cascaded prim-itive fitting networks for high-resolution point clouds. In 
+
+ICCV , 2021. 3 [36] Phillip Y Lee and Minhyuk Sung. Reground: Improving textual and spatial grounding at no cost. In ECCV , 2024. 2, 5, 7[37] Jun Li, Kai Xu, Siddhartha Chaudhuri, Ersin Yumer, Hao Zhang, and Leonidas Guibas. GRASS: Generative recursive autoencoders for shape structures. ACM TOG , 2017. 2, 3 [38] Lingxiao Li, Minhyuk Sung, Anastasia Dubrovina, L. Yi, and Leonidas J. Guibas. Supervised fitting of geometric primitives to 3d point clouds. In CVPR , 2019. 3 [39] Manyi Li, Akshay Gadi Patil, Kai Xu, Siddhartha Chaud-huri, Owais Khan, Ariel Shamir, Changhe Tu, Baoquan Chen, Daniel Cohen-Or, and Hao Zhang. Grains: Generative re-cursive autoencoders for indoor scenes. ACM TOG , 2018. 3[40] Muheng Li, Yueqi Duan, Jie Zhou, and Jiwen Lu. Diffusion-SDF: Text-to-shape via voxelized diffusion. In CVPR , 2023. 2[41] Yangyan Li, Xiaokun Wu, Yiorgos Chrysathou, Andrei Sharf, Daniel Cohen-Or, and Niloy J. Mitra. GlobFit: consistently fitting primitives by discovering global relations. ACM TOG ,2011. 3 [42] Yuheng Li, Haotian Liu, Qingyang Wu, Fangzhou Mu, Jian-wei Yang, Jianfeng Gao, Chunyuan Li, and Yong Jae Lee. GLIGEN: Open-set grounded text-to-image generation. In 
+
+CVPR , 2023. 2, 5, 7 [43] Zhen Liu, Yao Feng, Michael J. Black, Derek Nowrouzezahrai, Liam Paull, and Weiyang Liu. MeshDiffu-sion: Score-based generative 3d mesh modeling. In ICLR ,2023. 2 [44] Zhang Longwen, Wang Ziyu, Zhang Qixuan, Qiu Qiwei, Pang Anqi, Jiang Haoran, Yang Wei, Xu Lan, and Yu Jingyi. CLAY: A controllable large-scale generative model for creating high-quality 3d assets. arXiv preprint arXiv:2406.13897 , 2024. 2[45] Andreas Lugmayr, Martin Danelljan, Andres Romero, Fisher Yu, Radu Timofte, and Luc Van Gool. RePaint: Inpainting using denoising diffusion probabilistic models. In CVPR ,2022. 5, 6, 13 [46] Zhang Lvmin, Rao Anyi, and Agrawala Maneesh. Adding conditional control to text-to-image diffusion models. In 
+
+ICCV , 2023. 2, 3, 5 [47] D. Marr and H. K. Nishihara. Representation and recognition of the spatial organization of three-dimensional shapes. Pro-ceedings of the Royal Society of London. Series B. Biological Sciences , 200:269–294, 1978. 2 [48] Julieta Martinez, Holger H Hoos, and James J Little. Stacked quantizers for compositional vector compression. arXiv preprint arXiv:1411.2173 , 2014. 13 [49] Paritosh Mittal, Yen-Chi Cheng, Maneesh Singh, and Shub-ham Tulsiani. Autosdf: Shape priors for 3d completion, reconstruction and generation. In CVPR , 2022. 13 [50] Kaichun Mo, Paul Guerrero, Li Yi, Hao Su, Peter Wonka, Niloy Mitra, and Leonidas Guibas. StructureNet: Hierarchical graph networks for 3d shape generation. ACM TOG , 2019. 2, 3[51] Kaichun Mo, Shilin Zhu, Angel X. Chang, Li Yi, Subarna Tripathi, Leonidas J. Guibas, and Hao Su. PartNet: A large-scale benchmark for fine-grained and hierarchical part-level 3D object understanding. In CVPR , 2019. 3, 12, 13 [52] Gimin Nam, Mariem Khlifi, Andrew Rodriguez, Alberto Tono, Linqi Zhou, and Paul Guerrero. 3d-ldm: Neural im-plicit 3d shape generation with latent diffusion models. arXiv preprint arXiv:2212.00842 , 2022. 2 [53] Charlie Nash, Yaroslav Ganin, SM Ali Eslami, and Peter Battaglia. Polygen: An autoregressive generative model of 3d meshes. In ICML , 2020. 4, 13 [54] Chengjie Niu, Manyi Li, Kai Xu, and Hao Zhang. Rim-net: Recursive implicit fields for unsupervised learning of hierarchical shape structures. In CVPR , 2022. 3 [55] Chanhyeok Park and Minhyuk Sung. Split, merge, and re-fine: Fitting tight bounding boxes via over-segmentation and iterative search. In 3DV , 2024. 2, 3, 4, 7, 12, 13 [56] Despoina Paschalidou, Ali Osman Ulusoy, and Andreas Geiger. Superquadrics revisited: Learning 3d shape pars-ing beyond cuboids. In CVPR , 2019. 2, 3 [57] Despoina Paschalidou, Luc van Gool, and Andreas Geiger. Learning unsupervised hierarchical part decomposition of 3d objects from a single rgb image. In CVPR , 2020. 2 [58] Despoina Paschalidou, Angelos Katharopoulos, Andreas Geiger, and Sanja Fidler. Neural parts: Learning expres-sive 3d shape abstractions with invertible neural networks. In 
+
+CVPR , 2021. 2, 3, 12 [59] Or Patashnik, Daniel Garibi, Idan Azuri, Hadar Averbuch-Elor, and Daniel Cohen-Or. Localizing object-level shape variations with text-to-image diffusion models. In ICCV ,2023. 2 [60] William Peebles and Saining Xie. Scalable diffusion models with transformers. In CVPR , 2023. 5, 14 [61] Zhou Qian-Yi, Park Jaesik, and Koltun Vladlen. Open3D: A modern library for 3D data processing. arXiv:1801.09847 ,2018. 12 [62] Alec Radford, Jeff Wu, Rewon Child, David Luan, Dario Amodei, and Ilya Sutskever. Language models are unsuper-vised multitask learners. 2019. 2 [63] Barbara Roessle, Norman Müller, Lorenzo Porzi, Samuel Rota Bulò, Peter Kontschieder, Angela Dai, and Matthias Nießner. L3DG: Latent 3d gaussian diffusion. In ACM SIGGRAPH Asia , 2024. 2 [64] Yossi Rubner and Carlo Tomasi. The Earth Mover’s Distance .2001. 12 [65] Markus Schütz. Potree: Rendering large point clouds in web browsers . PhD thesis, Technische Universität Wien, 2015. 14 [66] Etai Sella, Gal Fiebelman, Noam Atia, and Hadar Averbuch-Elor. Spic-e: Structural priors in 3d diffusion models using cross-entity attention. In ACM SIGGRAPH , 2024. 2, 3, 5, 7, 8, 25, 26, 27, 28 [67] Yawar Siddiqui, Antonio Alliegro, Alexey Artemov, Tatiana Tommasi, Daniele Sirigatti, Vladislav Rosov, Angela Dai, and Matthias Nießner. Meshgpt: Generating triangle meshes with decoder-only transformers. In CVPR , 2024. 4, 13 [68] Jiaming Song, Chenlin Meng, and Stefano Ermon. Denoising diffusion implicit models. In ICLR , 2021. 14 [69] Jiaming Song, Arash Vahdat, Morteza Mardani, and Jan Kautz. Pseudoinverse-guided diffusion models for inverse problems. In ICLR , 2023. 13 [70] Jiaming Song, Qinsheng Zhang, Hongxu Yin, Morteza Mar-dani, Ming-Yu Liu, Jan Kautz, Yongxin Chen, and Arash Vahdat. Loss-guided diffusion models for plug-and-play con-trollable generation. In ICML , 2023. 13 [71] Shuran Song, Fisher Yu, Andy Zeng, Angel X Chang, Mano-lis Savva, and Thomas Funkhouser. Semantic scene comple-tion from a single depth image. In CVPR , 2017. 3 [72] Li Songlin, Paschalidou Despoina, and Guibas Leonidas. Pasta: Controllable part-aware shape generation with au-toregressive transformers. arXiv preprint arXiv:2407.13677 ,2024. 3 [73] Chunyu Sun, Qianfang Zou, Xin Tong, and Yang Liu. Learn-ing adaptive hierarchical cuboid abstractions of 3d shape collections. In ACM SIGGRAPH , 2019. 2 [74] Chun-Yu Sun, Qian-Fang Zou, Xin Tong, and Yang Liu. Learning adaptive hierarchical cuboid abstractions of 3d shape collections. ACM TOG , 2019. 3 [75] Jiaxiang Tang, Zhaoshuo Li, Zekun Hao, Xian Liu, Gang Zeng, Ming-Yu Liu, and Qinsheng Zhang. Edgerunner: Auto-regressive auto-encoder for artistic mesh generation. arXiv preprint arXiv:2409.18114 , 2024. 4, 13 [76] Threejs. Threejs. https://threejs.org/ . 14 [77] Shubham Tulsiani, Hao Su, Leonidas J. Guibas, Alexei A. Efros, and Jitendra Malik. Learning shape abstractions by assembling volumetric primitives. In CVPR , 2017. 2, 3, 8 [78] Narek Tumanyan, Michal Geyer, Shai Bagon, and Tali Dekel. Plug-and-play diffusion features for text-driven image-to-image translation. In CVPR , 2023. 2 [79] Aaron Van Den Oord, Oriol Vinyals, et al. Neural discrete representation learning. In NeurIPS , 2017. 6, 13 [80] Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszko-reit, Llion Jones, Aidan N Gomez, Lukasz Kaiser, and Illia Polosukhin. Attention is all you need. In NeurIPS , 2017. 5, 14 [81] R. J. (Roger J.) Watt. Visual processing : computational, psy-chophysical, and cognitive research . L. Erlbaum Associates, Hove, UK ;, 1988. 2 [82] Jay Zhangjie Wu, Yixiao Ge, Xintao Wang, Stan Weixian Lei, Yuchao Gu, Yufei Shi, Wynne Hsu, Ying Shan, Xiaohu Qie, and Mike Zheng Shou. Tune-a-video: One-shot tuning of image diffusion models for text-to-video generation. In ICCV ,2023. 2 [83] Zhijie Wu, Xiang Wang, Di Lin, Dani Lischinski, Daniel Cohen-Or, and Hui Huang. SAGNet: structure-aware gen-erative network for 3d-shape modeling. ACM TOG , 2019. 3[84] Bojun Xiong, Si-Tong Wei, Xin-Yang Zheng, Yan-Pei Cao, Zhouhui Lian, and Peng-Shuai Wang. OctFusion: Octree-based diffusion models for 3d shape generation. arXiv preprint arXiv:2408.14732 , 2024. 2 [85] Xiang Xu, Joseph G Lambourne, Pradeep Kumar Jayaraman, Zhengqing Wang, Karl DD Willis, and Yasutaka Furukawa. BrepGen: A b-rep generative diffusion model with structured latent geometry. ACM TOG , 2024. 2 [86] Jie Yang, Kaichun Mo, Yu-Kun Lai, Leonidas J. Guibas, and Lin Gao. DSG-Net: Learning disentangled structure and geometry for 3d shape generation. ACM TOG , 2022. 3 [87] Kaizhi Yang and Xuejin Chen. Unsupervised learning for cuboid shape abstraction via joint segmentation from point clouds. ACM TOG , 2021. 2, 3 [88] Haotian Ye, Haowei Lin, Jiaqi Han, Minkai Xu, Sheng Liu, Yitao Liang, Jianzhu Ma, James Zou, and Stefano Ermon. TFG: Unified training-free guidance for diffusion models. 
+
+arXiv preprint arXiv:2409.15761 , 2024. 13 [89] Biao Zhang, Jiapeng Tang, Matthias Nießner, and Peter Wonka. 3DShape2VecSet: A 3d shape representation for neural fields and generative diffusion models. ACM TOG ,2023. 2, 3, 5, 7, 8, 14, 25, 26, 27, 28 [90] Xin-Yang Zheng, Hao Pan, Peng-Shuai Wang, Xin Tong, Yang Liu, and Heung-Yeung Shum. Locally attentional sdf diffusion for controllable 3d shape generation. ACM TOG ,2023. 8 [91] Yang Zhou, Kangxue Yin, Hui Huang, Hao Zhang, Minglun Gong, and Daniel Cohen-Or. Generalized cylinder decompo-sition. ACM TOG , 2015. 3 [92] Zhao Zibo, Liu Wen, Chen Xin, Zeng Xianfang, Wang Rui, Cheng Pei, FU BIN, Chen Tao, YU Gang, and Gao Shenghua. Michelangelo: Conditional 3d shape generation based on shape-image-text aligned latent representation. In NeurIPS ,2023. 2 Appendix 
+
+A.1. User-Interactive Generation Demo and Exam-ples 
+
+In Figure 1 and Figure A6, we showcase the interface and exemplary outputs of our user-interactive box and shape editing framework. The system allows users to create 3D shapes using bounding boxes as conditions, enabling not only the manipulation of boxes but also their splitting and merging, thereby controlling the granularity. This control-lability of granularity is a crucial difference from prior work [ 25 , 27 , 33 , 34 , 58 ], which operates at a fixed level of detail. It allows users to envision diverse shapes from coarser bounding boxes while generating specific shapes with detailed bounding boxes, as shown in Figure 1 and at the top of Figure A6. The system suggests a pivot box to split using our pivot classifier and generates the resulting child boxes with our Child-Boxes Diffusion model. Given the set of bounding boxes, the bounding box-to-shape diffusion model gener-ates a variety of aligned 3D shapes. For demo videos and interactive examples, please refer to our project page. Additionally, the system allows users to edit local parts of a 3D shape by transforming the corresponding bounding boxes. Figure A6 bottom rows presents results achieved through box manipulation. When a selected box is modi-fied, the decoded shape adjusts accordingly, highlighting our framework’s user-friendly and intuitive interface for shape editing. 
+
+A.2. Box-Splitting on PartNet 
+
+Table A3 shows the Tightness of bounding boxes introduced in SMART [ 55 ] and results using same setup as Table 1, replacing SMART’s unsupervised over-segments with Part-Net’s [ 51 ] clean annotated leaf parts. As shown below, Part-Net slightly improves MMD with cleaner decompositions but slightly worsens other metrics due to looser bounding boxes from semantic-level parts. These comparable results show our method works with hand-crafted data when available, while SMART, despite being unsupervised, provides structurally meaningful hier-archical data, demonstrating its scalability to large-scale datasets like Objaverse [ 16 ], where collecting part annota-tions is costly. 
+
+A.3. Details on the Experiment Setups of Box Split-ting Generation 
+
+Data. We use 3D shapes from the ShapeNet [ 8] dataset for our experiments. Each class in ShapeNet contains between 300 and 2,700 shapes. The average number of bounding boxes in the SMART outputs for each class ranges from 5 to 12. See Table A4 for detailed statistics. We construct a training set and a validation set by splitting the shapes within each class at an 8:2 ratio. For the box-splitting training, we train separate models for each class, whereas our box-to-shape generation model is trained jointly for all classes. 
+
+Evaluation metrics. The evaluation metrics used in Sec-tion 5.1 are computed using two shape distance metrics: Chamfer Distance [ 4 ] (CD) and Earth Mover’s Distance [ 64 ](EMD). To measure CD and EMD between bounding boxes, we first convert a set of bounding boxes for an object into a watertight mesh [ 19 ]. The conversion process begins by rep-resenting the bounding boxes as a union of implicit surfaces, which is then converted into a surface mesh, effectively re-moving intersections across the bounding boxes. Next, we sample 2,048 points on the watertight mesh surfaces using Poisson disk sampling [61]. 
+
+A.4. Details on the Experiment Setups of Box-Conditioned Shape Generation 
+
+To evaluate the diversity and fidelity of the 3D shapes gen-erated from the input bounding boxes, we randomly sample 1,000 bounding boxes from the validation set for each class to construct the evaluation set for shape generation. For the reference set, we use the shape set from IM-Net [ 10 ]. As in the evaluation of the box splitting stage, we sample 2,048 points over the surface of the shapes and measure geometric distances using Chamfer Distance (CD) and Earth Mover’s Distance (EMD) for the COV, MMD, and 1-NNA metrics. For assessing box alignment, we use a different evalu-ation bounding box set to ensure that the bounding boxes are sufficiently fine, such that the decoded shape tightly fits within the input boxes. This prevents input bounding boxes from being overly loose and simply enclosing the shapes. Specifically, we use the bounding boxes at the finest granu-larity level for each shape in the validation set to ensure a rigorous alignment evaluation between input bounding boxes and their decoded shapes. Given a set of bounding boxes {bi} and a 3D shape S,TOV and VIoU are calculated as follows: 
+
+TOV = vol (S 
+
+> i
+
+bi \ S)
+
+vol (S) , VIoU = vol (S ∩ S 
+
+> i
+
+bi)
+
+vol (S ∪ S 
+
+> i
+
+bi) . (4) In addition to the volume-based alignment metrics, we mea-sure geometric alignment (Box-CD and Box-EMD) by com-puting CD and EMD between two point clouds: one sampled from the surface of the bounding boxes and the other from the decoded 3D shape. 
+
+A.5. Details on Alternative Approaches for Box Splitting Generation 
+
+We explore two alternative approaches for learning the con-ditional distribution of child boxes given a pivot box and its context. First, we investigate the use of unconditional diffu-sion models combined with inpainting techniques to generate Shape Variations with Coarse and Fine Abstractions Coarse Abstraction Fine Abstraction 
+
+> Shape Editing Results
+
+Figure A6. Shape variations and editing guided by bounding boxes. The top row demonstrates shape variations with different granularity of the bounding boxes, while the bottom illustrates shape editing achieved by manipulating bounding boxes. Table A3. Comparison of SMART [ 55 ] and PartNet [ 51 ] across different metrics for Chair and Table categories. Bold indicates the best for each column.                                    
+
+> Dataset Chair Table Tightness ↑COV-EMD ↑MMD-EMD ↓1-NNA-EMD ↓Tightness ↑COV-EMD ↑MMD-EMD ↓1-NNA-EMD ↓
+> PartNet [51] 2.25 32.49 16.645 85.87 2.20 29.02 14.190 78.21
+> SMART [ 55 ]1.61 33.97 16.910 83.43 1.78 30.58 15.132 79.22
+
+child boxes while preserving the existing remaining boxes. Second, we explore a sequence generation approach inspired by their recent advances in 3D shape generation [ 49 , 67 , 75 ]. Below, we present more details on each alternative approach. 
+
+Unconditional Diffusion with Inpainting. Diffusion mod-els have demonstrated great success in solving inverse prob-lems [ 14 , 15 , 23 , 31 , 45 , 69 , 70 , 88 ], guiding the denoising process with some conditions in various applications ( e.g .background regions for image inpainting, blurred images for image deblurring, and low-resolution images for image super-resolution). The guided denoising process enables generating data that satisfies the given conditions with a 
+
+unconditional diffusion model. Inspired by this, we experi-mented with sampling the two child boxes using a uncondi-tional diffusion model and diffusion-based image inpainting technique. Specifically, we train the noise prediction network ϵθ
+
+in Equation 3 without the condition encoder Eθ and cross-attention layers in the decoder Dθ . Given the unconditional diffusion model, the set of input bounding boxes Bs, and the sampled pivot box bv ∈ B s, we first duplicate bv , increasing the total number of boxes to |B s| + 1 , and then perform the DDIM inversion [ 18 ], obtaining the standard normal sample 
+
+xT from the input boxes. Next, we reset the portion of xT
+
+corresponding to the duplicates of bv to random standard normal samples. Then, we perform inpainting while treating 
+
+Bs \ { bv } as the background. 
+
+Conditional Token Prediction Model. While sequence generation models have shown remarkable capabilities in 3D shape generation [ 20 , 53 , 67 , 75 ], their application to hierar-chical box-splitting poses unique challenges. Unlike tradi-tional sequence generation tasks that generate 3D shapes, our goal is to learn the conditional probability of splitting one pivot node into two child nodes while removing the selected pivot. Since typical GPT-like models require a discretized rep-resentation to model categorical distributions, we quantize our continuous 15-dimensional box vector representation using VQ-VAE [ 79 ]. The VQ-VAE [ 79 ] is trained to encode input box vectors into a token space, with the encoded tokens being decoded back into the original vector. The VQ-VAE consists of simple MLPs. Following MeshGPT [ 67 ], we also incorporate a residual quantization technique [ 29 , 48 ], where an input latent is discretized using a stack of D or-dered codes. We set D = 2 , and the number of codes, |V |,is set to 16,384. For sequence modeling, we adapt the network of the con-ditional diffusion model to output the logits of two elements 
+
+[l1, l 2] ∈ R2×| V | in the token space instead of predicting their noise. Unlike traditional sequence generation tasks, our splitting process has unique characteristics: (1) it does not impose any order on the boxes—for instance, the se-lected pivot box can be an intermediate token in the input sequence, and (2) the splitting process generates two tokens simultaneously. To address these requirements, we introduce essential modifications to the standard sequence generation model training and inference approaches. For non-sequential autoregressive modeling, we forgo positional encoding tech-niques and use the Transformer [ 80 ] architecture to ensure order invariance. To predict two logits without considering their order, the training objective computes the cross-entropy loss for both possible orderings of the ground truth tokens and selects the minimum loss. The loss function is defined as: 
+
+L = min( CE ([ l1, l 2], [v1, v 2]) , CE ([ l1, l 2], [v2, v 1])) , where CE represents the cross-entropy loss, and v1 and v2 are the ground truth token indices corresponding to l1 and l2, re-spectively. At inference time, we first sample the first token. When sampling the second token, we mask out the index of the first predicted token to ensure that the same box is not sampled again. 
+
+A.6. Implementation Details 
+
+Child-Boxes Diffusion. As discussed in Section 3.4, the noise prediction network of Child-Boxes Diffusion ϵθ con-sists of a Transformer encoder Eθ and a decoder Dθ . The encoder consists of 6 self-attention layers with a hidden di-mension of 512 . To indicate the pivot box bv ∈ B s, we use a class embedding ec ∈ R|B s|× 512 encoded from an indicator highlighting the pivot box’s index. Additionally, we also encode the number of input boxes |B s| into a cardinality embedding ed ∈ R512 . These two embeddings are added to the output of each self-attention layer, yielding the final encoder output: h = Eθ (Bs, b v , |B s|) ∈ R|B s|× 512 . The decoder Dθ has a similar architecture to the encoder, with each self-attention layer followed by a cross-attention layer. The condition latent h is fed as the key and value in ev-ery cross-attention layer, while the noisy two child boxes 
+
+xt ∈ R2×15 are fed as query. We set a learning rate and batch size to 8e−4 and 2048 , respectively. For sampling, we use the DDIM [ 68 ] deterministic sampling process with 50 steps. 
+
+Inpainting with Unconditional Diffusion Models. The unconditional diffusion model for the inpainting technique adopts a similar architecture to that of the conditional dif-fusion model but without the decoder part. The learning rate, batch size and number of training epochs are the same as those used in B OX SPLIT GEN . We use 50 steps for both DDIM inversion [18] and denoising process with masking. 
+
+Conditional Token Prediction Model. The conditional token prediction model adopts a similar architecture to the conditional diffusion model, with key modifications. The timestep embedding from the original network is removed. To condition the network on Bs, its discretized representation is obtained by encoding the boxes into quantized vectors using the pre-trained VQ-VAE, which are then fed into the encoder Eθ . Two learnable tokens are initialized and passed through the cross-attention layers in the decoder, where these tokens attend to the quantized vectors. The final linear layer of the network is modified to output logits of dimension |V |.The same learning rate, batch size, and number of training epochs as those used in the conditional diffusion model are used for training. 
+
+Pivot Classifier. Similar to the architecture of the diffusion models, we utilize a Transformer encoder [ 80 ] to model the categorical distribution p(bv |B s) introduced in Section 3.1. The encoder contains 6 self-attention layers, each with a hidden dimension of 512 and 4 attention heads. An MLP layer follows the final self-attention layer, mapping the 512 -dimensional latent of each box to a scalar logit. To process inputs with a varying number of bounding boxes, we con-dition the network on the current number of boxes |B s| via adaLN-layers [ 60 ]. We set the learning rate and batch size to 8e−4 and 2048 , respectively, and train the network for 100 epochs. To choose the pivot at the inference time, we sample the index of the pivot v from a learned categorical distribution p(bv |B s).
+
+A.7. Runtime Analysis 
+
+Our Child-Boxes Diffusion takes 0.33 seconds per split, and BOX SPLIT GEN (1.8s) introduces marginal increase over 3DShape2VecSet [ 89 ] (1.1s), ensuring an efficient, respon-sive design workflow. All measurements were taken on an RTX 3090 GPU using a 128 3 resolution for Marching Cubes. 
+
+A.8. Details on User-Interactive Generation Demo 
+
+Our demonstration consists of two main components: a web-based viewer and an inference server. The viewer, im-plemented based on Three.js [ 76 ] and Potree [ 65 ], provides an intuitive interface to manipulate bounding boxes and gen-erate 3D shapes directly in the web browser. The inference server processes API requests and serves results from three pre-trained models: the Pivot Classifier, Child-Boxes Diffu-sion, and B OX 2S HAPE . Guided by the Pivot Classifier, the viewer identifies the most suitable bounding box to split, and the Child-Boxes Diffusion subsequently performs the actual splitting. Finally, the resulting bounding boxes are used to generate complete 3D shapes via B OX 2S HAPE , whose pre-dicted occupancy fields are converted into 3D meshes using Occupancy-Based Dual Contouring [ 28 ]. This integrated workflow enables an interactive and efficient approach to bounding box manipulation and high-fidelity 3D shape gen-eration. 
+
+A.9. More Quantitative Results of Box Splitting 
+
+In this section, we present more quantitative results of box splitting generation, as discussed in Section 5. Table A5 shows the average results across two split levels, s = 5 and 
+
+s = 8 , for all eight categories. Meanwhile, Tables A6 and A7 Table A4. Dataset statistics. We report the number of shapes and the average number of bounding boxes for each class. 
+
+Class Table Chair Couch Airplane Bench Display Rifle Lamp # of shapes 2,725 1,976 1,108 420 409 407 398 322 Avg. # of Boxes 6.96 9.54 5.37 11.46 8.92 3.98 8.05 7.46 
+
+Table A5. Quantitative comparison of shape abstraction generation with different pivot selection strategies. MMD-CD scores and MMD-EMD scores are scaled by 10 3 and 10 2, respectively. The best results are highlighted in bold . The numbers are the averages across split levels s = 5 and s = 8 .
+
+COV ↑ MMD ↓ 1-NNA ↓ COV ↑ MMD ↓ 1-NNA ↓Pivot Selection Models CD EMD CD EMD CD EMD CD EMD CD EMD CD EMD Chair Airplane 
+
+Random Token Prediction Model 22.05 25.76 27.960 21.335 94.13 93.02 55.25 58.80 10.645 15.680 90.27 90.08 Uncond. Diffusion 29.70 30.97 18.784 18.128 88.68 87.93 63.82 68.21 7.207 12.953 88.50 87.90 
+
+Cond. Diffusion (Ours) 32.84 33.97 16.896 16.910 85.28 83.43 77.75 77.38 6.842 12.599 86.35 85.64 
+
+Classifier Token Prediction Model 27.41 30.87 24.615 20.235 91.39 90.19 66.87 70.41 8.185 13.870 87.16 86.49 Uncond. Diffusion 33.03 35.68 18.174 17.598 88.53 85.77 71.76 77.75 6.811 12.505 86.15 85.55 
+
+Cond. Diffusion (Ours) 46.08 47.08 14.166 15.580 75.87 73.33 82.89 80.56 6.478 12.188 85.62 84.81 Table Rifle 
+
+Random Token Prediction Model 18.77 17.24 32.175 22.580 90.77 92.59 57.42 58.67 3.400 9.475 87.18 86.72 Uncond. Diffusion 25.05 25.89 21.840 18.784 83.79 84.94 66.46 70.48 3.015 8.813 84.88 84.86 Cond. Diffusion (Ours) 30.17 30.58 14.229 15.132 78.22 79.22 64.95 68.97 2.716 8.285 87.28 85.65 Classifier Token Prediction Model 25.45 24.47 25.895 19.680 87.47 88.72 68.72 71.86 3.495 9.230 84.28 82.67 Uncond. Diffusion 30.36 31.68 17.726 17.104 81.96 82.26 75.38 79.02 3.110 8.717 79.17 79.96 Cond. Diffusion (Ours) 36.79 37.96 12.314 14.218 71.38 72.82 74.75 75.25 2.607 8.076 82.86 81.96 
+
+Couch Bench 
+
+Random Token Prediction Model 44.80 40.73 12.810 13.750 87.41 89.30 67.45 60.11 11.155 14.520 87.15 92.40 Uncond. Diffusion 56.56 55.42 9.127 11.296 74.66 77.95 64.69 62.33 9.318 12.660 88.45 89.73 Cond. Diffusion (Ours) 58.18 56.28 8.677 11.220 77.68 79.70 64.43 69.68 10.630 13.167 87.23 90.43 Classifier Token Prediction Model 48.91 42.00 12.600 13.545 85.19 88.12 78.22 70.08 10.535 13.450 85.53 89.84 Uncond. Diffusion 56.51 54.71 9.527 11.497 75.19 77.77 67.85 69.82 9.195 12.266 86.12 87.29 
+
+Cond. Diffusion (Ours) 59.40 57.91 9.724 12.743 84.40 85.00 76.12 78.35 9.764 13.222 85.47 86.54 Lamp Display 
+
+Random Token Prediction Model 65.09 64.75 25.340 22.940 87.78 87.08 50.00 58.84 14.010 15.605 92.52 92.64 Uncond. Diffusion 71.36 71.69 18.849 19.921 84.10 84.93 73.46 75.43 10.042 12.287 77.88 78.81 Cond. Diffusion (Ours) 80.00 79.83 25.810 21.988 87.01 83.94 74.57 80.47 11.492 13.368 84.34 84.36 Classifier Token Prediction Model 73.73 76.95 24.640 22.500 87.54 86.14 51.23 58.60 14.860 16.175 92.06 92.09 Uncond. Diffusion 67.79 71.36 22.328 21.207 87.80 86.60 72.48 74.44 12.702 13.345 80.21 81.05 Cond. Diffusion (Ours) 79.49 82.20 27.892 23.571 89.02 86.93 76.17 72.97 15.325 15.688 85.71 88.41 
+
+provide the results for s = 5 and s = 8 separately, using the pivot classifier or random pivot selection, respectively. Table A6. Quantitative comparison of shape abstraction generation using the pivot classifier for pivot selection. Results are evaluated at split levels s=5 and s=8. MMD-CD scores and MMD-EMD scores are scaled by 10 3 and 10 2, respectively. The best results are highlighted in bold .
+
+COV ↑ MMD ↓ 1-NNA ↓ COV ↑ MMD ↓ 1-NNA ↓
+
+s Models CD EMD CD EMD CD EMD CD EMD CD EMD CD EMD Chair Airplane 
+
+5Token Prediction Model 29.24 31.73 23.008 19.648 90.83 89.64 65.04 69.44 7.722 13.552 87.59 86.47 Uncond. Diff. 33.62 36.49 18.802 17.843 89.48 87.45 74.33 78.73 6.631 12.464 86.01 85.55 
+
+Ours 45.08 45.14 14.408 15.690 78.23 75.71 82.40 79.95 6.35 12.10 85.51 85.47 
+
+8Token Prediction Model 25.57 30.00 26.224 20.817 91.95 90.75 68.70 71.39 8.647 14.186 86.72 86.51 Uncond. Diff. 32.43 34.86 17.547 17.353 87.58 84.10 69.19 76.77 6.990 12.546 86.30 85.55 
+
+Ours 47.08 49.03 13.923 15.471 73.51 70.96 83.37 81.17 6.610 12.277 85.72 84.14 Table Rifle 
+
+5Token Prediction Model 26.31 24.64 23.917 18.890 86.25 88.28 72.11 73.37 3.237 8.647 83.19 81.44 Uncond. Diff. 32.00 32.03 16.720 16.761 81.77 82.50 78.64 82.91 2.855 8.487 79.15 79.77 Ours 36.34 37.50 12.203 14.087 70.56 73.18 73.62 75.13 2.476 7.912 83.90 82.49 8Token Prediction Model 24.60 24.30 27.872 20.473 88.68 89.15 65.33 70.35 3.753 9.622 85.36 83.90 Uncond. Diff. 28.73 31.33 18.733 17.447 82.14 82.01 72.11 75.13 3.365 8.947 79.19 80.15 Ours 37.24 38.42 12.426 14.349 72.20 72.46 75.88 75.38 2.738 8.239 81.82 81.44 
+
+Couch Bench 
+
+5Token Prediction Model 52.26 45.57 11.194 12.683 83.90 86.64 78.74 68.77 10.453 13.628 86.94 90.63 Uncond. Diff. 59.95 58.23 8.979 11.150 73.47 76.05 70.34 71.65 8.734 11.957 84.71 87.23 
+
+Ours 55.15 54.25 10.344 13.890 93.21 92.08 78.48 81.10 9.296 13.276 85.89 86.85 
+
+8Token Prediction Model 45.57 38.43 14.007 14.405 86.48 89.60 77.69 71.39 10.623 13.269 84.12 89.04 Uncond. Diff. 53.07 51.18 10.075 11.845 76.92 79.49 65.35 67.98 9.657 12.574 87.53 87.36 
+
+Ours 63.65 61.57 9.104 11.597 75.60 77.91 73.75 75.59 10.231 13.169 85.05 86.22 Lamp Display 
+
+5Token Prediction Model 81.02 80.34 22.570 21.316 85.36 84.71 57.00 61.92 13.309 14.728 90.78 90.78 Uncond. Diff. 71.86 74.92 21.189 20.627 85.62 85.10 76.90 77.15 11.585 12.772 79.56 78.77 Ours 79.32 81.69 26.600 23.504 90.28 88.85 78.38 71.74 14.300 15.668 85.71 89.78 8Token Prediction Model 66.44 73.56 26.714 23.688 89.72 87.58 45.45 55.28 16.409 17.625 93.35 93.39 Uncond. Diff. 63.73 67.80 23.467 21.786 89.98 88.10 68.06 71.74 13.819 13.918 80.85 83.34 Ours 79.66 82.71 29.185 23.638 87.76 85.01 73.96 74.20 16.349 15.707 85.71 87.04 Table A7. Quantitative comparison of shape abstraction generation with randomly selected pivots. Results are evaluated at s=5 and 
+
+s=8. MMD-CD scores and MMD-EMD scores are scaled by 10 3 and 10 2, respectively. The best results are highlighted in bold .
+
+COV ↑ MMD ↓ 1-NNA ↓ COV ↑ MMD ↓ 1-NNA ↓
+
+s Models CD EMD CD EMD CD EMD CD EMD CD EMD CD EMD Chair Airplane 
+
+5Token Prediction Model 23.84 27.89 25.074 20.215 93.74 92.26 55.50 57.21 9.049 14.620 90.62 90.20 Uncond. Diff. 29.30 30.81 19.471 18.489 88.75 87.97 64.30 67.73 7.236 13.011 87.84 88.17 
+
+Ours 31.30 32.65 17.09 17.10 85.51 84.60 79.22 78.00 6.69 12.51 85.60 85.72 
+
+8Token Prediction Model 20.27 23.62 30.850 22.453 94.52 93.77 55.01 60.39 12.238 16.745 89.91 89.95 Uncond. Diff. 30.11 31.14 18.097 17.767 88.62 87.90 63.33 68.70 7.179 12.895 89.17 87.63 
+
+Ours 34.38 35.30 16.70 16.72 85.04 82.26 76.28 76.77 7.00 12.68 87.09 85.55 Table Rifle 
+
+5Token Prediction Model 20.44 18.02 29.948 21.385 90.00 91.94 61.56 61.81 3.140 9.087 86.95 86.28 Uncond. Diff. 26.42 26.57 20.893 18.473 82.24 83.95 68.09 71.61 2.901 8.661 84.95 84.82 Ours 29.43 29.51 14.22 15.14 78.43 79.64 65.33 68.59 2.65 8.20 87.57 86.24 8Token Prediction Model 17.09 16.46 34.404 23.779 91.54 93.24 53.27 55.53 3.658 9.855 87.41 87.16 Uncond. Diff. 23.67 25.20 22.786 19.095 85.35 85.93 64.82 69.35 3.129 8.966 84.82 84.90 Ours 30.92 31.66 14.24 15.12 78.02 78.81 64.57 69.35 2.79 8.37 86.99 85.07 
+
+Couch Bench 
+
+5Token Prediction Model 46.75 43.85 11.463 12.907 85.90 87.86 68.50 61.94 10.223 13.839 87.19 92.48 Uncond. Diff. 57.69 57.23 8.617 10.975 74.69 77.66 66.40 61.94 8.958 12.478 87.40 89.54 Ours 57.87 56.69 8.42 11.06 76.79 79.65 65.88 71.92 9.91 12.69 87.61 90.26 8Token Prediction Model 42.86 37.61 14.165 14.588 88.92 90.73 66.40 58.27 12.086 15.199 87.11 92.31 Uncond. Diff. 55.42 53.62 9.638 11.617 74.63 78.24 62.99 62.73 9.677 12.841 89.50 89.92 Ours 58.50 55.88 8.94 11.38 78.56 79.75 62.99 67.45 11.35 13.64 86.85 90.59 
+
+Lamp Display 
+
+5Token Prediction Model 70.51 70.51 21.714 21.384 86.19 85.66 54.79 64.62 12.061 14.487 90.36 90.57 Uncond. Diff. 74.92 74.92 17.812 19.154 82.75 83.31 76.17 79.85 9.535 11.862 75.99 77.52 Ours 83.73 82.03 24.88 21.33 86.45 83.79 78.13 83.54 10.90 12.88 82.51 82.55 8Token Prediction Model 59.66 58.98 28.974 24.502 89.37 88.50 45.21 53.07 15.964 16.718 94.68 94.72 Uncond. Diff. 67.80 68.47 19.887 20.689 85.45 86.54 70.76 71.01 10.550 12.712 79.77 80.10 Ours 76.27 77.63 26.74 22.65 87.58 84.10 71.01 77.40 12.08 13.86 86.17 86.17 A.10. Qualitative Results of Split Sequence 
+
+Figure A7 shows the evolution of bounding box splitting by our method over multiple splits. Starting from an initial unit cube, the boxes are gradually split to capture finer details, transitioning from a coarse and simple structure to a more refined and complex 3D form. See the first and last rows of Figure A7 that gradually produce the detail of the lamp shade and the airplane tail, respectively. 
+
+Sections for more qualitative results are in the following pages. Figure A7. The evolution of box splits by ours. In each abstraction, new generated boxes are marked in red, and the pivot to be split in the next split is in blue. A.11. More Qualitative Results of Box-Splitting Generation 
+
+In Figure A8, we present more qualitative results of box splitting generation and box-to-shape generation. Token Pred. Model Unconod. Diffusion Cond. Diffusion Token Pred. Model Unconod. Diffusion Cond. Diffusion Token Pred. Model Unconod. Diffusion Cond. Diffusion Token Pred. Model Unconod. Diffusion Cond. Diffusion 
+
+Figure A8. Qualitative comparison of shape abstraction generation. For each pair of columns, we query the ground truth shape and retrieve the closest generated boxes measured with chamfer distance. Our method demonstrates higher-fidelity boxes. Token Pred. Model Unconod. Diffusion Cond. Diffusion Token Pred. Model Unconod. Diffusion Cond. Diffusion Token Pred. Model Unconod. Diffusion Cond. Diffusion Token Pred. Model Unconod. Diffusion Cond. Diffusion 
+
+Figure A8. Qualitative comparison of shape abstraction generation. For each pair of columns, we query the ground truth shape and retrieve the closest generated boxes measured with chamfer distance. Our method demonstrates higher-fidelity boxes. Token Pred. Model Unconod. Diffusion Cond. Diffusion Token Pred. Model Unconod. Diffusion Cond. Diffusion Token Pred. Model Unconod. Diffusion Cond. Diffusion Token Pred. Model Unconod. Diffusion Cond. Diffusion 
+
+Figure A8. Qualitative comparison of shape abstraction generation. For each pair of columns, we query the ground truth shape and retrieve the closest generated boxes measured with chamfer distance. Our method demonstrates higher-fidelity boxes. A.12. More Qualitative Results of Box-Conditioned Shape Generation 
+
+Figure A9 presents more qualitative results of box-conditioned shape generation. Input Boxes Spice-E [66] Gated 3DS2V [89] Ours Input Boxes Spice-E [66] Gated 3DS2V [89] Ours Input Boxes Spice-E [66] Gated 3DS2V [89] Ours Input Boxes Spice-E [66] Gated 3DS2V [89] Ours 
+
+Figure A9. Gallery of our generated bounding boxes and their final decoded 3D shapes by box-conditioned shape generation network. 
+
+Each pair of columns shows the input condition bounding box (left) and its corresponding decoded 3D shape (right). Input Boxes Spice-E [66] Gated 3DS2V [89] Ours Input Boxes Spice-E [66] Gated 3DS2V [89] Ours Input Boxes Spice-E [66] Gated 3DS2V [89] Ours Input Boxes Spice-E [66] Gated 3DS2V [89] Ours 
+
+Figure A9. Gallery of our generated bounding boxes and their final decoded 3D shapes by box-conditioned shape generation network. 
+
+Each pair of columns shows the input condition bounding box (left) and its corresponding decoded 3D shape (right). Input Boxes Spice-E [66] Gated 3DS2V [89] Ours Input Boxes Spice-E [66] Gated 3DS2V [89] Ours Input Boxes Spice-E [66] Gated 3DS2V [89] Ours Input Boxes Spice-E [66] Gated 3DS2V [89] Ours 
+
+Figure A9. Gallery of our generated bounding boxes and their final decoded 3D shapes by box-conditioned shape generation network. 
+
+Each pair of columns shows the input condition bounding box (left) and its corresponding decoded 3D shape (right). Input Boxes Spice-E [66] Gated 3DS2V [89] Ours Input Boxes Spice-E [66] Gated 3DS2V [89] Ours Input Boxes Spice-E [66] Gated 3DS2V [89] Ours Input Boxes Spice-E [66] Gated 3DS2V [89] Ours 
+
+Figure A9. Gallery of our generated bounding boxes and their final decoded 3D shapes by box-conditioned shape generation network. 
+
+Each pair of columns shows the input condition bounding box (left) and its corresponding decoded 3D shape (right).

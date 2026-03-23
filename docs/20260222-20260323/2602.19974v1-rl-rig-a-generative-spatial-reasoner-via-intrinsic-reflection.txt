@@ -1,0 +1,464 @@
+Title: RL-RIG: A Generative Spatial Reasoner via Intrinsic Reflection
+
+URL Source: https://arxiv.org/pdf/2602.19974v1
+
+Published Time: Tue, 24 Feb 2026 03:14:54 GMT
+
+Number of Pages: 15
+
+Markdown Content:
+# RL-RIG: A Generative Spatial Reasoner via Intrinsic Reflection 
+
+## Tianyu Wang 1 Zhiyuan Ma 2 Qian Wang 3 Xinyi Zhang 1 Xinwei Long 4 Bowen Zhou 41Shanghai Jiao Tong University 2Huazhong University of Science and Technology 
+
+> 3
+
+## National University of Singapore 4Tsinghua University 
+
+## Abstract 
+
+Recent advancements in image generation have achieved im-pressive results in producing high-quality images. However, existing image generation models still generally struggle with a “spatial reasoning dilemma”, lacking the ability to accurately capture fine-grained spatial relationships from the prompt and correctly generate scenes with structural integrity. To mitigate this dilemma, we propose RL-RIG ,a Reinforcement Learning framework for Reflection-based 
+
+Image Generation. Our architecture is comprised of four primary components: Diffuser, Checker, Actor, and Inverse Diffuser, following a “Generate-Reflect-Edit” paradigm to spark the Chain of Thought reasoning ability in image gen-eration while addressing the dilemma. To equip the model with better intuition over generation trajectories, we further develop Reflection-GRPO to train the VLM Actor for edit prompts and the Image Editor for better image quality under a given prompt, respectively. Unlike traditional approaches, which solely produce visually stunning yet structurally un-reasonable content , our evaluation metrics prioritize spa-tial accuracy, utilizing Scene Graph IoU and employing a VLM-as-a-Judge strategy to assess the spatial consistency of generated images on LAION-SG dataset. Experimental re-sults show that RL-RIG outperforms existing state-of-the-art open-source models by up to 11% in terms of controllable and precise spatial reasoning in image generation. 
+
+## 1. Introduction 
+
+Recent years have witnessed remarkable progress in text-to-image generation such as Stable Diffusion 3.0 [ 1], FLUX 1.0 [ 18 ], and Janus Pro [ 5], which can produce high-fidelity and unprecedented images from textual prompts. However, they still face a “ spatial reasoning dilemma ”, struggling to accu-rately capture and control fine-grained spatial relationships between objects within generated images while still produc-ing visually impressive images. As illustrated in Figure 1, while Flux renders high-resolution pictures, it struggles to accurately represent the complicated spatial relationships specified in the prompt. This limitation becomes particularly critical in scenarios that require depicting complex spatial relationships rather than solely pursuing aesthetics [3, 40]. As two pioneering works, ControlNet [ 55 ] and GLI-GEN [ 21 ] have been proposed to guide the generation of outcome images. Despite these advancements, they still fall short in achieving flexible and precise control over relative spatial reasoning [ 4, 24 , 57 ]. We attribute the reasons to the following factors: First, in addition to text descriptions, these methods often require additional user inputs, such as bounding boxes, keypoints, or reference images, which pre-vents them from realizing an end-to-end scenario. Second, as prompt complexity increases, these methods exhibit limited reasoning ability, making it difficult to accurately interpret all the spatial relationships described. For instance, the CLIP [29 ] encoder in most image generation models supports only at most 77 input tokens, and its training data primarily fo-cuses on word-level phrases (e.g., a cat , a dog ) instead of global semantics and relational meanings (e.g., “a small cute cat stands in front of a yellow dog wagging its tail” ). Besides “spatial reasoning dilemma”, evaluating spatial consistency in generated images is another challenging as-pect. Traditional metrics, such as IS [ 37 ], FID [ 14 ], LPIPS [ 56 ], CLIPS score [ 13 ], and CMMD [ 16 ], often focus on the pixel-level distance between generated image and real images, while failing to assess spatial accuracy achieved by the generated image. In other words, images that fulfill the demands of the prompt, even if not similar to the “ground truth images”, shall also be highly evaluated. Addressing these limitations involves overcoming several key challenges. First, the complexity of spatial relationships makes it difficult for text encoders to interpret and represent them all at once. Second, existing image generators and editors, which focus little on spatial layout, tend to produce visually appealing results that lack fidelity to the original prompt. Third, the limited availability of dedicated datasets and evaluation methodologies for complex spatial relation-ships presents significant challenges for the training and development of frameworks targeting such objectives. In this work, we propose RL-RIG (a Reinforcement 
+
+Learning framework for Reflection-based Image 1
+
+> arXiv:2602.19974v1 [cs.CV] 23 Feb 2026
+
+ID: 497747 
+
+Prompt: stone tall tower attached to stone arched bridge ; wearing cloak standing person walking near wooden multi-story building ; red glowing lantern hanging from wooden multi-story building; stone arched bridge leading to stone grand castle ; wooden sailing boat sailing on wooden sailing boat’s reflection; Houses, graphics, Sailboats, fantasy , River, Castle. 
+
+## Ground Truth SD3.5 Large Flux RL-RIG 
+
+ID: 523300 
+
+Prompt: female old person walking towards tall building ; two-wheeled bike leaning against tall building; wire basket attached to two-wheeled bike; white fluffy dog sitting in wire basket ; male young person walking away from tall building; tall building have large sign; female young person riding two-wheeled bike; female young person walking towards tall building ; Lee-Miller-in-paris-1944 
+
+## Ground Truth SD3.5 Large Flux RL-RIG 
+
+ID: 511475 
+
+Prompt: tall illuminated lamp ; tricolored flag on top of large illuminated building ; golden statue on top corner of large illuminated building; indistinct vehicle in front of large illuminated building; indistinct person in front of large illuminated building ; Hanoi Hosts 2nd International Watercolour Painting Exhibition 
+
+## Ground Truth SD3.5 Large Flux RL-RIG 
+
+Figure 1. Comparison of the generated image by Stable Diffusion 3.5 Large, Flux 1.0, RL-RIG (choosing Flux as base model) , and the ground truth image, given a sophisticated prompt with spatial relationships. Our method captures the relations in blue better, and compensates for the deficiencies in Flux’s results. Actually, even the ground truth image does not comply to all the given relationships in the annotation. 
+
+2Generation), a novel Generate-Reflect-Edit frame-work that integrates Chain-of-Thought reasoning [12 , 48 ]and reinforcement learning based reflection with vision-language models to enhance control in spatial relationships for text-to-image generation. Specifically, to leverage the actor-critic framework for spatial reasoning, we harness the strong reasoning capabilities of VLMs to serve as an Actor and a Checker . Based on them, we integrate an Image Generator and an Image Editor , as well as a reflection process for an image-refining loop. The training process involves two stages: training the VLM Actor using Group Relative Policy Optimization (GRPO [ 12 ]) with other components frozen, and training the Image Editor under the guidance of the VLM Checker via GRPO. We reformulate text -to -image generation as sampling over trajectories , consisting of noise vectors, inversion states, edit actions, whose branching determines relational structure (Figure 3). Our RL -RIG activates the intrinsic reward ability for VLM when it acts as a judge, while Rein-forcement Learning discourages low -advantage branches to increase the likelihood of scene -graph -consistent endpoints. Our key contributions are: • We first identify the critical challenge of generating im-ages with complex spatial relationships. Based on that, our analysis further reveals that current baseline models either rely on supplementary inputs or exhibit constrained reasoning capabilities due to limitations in text encoders. • To cope with the complexity of spatial relationships, we propose RL-RIG, a Self-Reflection based framework to 
+
+Generate, Reflect and Edit the generated image. We explore test-time scaling and a Chain-of-Thought (CoT) reasoning process for complex image generation , which enables the correctness and rationality of each required spatial relationship one by one. • To optimize the model’s intuition reasoning, we explore a two-phase RL strategy featured by post-training the re-flection Actor and the Image Editor and reveal such a phenomenon that optimizing the generation trajectory can trigger the intrinsic reflection ability of VLMs to intuitively choose a better trajectory. • To address the lack of criteria for spatial relationships, we utilize Scene Graph IoU [ 54 ] and VLM-as-a-judge [ 19 ] to 
+
+judge the image by faithfulness to the prompt , instead of by the traditional “ground truth”, showing an up to 11% increase in SG-IoU in the experiments. 
+
+## 2. Related Works 
+
+Recent work on spatially controllable image generation has focused on incorporating explicit layout or grounding in-puts into diffusion models. Works like GLIGEN [ 21 ], Con-trolNet [ 55 ], layout-diffusion [ 59 ] and FreestyleNet [ 50 ]have demonstrated effective ways to guide image generation based on specific spatial inputs. More recent approaches have extended these capabilities by adding style control [ 47 ]. Beyond bounding-box layouts, there are also scene-graph ap-proaches [ 9, 45 ]. However, most of these techniques require supplementary information beyond text prompts, which lim-its their practical applicability in end-to-end scenarios. Another thread of work applies Reinforcement Learning (RL) and preference optimization to steer diffusion mod-els toward better alignment or specific objectives, such as DDPO [ 2], Diffusion-DPO [ 43 ], and Diffusion-RPO [ 11 ]. These works illustrate that policy-gradient methods (PPO [ 38 ], DPO [ 30 ], RPO [ 51 ], etc.) can be used to directly op-timize diffusion models for complex rewards, analogously to RLHF [ 26 ] in vision language models [ 27 ]. Nevertheless, few studies apply group-reward based preference optimiza-tion, like GRPO [12], into image generation models. A related set of methods uses Vision Language Models or multi-step reasoning to improve control and alignment [ 17 , 20 , 41 , 49 ]. There has also been progress on rectified-flow generative models and diffusion inversion for more precise control and editing [ 28 , 34 , 46 ], although there are few approaches to leverage the reasoning ability of VLMs for better generative results. Our work bridges these research directions by combin-ing reinforcement learning with VLM-based reasoning in an intrinsic reflection framework that addresses the spatial reasoning challenges faced by current image generation sys-tems, only requiring plain text input. 
+
+## 3. Preliminaries 
+
+We focus on difficult text-to-image generation challenges where the input text is extremely sophisticated with many spatial relationships or other requirements, and we have no additional inputs like bounding boxes. We formalize our problem as follows: let Q = {Q1, Q 2, ..., Q n} be the set of all given text requirements, and O = {o1, o 2, ..., o m}
+
+be the set of all objects with specific features. Each text requirement Qi can describe either a new object oi (with or without adjectives), a spatial relationship (oxi , r i, o yi )
+
+between given objects, meaning that the object oxi has a relationship ri over oyi , or a plain-text description di for other properties of the image. Formally, 
+
+Qi =
+
+
+
+oi, Qi is an object 
+
+(oxi , r i, o yi ), Qi is a relationship 
+
+di, otherwise (1) The Image Generator G(Q) = fθ,ξ (xT , T ) = I takes in only the text prompts, and outputs an corresponding image subject to the requirements in the text. We suppose its output depends on the network parameter θ and the random seed ξ.The Image Editor E(I, Q ) = I′ takes in an image and an edit prompt, and outputs the edited image. We suppose it is an inversion-based model, which contains inversion stage 3z       
+
+> - Driving person riding two-wheeled vehicle;
+> - Tall old building adjacent to tall old building;
+> - Black car vehicle following two-wheeled vehicle;
+> - Yellow taxi parked side yellow taxi vehicle;
+> - Tall old building adjacent to tall bright building;
+> - Small sign attached to tall old building;
+> ......
+> Initial Prompt
+> Generate Reflect Edit
+> <think>...</think> · black car
+> · two wheeled vehicle
+> · "following"
+> · ...
+> Diffuser Checker Actor Inverse Diffuser
+> if 6/6 ... Final Output
+> (Checker's input)
+> 4/6 （）
+> <think> ...two wheeled vehicles? ...Let's try a motorcycle! ...a person should be riding on it
+> ...
+> </think>
+> Top-p Sampling
+
+Please provide a prompt to edit ...... 
+
+> w/o RL
+> w/ RL
+> <think> ... </think>
+> <think> ... </think>
+> Input
+> tokens
+> Output
+> tokens
+
+Figure 2. The overview of RL-RIG. The generation phase abides a Generate-Reflect-Edit paradigm; the training phase aims at shifting trajectories, assigning greater probabilities for positive trajectories while discouraging negative trajectories during sampling. Here, we suppose the Image Editor is composed of an inverse diffuser and a diffuser. 
+
+f −1
+
+θ,ξ ′ (xt, t |Φ) and reversion stage fθ,ξ ′ (x′
+
+t, t |Φ) . Here, t is the number of inversion steps, and Φ is the text embedding of Q.To evaluate whether the requirements are all satisfied, we can employ a checker: 
+
+C(I, Q ) = |Q′||Q| (2) where Q′ ⊆ Q is the set of all satisfied requirements, and | · | 
+
+means the number of requirements in the given set. In our definition, the checker outputs a score, which represents the proportion of satisfied requirements. Although the checker’s output can influence the reward function, we do not utilize the concept of “Critic” as in Reinforcement Learning, be-cause the Temporal Difference (TD) is hard to compute and propagate in this scenario. Let τ = {xT , . . . , x 0} ∪ { a1, . . . , a K } denote a gener-ation trajectory composed of latent states and edit actions. The Generator and Editor induce a stochastic transition P (τ ).After determining τ , I is determined accordingly by the gen-eration and editing process. Our objective is to maximize the expected scene-graph fidelity: 
+
+max X
+
+Q
+
+Eτ ∼P [C(τ, Q )] . (3) We employ other related components to rewrite this goal into a component-related form. Let VLM (I, Q ) = Q′ to be a Vision Language Model that takes in an image and text prompts, and output text responses. Here, we treat the set of requirements as plain text. We can then reformulate the objective of spatial image generation to be producing a multi-agent collaborative frame-work FG,E,C,VLM ,θ (Q) = I with trainable parameters θ that satisfies as many requirements as possible: 
+
+max X
+
+Q
+
+E[C(FG,E,C,VLM ,θ (Q), Q )] . (4) 
+
+## 4. Method 
+
+4.1. Overview 
+
+As shown in Figure 2 and Figure 3, given a complex prompt with multiple spatial constraints, we devise RL-RIG, a 
+
+Generate-Reflect-Edit framework that: 1) Generates an initial image, 2) Uses a VLM Checker to provide CoT reason-ing and identify unsatisfied spatial relationships, 3) Employs a VLM Actor to think and propose targeted edits, and 4) 
+
+Applies these edits via an Image Editor. This process repeats until all constraints are satisfied or a maximum iteration limit is reached. 
+
+4.2. The generation process 
+
+The generation process of RL-RIG begins with an initial image I = G(Q) produced by a text-to-image Generator G.The VLM Checker, based on a reasoning-finetuned VLM model, evaluates whether the generated image satisfies spec-ified spatial relationships, item by item: 
+
+ΓP assed =
+
+(
+
+T rue, if C(I, Q ) = 1 
+
+F alse, otherwise (5) If the image fails this evaluation, the VLM Actor, trained from the VLM Checker, will: 1) Evaluate the image and find 4Inversion  
+
+> (pruned)
+> Generate Reflect
+> "Change this: ......"
+> <think>...</think>
+> Edit
+> Reversion
+> Possible generation trajectories
+> Trajectories pruned by RL
+
+Figure 3. The Generate-Reflect-Edit framework, explained in a trajectory view. In each generation process, one of the possible trajectories is selected according to the random seeds. The VLM Checker will then reflect and check whether all parts of the prompt are satisfied. If not, the VLM Actor will provide an edit prompt and pass it to editor. Given the edit prompt, the Image Editor will perform inversion and reversion to explore a new possible trajectory. Dashed branches denote low - advantage trajectories pruned by GRPO. The ‘Inversion’ is actually performed in Edit stage. 
+
+the unsatisfied requirements; 2) Analyse the failure reason; 
+
+3) After CoT thinking, generate an editing prompt: 
+
+Qedit = VLM actor,ϕ (I, Q ). (6) The Image Editor uses this prompt to modify the image: 
+
+I′ = Eρ(I, Q edit ). (7) This process iterates through multiple cycles. In each cycle, the Checker re-evaluates the edited image and the system applies further edits as necessary. The process continues until either the image satisfies all spatial criteria or the system reaches a predefined maximum number of editing steps. The CoT reasoning process in both the VLM Checker and the VLM Actor accurately evaluates unsatisfied requirements and fixes them by image editing. The explicit mechanism enables each part to focus on respective goal and collabo-ratively perform as a clear pipeline to resolve unsatisfied prompts. 
+
+4.3. The training process 
+
+We observe that relying solely on pretrained modules might be insufficient for generating images that fulfill complex spa-tial requirements for some cases. This limitation arises from two main issues: 1) The VLM Actor lacks knowledge of how to formulate effective edit prompts. 2) The Image Editor often struggles to modify images in ways that satisfy all spec-ified relationships, regardless of the prompt provided. There-fore, apart from the framework proposed with apprecia-ble performance gain, we would like to post-train both components to further improve their performance. Our expected outcome is: 1) The VLM Actor should learn a good intuition of writing effective edit prompts; 2) Given a well-articulated edit prompt, the Image Editor should know how to perform specific editing operation accordingly. Achiev-ing these goals requires the model to compare alternative trajectory branches, assign greater probability to high-advantage ones, and thus refine its “intuition” for 1) and 2) .Intuitively, we exploit Reflection-GRPO as atrajectory -pruning mechanism to discourage unneces-sary trajectories while preserving the ones that actually satisfy the given prompts. Group-wise relative advantages upweight edit prompts that raise scene -graph IoU upon re-sampling and downweight those that do not. We can formulate the generation framework as a Markov Decision Process (MDP) defined by the tuple (S, A, P, R ),where the state st ∈ S encodes the current image I and target scene graph, the action at ∈ A is either an initial generation prompt or an edit prompt, P (st+1 | st, a t) is the (stochastic) image update via the generator or editor, R(st, a t) = rt is the spatial-fidelity reward from the VLM Checker [42]. As shown in Figure 4, we propose Reflection-GRPO to post-train RL-RIG. It contains two phases: Training the VLM Actor only, and training the Image Editor only . In both phases, the reward signal is provided by a fixed VLM Checker. 
+
+Phase 1. The first phase aims to address issue 1), training the VLM Actor for generating good edit prompts. First, we filter the images in the training set that fail the evaluation. Next, we let a group of |G| VLM Actors generate the edit prompts separately using different random seeds: 
+
+ait = VLM actor,ϕ,ξ i (st, a 0), i ∈ [G] (8) 5Training Phase 2 Initial         
+
+> Prompt
+> Diffuser ( )
+> No
+> Checker
+> Edit Prompt Edit Prompt Edit Prompt
+> Actor
+> Inverse Diffuser
+> ()Inverse Diffuser ()
+> Inverse Diffuser
+> ()
+> Checker Checker Checker
+
+......            
+
+> GRPO trainer
+> Diffuser ( )Diffuser ( )Diffuser ( )
+> Training Phase 1 Initial
+> Prompt
+> Diffuser ( )
+> No
+> Checker
+> Edit Prompt 1
+> Actor Actor Actor
+
+......        
+
+> Inverse Diffuser ()Diffuser ( )
+> Checker
+> Edit Prompt 2
+> Inverse Diffuser ()
+> Diffuser ( )
+> Checker
+> Edit Prompt 3
+> Inverse Diffuser ()
+> Diffuser ( )
+> Checker
+> Image
+> Editor
+> GRPO trainer
+
+Group Advantage Group Advantage Figure 4. Illustration of two-phase training. For each phase a batch of responses are sampled, and group advantage is calculated by GRPO. 
+
+where i is the id of VLM Actor in the group, ait means the edit prompt at generated by the i-th actor in the group (same meaning for the rest superscript), and ξi is the random seed for each actor. Then, we perform image editing based on each edit prompt, separately: 
+
+P (sit+1 |st, a it) = Eϵ[Eϵ(st, a it) = sit+1 ], i ∈ [G] (9) where ϵ is the random seed. After that, we use VLM Checkers to evaluate the image one by one and get the reward score for the RL policy: 
+
+R(sit, a it) := rit = C(sit+1 , a 0), i ∈ [G] (10) We want to maximize the expectation of the reward rit. In this phase, only ϕ is trainable, so the goal is max Ei,ϕ [rit].Following the approach of GRPO [ 12 ], we calculate the ad-vantage and update the trainable parameters in VLM Actor: 
+
+ϕ ← ϕ + α ∇ϕ LGRPO (ϕ) (11) 
+
+LGRPO (ϕ) = 1
+
+G
+
+> G
+
+X
+
+> i=1
+
+min  ρt_i bAt_i, clip( ρt_i, 1 − ϵ, 1 + ϵ) bAt_i
+
+
+
+− β D KL 
+
+πϕ | πref 
+
+.
+
+(12) 
+
+Here, μr = 1
+
+> G
+
+PGj=1 rjt , σr =
+
+q 1
+
+> G
+
+PGj=1 
+
+ rjt − μr
+
+2,
+
+bAit = rit −μr 
+
+> σr
+
+, ρi = πϕ(ait|sit)  
+
+> πref (ait|sit)
+
+, and π is VLM ’s probability of taking such action. 
+
+Phase 2. In the second phase, we aim to address issue (2) by improving the performance of Image Editor after the VLM Actor performs relatively well. Therefore, we freeze the VLM Actor and train the DiT in the Image Editor. After filtering the image, we use one trained VLM Actor to gen-erate the edit prompt, and employ a group of image editors to perform image editing. Then, we use VLM Checkers to evaluate each edited image in group one by one: 
+
+at = VLM actor,ϕ,ξ (st, a 0), (13) 
+
+P (sit+1 |st, a it) = Eϵ[Eρ,ϵ (st, a it) = sit+1 ], i ∈ [G] (14) 
+
+rit = C(sit+1 , a 0), i ∈ [G] (15) where ξ and ϵ are random seeds, and ρ is the trainable pa-rameter for the Image Editor. The training goal of this phase is max Ei,ρ [rit]. Calculating the advantage and updating the parameters ρ in DiT [ 33 ] is similar to the first phase, and omitted here. We offer more details on training in Appendix B. 
+
+## 5. Experiments 
+
+5.1. Experimental Settings 
+
+Base models. In practice, we use Curr-ReFT [ 7], a rea-soning model from Qwen 2.5 as the base VLM model for a better reasoning ability. The Image Generator employs Flux [ 18 ], a state-of-the-art open-source image generation model, and the Image Editor employs RF-Inversion [ 35 ], a Flux-based model enabling efficient inversion and editing of real images based on given text descriptions without requiring a mask area. The GRPO training framework is modified from VLM-R1 [ 8, 39 ]. In the future, all these components can be substituted by a stronger model if they are available for the same task. More details can be found in Appendix C. 
+
+Dataset. We utilize LAION-SG [ 23 ] as the training and test dataset, a remarkably rare text-to-image dataset whose prompts feature highly intricate spatial relationships with multiple objects . Custom text-to-image datasets (like Draw-Bench [ 36 ], GenEval [ 10 ] and T2I-CompBench [ 15 ]) are not 6Table 1. Comparison of different models on top-500 test subset of LAION-SG dataset. The highest score for each metric is bolded , and the second highest score is underlined. 
+
+Method SG-IoU Ent-IoU Rel-IoU Qwen-Judge GPT-Judge 
+
+SD3.5 Large 0.2955 0.8145 0.7056 0.7896 0.6908 Flux 0.3319 0.9000 0.7714 0.7993 0.7256 LAION-SG 0.2618 0.7805 0.6858 0.6388 0.5133 RL-RIG (w/o post-training) 0.3575 0.9109 0.7770 0.7986 0.7212 
+
+RL-RIG (post-trained) 0.3699 0.9059 0.7837 0.8219 0.7322 
+
+RL-RIG (w/o reflection) @10 0.3468 0.9156 0.7729 0.8392 0.7273 Ground Truth 0.3864 0.9304 0.8129 0.7240 0.7536                                                       
+
+> Table 2. Performance improvements of RL-RIG (post-trained) over baselines on the LAION-SG dataset (top-500 test subset). Each entry shows absolute gain ( ∆) and percentage gain (%). Light green = improvement, light red = decline.
+> Baseline SG-IoU Ent-IoU Rel-IoU Qwen-Judge GPT-Judge
+> ∆%∆%∆%∆%∆%
+> SD3.5 Large +0.0744 25.2% +0.0914 11.2% +0.0781 11.1% +0.0323 4.1% +0.0414 6.0%
+> Flux +0.0380 11.5% +0.0059 0.7% +0.0123 1.6% +0.0226 2.8% +0.0066 0.9%
+> LAION-SG +0.1081 41.3% +0.1254 16.1% +0.0979 14.3% +0.1831 28.7% +0.2189 42.7%
+> RL-RIG(w/o post-training) +0.0124 3.5% -0.0050 -0.6% +0.0067 0.9% +0.0233 2.9% +0.0110 1.5%
+
+used as they do not contain such complex spatial relation-ships in the prompt, or evaluate outputs with at most two or three simple objects. The data split is set by default. For convenience, we select top 2000 images for training and top 500 images for testing by the aesthetic score. We use the same approach as described in LAION-SG to utilize GPT-4o for extracting the scene graph and evaluating the IoU. 
+
+Evaluation metrics. We observe that ground truth images do not align perfectly with the provided spatial descriptions, and thus applying traditional metrics like FID and IS would lead to biased results. Instead, we use metrics like Scene Graph IoU [54] and VLM-as-a-judge [19] that can evaluate the images’ loyalty to the extracted relationships. Suppose 
+
+Q is the Scene Graph extracted from ground truth (i.e., the text requirements), and Q′ is the Scene Graph extracted from the generated image by GPT-4o [ 25 ]. Then, Scene Graph IoU is defined as the IoU between them: 
+
+IoU SG = Q ∩ Q′
+
+Q ∪ Q′ (16) Suppose O = {oi ∈ Q} is all the objects that appear in 
+
+Q, and O′ = {o′ 
+
+> i
+
+∈ Q′} is all the objects that appear in 
+
+Q′. Similarly, Rel = {ri|(oxi , r i, o yi ) ∈ Q} and Rel ′ =
+
+{r′
+
+> i
+
+|(o′ 
+
+> xi
+
+, r ′
+
+> i
+
+, o ′ 
+
+> yi
+
+) ∈ Q′} is all the relationships in generated image and ground truth image, separately. Then, the entity IoU and relationship IoU are defined as: 
+
+IoU Ent = O ∩ O′
+
+O ∪ O′ , IoU Rel = Rel ∩ Rel ′
+
+Rel ∪ Rel ′ (17) 
+
+Unlike traditional metrics that measure image similar-ity, our IoU-based evaluation specifically targets spatial relationship fidelity. This approach enables us to differen-tiate between images that merely appear visually similar to ground truth and those that accurately represent the speci-fied spatial relationships. In contrast, traditional pixel-level metrics like IS and FID fail to capture the critical spatial configurations that define success in our problem setting. The score of VLM-judge is defined in the same way as Equation 2. Specifically, LLM would evaluate the number of relationships from the prompt that is satisfied in the pic-ture, which emphasizes faithfulness to the prompt instead of the “ground truth” pictures most models use. Instinctively, we believe there are no ground truth pictures in image generation. Any picture that satisfies the requirements in the prompt should be well accepted. Here, we employ ReFT (a reasoning VLM based on Qwen2.5) and GPT-4o as two VLM judges for meta-evaluation, separately. 
+
+5.2. Results 
+
+We choose SD3.5 Large, Flux and LAION-SG as baseline models. The former two models are state-of-the-art open-source image generation models; the latter one is the model from the original literature of the LAION-SG, which is spe-cially post-trained on the LAION-SG dataset. We compare the performance of RL-RIG before and after post-training to better understand its influence. All comparisons are con-ducted using the same original prompts from the LAION-SG dataset without any modification. 7The result of our experiment is shown in Table 1 and Table 2. RL-RIG consistently outperforms all baselines across spatial reasoning metrics. The framework alone (raw) provides modest improvements (+3.5% SG-IoU over Flux), while post-training yields substantial gains (+11.5% SG-IoU). Notably, our method shows the largest improvements on the most challenging spatial relationships, validating our iterative refinement approach. We observe a decrease in Ent-IoU after post-training, which might be attributable to the limited ability of the Image Editor. We provide more suc-cess and failure cases in Appendix D, and more ablation studies in Appendix G .
+
+5.3. Mechanism: Intrinsic Reflection as Trajectory-Level Reward 
+
+Where does the performance gain come from? We add an-other ablation study, by disabling the multiple cycle and post training of RL-RIG, simply generating 10 images and pick-ing the best one by VLM Checker. Although this approach is extremely computationally expensive and impractical in real-world application, it simulates the sampling of 10 possible generation trajectories. We find that this ‘pass@10’ result is comparable to that of RL-RIG’s pass@1. Following the approach of [ 53 ], we believe that our approach teaches the model to intuitively choose a better trajectory by its intrinsic reflection ability, and provide our explanation as follows. 
+
+Intrinsic Reflection refers to the phenomenon where LLMs can learn to reason by only recursively optimizing self-generated feedback [ 32 , 44 ]. This works because [ 22 ]suggests that reward modeling stage can be replaced by elic-iting the knowledge already captured during pre-training. In practice, RLIF [ 58 ] and RLPR [ 52 ] replace external rewards with the model’s own confidence or token-likelihood signals while still improving LLM’s performance. This suggests that LLMs already embed a generalist reward model on thoughts and responses’ trajectories. Our design extends this idea to the multi-agent VLM setting . RL-RIG’s Generate-Reflect-Edit loop converts inter-nal evaluative signals into implicit rewards purely by VLM Checker’s capability of judgment instead of external gold verifiers. The VLM Checker computes a scalar intrinsic re-ward R(sit, a it) from the agreement between (i) the prompt-induced scene graph a0 and (ii) the image’s relations sit+1 .In effect, this reward process acts as “reflection”, supplying a signal to push the policy to increase the probability of edits that raise scene-graph IoU and reduce relation violations. Inspired by the idea in [ 31 ], we can view the model as a latent Q-function over action sequences, where all possible trajectories form a tree, and each diffusion or edit step is actually choosing a branch on it. Based on that, our goal is to couple it with GRPO’s group optimization and optimize the whole system multimodally to choose a better branch. In RL-RIG, the reflection step measures relational structure, the intrinsic reward targets it, and GRPO amplifies successful local edits into globally consistent layouts, which eventually 
+
+sparks the base model’s intrinsic “subconsciousness” to choose a rarely visited reasoning trajectory that actu-ally performs better for spatial relations. This internal preference-based training can therefore deliver structurally faithful images rather than merely photorealistic ones. 
+
+## 6. Limitations and Future Work 
+
+While our proposed RL-RIG framework demonstrates im-pressive capabilities, its performance is naturally influenced by the underlying base model, though all the post-training processes can alleviate this influence. Additionally, due to the pioneering nature of our work in addressing complex prompt reasoning, a comprehensive text-to-image dataset for such advanced and difficult spatial relationships is notably rare and remains in development. Our research opens several promising avenues for future work. First, integrating more advanced reasoning mecha-nisms could further enhance the VLM Actor’s ability to gen-erate precise edit prompts. Second, developing specialized Image Editors that maintain better contextual consistency across multiple edits could address the discontinuity issues observed in Figure 6. Finally, creating a dedicated dataset for text-to-image tasks with extremely complex spatial rela-tionships would greatly help this future work. 
+
+## 7. Conclusion 
+
+In this paper, we addressed the “spatial reasoning dilemma” in text-to-image generation by proposing RL-RIG, a novel Generate-Reflect-Edit framework that combines Chain-of-Thought reasoning with image generation to enhance test-time scaling spatial reasoning ability for complex scene gen-eration. We also employ group-reward based reinforcement learning to vision-language models, which frames spatial image generation as trajectory selection. We show that intrin-sic reflection yields a better intuition, which is practical to prune low -fidelity branches and realize scene - graph -faithful images. Experimental results on the LAION-SG dataset demonstrate that RL-RIG outperforms state-of-the-art mod-els like Stable Diffusion 3.5 Large and Flux in terms of spatial coherence, as measured by metrics like Scene Graph IoU and VLM-based evaluation. RL-RIG is flexible in that all its components can be substituted by the latest state-of-the-art model. We hope this work highlights the importance of reasoning in complex image generation tasks, and provides an insight-ful intrinsic reflection framework to overcome the complex spatial relationships in such scenarios. 8References 
+
+[1] Stability AI. Stable diffusion 3 medium model. https: / / huggingface . co / stabilityai / stable -diffusion-3-medium , 2025. 1 [2] Kevin Black, Michael Janner, Yilun Du, Ilya Kostrikov, and Sergey Levine. Training diffusion models with reinforcement learning. arXiv preprint arXiv:2305.13301 , 2023. 3 [3] Boyuan Chen, Zhuo Xu, Sean Kirmani, Brain Ichter, Dorsa Sadigh, Leonidas Guibas, and Fei Xia. Spatialvlm: Endowing vision-language models with spatial reasoning capabilities. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pages 14455–14465, 2024. 1 [4] Minghao Chen, Iro Laina, and Andrea Vedaldi. Training-free layout control with cross-attention guidance. In Proceed-ings of the IEEE/CVF winter conference on applications of computer vision , pages 5343–5353, 2024. 1 [5] DeepSeek. Janus pro: Free janus pro 7b online - ai image generator & understanding. https://januspro.io/ ,2025. 1 [6] Huilin Deng, Ding Zou, Rui Ma, Hongchen Luo, Yang Cao, and Yu Kang. Boosting the generalization and reasoning of vision language models with curriculum reinforcement learning. arXiv preprint arXiv:2503.07065 , 2025. 15 [7] Huilin Deng, Ding Zou, Rui Ma, Hongchen Luo, Yang Cao, and Yu Kang. Boosting the generalization and reasoning of vision language models with curriculum reinforcement learning, 2025. 6, 12 [8] Hugging Face. Open r1: A fully open reproduction of deepseek-r1, 2025. 6 [9] Azade Farshad, Yousef Yeganeh, Yu Chi, Chengzhi Shen, Böjrn Ommer, and Nassir Navab. Scenegenie: Scene graph guided diffusion models for image synthesis. In Proceed-ings of the IEEE/CVF International Conference on Computer Vision , pages 88–98, 2023. 3 [10] Dhruba Ghosh, Hannaneh Hajishirzi, and Ludwig Schmidt. Geneval: An object-focused framework for evaluating text-to-image alignment. Advances in Neural Information Processing Systems , 36:52132–52152, 2023. 6 [11] Yi Gu, Zhendong Wang, Yueqin Yin, Yujia Xie, and Mingyuan Zhou. Diffusion-rpo: Aligning diffusion mod-els through relative preference optimization. arXiv preprint arXiv:2406.06382 , 2024. 3 [12] Daya Guo, Dejian Yang, Haowei Zhang, Junxiao Song, Ruoyu Zhang, Runxin Xu, Qihao Zhu, Shirong Ma, Peiyi Wang, Xiao Bi, et al. Deepseek-r1: Incentivizing reasoning capability in llms via reinforcement learning. arXiv preprint arXiv:2501.12948 , 2025. 3, 6 [13] Jack Hessel, Ari Holtzman, Maxwell Forbes, Ronan Le Bras, and Yejin Choi. Clipscore: A reference-free evaluation metric for image captioning. arXiv preprint arXiv:2104.08718 , 2021. 1[14] Martin Heusel, Hubert Ramsauer, Thomas Unterthiner, Bern-hard Nessler, and Sepp Hochreiter. Gans trained by a two time-scale update rule converge to a local nash equilibrium. 
+
+Advances in neural information processing systems , 30, 2017. 1[15] Kaiyi Huang, Kaiyue Sun, Enze Xie, Zhenguo Li, and Xihui Liu. T2i-compbench: A comprehensive benchmark for open-world compositional text-to-image generation. Advances in Neural Information Processing Systems , 36:78723–78747, 2023. 6 [16] Sadeep Jayasumana, Srikumar Ramalingam, Andreas Veit, Daniel Glasner, Ayan Chakrabarti, and Sanjiv Kumar. Re-thinking fid: Towards a better evaluation metric for image generation. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pages 9307–9315, 2024. 1 [17] Dongzhi Jiang, Ziyu Guo, Renrui Zhang, Zhuofan Zong, Hao Li, Le Zhuo, Shilin Yan, Pheng-Ann Heng, and Hong-sheng Li. T2i-r1: Reinforcing image generation with col-laborative semantic-level and token-level cot. arXiv preprint arXiv:2505.00703 , 2025. 3 [18] Black Forest Labs. Flux. https://github.com/ black-forest-labs/flux , 2024. 1, 6 [19] Seongyun Lee, Seungone Kim, Sue Park, Geewook Kim, and Minjoon Seo. Prometheus-vision: Vision-language model as a judge for fine-grained evaluation. In Findings of the Association for Computational Linguistics ACL 2024 , pages 11286–11315, 2024. 3, 7 [20] Shufan Li, Konstantinos Kallidromitis, Akash Gokul, Arsh Koneru, Yusuke Kato, Kazuki Kozuka, and Aditya Grover. Reflect-dit: Inference-time scaling for text-to-image diffu-sion transformers via in-context reflection. arXiv preprint arXiv:2503.12271 , 2025. 3 [21] Yuheng Li, Haotian Liu, Qingyang Wu, Fangzhou Mu, Jian-wei Yang, Jianfeng Gao, Chunyuan Li, and Yong Jae Lee. Gligen: Open-set grounded text-to-image generation. In Pro-ceedings of the IEEE/CVF conference on computer vision and pattern recognition , pages 22511–22521, 2023. 1, 3 [22] Yi-Chen Li, Tian Xu, Yang Yu, Xuqin Zhang, Xiong-Hui Chen, Zhongxiang Ling, Ningjing Chao, Lei Yuan, and Zhi-Hua Zhou. Generalist reward models: Found inside large language models, 2025. 8 [23] Zejian Li, Chenye Meng, Yize Li, Ling Yang, Shengyuan Zhang, Jiarui Ma, Jiayi Li, Guang Yang, Changyuan Yang, Zhiyuan Yang, et al. Laion-sg: An enhanced large-scale dataset for training complex image-text models with structural annotations. arXiv preprint arXiv:2412.08580 , 2024. 6, 14 [24] Denis Lukovnikov and Asja Fischer. Layout-to-image gener-ation with localized descriptions using controlnet with cross-attention control. arXiv preprint arXiv:2402.13404 , 2024. 1[25] OpenAI. Gpt-4o system card. https://openai.com/ index/gpt- 4o- system- card/ , 2024. Accessed: 2025-05-14. 7 [26] Long Ouyang, Jeffrey Wu, Xu Jiang, Diogo Almeida, Car-roll Wainwright, Pamela Mishkin, Chong Zhang, Sandhini Agarwal, Katarina Slama, Alex Ray, et al. Training language models to follow instructions with human feedback. Advances in neural information processing systems , 35:27730–27744, 2022. 3 [27] Zhenyu Pan and Han Liu. Metaspatial: Reinforcing 3d spa-tial reasoning in vlms for the metaverse. arXiv preprint arXiv:2503.18470 , 2025. 3 
+
+9[28] Maitreya Patel, Song Wen, Dimitris N Metaxas, and Yezhou Yang. Steering rectified flow models in the vector field for con-trolled image generation. arXiv preprint arXiv:2412.00100 ,2024. 3 [29] Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry, Amanda Askell, Pamela Mishkin, Jack Clark, et al. Learning transferable visual models from natural language supervi-sion. In International conference on machine learning , pages 8748–8763. PmLR, 2021. 1 [30] Rafael Rafailov, Archit Sharma, Eric Mitchell, Christopher D Manning, Stefano Ermon, and Chelsea Finn. Direct prefer-ence optimization: Your language model is secretly a reward model. Advances in Neural Information Processing Systems ,36:53728–53741, 2023. 3 [31] Rafael Rafailov, Joey Hejna, Ryan Park, and Chelsea Finn. From r to q∗: Your language model is secretly a q-function, 2024. 8 [32] Rafael Rafailov, Archit Sharma, Eric Mitchell, Stefano Er-mon, Christopher D. Manning, and Chelsea Finn. Direct preference optimization: Your language model is secretly a reward model, 2024. 8 [33] Allen Z Ren, Justin Lidard, Lars L Ankile, Anthony Sime-onov, Pulkit Agrawal, Anirudha Majumdar, Benjamin Burch-fiel, Hongkai Dai, and Max Simchowitz. Diffusion policy policy optimization. arXiv preprint arXiv:2409.00588 , 2024. 6[34] Litu Rout, Yujia Chen, Nataniel Ruiz, Constantine Caramanis, Sanjay Shakkottai, and Wen-Sheng Chu. Semantic image inversion and editing using rectified stochastic differential equations. arXiv preprint arXiv:2410.10792 , 2024. 3 [35] Litu Rout, Yujia Chen, Nataniel Ruiz, Constantine Caramanis, Sanjay Shakkottai, and Wen-Sheng Chu. Semantic image inversion and editing using rectified stochastic differential equations. In The Thirteenth International Conference on Learning Representations , 2025. 6 [36] Chitwan Saharia, William Chan, Saurabh Saxena, Lala Li, Jay Whang, Emily L Denton, Kamyar Ghasemipour, Raphael Gontijo Lopes, Burcu Karagol Ayan, Tim Salimans, et al. Pho-torealistic text-to-image diffusion models with deep language understanding. Advances in neural information processing systems , 35:36479–36494, 2022. 6 [37] Tim Salimans, Ian Goodfellow, Wojciech Zaremba, Vicki Cheung, Alec Radford, and Xi Chen. Improved techniques for training gans. Advances in neural information processing systems , 29, 2016. 1 [38] John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Rad-ford, and Oleg Klimov. Proximal policy optimization algo-rithms. arXiv preprint arXiv:1707.06347 , 2017. 3 [39] Haozhan Shen, Peng Liu, Jingcheng Li, Chunxin Fang, Yibo Ma, Jiajia Liao, Qiaoli Shen, Zilun Zhang, Kangjia Zhao, Qianqian Zhang, Ruochen Xu, and Tiancheng Zhao. Vlm-r1: A stable and generalizable r1-style large vision-language model. arXiv preprint arXiv:2504.07615 , 2025. 6 [40] Wenfeng Song, Xinyu Zhang, Shuai Li, Yang Gao, Aimin Hao, Xia Hou, Chenglizhao Chen, Ning Li, and Hong Qin. Hoianimator: Generating text-prompt human-object anima-tions using novel perceptive diffusion models. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pages 811–820, 2024. 1 [41] Jiayang Sun, Hongbo Wang, Jie Cao, Huaibo Huang, and Ran He. Marmot: Multi-agent reasoning for multi-object self-correcting in improving image-text alignment. arXiv preprint arXiv:2504.20054 , 2025. 3 [42] Richard S. Sutton and Andrew G. Barto. Reinforcement Learn-ing: An Introduction . MIT Press, 2018. 5 [43] Bram Wallace, Meihua Dang, Rafael Rafailov, Linqi Zhou, Aaron Lou, Senthil Purushwalkam, Stefano Ermon, Caiming Xiong, Shafiq Joty, and Nikhil Naik. Diffusion model align-ment using direct preference optimization. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pages 8228–8238, 2024. 3 [44] Bo Wang, Qinyuan Cheng, Runyu Peng, Rong Bao, Peiji Li, Qipeng Guo, Linyang Li, Zhiyuan Zeng, Yunhua Zhou, and Xipeng Qiu. Implicit reward as the bridge: A unified view of sft and dpo connections, 2025. 8 [45] F. Wang, T. Zhang, Y. Wang, X. Zhang, X. Liu, and Z. Cui. Scene graph-grounded image generation. Proceedings of the AAAI Conference on Artificial Intelligence , 39(7):7646–7654, 2025. 3 [46] Jiangshan Wang, Junfu Pu, Zhongang Qi, Jiayi Guo, Yue Ma, Nisha Huang, Yuxin Chen, Xiu Li, and Ying Shan. Tam-ing rectified flow for inversion and editing. arXiv preprint arXiv:2411.04746 , 2024. 3, 12 [47] Ruyu Wang, Xuefeng Hou, Sabrina Schmedding, and Marco F Huber. Stay diffusion: Styled layout diffusion model for di-verse layout-to-image generation. In 2025 IEEE/CVF Win-ter Conference on Applications of Computer Vision (WACV) ,pages 3855–3865. IEEE, 2025. 3 [48] Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Fei Xia, Ed Chi, Quoc V Le, Denny Zhou, et al. Chain-of-thought prompting elicits reasoning in large language models. 
+
+Advances in neural information processing systems , 35:24824– 24837, 2022. 3 [49] Song Wen, Guian Fang, Renrui Zhang, Peng Gao, Hao Dong, and Dimitris Metaxas. Improving compositional text-to-image generation with large vision-language models. arXiv preprint arXiv:2310.06311 , 2023. 3 [50] Han Xue, Zhiwu Huang, Qianru Sun, Li Song, and Wenjun Zhang. Freestyle layout-to-image synthesis. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , pages 14256–14266, 2023. 3 [51] Yueqin Yin, Zhendong Wang, Yi Gu, Hai Huang, Weizhu Chen, and Mingyuan Zhou. Relative preference opti-mization: Enhancing llm alignment through contrasting re-sponses across identical and diverse prompts. arXiv preprint arXiv:2402.10958 , 2024. 3 [52] Tianyu Yu, Bo Ji, Shouli Wang, Shu Yao, Zefan Wang, Ganqu Cui, Lifan Yuan, Ning Ding, Yuan Yao, Zhiyuan Liu, Maosong Sun, and Tat-Seng Chua. Rlpr: Extrapolating rlvr to general domains without verifiers, 2025. 8 [53] Yang Yue, Zhiqi Chen, Rui Lu, Andrew Zhao, Zhaokai Wang, Yang Yue, Shiji Song, and Gao Huang. Does reinforcement learning really incentivize reasoning capacity in llms beyond the base model?, 2025. 8 
+
+10 [54] Juexiao Zhang, Gao Zhu, Sihang Li, Xinhao Liu, Haorui Song, Xinran Tang, and Chen Feng. Multiview scene graph. 
+
+Advances in Neural Information Processing Systems , 37: 17761–17788, 2024. 3, 7 [55] Lvmin Zhang, Anyi Rao, and Maneesh Agrawala. Adding conditional control to text-to-image diffusion models. In 
+
+Proceedings of the IEEE/CVF international conference on computer vision , pages 3836–3847, 2023. 1, 3 [56] Richard Zhang, Phillip Isola, Alexei A Efros, Eli Shechtman, and Oliver Wang. The unreasonable effectiveness of deep features as a perceptual metric. In Proceedings of the IEEE conference on computer vision and pattern recognition , pages 586–595, 2018. 1 [57] Shihao Zhao, Dongdong Chen, Yen-Chun Chen, Jianmin Bao, Shaozhe Hao, Lu Yuan, and Kwan-Yee K Wong. Uni-controlnet: All-in-one control to text-to-image diffusion mod-els. Advances in Neural Information Processing Systems , 36: 11127–11150, 2023. 1 [58] Xuandong Zhao, Zhewei Kang, Aosong Feng, Sergey Levine, and Dawn Song. Learning to reason without external rewards, 2025. 8 [59] Guangcong Zheng, Xianpan Zhou, Xuewei Li, Zhongang Qi, Ying Shan, and Xi Li. Layoutdiffusion: Controllable diffusion model for layout-to-image generation. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pages 22490–22499, 2023. 3 
+
+11 A. More Details of Framework Design 
+
+The separate design of the VLM Actor and Checker is on purpose. In practice, we observed that the VLM model is easily distracted when assigned with multiple tasks. Specif-ically, we tested on the VLM Actor and found that, when required to provide an edit prompt, the VLM Actor (either post-trained or not post-trained) tends to assume that ‘the image already satisfies all descriptions, and does not need editing‘, even if the image actually does not comply with the prompt. However, when the request for editing is dropped, the VLM Actor will move its reasoning focus to checking the satisfied request, which greatly improves the upcoming VLM Checker’s response quality. It is also not appropriate to eliminate the use of the VLM Editor and keep feeding the same prompt, which stems from two main factors. First, inversion-based image editing re-lies on guidance from the input text prompt. Repeatedly feeding the same prompt leads to identical guidance signals, resulting in little to no improvement over single-pass editing. Moreover, each round of inversion and reversion introduces additional noise, which can degrade image quality. Second, the image editor is highly sensitive to the style of the edit prompt. In practice, directly reusing the original prompt often fails to produce the desired modifications, as it may not align well with the editor’s preferred input style. 
+
+## B. More Details of Two-Phase Training 
+
+Our optimization only includes 2 phases, as is shown in Figure 4. In the first training phase, the VLM Actor generates a batch of edit prompts. Each edit prompt is passed to a frozen Image Editor, and the corresponding image is graded by a VLM Checker. The checker’s response is used as the reward function in GRPO to encourage it to generate an appropriate edit prompt. In the second training phase, the VLM Actor is frozen, and a fixed edit prompt is passed to the Image Editor to generate a batch of image edits. The corresponding image is graded by a VLM Checker, whose response is used as the re-ward function in for refining the Image Editor’s performance under the given prompt. For the sake of generalization, we keep the VLM Checker untrained. This is because training it would bring about unnecessary bias to its feedback results. Once influenced by the training objective, the reward system would become distorted and overfit to its bias. To further confirm the re-liability of the base VLM model, we manually examined 50 cases and found that all of VLM checkers’ outputs are aligned with human senses. Therefore, we conclude that the base VLM model shows a good zero-shot ability with regard to judging how many requirements are satisfied in the image, and that additional post-training on the VLM Checker would be potentially redundant. The VLM Actor, on the other hand, does require post-training due to its functions in the system. We expect to yield edit prompts from the actor that could bring about images with exact spatial relationships, but we find that a tiny change in edit prompts would result in significantly different results. Notably, even a human-written edit prompt may not yield the desired result in many cases, sometimes performing worse than the post-trained VLM Actor, This shows the necessity of post-training the VLM Actor so as to cooperate well with the features of the Image Editor, its partner in the image generation process, as well as sparking its intrinsic reasoning ability to yield the correct intuition among possible trajectories. Although we currently use split prompts for better in-terpretability, the VLM Checker is still a generic reason-ing model and can assess the degree of prompt satisfaction through few-shot prompting, even without explicit decompo-sition. According to [ 7 ], the base VLM model performs well on multiple tasks including image QA, detection, classifica-tion and maths, which proves its generalization capabilities. Our training process is not detrimental to the VLM Checker and thus the input is actually not limited to multi-point split prompts, but generalizes to a broader text-to-image task do-main. 
+
+## C. More Details of Experimental Settings 
+
+Environment Setup. We set up a distributed training on 
+
+2 ∗ 4 A100 GPUs. We preprocess all the image generation process before the training begins. For training phase 1, we load 3 parallel VLM Actors and 1 VLM reference model on the first machine; we load 1 VLM Checker and 3 parallel image editors on the second machine. For training phase 2, we load 1 VLM Actor and 3 parallel image editors on the first machine; we load 1 VLM Checker, 1 Image Editor, 1
+
+reference Image Editor and the trainer on the second machine. The training time for each phase is about 2 days. All the parallel Actors and Editors are the same networks, acting as load balancers. 
+
+Hyper-parameters. We set most the base models’ hyper-parameters by default. To enable a stronger image-editing ability, we follow the advice in [ 46 ] and set γ = η = 0 .7 and 
+
+Guidance _scale = 10 in rf-inversion. In the generation phase, each picture can be edited at most 10 times. If it still fails to pass the checker after 10 edits, a restart attempt will be made, which will restart the editing procedure from the original picture with a different random seed for all base models. If 3 restart attempt fails, the original generated picture will be saved. The optimal number of edit prompts is determined empirically: increasing the count from 10 to 11 yields no performance gain, while reducing it to 9 results 12 Prompt: driving person riding two-wheeled vehicle ; tall old building adjacent to tall old building; black car vehicle following two-wheeled vehicle ; yellow taxi vehicle parkedside yellow taxi vehicle; tall old building adjacent to tall bright building; small sign attached to tall old building; A new day, Mumbai by Ramesh Jhawar, Impressionism Painting, Watercolor on Paper, Brown color 
+
+Agent Response Image Generator Generated with the original prompt 
+
+Checker <think> Let’s analyze each description one by one:       
+
+> 1. “black car vehicle following two-wheeled vehicle” : There is no two-wheeled vehicle in the image, so this description is not satisfied. 2. “yellow taxi vehicle parkedside yellow taxi vehicle” : There are two yellow taxis parked next to each other, so this description is satisfied. 3. “small sign attached to tall old building” : There is a small sign visible on one of the tall buildings, so this description is satisfied. 4. “tall old building adjacent to tall old building” : There are two tall buildings next to each other, so this description is satisfied. 5. “driving person riding two-wheeled vehicle” : There are no two-wheeled vehicles in the image, so this description is not satisfied. 6. “tall old building adjacent to tall bright building” : There is a tall old building next to a taller bright building, so this description is satisfied.
+
+</think><answer> 4 </answer> 
+
+Actor <think>...</think><answer> yellow taxi vehicle parked, small sign attached to tall old building, tall old building adjacent to tall old building, tall old building adjacent to tall bright building, black car vehicle following two-wheeled vehicle, watercolor </answer> 
+
+Image Editor Performed editing with the given prompt 
+
+Checker <think>...</think><answer> 6 </answer> 
+
+> Figure 5. A succeeded trial of image generation by RL-RIG, with the input prompt (id=523378) and the reasoning process. After reflection, the actor successfully guides the Image Editor to add a two-wheeled vehicle in front of the black car.
+
+in diminished performance. The same holds for the number of restart attempts. 
+
+## D. Case Study 
+
+We provide three groups of comparison of the image gen-erated by these models in Figure 1. It can be observed that RL-RIG performs a stronger ability of following the extremely complex spatial descriptions in these examples, accurately capturing relationships that other models struggle with. To better illustrate our framework’s reasoning process, we present a detailed examination of the intermediate steps in two RL-RIG generation cases using the same prompt as described in Figure 5. In the successful case in Figure 5, we can observe the com-plete Generate-Reflect-Edit cycle in action. The initial image generated by the Image Generator captures several spatial relationships correctly, but crucially misses two key require-13 Figure 6. A failure trial with the same prompt. In the first and second rounds, although the actor provides seemingly correct edit prompts based on feedback, the Image Editor fails to migrate old elements to the new prompts. In the third round, the Image Editor fails to make any changes, resulting in a vague image that it is unable to properly interpret or refine. From our observations, most failure cases are caused by the Image Editor’s inability to handle the vague outputs it produces itself. Table 3. Comparison of more ablation studies. 
+
+Method SG-IoU Ent-IoU Rel-IoU Qwen-Judge GPT-Judge w/o Actor (Unsatisfied prompt) 0.3051 0.8176 0.7150 0.6739 0.5549 w/o Actor (Same prompt) 0.3357 0.9089 0.7632 0.7932 0.7234 w/o reflection (pass @ 10) 0.3468 0.9156 0.7729 0.8392 0.7273 ments: the two-wheeled vehicle in front of the black car, and a person riding it. Next, the VLM Checker meticulously analyzes this initial output through a structured reasoning process, and identifies the missing relationships. The VLM Actor then formulates a targeted edit prompt that preserves correct elements while specifically requesting the missing components. Finally, the Image Editor successfully incorpo-rates these elements, resulting in an image with all spatial requirements. In contrast, under identical conditions but with a differ-ent random seed, Figure 6 illustrates a failed attempt where the editor either completely overwrites the original image, resulting in a fundamentally different scene, or makes no changes at all. This comparison highlights that our RL-RIG design is capable of reasoning and correcting unsatisfactory outputs from the base model, whereas its performance re-mains partially constrained by the limitations of the base model itself. The inference cost is similar to that of the base model. Specifically, The average inference time is 36 seconds. The average number of edits for each image (including the first generation attempt, and the number of edits in the restart attempt) is 4.16. Both editing and VLM can be pipelined. After pipelining, image editing can run in parallel. Here we use 4GPUs in parallel, so the actual inference time per edit is 9 seconds, and 37 seconds per image. In the worst-case scenario, the actual inference time per image is 270 seconds. 
+
+## E. Scene Graphs Extraction 
+
+This part is realized by the LAION-SG dataset [ 23 ]. Specif-ically, for each ground-truth and generated image, GPT-4o is used to output structured JSON containing scene graph triplets in ["subject", "predicate", "object"] format, along with object and predicate lists, using the following prompt: 
+
+Please extract the scene graph of the given image. The scene graph just needs to include the relations of the salient objects and exclude the background. The scene graph should be a list of triplets like ["subject", "predicate ", "object"]. Both subject and object should be selected from the following list: {unique_items_list}. The predicate should be selected from the following list: { unique_relations_list}. Besides the scene graph, please also output the objects list in the image like ["object1", "object2", ..., "object"]. The object should be also selected from the above-mentioned object list. The output should only contain the scene graph and the object list. Return the results in the following JSON format: {{ "scene_graph": [ 
+
+14 ["subject", "predicate", "object "], ... ], "object_list": ["object1", "object2", ... ], "predicate_list":[ "predicate1", "predicate2", ... ]}} 
+
+For evaluation, unique_items_list and 
+
+unique_relations_list are limited only to the items that exist in the ground truth image’s scene graph. Scene graph IoU, object IoU and relationship IoUs are then calculated using the common approach. 
+
+## F. Prompt of VLM Actor and Checker 
+
+Here we provide the prompt of our VLM Checker. 
+
+How many of the following {length} descriptions does this image satisfy? -----{new_prompt} -----Please analyze step by step, and finally give the number of satisfied descriptions, ranging from 0 to {length}, in \\boxed {{}} format. 
+
+Regarding generalization, VLM Checker does have a gen-eral judgement ability, for it is substantially a generic VLM reasoning model without post training. As demonstrated in [ 6], the base VLM model performs well on multiple tasks including image QA, detection, classification and maths, which proves its generalization capabilities. We also provide the prompt of our VLM Actor: 
+
+Please first analyze how many descriptions this image satisfies . Then, please provide a prompt to edit the image in order to satisfy all the spatial relationships, and put the prompt in \\boxed{}. e.g., \\boxed{ smiling face, long hair}. The descriptions are: -----{descriptions} -----Please analyze one by one. 
+
+## G. More Ablation Studies 
+
+To show that naive image editing approach does not work well, we add the following ablation studies. 1. Not using the Actor, feed original prompt to Image Editor iteratively. 2. Similar to 1 but only using unsatisfied constraints in the original prompt. 3. Generate 10 images and pick the best one by VLM Checker. The results are shown in Table 3. It can be observed that prompt engineering approaches perform no better than the original Flux. We surmise that this phenomenon stems from two main factors. First, inversion-based image editing relies on guidance from the input text prompt. Repeatedly feeding the same prompt leads to identical guidance signals, resulting in little to no improvement over single-pass editing. Moreover, each round of inversion and reversion introduces additional noise, which can degrade image quality. Second, the Image Editor is highly sensitive to the style of the edit prompt. In practice, directly reusing the original prompt often fails to produce the desired modifications, as it may not align well with the editor’s preferred input style. Although Pick 1 from 10 approach has a relatively fair performance, it is extremely computational expensive, whose inference time is more than 300 seconds per each image after pipelining, which is more than 8x times slower due to the generation cost. In fact, this result exactly fit our assumption that Reinforcement Learning is actually pruning unneces-sary generation trajectories, instead of creating new ones. As a result, RL can transfer the performance of pass@k to 
+
+pass@1 , but can hardly optimize pass@1 over pass@k .Additionally, our RL-RIG’s generator can actually be based on ‘Pick 1 from 10’ if needed and further improve its perfor-mance. 15

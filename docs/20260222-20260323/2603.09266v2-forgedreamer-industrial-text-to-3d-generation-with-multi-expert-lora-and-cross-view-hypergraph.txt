@@ -1,0 +1,1227 @@
+Title: ForgeDreamer: Industrial Text-to-3D Generation with Multi-Expert LoRA and Cross-View Hypergraph
+
+URL Source: https://arxiv.org/pdf/2603.09266v2
+
+Published Time: Mon, 16 Mar 2026 01:22:59 GMT
+
+Number of Pages: 21
+
+Markdown Content:
+## ForgeDreamer: Industrial Text-to-3D Generation with Multi-Expert LoRA and Cross-View Hypergraph 
+
+Junhao Cai 1* Deyu Zeng 2* Junhao Pang 1 Lini Li 1 Zongze Wu 1 Xiaopin Zhong 1, †
+
+> 1
+
+Shenzhen University, Shenzhen, Guangdong 518060, China 
+
+> 2
+
+Guangzhou Maritime University, Guangzhou, Guangdong 510725, China 
+
+caijunhao27@gmail.com zengdeyu@gzmtu.edu.cn 
+
+{2500092013, 2500092003 }@mails.szu.edu.cn {zzwu, xzhong }@szu.edu.cn 
+
+Abstract 
+
+Current text-to-3D generation methods excel in natural scenes but struggle with industrial applications due to two critical limitations: domain adaptation challenges where conventional LoRA fusion causes knowledge in-terference across categories, and geometric reasoning deficiencies where pairwise consistency constraints fail to capture higher-order structural dependencies essen-tial for precision manufacturing. We propose a novel framework named ForgeDreamer addressing both chal-lenges through two key innovations. First, we intro-duce a Multi-Expert LoRA Ensemble mechanism that consolidates multiple category-specific LoRA models into a unified representation, achieving superior cross-category generalization while eliminating knowledge in-terference. Second, building on enhanced semantic un-derstanding, we develop a Cross-View Hypergraph Ge-ometric Enhancement approach that captures structural dependencies spanning multiple viewpoints simultane-ously. These components work synergistically improved semantic understanding, enables more effective geo-metric reasoning, while hypergraph modeling ensures manufacturing-level consistency. Extensive experiments on a custom industrial dataset demonstrate superior se-mantic generalization and enhanced geometric fidelity compared to state-of-the-art approaches. Code is avail-able at https://github.com/Junhaocai27/ ForgeDreamer 
+
+1. Introduction 
+
+Text-to-3D generation has emerged as a transformative technology, enabling the creation of diverse 3D con-tent from natural language descriptions. Recent break-throughs, led by pioneering works such as DreamFu-sion [32] and subsequent advances like ProlificDreamer  
+
+> *Equal contribution. †Corresponding author.
+
+Figure 1. Overall Framework Architecture: Multi-Expert LoRA Ensemble Framework and Cross-View Hypergraph En-hancement 
+
+[44] and LucidDreamer [21], have demonstrated re-markable capabilities in generating imaginative 3D as-sets for creative applications. These methods typically leverage Score Distillation Sampling (SDS) [3, 22, 27] to distill knowledge from pretrained 2D diffusion mod-els [12, 35–37] into 3D representations [28, 29, 43, 47], achieving impressive results for natural scene genera-tion. The field has witnessed rapid progress with diverse methodological innovations [13, 23, 25, 39, 40, 45, 52]. Era3D [20] introduced efficient row-wise attention for high-resolution multiview diffusion, while RichDreamer [33] enhanced detail richness through normal-depth dif-fusion models. Point-E [30] pioneered point cloud gen-eration from complex prompts, and recent works like PI3D [24] and DreamPropeller [53] have further im-proved generation efficiency through pseudo-image dif-fusion and parallel sampling strategies. Additionally, consistency-focused approaches such as Consistent3D [48] have addressed deterministic sampling challenges, 1            
+
+> arXiv:2603.09266v2 [cs.CV] 13 Mar 2026 Hexagonal Nut Bearing Gasket
+> Screw Nail Hexagonal Stud Red LED
+> Green LED Resistor Ceramic Capacitor Figure 2. Overview of custom-built multi-view industrial dataset and 3D generation results. The bottom-right image presents the corresponding 3D generation result produced by our method.
+
+while subject-driven methods like DreamBooth3D [34] have enabled personalized 3D content creation. However, despite significant progress in general-purpose text-to-3D generation, applying these tech-niques to industrial applications reveals critical limita-tions [16, 19, 46]. Industrial components like mechan-ical fasteners, electronic parts, and precision-machined surfaces demand both semantic accuracy and geomet-ric precision that current approaches struggle to deliver. Existing methods face two fundamental challenges: (1) Domain Gap: models trained on natural scenes poorly understand industrial-specific semantics and geomet-ric requirements; (2) Geometric Reasoning: traditional pairwise consistency constraints inadequately capture the complex structural dependencies essential for indus-trial precision, leading to artifacts in threading patterns, connector interfaces, and dimensional accuracy. While Low-Rank Adaptation (LoRA) [4, 14, 50] of-fers a parameter-efficient approach for domain adap-tation, conventional LoRA fusion strategies suffer from knowledge interference when combining multiple category-specific adaptations. Recent works have ex-plored LoRA composition for image generation [18, 51] and domain bridging applications such as X-Dreamer [26], but the challenges of cross-category generalization in 3D domains remain largely unaddressed. Control-based approaches like DreamControl [15] have shown promise in enhancing text-to-3D generation with 3D self-priors, yet they still operate under domain-specific constraints that limit industrial applicability. Similarly, existing geometric consistency formulations [2, 42, 49], including the advanced Interval Score Matching ap-proach [21], operate under pairwise assumptions [31, 38] that fail to capture the higher-order structural rela-tionships [9, 10] crucial for industrial precision. To address these challenges, we propose a systematic framework called ForgeDreamer for high-fidelity indus-trial text-to-3D generation that tackles the two funda-mental limitations, as illustrated in Figure 1: (1) We address the semantic understanding challenge through a Multi-Expert LoRA Ensemble Framework that employs teacher-student knowledge distillation to consolidate multiple category-specific LoRA models into a unified representation, which achieves superior cross-category generalization for industrial domains. (2) Building on enhanced semantic understanding, we tackle the geo-metric precision challenge through Cross-View Hyper-graph Geometric Enhancement. Drawing inspiration from hypergraph neural networks [6, 8], we formulate geometric consistency as a hypergraph learning prob-lem that captures higher-order structural dependencies across multiple viewpoints simultaneously, moving be-yond the limitations of pairwise consistency assump-tions. Moreover, existing industrial datasets such as MVTec 3D-AD [1] and Real-IAD[41] prove unsuitable for text-to-3D generation due to limited viewpoints and incon-sistent imaging conditions ( see Appendix for experimen-tal validation ). Therefore, we construct a controlled multi-view dataset for reliable text-to-3D industrial gen-eration as shown in Figure 2. Our framework operates on 3D Gaussian Splatting [17] for its superior efficiency in high-resolution ren-dering, essential for capturing intricate industrial details. Our main contributions are summarized as follows: • We propose a novel teacher-student distillation frame-work that effectively consolidates multiple category-specific LoRA models into a unified representation, achieving superior cross-category generalization for industrial domains while avoiding knowledge interfer-ence. • We introduce a Cross-View Hypergraph Enhanced Higher-Order Geometric Gradient Loss that captures structural dependencies spanning multiple viewpoints, addressing the fundamental limitations of pairwise ge-ometric consistency assumptions. • We conduct extensive experiments on a custom-built multi-view industrial dataset, demonstrating superior performance in both generation quality and seman-tic generalization compared to existing state-of-the-art methods. 
+
+2. Related Work 
+
+2.1. Text-to-3D Generation. 
+
+DreamFusion [32] pioneered text-to-3D generation through Score Distillation Sampling (SDS), which op-2timizes a 3D representation θ by minimizing: 
+
+LSDS (θ) = Et, ϵ,c [ω(t)∥ϵ(xt, t, y ) − ϵ∥22] (1) where xt = √¯atx0 + √1 − ¯atϵ represents the noisy la-tent, and x0 = g(θ, c ) is the rendered view. However, as analyzed in LucidDreamer [21], SDS suffers from over-smoothing due to inconsistent pseudo-ground-truths ˆxt
+
+> 0
+
+.Recent works like ProlificDreamer [44] and Lucid-Dreamer [21] have addressed this through Variational Score Distillation and Interval Score Matching respec-tively, but primarily focus on natural scenes rather than industrial domains. 
+
+2.2. Domain Adaptation Challenge. 
+
+Current text-to-3D models face a fundamental limitation when applied to industrial domains: semantic gap be-tween natural scene training data and industrial object requirements. Low-Rank Adaptation (LoRA) [14] enables efficient fine-tuning by decomposing weight updates as W =
+
+W0 + BA , where B ∈ Rd×r and A ∈ Rr×k with rank r ≪ min (d, k ).While individual LoRA adapters can capture category-specific knowledge, they suffer from knowl-edge isolation and lack cross-category generalization capabilities essential for diverse industrial applications. Traditional LoRA fusion approaches employ simple additive combination, Wcombined = Wbase + P 
+
+> i
+
+W (i)
+
+> LoRA
+
+.However, this naive fusion leads to knowledge inter-ference where conflicting category-specific features de-grade overall performance, as evidenced by the declin-ing cosine similarity scores in Table 2 as the number of LoRAs increases. 
+
+2.3. Multi-View Geometric Consistency. 
+
+Existing text-to-3D methods rely on view-independent geometric constraints, treating consistency as pairwise optimization problems. LucidDreamer’s Interval Score Matching formulates consistency through interval-based score matching: 
+
+LISM (θ) = Et,c [ω(t)∥ϵϕ(xt, t, y ) − ϵ(xs, s, Φ) ∥22]
+
+(2) where s = t − δT . While effective, this approach still operates under pairwise assumptions and lacks the higher-order structural reasoning essential for complex industrial geometries with precise manufacturing re-quirements. 
+
+2.4. Industrial 3D Generation Challenges. 
+
+Current methods face fundamental limitations when applied to industrial domains: (1) semantic gap be-tween natural scene training data and industrial ob-ject requirements, and (2) limited geometric reasoning for precision-critical applications. Our work addresses these challenges through multi-expert knowledge con-solidation and hypergraph-based geometric modeling that captures structural dependencies beyond pairwise relationships. 
+
+3. Methodology 
+
+Industrial text-to-3D generation faces two fundamental challenges that existing methods struggle to address ef-fectively. First, direct application of pre-trained diffu-sion models to industrial domains suffers from poor se-mantic understanding and limited cross-category gener-alization, as these models are primarily trained on nat-ural scene datasets. Second, existing models exhibit limited geometric reasoning capabilities, particularly in capturing higher-order structural dependencies essential for precise industrial geometries. 
+
+3.1. Overview 
+
+Figure 3 illustrates our systematic approach, named ForgeDreamer, to industrial text-to-3D generation, fol-lowing a clear progression from semantic enhancement to geometric refinement to unified optimization: (1) Our Multi-Expert LoRA Ensemble Framework consoli-dates multiple category-specific LoRA models through teacher-student distillation, producing a unified repre-sentation that understands industrial component cat-egories without knowledge interference. (2) Build-ing on enhanced semantic understanding, our Cross-View Hypergraph Geometric Enhancement formulates consistency as a hypergraph learning problem, captur-ing higher-order structural dependencies across mul-tiple viewpoints simultaneously. (3) We integrate both enhancements in an industrial-optimized pipeline where distilled LoRA weights provide semantic guid-ance while hypergraph modeling ensures geometric pre-cision, together enabling high-fidelity industrial 3D gen-eration. Overall, the key insight is that improving se-mantic understanding enables more effective geometric modeling, as the hypergraph operates on semantically meaningful features rather than poorly understood rep-resentations. 
+
+3.2. Multi-Expert LoRA Ensemble Framework 
+
+Industrial text-to-3D generation first requires robust se-mantic understanding of technical components. How-ever, existing diffusion models trained on natural scenes lack domain-specific knowledge for industrial objects. While individual LoRA adapters can capture category-specific features, they suffer from knowledge isolation and interference when combined. To address these limitations, we propose a teacher-student distillation framework that consolidates multiple 3Prompt  (Text)           
+
+> 3D Generator Initialize
+> ⊕
+> Fixed Multi -views
+> ×N
+> UNets Multi -views
+> VAE Encode
+> ⋯
+> RGB to HSV
+> Result
+> Pretrained 2D
+> Diffusion
+> Model
+> ⊖
+> Distilled
+> LoRA Weight
+> 🔥
+> Coarse 3DGS
+> 🧊
+> Latents
+> Concat
+> HyperGraph
+> ⋯
+> Node
+> Features Updated Node
+> Features
+> HSV -based
+> Thresholding
+> Morphological
+> Operations
+> Binary Masks
+> Concat
+> ⋯
+> Mask
+> Features
+> ⊙
+> Hyper
+> Features
+> Cross -View Geometric Correlation Module (CVGCM)
+
+Mainflow: Cross -View Hypergraph Enhanced 3D Gaussian Generation           
+
+> LoRA
+> Weights
+> ⋯
+> Pretrained 2D
+> Diffusion Model
+> Template
+> Embeddings
+> PromptN
+> (Text) Prompt2
+> (Text) Prompt1
+> <nut>
+> ⋯ ⋯
+> Images
+> ⋯
+> ⋯
+> ⋯
+> ×N
+> ⋯VAE
+> Noise
+> Noise
+> Latents
+> ⋯×N
+> Text Encoders
+> ⊖⊕Distilled
+> LoRA Weight
+> Pred
+> Noise
+> Learnable 3D
+> Representation
+> 🧊 Freezing 🔥 Training
+
+🧊    
+
+> Element -Wise
+> Multiplication
+> ⊙
+> 🔥
+> Pixel -
+> based
+> Top -K
+> Multi -Expert LoRA Ensemble Framework
+> CVGCM CVGCM
+> ⊖Element -Wise
+> Subtraction
+> Element -Wise
+> Summation
+> ⊕
+> Stage1 Stage2
+> ×𝑁
+
+Figure 3. Architecture of our industrial Text-to-3D generation framework - ForgeDreamer. Top: Cross-view Hypergraph Enhanced 3D Gaussian Generation pipeline with Cross-View Geometric Correlation Module (CVGCM). Bottom: Multi-Expert LoRA En-semble Framework for cross-category industrial knowledge integration. 
+
+category-specific LoRA experts into a unified represen-tation, enabling cross-category generalization while pre-serving domain expertise. 
+
+3.2.1. Teacher-Student Architecture Construction. 
+
+Given a set of pre-trained LoRA weights {L i}Ni=1 with corresponding trigger words {wi}Ni=1 , we construct a teacher-student distillation architecture. Each teacher model Ti is formed by loading LoRA weights Li into the base Stable Diffusion model: 
+
+Ti = SD base ⊕ L i (3) where ⊕ denotes the LoRA integration operation. Each teacher Ti specializes in generating high-quality sam-ples for its corresponding trigger word wi.For each teacher Ti, we generate diverse 2D samples by incorporating multi-view prompts: 
+
+P view i =′ A photo of a {screw front }/{screw up }′
+
+The generated images are encoded into latent space via VAE encoder: z(i) = V AE enc (x(i)), forming in-dividual datasets Di = ( z(i), P view i ) for each teacher model. The complete distillation procedure is detailed in Algorithm 1. In the first stage, we exclusively train the student model’s text encoder Stext while keeping the UNet frozen. This design prevents catastrophic forgetting and ensures stable feature learning. The second stage simul-taneously optimizes both text encoder and UNet using an alternating training paradigm that switches between noise prediction and feature alignment at fixed intervals. During training, we employ a round-robin strategy to ensure balanced knowledge transfer from all teachers. Unlike additive fusion, our distillation approach learns to resolve conflicts by: • The MSE-based alignment losses encourage the stu-dent to find a common feature space that accommo-dates all teacher expertise. • The two-stage approach allows the model to first es-
+
+Algorithm 1: Multi-LoRA Distillation 
+
+Input: LoRA weights {L i}Ni=1 , triggers {wi}Ni=1 
+
+Output: Distilled student model S
+
+1 for each Li, wi do 
+
+2 Load Li into teacher Ti, sample with wi
+
+3 Di: VAE-encoded latent–text pairs 
+
+4 Initialize student model S
+
+5 Stage 1: Train Text Encoder 
+
+6 for each (Ti, (xlatent , w i)) from datasets {D i} do 
+
+7 Ltext = P
+
+l αl · MSE (Pool (f lT ), Pool (f lS )) ;
+
+// f : text encoder features 
+
+8 Lnoise = MSE (ˆ ϵS , ϵ)
+
+9 Update Stext with λadp 
+
+1 Ltext + λadp 
+
+2 Lnoise 
+
+10 Stage 2: Train Text Encoder & UNet 
+
+11 for each (Ti, (xlatent , w i)) from datasets {D i} do 
+
+12 Ltext = P
+
+l αl · MSE (Pool (f lT ), Pool (f lS )) 
+
+13 Lunet = P
+
+m βm · MSE (umT , umS ) ;
+
+// aligned UNet features 
+
+14 Lnoise = MSE (ˆ ϵS , ϵ)
+
+15 Update S with 
+
+γadp 
+
+1 Ltext + γadp 
+
+2 Lunet + γadp 
+
+3 Lnoise 
+
+16 return S
+
+4tablish a stable semantic foundation before integrating complex geometric reasoning. By incorporating view-specific training data, the dis-tilled model learns to maintain semantic consistency across different perspectives, crucial for industrial 3D generation where viewpoint-dependent features are es-sential. 
+
+3.3. Cross-view Hypergraph Enhanced Higher-Order Geometric Gradient Loss 
+
+While our distilled LoRA provides enhanced semantic understanding, industrial 3D generation demands geo-metric precision that goes beyond semantic accuracy. Traditional pairwise consistency constraints fail to cap-ture the higher-order structural dependencies essential for precision manufacturing. Thus, we formulate geometric consistency as a hyper-graph learning problem, capturing structural dependen-cies across multiple viewpoints simultaneously rather than treating them as independent pairwise constraints. 
+
+3.3.1. Hypergraph Geometric Modeling. 
+
+Unlike direct operations on point clouds [5], we first propose a cross-view hypergraph formulation that fun-damentally shifts from pairwise to higher-order geomet-ric reasoning. Given multi-view latent representations 
+
+Z = {z(i) ∈ RH×W ×C }Ni=1 , we first construct a uni-fied node feature representation by treating each pixel as an individual node. For each view i, we reshape the latent representation 
+
+z(i) ∈ RH×W ×C into a flattened format and concate-nate across all views to form a comprehensive node fea-ture matrix: 
+
+F = Concat ([ z(1)  
+
+> flat
+
+, z(2)  
+
+> flat
+
+, . . . , z(N ) 
+
+> flat
+
+]) ∈ R(N ·H·W )×C
+
+(4) where z(i) 
+
+> flat
+
+∈ R(H·W )×C represents the flattened latent features from view i. This results in a node feature ma-trix F ∈ R(4 ·64 ·64) ×4 for our experimental setup with 4 views and 4-dimensional latent channels. Unlike conventional approaches that rely on spatial correspondence, we construct hypergraph H = ( V, E)
+
+through feature-based similarity relationships. For each node vi represented by feature vector fi (the i-th row of F ), we establish hyperedges by computing feature similarities with all other nodes: 
+
+ei = {vj : vj ∈ TopK (sim (fi, fj ), k )} (5) where sim (·, ·) computes the cosine similarity between feature vectors, and TopK (·, k ) selects the k most simi-lar nodes to form a hyperedge. This feature-driven hy-peredge construction enables the model to discover se-mantic and geometric correspondences across multiple viewpoints that may not align spatially but share similar structural characteristics. 
+
+3.3.2. Cross-View Geometric Consistency Through Hypergraph Neural Networks. 
+
+We formulate geometric consistency as a hypergraph learning problem. Hypergraph Neural Networks (HGNN) is employed to aggregate cross-view geomet-ric information through iterative message passing: 
+
+h(l+1)  
+
+> v
+
+= σ(W (l) X
+
+> e∈E (v)
+
+1
+
+|E (v)| AGG ({h(l) 
+
+> u
+
+: u ∈ e})) 
+
+(6) where h(l) 
+
+> v
+
+represents the feature vector of node v at layer l, E(v) denotes the set of hyperedges incident to node v, and uniform weighting 1 
+
+> |E (v)|
+
+balances aggre-gation across all connected hyperedges, and AGG (·) de-notes an aggregation function that combines feature vec-tors from all nodes within each hyperedge into a unified representation [7]. Through this formulation, the hypergraph architec-ture naturally captures group-wise dependencies essen-tial for industrial geometries, where structural precision depends on maintaining consistent relationships across multiple perspectives simultaneously, which represents a paradigm shift from local geometric optimization to global structural reasoning. After hypergraph processing and mask-guided focus on object regions M, our MVHG loss operates in the joint cross-view feature space: 
+
+LMVHG = 1
+
+|M| 
+
+X
+
+> (h,w )∈M
+
+F masked  
+
+> z
+
+[h, w, :] 
+
+− F masked pred [h, w, :] 22
+
+(7) where F masked  
+
+> z
+
+and F masked pred represent the hypergraph-processed features from ground truth and predicted la-tents respectively, masked to focus on object regions. The step-by-step computation process is summarized in Algorithm 2. 
+
+3.4. ForgeDreamer: Unified Industrial Text-to-3D Pipeline 
+
+Having established semantic understanding through LoRA distillation and geometric modeling through hy-pergraph enhancement, we now integrate these compo-nents into a unified pipeline optimized for industrial ap-plications. Our industrial-oriented pipeline employs a unified optimization objective that simultaneously addresses se-mantic understanding and geometric precision: 
+
+Ltotal = λISM LISM + λMVHG LMVHG (8) 5where LISM ensures consistent pseudo-ground-truth generation through interval score matching, and LMVHG 
+
+enforces cross-view geometric consistency via our hy-pergraph formulation. This dual-objective design ad-dresses the unique challenges of industrial 3D genera-tion where both textual precision and geometric accu-racy are critical. Our framework utilizes 3D Gaussian Splatting for its superior efficiency in high-resolution rendering, essen-tial for capturing intricate industrial details. The key in-sight is that our distilled LoRA weights improve the dif-fusion model’s understanding of industrial product cat-egories. The CVGCM module operates continuously throughout training, extracting higher-order geometric relationships across multiple viewpoints. We employ fixed multi-view sampling optimized for industrial ob-jects, providing standardized geometric supervision that maintains manufacturing precision and dimensional ac-curacy across different component categories. The com-bination of distilled industrial knowledge and hyper-graph geometric modeling ensures that these structural details are both visually coherent and geometrically con-sistent across all viewpoints. 
+
+Algorithm 2: LMVHG Computation 
+
+Input: Image batch X, prompt c, training steps 
+
+T , batch size B
+
+Output: LMVHG  
+
+> 1
+
+for t = 1 to T do  
+
+> 2
+
+Encode: Z = VAE (X) 
+
+> 3
+
+Add noise: Znoisy = Z + ϵ, ϵ ∼ N (0 , σ 2) 
+
+> 4
+
+Denoise: ˆX, ˆϵ = SD (Znoisy , c ) 
+
+> 5
+
+Predict: Zpred = Znoisy − ˆϵ 
+
+> 6
+
+Masks: 
+
+M , ˆM = HSVMask (X), HSVMask ( ˆX) 
+
+> 7
+
+Concat: 
+
+z = concat (Z), zpred = concat (Zpred ) 
+
+> 8
+
+Concat: m = concat (M ), ˆm = concat ( ˆM ) 
+
+> 9
+
+Hypergraphs: 
+
+Hz , H pred = TopK (z), TopK (zpred ) 
+
+> 10
+
+HGNN: 
+
+Fz , Fpred = HGNN (Hz ), HGNN (Hpred ) 
+
+> 11
+
+Masked feats: F ′ 
+
+> z
+
+, F ′ 
+
+> pred
+
+= Fz · m, Fpred · ˆm 
+
+> 12
+
+Loss: LMVHG = ∥F ′ 
+
+> z
+
+− F ′
+
+> pred
+
+∥22 
+
+> 13
+
+return LMVHG 
+
+In inference, our system operates through a coor-dinated multi-stage process that leverages both com-ponents synergistically. The pipeline begins with semantic-guided initialization, where text input is pro-cessed through our distilled LoRA-enhanced encoding to produce an initial 3D Gaussian representation. Sub-sequently, the system enters an iterative multi-view con-sistency enforcement loop where each iteration renders multi-view images from the current 3D Gaussian Splat-ting representation, applies CVGCM processing to cap-ture cross-view dependencies, and updates the 3D pa-rameters based on both semantic and geometric losses. 
+
+4. Experiments 
+
+4.1. Dataset Construction and Specification 
+
+To obtain reliable supervision for LoRA distillation, we constructed a small, controlled multi-view dataset cov-ering ten industrial categories: six mechanical compo-nents (screw, nut, bearing, gasket, nail, and hexagonal stud) and four electronic components (ceramic capaci-tor, resistor, red LED, and green LED). Each category contains 20 high-resolution images captured from front and top perspectives. Further dataset details are pro-vided in the Appendix .
+
+4.2. Text-to-3D Generation. 
+
+To evaluate the overall effectiveness of our generation pipeline, we begin by visualizing representative 3D as-sets synthesized from textual prompts. As shown in Fig-ure 4, our proposed method produces semantically accu-rate 3D shapes with rich structural fidelity. Compared to prior methods primarily designed for natural scene gen-eration, our framework exhibits superior performance in terms of topological coherence, edge sharpness, and texture consistency. For instance, prompts such as “a metallic screw with clear threads” or “a red LED” yield geometries that not only align with human expectations but also preserve shape-related priors and text-driven attributes. This improvement is largely attributed to the integration of distilled LoRA weights and the pro-posed higher-order hypergraph geometric loss, both of which contribute to capturing fine-grained structural de-tails and enhancing semantic alignment in the generation process. 
+
+4.3. Qualitative Evaluation 
+
+We evaluate generation quality from three perspectives: (1) image-based qualitative comparison , (2) quanti-tative evaluation following the T3Bench [11] protocol, and (3) LLM-based judgment using a large language model as an external evaluator. For qualitative comparison, we benchmark our method against several recent and representative Text-to-3D baselines, including ProlificDreamer [44] and RichDreamer [33] in their original forms, as well as DreamFusion [32] (with LoRA) and LucidDreamer [21] (with LoRA), which are adapted with distilled LoRA weights equivalent to those used in our approach. This 6“A professional close -up photograph of a clear <green_LED> with transparent dome -shaped epoxy casing and visible internal semiconductor chip.               
+
+> ”
+> “A detailed close -up photograph of a cylindrical <resistor> body only, with blue ceramic material and black color code bands wrap ped around its surface.
+> ”
+> “A professional product photo of a precision hex <nut> with bright stainless steel surface, polished metallic finish, clean he xag onal edges.
+> ”
+> “A highly detailed, industrial -grade metallic <screw> with sharp helical threading and a polished steel surface.
+> ”
+> ProlificDreamer (VSD) RichDreamer DreamFusion (SDS, LoRA) LucidDreamer (ISM, LoRA) Ours
+> “A professional close -up photograph of a clear <red _LED> with transparent dome -shaped epoxy casing and visible internal semiconductor chip.
+> ”
+> DreamFusion (SDS) LucidDreamer (ISM)
+
+Figure 4. Qualitative Comparison with State-of-the-Art Methods. Visual results demonstrate the superior performance of our approach. See Appendix for remaining categories. 
+
+hybrid comparison setup allows us to assess both the baseline performance of existing models and the im-pact of integrating our LoRA distillation strategy under consistent conditions. A condensed quantitative com-parison of processing time and average quality scores is provided in Table 1. All experiments are conducted on an NVIDIA RTX 4090 to ensure computational fairness. Representative qualitative results are shown in Figure 4, with additional comparisons on natural scenes provided in the Appendix .
+
+Table 1. Condensed comparison of average scores (10 cat-egories). †Total processing time; ∗Average T3Bench [11] quality score. Best and second-best scores are bolded and underlined, respectively. See Appendix for full results. 
+
+Method Time † Average ∗
+
+ProlificDreamer [44] (w/o LoRA) ∼10 hours 25.13 DreamFusion [32] (w/o LoRA) 6 hours 41.91 DreamFusion [32] (w/ LoRA) 44.83 RichDreamer [33] (w/o LoRA) 120 minutes 28.27 LucidDreamer [21] (w/o LoRA) 110 minutes 47.10 LucidDreamer [21] (w/ LoRA) 46.75 Ours 190 minutes 50.88 
+
+Across all ten categories, our method consistently produces exceptionally high-fidelity geometry, intricate detailed structures, photo-realistic materials, and out-Please use a short paragraph to evaluate the 
+
+overall effectiveness of these seven models 
+
+and rank them. 
+
+The seven text -to -3D models can be ranked 
+
+from best to worst as follows : ForgeDreamer ,
+
+LucidDreamer (w/o LoRA), LucidDreamer (w/ 
+
+LoRA)/ DreamFusion (w/ LoRA) (tied), 
+
+DreamFusion (w/o LoRA), RichDreamer ,
+
+ProlificDreamer . ForgeDreamer demonstrates 
+
+superior overall effectiveness with 
+
+consistently accurate geometry , excellent 
+
+detail preservation , proper material rendering, 
+
+and faithful adherence to prompt 
+
+specifications across all object types —it 
+
+reliably produces professional -quality 3D
+
+models suitable for practical use .
+
+⋯
+
+Figure 5. LLM-based qualitative ranking across ten object prompts, showing that our method achieves the highest overall fidelity and consistency. Full evaluation results are included in the Appendix .
+
+standing prompt adherence, resulting in highly reliable and practical 3D asset generation suitable for down-stream use. In notoriously demanding industrial-specific categories such as bolts, nuts, and connectors, our model notably and robustly preserves accurate topology and successfully avoids the typical artifacts such as dis-connected geometry or unnatural surface oversmooth-7ing that plague other methods. The rigorous LLM-based comparative evaluation, which statistically con-firms these advantages, is summarized in Figure 5. 
+
+4.4. Fine-tuning Strategy Analysis. 
+
+To evaluate different fine-tuning paradigms, we com-pare three variants of our framework. No fine-tuning: 
+
+The base model without any domain-specific adaptation. 
+
+Single-LoRA adaptation: Per-concept LoRA modules trained independently. Multi-LoRA distillation: Our proposed strategy merges multiple LoRAs into a unified model. Figure 6 shows qualitative differences: the base model lacks fine structural detail, while Single-LoRA improves fidelity but struggles with generalization. Our Multi-LoRA distillation achieves the best trade-off, producing sharper geometry and consistent semantics across complex prompts. Table 2 complements this with quantitative evidence, showing that distillation main-tains higher cosine similarity to original LoRAs com-pared to simple addition, especially as the number of fused LoRAs increases. LoRA Only            
+
+> No LoRA and Both LoRA and
+> No LoRA
+> Fine -tuning
+> LoRA
+> (Addition Fusion )
+> LoRA
+> (Distillation Fusion )
+> “A detailed close -up photograph of a cylindrical <resistor> body only, with
+> blue ceramic material and black color code bands wrapped around its surface.
+> ”
+> “A professional close -up photograph of a clear <green_LED >with transparent
+> dome -shaped epoxy casing and visible internal semiconductor chip.
+> ”
+> Only (a) (b)
+> (c) (d)
+> “A professional product photo of a precision hex <nut> with bright
+> stainless steel surface, polished metallic finish, clean hexagonal edges.
+> ”
+
+Figure 6. Multi-Expert LoRA Integration: Addition Fusion vs. Distillation Fusion Table 2. Comparison of Average Concept Preservation Scores evaluated by CLIP-ViT-L/14. The full detailed table is pre-sented in the Appendix .
+
+Method Two LoRAs Four LoRAs Six LoRAs 
+
+Addition 0.938 0.814 0.633 Distillation 0.965 0.949 0.952 
+
+4.5. Ablation Study 
+
+4.5.1. Effectiveness of MVHG Loss. 
+
+As shown in Figure 7, incorporating MVHG loss sig-nificantly improves the geometric fidelity and spatial consistency of the generated 3D shapes. Without it, models tend to produce artifacts such as inconsistent topology across views and distortions in fine struc-tures. The MVHG loss introduces higher-order geo-metric constraints that capture inter-view correlations via a hypergraph representation, effectively regulariz-ing complex surfaces and preserving overall shape in-LoRA Only           
+
+> No LoRA and Both LoRA and
+> Only (a) (b)
+> (c) (d)
+> “Aprofessional close -up photograph of a precision <bearing >.
+> Industrial mechanical component with concentric circular design
+> ”
+
+Figure 7. Component-wise Ablation Analysis: LoRA (Distil-lation Fusion) vs. MVHG Loss vs. Combined Approach 
+
+tegrity. These improvements underscore the importance of MVHG loss in enhancing structural coherence and reducing inter-view discrepancies in the synthesized re-sults. 
+
+4.5.2. Influence of Distilled LoRA Fine-tuning. 
+
+We further assess the impact of our proposed Distilled LoRA fine-tuning approach on the overall performance of the text-to-3D generation pipeline. As illustrated in Figure 7, the absence of Distilled LoRA leads to a marked drop in visual plausibility and semantic align-ment with input text prompts. Notably, models without our distillation framework often struggle to capture fine-grained attributes in underrepresented categories and ex-hibit unstable geometry when dealing with complex or multi-part semantics. In contrast, our Distilled LoRA effectively consolidates knowledge from multiple ex-pert LoRAs, enhancing the model’s ability to encode domain-specific priors and adapt to subtle textual vari-ations. This leads to more faithful and structurally co-herent outputs. 
+
+5. Conclusion 
+
+In this paper, we present a novel framework, Forge-Dreamer, for high-fidelity industrial text-to-3D generation that addresses two critical limitations of existing methods: domain adaptation challenges and geometric reasoning deficiencies. Our approach introduces two key innovations through a system-atic progression: a Multi-Expert LoRA Geometric mechanism and a Cross-View Hypergraph Semantic Enhancement. The key contribution is to improve geo-metric precision through multi-expert LoRA, enabling more effective semantic modeling, while cross-view hypergraph understanding ensures precise geometric relationships across multiple views. Extensive exper-iments on our custom industrial dataset demonstrate superior performance compared to state-of-the-art methods, achieving enhanced semantic generaliza-tion and geometric fidelity for industrial components. 8References 
+
+[1] Paul Bergmann, Xin Jin, David Sattlegger, and Carsten Steger. The mvtec 3d-ad dataset for unsupervised 3d anomaly detection and localization. arXiv preprint arXiv:2112.09045 , 2021. 2 [2] Anpei Chen, Zexiang Xu, Fuqiang Zhao, Xiaoshuai Zhang, Fanbo Xiang, Jingyi Yu, and Hao Su. Mvs-nerf: Fast generalizable radiance field reconstruction from multi-view stereo. In Proceedings of the IEEE/CVF international conference on computer vision , pages 14124–14133, 2021. 2 [3] Rui Chen, Yongwei Chen, Ningxin Jiao, and Kui Jia. Fantasia3d: Disentangling geometry and appearance for high-quality text-to-3d content creation. In Proceedings of the IEEE/CVF international conference on computer vision , pages 22246–22256, 2023. 1 [4] Tim Dettmers, Artidoro Pagnoni, Ari Holtzman, and Luke Zettlemoyer. Qlora: Efficient finetuning of quan-tized llms, 2023. URL https://arxiv. org/abs/2305.14314 ,2, 2023. 2 [5] Donglin Di, Jiahui Yang, Chaofan Luo, Zhou Xue, Wei Chen, Xun Yang, and Yue Gao. Hyper-3dg: Text-to-3d gaussian generation via hypergraph. International Jour-nal of Computer Vision , 133(5):2886–2909, 2025. 5 [6] Yifan Feng, Haoxuan You, Zizhao Zhang, Rongrong Ji, and Yue Gao. Hypergraph neural networks. In Proceed-ings of the AAAI conference on artificial intelligence ,pages 3558–3565, 2019. 2 [7] Yifan Feng, Jiangang Huang, Shaoyi Du, Shihui Ying, Jun-Hai Yong, Yipeng Li, Guiguang Ding, Rongrong Ji, and Yue Gao. Hyper-yolo: When visual object detection meets hypergraph computation. IEEE Transactions on Pattern Analysis and Machine Intelligence , 2024. 5 [8] Yue Gao, Yifan Feng, Shuyi Ji, and Rongrong Ji. Hgnn+: General hypergraph neural networks. IEEE Transac-tions on Pattern Analysis and Machine Intelligence , 45 (3):3181–3199, 2022. 2 [9] Kyle Genova, Forrester Cole, Avneesh Sud, Aaron Sarna, and Thomas Funkhouser. Local deep implicit functions for 3d shape. In Proceedings of the IEEE/CVF confer-ence on computer vision and pattern recognition , pages 4857–4866, 2020. 2 [10] Thibault Groueix, Matthew Fisher, Vladimir G Kim, Bryan C Russell, and Mathieu Aubry. A papier-mˆ ach´ eapproach to learning 3d surface generation. In Proceed-ings of the IEEE conference on computer vision and pat-tern recognition , pages 216–224, 2018. 2 [11] Yuze He, Yushi Bai, Matthieu Lin, Wang Zhao, Yubin Hu, Jenny Sheng, Ran Yi, Juanzi Li, and Yong-Jin Liu. T3 bench: Benchmarking current progress in text-to-3d generation. arXiv preprint arXiv:2310.02977 , 2023. 6, 7 [12] Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. Advances in neural infor-mation processing systems , 33:6840–6851, 2020. 1 [13] Yicong Hong, Kai Zhang, Jiuxiang Gu, Sai Bi, Yang Zhou, Difan Liu, Feng Liu, Kalyan Sunkavalli, Trung Bui, and Hao Tan. Lrm: Large reconstruction model for single image to 3d. arXiv preprint arXiv:2311.04400 ,2023. 1 [14] Edward J Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, Weizhu Chen, et al. Lora: Low-rank adaptation of large language mod-els. ICLR , 1(2):3, 2022. 2, 3 [15] Tianyu Huang, Yihan Zeng, Zhilu Zhang, Wan Xu, Hang Xu, Songcen Xu, Rynson WH Lau, and Wangmeng Zuo. Dreamcontrol: Control-based text-to-3d generation with 3d self-prior. In Proceedings of the IEEE/CVF confer-ence on computer vision and pattern recognition , pages 5364–5373, 2024. 2 [16] Benjamin Jones, Dalton Hildreth, Duowen Chen, Ilya Baran, Vladimir G Kim, and Adriana Schulz. Automate: A dataset and learning approach for automatic mating of cad assemblies. ACM Transactions on Graphics (TOG) ,40(6):1–18, 2021. 2 [17] Bernhard Kerbl, Georgios Kopanas, Thomas Leimk¨ uhler, and George Drettakis. 3d gaussian splatting for real-time radiance field rendering. ACM Trans. Graph. , 42(4):139–1, 2023. 2 [18] Nupur Kumari, Bingliang Zhang, Richard Zhang, Eli Shechtman, and Jun-Yan Zhu. Multi-concept customiza-tion of text-to-image diffusion. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , pages 1931–1941, 2023. 2 [19] Joseph G Lambourne, Karl DD Willis, Pradeep Kumar Jayaraman, Aditya Sanghi, Peter Meltzer, and Hooman Shayani. Brepnet: A topological message passing sys-tem for solid models. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition ,pages 12773–12782, 2021. 2 [20] Peng Li, Yuan Liu, Xiaoxiao Long, Feihu Zhang, Cheng Lin, Mengfei Li, Xingqun Qi, Shanghang Zhang, Wei Xue, Wenhan Luo, et al. Era3d: High-resolution mul-tiview diffusion using efficient row-wise attention. Ad-vances in Neural Information Processing Systems , 37: 55975–56000, 2024. 1 [21] Yixun Liang, Xin Yang, Jiantao Lin, Haodong Li, Xi-aogang Xu, and Yingcong Chen. Luciddreamer: To-wards high-fidelity text-to-3d generation via interval score matching. In Proceedings of the IEEE/CVF confer-ence on computer vision and pattern recognition , pages 6517–6526, 2024. 1, 2, 3, 6, 7 [22] Chen-Hsuan Lin, Jun Gao, Luming Tang, Towaki Takikawa, Xiaohui Zeng, Xun Huang, Karsten Kreis, Sanja Fidler, Ming-Yu Liu, and Tsung-Yi Lin. Magic3d: High-resolution text-to-3d content creation. In Proceed-ings of the IEEE/CVF conference on computer vision and pattern recognition , pages 300–309, 2023. 1 [23] Ruoshi Liu, Rundi Wu, Basile Van Hoorick, Pavel Tok-makov, Sergey Zakharov, and Carl Vondrick. Zero-1-to-3: Zero-shot one image to 3d object. In Proceedings of the IEEE/CVF international conference on computer vi-sion , pages 9298–9309, 2023. 1 [24] Ying-Tian Liu, Yuan-Chen Guo, Guan Luo, Heyi Sun, Wei Yin, and Song-Hai Zhang. Pi3d: Efficient text-to-3d generation with pseudo-image diffusion. In Proceedings 
+
+9of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pages 19915–19924, 2024. 1 [25] Shitong Luo and Wei Hu. Diffusion probabilistic mod-els for 3d point cloud generation. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , pages 2837–2845, 2021. 1 [26] Yiwei Ma, Yijun Fan, Jiayi Ji, Haowei Wang, Haibing Yin, Xiaoshuai Sun, and Rongrong Ji. Creating high-quality 3d content by bridging the gap between text-to-2d and text-to-3d generation. ACM Transactions on Mul-timedia Computing, Communications and Applications ,2024. 2 [27] Gal Metzer, Elad Richardson, Or Patashnik, Raja Giryes, and Daniel Cohen-Or. Latent-nerf for shape-guided gen-eration of 3d shapes and textures. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , pages 12663–12673, 2023. 1 [28] Ben Mildenhall, Pratul P Srinivasan, Matthew Tancik, Jonathan T Barron, Ravi Ramamoorthi, and Ren Ng. Nerf: Representing scenes as neural radiance fields for view synthesis. Communications of the ACM , 65(1):99– 106, 2021. 1 [29] Thomas M¨ uller, Alex Evans, Christoph Schied, and Alexander Keller. Instant neural graphics primitives with a multiresolution hash encoding. ACM transactions on graphics (TOG) , 41(4):1–15, 2022. 1 [30] Alex Nichol, Heewoo Jun, Prafulla Dhariwal, Pamela Mishkin, and Mark Chen. Point-e: A system for gen-erating 3d point clouds from complex prompts. arXiv preprint arXiv:2212.08751 , 2022. 1 [31] Michael Niemeyer and Andreas Geiger. Giraffe: Repre-senting scenes as compositional generative neural feature fields. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , pages 11453– 11464, 2021. 2 [32] Ben Poole, Ajay Jain, Jonathan T Barron, and Ben Mildenhall. Dreamfusion: Text-to-3d using 2d diffusion. 
+
+arXiv preprint arXiv:2209.14988 , 2022. 1, 2, 6, 7 [33] Lingteng Qiu, Guanying Chen, Xiaodong Gu, Qi Zuo, Mutian Xu, Yushuang Wu, Weihao Yuan, Zilong Dong, Liefeng Bo, and Xiaoguang Han. Richdreamer: A gener-alizable normal-depth diffusion model for detail richness in text-to-3d. In Proceedings of the IEEE/CVF confer-ence on computer vision and pattern recognition , pages 9914–9925, 2024. 1, 6, 7 [34] Amit Raj, Srinivas Kaza, Ben Poole, Michael Niemeyer, Nataniel Ruiz, Ben Mildenhall, Shiran Zada, Kfir Aber-man, Michael Rubinstein, Jonathan Barron, et al. Dream-booth3d: Subject-driven text-to-3d generation. In Pro-ceedings of the IEEE/CVF international conference on computer vision , pages 2349–2359, 2023. 2 [35] Aditya Ramesh, Prafulla Dhariwal, Alex Nichol, Casey Chu, and Mark Chen. Hierarchical text-conditional image generation with clip latents. arXiv preprint arXiv:2204.06125 , 1(2):3, 2022. 1 [36] Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Bj¨ orn Ommer. High-resolution image synthesis with latent diffusion models. In Proceedings of the IEEE/CVF conference on computer vision and pat-tern recognition , pages 10684–10695, 2022. [37] Chitwan Saharia, William Chan, Saurabh Saxena, Lala Li, Jay Whang, Emily L Denton, Kamyar Ghasemipour, Raphael Gontijo Lopes, Burcu Karagol Ayan, Tim Sali-mans, et al. Photorealistic text-to-image diffusion models with deep language understanding. Advances in neural information processing systems , 35:36479–36494, 2022. 1[38] Katja Schwarz, Yiyi Liao, Michael Niemeyer, and An-dreas Geiger. Graf: Generative radiance fields for 3d-aware image synthesis. Advances in neural information processing systems , 33:20154–20166, 2020. 2 [39] Yichun Shi, Peng Wang, Jianglong Ye, Mai Long, Kejie Li, and Xiao Yang. Mvdream: Multi-view diffusion for 3d generation. arXiv preprint arXiv:2308.16512 , 2023. 1[40] Jiaming Song, Chenlin Meng, and Stefano Ermon. Denoising diffusion implicit models. arXiv preprint arXiv:2010.02502 , 2020. 1 [41] Chengjie Wang, Wenbing Zhu, Bin-Bin Gao, Zhenye Gan, Jiangning Zhang, Zhihao Gu, Shuguang Qian, Min-gang Chen, and Lizhuang Ma. Real-iad: A real-world multi-view dataset for benchmarking versatile industrial anomaly detection. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recogni-tion , pages 22883–22892, 2024. 2 [42] Qianqian Wang, Zhicheng Wang, Kyle Genova, Pratul P Srinivasan, Howard Zhou, Jonathan T Barron, Ricardo Martin-Brualla, Noah Snavely, and Thomas Funkhouser. Ibrnet: Learning multi-view image-based rendering. In 
+
+Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , pages 4690–4699, 2021. 2[43] Zirui Wang, Shangzhe Wu, Weidi Xie, Min Chen, and Victor Adrian Prisacariu. Nerf–: Neural radiance fields without known camera parameters. 2021. 1 [44] Zhengyi Wang, Cheng Lu, Yikai Wang, Fan Bao, Chongxuan Li, Hang Su, and Jun Zhu. Prolificdreamer: High-fidelity and diverse text-to-3d generation with vari-ational score distillation. Advances in neural information processing systems , 36:8406–8441, 2023. 1, 3, 6, 7 [45] Daniel Watson, Jonathan Ho, Mohammad Norouzi, and William Chan. Learning to efficiently sample from diffusion probabilistic models. arXiv preprint arXiv:2106.03802 , 2021. 1 [46] Karl DD Willis, Pradeep Kumar Jayaraman, Hang Chu, Yunsheng Tian, Yifei Li, Daniele Grandi, Aditya Sanghi, Linh Tran, Joseph G Lambourne, Armando Solar-Lezama, et al. Joinable: Learning bottom-up assembly of parametric cad joints. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition ,pages 15849–15860, 2022. 2 [47] Tong Wu, Yu-Jie Yuan, Ling-Xiao Zhang, Jie Yang, Yan-Pei Cao, Ling-Qi Yan, and Lin Gao. Recent advances in 3d gaussian splatting. Computational Visual Media , 10 (4):613–642, 2024. 1 [48] Zike Wu, Pan Zhou, Xuanyu Yi, Xiaoding Yuan, and Hanwang Zhang. Consistent3d: Towards consistent 
+
+10 high-fidelity text-to-3d generation with deterministic sampling prior. In Proceedings of the IEEE/CVF Confer-ence on Computer Vision and Pattern Recognition , pages 9892–9902, 2024. 1 [49] Alex Yu, Vickie Ye, Matthew Tancik, and Angjoo Kanazawa. pixelnerf: Neural radiance fields from one or few images. In Proceedings of the IEEE/CVF confer-ence on computer vision and pattern recognition , pages 4578–4587, 2021. 2 [50] Qingru Zhang, Minshuo Chen, Alexander Bukharin, Nikos Karampatziakis, Pengcheng He, Yu Cheng, Weizhu Chen, and Tuo Zhao. Adalora: Adaptive bud-get allocation for parameter-efficient fine-tuning. arXiv preprint arXiv:2303.10512 , 2023. 2 [51] Ming Zhong, Yelong Shen, Shuohang Wang, Yadong Lu, Yizhu Jiao, Siru Ouyang, Donghan Yu, Jiawei Han, and Weizhu Chen. Multi-lora composition for image genera-tion. arXiv preprint arXiv:2402.16843 , 2024. 2 [52] Linqi Zhou, Yilun Du, and Jiajun Wu. 3d shape gener-ation and completion through point-voxel diffusion. In 
+
+Proceedings of the IEEE/CVF international conference on computer vision , pages 5826–5835, 2021. 1 [53] Linqi Zhou, Andy Shih, Chenlin Meng, and Stefano Ermon. Dreampropeller: Supercharge text-to-3d gen-eration with parallel sampling. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pages 4610–4619, 2024. 1 
+
+11 ForgeDreamer: Industrial Text-to-3D Generation with Multi-Expert LoRA and Cross-View Hypergraph 
+
+## Supplementary Material 
+
+6. Appendix 
+
+6.1. Code and Dataset Examples 
+
+We provide example implementations of the key com-ponents of our method, ForgeDreamer—including the LoRA distillation pipeline and the cross-view hyper-graph enhancement module—in the supplementary ma-terials to facilitate reproducibility. In addition, sample data from our multi-view industrial dataset are also in-cluded in the supplement to illustrate the data format and preprocessing workflow. 
+
+6.2. Limitations of Existing Public 3D Datasets 
+
+Although widely used in industrial anomaly detection and 3D perception, existing public datasets such as MVTec 3D-AD and Real-IAD are not well suited for our LoRA distillation framework. MVTec 3D-AD pro-vides RGB images paired with depth or point cloud data; however, these point clouds are often incomplete. When generating a front-view image, the lower portion of the geometry is frequently missing, making it impossible to obtain a consistent and fully visible front-view observa-tion required for LoRA training. Real-IAD suffers from a different limitation: the dataset supplies only two viewpoints for each ob-ject—an oblique 45 ◦ view and a strictly top-down view. Since no true front-view images are available, the dataset cannot support the dual-perspective (front and up) supervision that our method relies on to ensure sta-ble and geometry-consistent LoRA adaptation. To validate these limitations empirically, we con-ducted experiments using both datasets. As shown in Figure 9a and Figure 9b, models trained on MVTec 3D-AD and Real-IAD exhibit degraded 3D generation quality, including incomplete geometry reconstruction, unstable texture synthesis, and inconsistent cross-view appearance. These results further demonstrate that the characteristics of existing datasets prevent them from providing the clean, multi-view supervision required by our framework, thereby motivating the construction of our own dataset. 
+
+6.3. Dataset Construction and Specification 
+
+To train and evaluate our LoRA distillation framework, we constructed a multi-view dataset comprising ten ob-ject categories: six mechanical components (screw, nut, bearing, gasket, nail, hexagonal stud) and four elec-tronic components (ceramic capacitor, resistor, red LED, nut_fron t
+
+nut_up 
+
+## Custom -
+
+## Built 
+
+## Dataset   
+
+> Figure 8. Our data capture apparatus (left) and collected dataset samples (right). The setup utilizes controlled light-ing and fixed mounts to acquire consistent front and top-down view images for each industrial component.
+
+green LED). The dataset contains more than 200 high-resolution images (512×512 pixels), with 20 images per category evenly captured from front and up view per-spectives. The data were collected using a standardized imaging setup equipped with a uniform ring-light illumi-nation system, as illustrated schematically in Figure 8. For each object category, we captured 10 front view images with objects positioned to show their primary functional surface, and 10 up view images photographed from directly above to reveal structural details. All images were acquired under controlled studio lighting with diffused illumination against a neutral white back-ground, using fixed camera settings to ensure consistent quality and exposure. The standardized acquisition pro-tocol enables comprehensive feature learning by provid-ing dual perspectives that capture both surface textures and geometric characteristics essential for robust LoRA training. The dataset underwent rigorous quality control in-cluding sharpness verification, exposure consistency checks, and annotation accuracy validation. This bal-anced multi-view configuration allows LoRAs to recog-nize objects from multiple perspectives while capturing fine-grained differences between similar categories. The equal distribution across categories and viewpoints pre-vents bias during LoRA adaptation and ensures stable training for the distillation process. 1“a high quality <pcb>. ”           
+
+> LucidDreamer (ISM, LoRA )DreamFusion (SDS, LoRA )Real_IAD Ours
+> “a high quality < sim_card_set >.” (a) Results on the Real-IAD dataset. Our method successfully identifies and localizes industrial defects. LucidDreamer (ISM, LoRA )DreamFusion (SDS, LoRA )MVTec 3D -AD Ours
+> “a DSLR photo of a <dowel>.”
+> “a DSLR photo of a < cable_gland >.
+> (b) Comparison on the MVTec 3D-AD dataset. Our approach provides superior defect coverage compared to prior methods.
+
+Figure 9. Qualitative results on two public industrial datasets. (a) Real-IAD: our method accurately detects and localizes defects. (b) MVTec 3D-AD: our framework achieves improved defect completeness and surface consistency. 
+
+6.4. Implementation Details 
+
+6.4.1. Distillation Phase Configuration. 
+
+The distillation process is structured as a two-stage train-ing pipeline, designed to systematically transfer knowl-edge from the teacher experts to the unified student model. Both Stage 1 and Stage 2 follow identical train-ing configurations. Each stage is trained for 5,000 it-erations to ensure sufficient convergence of the stu-dent’s features while maintaining computational effi-ciency. We employ Low-Rank Adaptation (LoRA) with a rank parameter set to 16. This rank provides an op-timal balance between parameter efficiency and model expressiveness, allowing the adapter to capture nuanced, domain-specific features without introducing excessive parameters. This LoRA configuration allows for effec-tive fine-tuning while reducing the number of trainable parameters compared to full fine-tuning approaches. 
+
+6.4.2. ForgeDreamer Training Protocol. 
+
+The ForgeDreamer training process follows a schedule spanning 5,000 iterations. The training begins with a warm-up phase covering the initial 1,500 iterations, dur-ing which the learning rate increases to its target value. This warm-up strategy helps stabilize the early stages of training and prevents potential optimization instabilities from aggressive initial learning rates. Following this sta-bilization period, the remaining 3,500 iterations proceed with the training protocol. During ForgeDreamer training, we maintain a batch size of 4 throughout the entire training process. This batch size was selected to achieve maximum train-ing efficiency by utilizing the available VRAM on the NVIDIA RTX 4090 24G GPU, while also ensuring sta-ble gradient updates and maintaining reproducible re-sults across different experimental runs. 2ProlificDreamer (VSD) RichDreamer DreamFusion (SDS, LoRA) LucidDreamer (ISM, LoRA) Ours DreamFusion (SDS) LucidDreamer (ISM)   
+
+> “A photo of a great <bearing>.
+> ”
+> “A professional close -up photograph of a < ceramic_capacitor > with flat rectangular ceramic body and metallic end terminals. Precision electronic component with red ceramic dielectric m ate rial and silver terminations.
+> ”
+> “A professional photograph of an ultra -thin flat <gasket>, circular shape with center hole, precision -engineered, stainless steel , industrial component, extremely thin profile, sharp details.
+> ”
+> “A professional close -up photograph of a precision -manufactured <nail> with smooth cylindrical shank, flat circular head, and sha rp tapered point. Polished steel construction with slight metallic sheen, high -quality hardware fastener.
+> Studio lighting highlighting the metallic texture and form against neutral background.
+> ”
+> “A professional close -up of a short -shaft < nut_screw > with bold, well -defined threading and a crisp hexagonal head. Polished stainless steel surface under directional lighting reveals sharp edges and metallic texture.
+> ”
+
+Figure 10. Qualitative Comparison with State-of-the-Art Methods. Visual results demonstrate the superior performance of our approach (remaining categories). 
+
+6.4.3. Hardware and Computational Environment. 
+
+All experimental procedures, including both the LoRA distillation phases and the complete ForgeDreamer training pipeline, are conducted on a single NVIDIA RTX 4090 24G GPU. This hardware configuration pro-vides sufficient computational resources for the train-ing requirements while maintaining accessibility for re-search purposes. The use of a single GPU setup ensures consistent experimental conditions and eliminates po-tential variations that might arise from distributed train-ing configurations. 
+
+6.5. Additional Industrial Scene Results 
+
+We present further analysis under different industrial settings to thoroughly evaluate our method’s capabili-ties. This includes examining the performance when processing varying numbers of industrial objects, simu-lating real-world scenarios that range from single-object synthesis to more complex, populated scenes. To pro-vide a more intuitive understanding of the generation quality differences, we visualize the detailed compara-tive results across these different experimental configu-rations. As shown in Figure 10, which complements the vi-sual results in the main paper, we include extended com-parisons with additional baseline methods. This fig-ure focuses on the remaining five industrial categories: 
+
+bearing, ceramic capacitor, gasket, nail, and hexag-onal stud . These visual results clearly demonstrate the robustness and generality of our approach in industrial object generation. Across these categories, our method consistently produces higher-fidelity geometry, more ac-curate structural details (such as the threading on studs or contacts on capacitors), and avoids common failure modes like surface oversmoothing or disconnected parts that are visible in baseline results. The comprehen-sive analysis reveals consistent performance improve-ments across these different experimental configurations within the industrial domain. 
+
+6.6. Detailed LoRA Fusion Analysis 
+
+Detailed analysis of the LoRA fusion mechanisms re-veals significant insights into the behavior of different fusion strategies across varying configurations. Through systematic evaluation of 2, 4, and 6 LoRA configura-tions, we investigate both quantitative performance met-rics and underlying representational changes. The visualizations in Figure 11, Figure 12, and Fig-ure 13 present these analyses. The cosine similarity analysis (subplot a) provides a direct measurement of how well fused LoRAs preserve individual component characteristics, while PCA decomposition (subplot b) offers geometric insights into the structural relationships within the learned representation space. To further quantify these findings, Table 3 provides a detailed comparison of concept preservation scores for 3Table 3. Concept Preservation Scores by Fusion Method and LoRA Configuration 
+
+Method Two Four Six (CLIP-ViT-L/14) LoRAs LoRAs LoRAs 
+
+Individual Concepts 
+
+Emb1 (Addition) 0.899 0.793 0.658 Emb1 (Distillation) 0.927 0.934 0.904 
+
+Emb2 (Addition) 0.886 0.779 0.653 Emb2 (Distillation) 0.915 0.963 0.963 
+
+Emb3 (Addition) — 0.855 0.708 Emb3 (Distillation) — 0.972 0.968 
+
+Emb4 (Addition) — 0.827 0.691 Emb4 (Distillation) — 0.927 0.936 
+
+Emb5 (Addition) — — 0.630 Emb5 (Distillation) — — 0.969 
+
+Emb6 (Addition) — — 0.458 Emb6 (Distillation) — — 0.970 
+
+Overall Performance 
+
+Average (Addition) 0.938 0.814 0.633 
+
+Average (Distillation) 0.965 0.949 0.952 
+
+our distillation method versus simple additive fusion. The data shows that our distillation method consistently and significantly outperforms additive fusion across all configurations (e.g., 0.952 vs. 0.633 average for six LoRAs), demonstrating its effectiveness in preventing catastrophic interference. 
+
+6.7. LLM-Based Qualitative Evaluation 
+
+To provide an objective and detailed qualitative assess-ment, we employed a Large Language Model (LLM) to evaluate and compare our method against the baselines. This qualitative feedback was then distilled into a quan-titative ranking by tallying the LLM’s preferences across all comparisons, as summarized in Table 4. Table 4 de-tails these results, where a lower rank indicates better user preference. Our method achieved the best possi-ble rank (1.0) in 6 out of 10 categories for an average rank of 1.6, significantly outperforming all baselines and confirming its superior perceptual quality. The follow-ing Figures 15 to 18 present the complete, verbatim re-sponses from the LLM evaluator, which form the basis of this analysis. This evaluation provides a comprehen-sive and unbiased analysis of the geometry, texture, and prompt adherence of the generated results across all ten industrial categories and additional prompts. 
+
+6.8. Natural Scene Generation Evaluation 
+
+To evaluate the generalizability of our approach beyond its primary industrial applications, we conducted a com-parative analysis on common natural scene generation tasks. While ForgeDreamer is specifically designed and optimized for industrial object synthesis, we demon-strate that our unified LoRA fusion strategy still main-tains highly competitive performance in these distinct natural scene contexts. Figure 14 presents qualitative comparisons between our method and baseline approaches on ”bagel” and ”hamburger” objects. The results indicate that our fu-sion mechanism successfully preserves the critical se-mantic coherence and high visual quality necessary for natural image generation. Crucially, the specialized industrial-focused training does not unduly compromise the model’s ability to handle general-purpose genera-tion tasks. This cross-domain evaluation validates that ForgeDreamer achieves its domain-specific optimization without sacrificing broader applicability, making it suit-able for mixed industrial-natural generation scenarios that are commonly encountered in practical applications. 
+
+6.9. Per-Category T3Bench Scores 
+
+Table 5 presents the full breakdown of T3Bench quality scores across all ten industrial categories. This detailed data substantiates the findings from the main paper. It shows that our method not only achieves the highest av-erage score (50.88) by a significant margin over the next-best competitor (47.10), but also secures a top-two result (best or second-best) in 7 out of the 10 categories. Specifically, our method achieves the number one 
+
+rank in four distinct categories: G. LED , Screw , Bear-ing , and Gasket . It also secures the second-best rank in three others: R. LED , Hex Stud , and Nail .This demonstrates a high degree of robustness. It is particularly noteworthy that while some baselines (e.g., LucidDreamer w/o LoRA) achieve exceptionally high scores in a few specific categories where our method does not lead (such as Nut and Capacitor ), they ex-hibit significant performance drops in others. In con-trast, our method avoids catastrophic failures and main-tains a high-quality baseline across the entire spectrum. This balance between high peak performance (achiev-ing 1st place in 40% of categories) and strong consis-tency (placing in the top-two 70% of the time) is what drives the superior overall average score, confirming its robust generation quality for diverse industrial compo-nents. However, we believe this automated metric, while useful, does not fully reflect all perceptual nuances of generation quality and should be considered a strong ref-erence rather than a complete assessment. 
+
+6.10. Cross-Configuration Analysis. 
+
+Comparing across all configurations (Figures 11, 12, and 13), we observe several consistent patterns that demon-strate the robustness of our approach: 4(a) Cosine Similarity (b) PCA Analysis 
+
+Figure 11. Analysis of Six LoRAs Configuration: (a) Cosine similarity comparison between addition fusion and ablation fusion methods. (b) PCA visualization showing the representational space distribution and relative distances to the original LoRA.  
+
+> (a) Cosine Similarity (b) PCA Analysis
+
+Figure 12. Analysis of Four LoRAs Configuration: (a) Cosine similarity metrics demonstrating the effectiveness of addition fusion over ablation fusion. (b) PCA decomposition revealing the structural relationships between fused LoRAs and the original representation.  
+
+> (a) Cosine Similarity (b) PCA Analysis
+
+Figure 13. Analysis of Two LoRAs Configuration: (a) Cosine similarity comparison showing the fundamental differences between fusion approaches. (b) PCA analysis illustrating the simplest case of LoRA fusion and its impact on representational geometry. 
+
+5Table 4. Quantitative user study ranking across ten object categories. Lower ranks are better. Best (rank 1) and second-best (rank 2) results in each column are highlighted in bold and underlined, respectively.                                                                                         
+
+> Method G. LED Nut R. LED Resistor Screw Bearing Capacitor Hex Stud Nail Gasket Average
+> ProlificDreamer [44] (w/o LoRA) 77777777766.9 RichDreamer [33] (w/o LoRA) 66666466435.3 DreamFusion [32] (w/ LoRA) 35222242112.4 DreamFusion [32] (w/o LoRA) 54555115544.0 LucidDreamer [21] (w/LoRA) 23334654353.8 LucidDreamer [21] (w/o LoRA) 42443523674.0 Ours 11111331221.6
+
+Table 5. Quantitative comparison across ten object categories on T3Bench quality scores. Best and second-best results in each column are highlighted in bold and underlined, respectively.                                                                                         
+
+> Method G. LED Nut R. LED Resistor Screw Bearing Capacitor Hex Stud Nail Gasket Average
+> ProlificDreamer [44] (w/o LoRA) 27.19 22.34 24.49 26.60 34.85 31.64 20.48 7.85 26.39 29.45 25.13 RichDreamer [33] (w/o LoRA) 17.21 42.26 15.58 42.31 38.33 21.24 17.83 24.38 39.90 23.70 28.27 DreamFusion [32] (w/o LoRA) 32.62 69.72 29.92 28.49 46.59 28.38 35.45 36.66 52.27 59.02 41.91 DreamFusion [32] (w/ LoRA) 48.27 63.31 31.98 38.40 56.29 22.76 21.12 50.61 62.27 53.27 44.83 LucidDreamer [21] (w/o LoRA) 44.46 71.37 31.24 53.23 53.97 36.86 45.51 58.93 39.66 35.72 47.10 LucidDreamer [21] (w/ LoRA) 48.45 64.62 53.98 30.16 57.31 20.60 22.45 54.23 57.39 58.30 46.75 Ours 51.68 65.13 47.23 38.59 58.42 45.15 28.63 57.12 57.55 59.25 50.88
+
+Figure 14. Qualitative comparison with state-of-the-art methods on natural scenes. Visual results demonstrate the superior perfor-mance of our approach. 
+
+• Scalability : Our distillation fusion (labeled ”Addi-tion” in the charts) consistently outperforms ablation fusion across all LoRA quantities, with performance advantages becoming more pronounced as complex-ity increases. Our method effectively handles multi-LoRA integration without suffering from interference effects that typically plague naive fusion strategies. • Stability : The cosine similarity scores remain stable as the number of LoRAs increases, indicating robust fusion behavior. Unlike traditional methods that ex-hibit degradation with increased complexity, our ap-proach maintains consistent performance even when integrating six different LoRAs. • Representational Coherence : PCA analysis shows that our fusion maintains better alignment with the original LoRA space. The geometric analysis re-veals that our fusion strategy preserves essential direc-tional characteristics while creating meaningful com-binations, evidenced by tighter clustering patterns and reduced variance in principal components. The cross-configuration analysis reveals our fusion method’s performance advantage over ablation fusion becomes pronounced as the number of LoRAs increases. This suggests the benefits our approach are not merely additive, but are amplified when tackling complex, high-demand fusion scenarios. These quantitative find-ings, when combined with the comprehensive qualita-tive comparisons presented in Figure 10, provide strong evidence for the effectiveness and the superior general-izability of our proposed LoRA fusion strategy. 6Q: These are the results generated by seven different text -to -3D methods with the prompt "A professional 
+
+product photo of a precision hex <nut> with bright stainless steel surface, polished metallic finish, clean hexagonal 
+
+edges.". Please rate the overall quality and details of the generated results from best to worst, and provide your 
+
+reasons. Explain in a coherent paragraph. 
+
+A: Based on the visual quality, geometric accuracy, and surface detail of these text -to -3D generated hex nuts, 
+
+I would rank them as follows from best to worst : Image 7, Image 6, Image 5, Image 4, Image 3, Image 2,
+
+Image 1. Image 7 demonstrates the highest quality with clean hexagonal geometry, convincing metallic surface 
+
+rendering, and proper threading visible in the center hole —it closely resembles a professional product 
+
+photograph . Image 6 follows closely with similar geometric precision and good surface reflections, though 
+
+slightly less refined in the threading detail . Image 5 shows reasonable structural accuracy with visible 
+
+threading, but the surface appears somewhat weathered or oxidized rather than the requested polished finish .
+
+Image 4 maintains basic hexagonal shape but lacks threading detail and presents a more matte, simplified 
+
+appearance . Image 3 exhibits smooth geometry but completely omits the threaded hole, presenting instead as a
+
+simplified rounded hexagonal cap with poor adherence to the prompt . Image 2 shows severe geometric 
+
+degradation with rough, artifact -laden surfaces that appear more like failed 3D printing than polished metal, 
+
+though it attempts to show threading structure . Image 1 is clearly the worst, displaying catastrophic 
+
+reconstruction failure with fragmented geometry, floating artifacts, and complete loss of structural 
+
+coherence —it barely resembles a nut at all and suggests fundamental failure in the 3D generation pipeline .(a) Nut Q: These are the results generated by seven different text -to -3D methods with the prompt "A highly detailed, 
+
+industrial -grade metallic <screw> with sharp helical threading and a polished steel surface.". Please rate the overall 
+
+quality and details of the generated results from best to worst, and provide your reasons. Explain in a coherent 
+
+paragraph. 
+
+A: Looking at these seven text -to -3D generation results, I would rank them from best to worst as follows : Image 
+
+7, Image 3, Image 6, Image 5, Image 4, Image 2, Image 1. Image 7 achieves the highest quality with exceptional 
+
+geometric precision featuring a well -defined hexagonal socket head that demonstrates accurate internal drive 
+
+geometry, clean and properly proportioned external threading on a short shaft, convincing stainless steel surface 
+
+texture with appropriate metallic sheen, and effective lighting that highlights both the sharp edges and the 
+
+fastener's overall form —it successfully represents a socket head cap screw (often called an Allen bolt) with 
+
+professional -grade detail that closely matches the "bold, well -defined threading and crisp hexagonal head" 
+
+specified in the prompt . Image 3 follows with good hexagonal head geometry, visible threading, and appropriate 
+
+metallic finish, though the head design is simpler and the threading definition is slightly less refined than Image 
+
+7. Image 6 demonstrates solid construction with clear hexagonal features, well -rendered threading, and 
+
+convincing steel appearance with blue -tinted highlights, though the shaft length exceeds the "short -shaft" 
+
+specification . Image 5 shows recognizable fastener structure but exhibits an unusual faceted head appearance 
+
+that deviates from standard hardware geometry, with less polished surface quality . Image 4 fundamentally 
+
+misses the prompt by generating only a threaded cylindrical shaft without any hexagonal head component . Image 
+
+2 produces an amorphous, eroded form that barely resembles a fastener, lacking clear threading and geometric 
+
+definition . Image 1 represents complete generation failure with chaotic, rainbow -colored fragmented geometry 
+
+that bears no resemblance to any hardware component .
+
+(b) Screw Q: These are the results generated by seven different text -to -3D methods with the prompt "A professional close -
+
+up photograph of a clear < red_LED > with transparent dome -shaped epoxy casing and visible internal semiconductor 
+
+chip". Please rate the overall quality and details of the generated results from best to worst, and provide your 
+
+reasons. Explain in a coherent paragraph. 
+
+A: Looking at these seven text -to -3D generation results, I would rank them from best to worst as follows : Image 
+
+7, Image 3, Image 5, Image 6, Image 4, Image 2, Image 1. Image 7 achieves the highest quality with an accurate 
+
+dome -shaped transparent red epoxy casing, properly rendered two -lead configuration, and visible internal 
+
+structure that suggests the semiconductor chip —it successfully captures both the "clear" translucent quality 
+
+and the characteristic LED form factor specified in the prompt . Image 3 follows closely with excellent dome 
+
+geometry, appropriate translucency in the red casing, clearly defined leads, and reasonable internal detail 
+
+visibility, though the surface appears slightly less refined than Image 7. Image 5 demonstrates good overall LED 
+
+structure with proper dome shape and dual leads, but exhibits some surface artifacts and slight geometric 
+
+irregularities that reduce the "professional close -up photograph" quality . Image 6 takes an interesting approach 
+
+by attempting to show internal chip detail more explicitly, but the execution results in an overly complex, less 
+
+accurate representation that doesn't maintain the characteristic smooth dome shape expected of an LED . Image 
+
+4 shows a simplified LED with reasonable proportions and red coloring, but lacks the transparent/translucent 
+
+quality emphasized in the prompt and appears more opaque and toy -like rather than resembling a real electronic 
+
+component . Image 2 fundamentally misinterprets the prompt by generating what appears to be a push -button or 
+
+mechanical component with a red cap rather than an LED —it completely misses the dome -shaped epoxy casing 
+
+and semiconductor nature . Image 1 represents total generation failure with fragmented, scattered geometry 
+
+that bears no resemblance to an LED or any coherent 3D object, indicating complete inability to parse or execute 
+
+the prompt .
+
+(c) Red LED 
+
+Figure 15. LLM-based qualitative evaluation (Part 1-3). 
+
+7Q: These are the results generated by seven different text -to -3D methods with the prompt "A professional close -
+
+up photograph of a clear < green_LED > with transparent dome -shaped epoxy casing and visible internal 
+
+semiconductor chip. ". Please rate the overall quality and details of the generated results from best to worst, and 
+
+provide your reasons. Explain in a coherent paragraph. 
+
+A: Looking at these seven text -to -3D generation results, I would rank them from best to worst as follows : Image 
+
+7, Image 5, Image 3, Image 6, Image 4, Image 2, Image 1. Image 7 achieves the highest quality with an 
+
+exceptionally accurate dome -shaped transparent green epoxy casing, properly proportioned dual leads, visible 
+
+internal structure suggesting the semiconductor chip, and the characteristic translucent quality that allows light 
+
+to pass through —it perfectly captures the "clear" and "transparent" aspects emphasized in the prompt . Image 5
+
+follows closely with excellent dome geometry, appropriate green translucency, well -defined leads, and visible 
+
+internal details that suggest the chip structure, though the surface rendering is slightly less refined than Image 
+
+7. Image 3 demonstrates solid LED construction with good dome shape, proper transparency, and clear lead 
+
+definition, successfully conveying the essential characteristics of a through -hole LED component, though with 
+
+marginally less detail in the internal structure . Image 6 shows reasonable LED geometry and attempts to display 
+
+internal chip detail more explicitly, but the addition of what appears to be a threaded base and overly complex 
+
+internal structure makes it less accurate to a standard LED form factor, appearing more like a hybrid indicator 
+
+light . Image 4 fundamentally misinterprets the prompt by generating what looks like a miniature light bulb with a
+
+screw base rather than an LED —while it has green coloring and transparency, it completely misses the 
+
+characteristic LED dome shape and dual -lead configuration . Image 2 represents a significant deviation, producing 
+
+what appears to be a multi -layered mechanical component or circuit board assembly rather than an LED, entirely 
+
+missing the dome -shaped epoxy casing and simple two -lead structure . Image 1 shows complete generation failure 
+
+with fragmented, chaotic geometry consisting of disconnected polygons and voxel -like artifacts that bear no 
+
+resemblance to an LED or any coherent electronic component, indicating total inability to interpret the prompt .(a) Green LED Q: These are the results generated by seven different text -to -3D methods with the prompt "A detailed close -up 
+
+photograph of a cylindrical <resistor> body only, with blue ceramic material and black color code bands wrapped 
+
+around its surface. ". Please rate the overall quality and details of the generated results from best to worst, and 
+
+provide your reasons. Explain in a coherent paragraph. 
+
+A: Looking at these seven text -to -3D generation results, I would rank them from best to worst as follows : Image 
+
+7, Image 3, Image 5, Image 6, Image 4, Image 2, Image 1. Image 7 achieves the highest quality with a clean 
+
+cylindrical body, well -defined alternating blue and black color bands that accurately represent resistor color 
+
+coding, proper proportions with axial leads, and smooth surface rendering that captures the ceramic material 
+
+appearance specified in the prompt . Image 3 follows closely with excellent cylindrical geometry and clear band 
+
+definition, showing good color separation between blue and black bands, though the overall form appears slightly 
+
+more compressed than Image 7. Image 5 demonstrates similar quality to Image 3 with proper banding and 
+
+cylindrical shape, but exhibits slightly more surface irregularities and less uniform band spacing that reduce the 
+
+"detailed close -up photograph" quality . Image 6 shows reasonable resistor structure with blue coloring and visible 
+
+leads, but the bands are less distinct and the body appears more like a solid blue cylinder with minimal color code 
+
+detail, plus it includes text labeling that wasn't requested in the prompt . Image 4 presents a simplified 
+
+interpretation with a predominantly blue cylindrical body but almost completely lacks the "black color code bands" 
+
+that are central to the prompt, appearing more like a generic capacitor than a resistor . Image 2 fundamentally 
+
+misinterprets the component by generating what appears to be a ribbed or corrugated cylindrical structure that 
+
+looks more like a flexible connector or cable component rather than a resistor —while it has blue coloring, it 
+
+completely misses the smooth ceramic body with distinct color bands . Image 1 represents total generation failure 
+
+with chaotic, fragmented geometry showing disconnected polygons and artifacts that bear no resemblance to a
+
+cylindrical resistor or any coherent electronic component, indicating complete inability to parse the prompt .
+
+(b) Resistor Q: These are the results generated by seven different text -to -3D methods with the prompt "A photo of a great 
+
+<bearing>. ". Please rate the overall quality and details of the generated results from best to worst, and provide your 
+
+reasons. Explain in a coherent paragraph. 
+
+A: Looking at these seven text -to -3D generation results, I would rank them from best to worst as follows : Image 
+
+7, Image 3, Image 5, Image 6, Image 4, Image 2, Image 1. Image 7 achieves the highest quality with a clean 
+
+cylindrical body, well -defined alternating blue and black color bands that accurately represent resistor color 
+
+coding, proper proportions with axial leads, and smooth surface rendering that captures the ceramic material 
+
+appearance specified in the prompt . Image 3 follows closely with excellent cylindrical geometry and clear band 
+
+definition, showing good color separation between blue and black bands, though the overall form appears slightly 
+
+more compressed than Image 7. Image 5 demonstrates similar quality to Image 3 with proper banding and 
+
+cylindrical shape, but exhibits slightly more surface irregularities and less uniform band spacing that reduce the 
+
+"detailed close -up photograph" quality . Image 6 shows reasonable resistor structure with blue coloring and visible 
+
+leads, but the bands are less distinct and the body appears more like a solid blue cylinder with minimal color code 
+
+detail, plus it includes text labeling that wasn't requested in the prompt . Image 4 presents a simplified 
+
+interpretation with a predominantly blue cylindrical body but almost completely lacks the "black color code bands" 
+
+that are central to the prompt, appearing more like a generic capacitor than a resistor . Image 2 fundamentally 
+
+misinterprets the component by generating what appears to be a ribbed or corrugated cylindrical structure that 
+
+looks more like a flexible connector or cable component rather than a resistor —while it has blue coloring, it 
+
+completely misses the smooth ceramic body with distinct color bands . Image 1 represents total generation failure 
+
+with chaotic, fragmented geometry showing disconnected polygons and artifacts that bear no resemblance to a
+
+cylindrical resistor or any coherent electronic component, indicating complete inability to parse the prompt .
+
+(c) Bearing 
+
+Figure 16. LLM-based qualitative evaluation (Part 4-6). 
+
+8Q: These are the results generated by seven different text -to -3D methods with the prompt "A professional close -
+
+up photograph of a < ceramic_capacitor > with flat rectangular ceramic body and metallic end terminals. Precision 
+
+electronic component with red ceramic dielectric material and silver terminations. ". Please rate the overall quality 
+
+and details of the generated results from best to worst, and provide your reasons. Explain in a coherent paragraph. 
+
+A: Looking at these seven text -to -3D generation results, I would rank them from best to worst as follows : Image 
+
+4, Image 6, Image 3, Image 7, Image 5, Image 2, Image 1. Image 4 achieves the highest quality with a proper 
+
+rectangular ceramic body in red/pink coloring, clearly visible metallic threaded terminal at the base, appropriate 
+
+proportions, and clean geometry that successfully represents a ceramic capacitor component, though it appears 
+
+more like a larger power capacitor rather than a surface -mount type . Image 6 follows with reasonable component 
+
+structure showing a red top section, visible metallic threading, dual leads, and an attempt at showing internal 
+
+structure through transparency, though the execution makes it appear somewhat hybrid between different 
+
+capacitor types . Image 3 demonstrates acceptable disc capacitor geometry with a red circular ceramic body and 
+
+dual wire leads, representing a through -hole radial capacitor variant, though it deviates from the "flat 
+
+rectangular" specification in the prompt by using a disc form factor . Image 7 shows similar disc capacitor 
+
+structure with smoother surface rendering and appropriate red -brown ceramic coloring, but like Image 3, it 
+
+misinterprets the rectangular body requirement while still capturing the essence of a ceramic capacitor . Image 5
+
+exhibits a disc capacitor form with significant surface texture artifacts and irregular coloring that detracts 
+
+from the "professional close -up photograph" quality, making it appear less like a precision electronic component .
+
+Image 2 fundamentally misinterprets the prompt by generating what appears to be a multi -unit array or module 
+
+with stacked components, red separators, and yellow dots, completely missing the single discrete capacitor 
+
+specification and looking more like a complex assembly than an individual component . Image 1 represents total 
+
+generation failure with chaotic, fragmented geometry featuring iridescent rainbow coloring, scattered polygons, 
+
+and completely incoherent structure that bears no resemblance to any type of capacitor, indicating complete 
+
+inability to parse or execute the prompt successfully .(a) Ceramic Capacitor Q: These are the results generated by seven different text -to -3D methods with the prompt "A professional 
+
+photograph of an ultra -thin flat <gasket>, circular shape with center hole, precision -engineered, stainless steel, 
+
+industrial component, extremely thin profile, sharp details.". Please rate the overall quality and details of the 
+
+generated results from best to worst, and provide your reasons. Explain in a coherent paragraph. 
+
+A: Looking at these seven text -to -3D generation results again, I would revise my ranking from best to worst as 
+
+follows : Image 3, Image 7, Image 2, Image 4, Image 5, Image 1, Image 6. Image 3 achieves the highest quality 
+
+with excellent circular geometry, a properly centered hole, convincing metallic surface texture suggesting 
+
+stainless steel, and an appropriately ultra -thin profile clearly visible in the side view with sharp, clean edges 
+
+conveying precision engineering . Image 7 follows with good circular form and appropriate thinness, though the 
+
+surface appears more granular or textured, which could actually represent a realistic gasket material texture 
+
+rather than being a flaw . Image 2 demonstrates solid gasket structure with a clean circular form and proper 
+
+central hole, and the visible mounting holes around the perimeter are actually a realistic feature for industrial 
+
+gaskets that need to be bolted in place, making this a legitimate interpretation despite not being explicitly 
+
+mentioned in the prompt . Image 4 shows acceptable circular geometry with good flatness and appropriate 
+
+proportions for a thin gasket, though the surface appears somewhat plain and less detailed . Image 5 exhibits 
+
+reasonable gasket form with visible surface texture that could represent material grain or slight wear, though 
+
+the texture appears somewhat excessive and the edges less precise . Image 1 is problematic because it shows a
+
+thick, yellow -tinted disc with significant discoloration that completely misses the "ultra -thin" and "stainless 
+
+steel" specifications, appearing more like a plastic or composite material . Image 6 fundamentally misinterprets 
+
+the prompt by generating a gear or sprocket with external teeth, which contradicts the basic "circular shape" 
+
+specification for a simple flat gasket —this represents a completely different type of component regardless of 
+
+its 3D modeling quality .
+
+(b) Gasket Q: These are the results generated by seven different text -to -3D methods with the prompt "A professional close -
+
+up photograph of a precision -manufactured <nail> with smooth cylindrical shank, flat circular head, and sharp 
+
+tapered point. Polished steel construction with slight metallic sheen, high -quality hardware fastener. Studio 
+
+lighting highlighting the metallic texture and form against neutral background. ". Please rate the overall quality and 
+
+details of the generated results from best to worst, and provide your reasons. Explain in a coherent paragraph. 
+
+A: Looking at these seven text -to -3D generation results, I would rank them from best to worst as follows : Image 
+
+3, Image 7, Image 5, Image 2, Image 4, Image 6, Image 1. Image 3 achieves the highest quality with accurate nail 
+
+geometry featuring a properly proportioned flat circular head, smooth cylindrical shank, sharp tapered point, and 
+
+convincing dark metallic finish that suggests polished steel with appropriate sheen —it successfully captures all 
+
+the key elements specified in the prompt including the precision -manufactured appearance . Image 7 follows 
+
+closely with excellent overall nail structure, clear flat head, cylindrical body, and pointed tip, along with good 
+
+metallic rendering, though the surface texture shows slight irregularities that make it marginally less refined 
+
+than Image 3. Image 5 demonstrates solid nail construction with appropriate proportions and visible metallic 
+
+characteristics, but the head appears slightly more textured or worn and the overall surface quality is less 
+
+polished than the top performers . Image 2 shows recognizable nail structure with a flat head and 
+
+threaded/textured shank, but the spiral grooves and weathered appearance deviate from the "smooth cylindrical 
+
+shank" and "polished steel" specifications, making it look more like a specialty fastener or aged hardware rather 
+
+than a precision -manufactured standard nail . Image 4 fundamentally misinterprets the prompt by generating what 
+
+appears to be a smooth, bullet -shaped or cosmetic applicator -like object that completely lacks the characteristic 
+
+flat head of a nail, instead presenting an elongated teardrop form that doesn't represent hardware fastener 
+
+geometry . Image 6 similarly produces an overly smooth, rounded form that looks more like a decorative or 
+
+cosmetic item than a nail, with gradient coloring and lack of distinct head definition that fails to convey the 
+
+utilitarian hardware nature specified . Image 1 represents complete generation failure with chaotic, fragmented 
+
+geometry showing iridescent rainbow coloring and irregular polygonal forms that bear no resemblance to a nail 
+
+whatsoever, indicating total inability to interpret or execute the prompt successfully .
+
+(c) Nail 
+
+Figure 17. LLM-based qualitative evaluation (Part 7-9). 
+
+9Q: These are the results generated by seven different text -to -3D methods with the prompt "A professional close -
+
+up of a short -shaft < nut_screw > with bold, well -defined threading and a crisp hexagonal head. Polished stainless 
+
+steel surface under directional lighting reveals sharp edges and metallic texture.". Please rate the overall quality 
+
+and details of the generated results from best to worst, and provide your reasons. Explain in a coherent paragraph. 
+
+A: Looking at these seven text -to -3D generation results, I would rank them from best to worst as follows : Image 
+
+7, Image 3, Image 6, Image 5, Image 4, Image 2, Image 1. Image 7 achieves the highest quality with exceptional 
+
+geometric accuracy featuring a well -defined hexagonal head with crisp edges, clean and properly proportioned 
+
+threading on a short shaft, convincing metallic surface texture suggesting polished stainless steel, and 
+
+appropriate lighting that reveals the component's form —it successfully captures all essential characteristics of a
+
+precision fastener as specified in the prompt . Image 3 follows closely with accurate hexagonal head geometry, 
+
+visible threading, reasonable proportions, and appropriate metallic finish, though the head appears slightly more 
+
+rounded and the threading definition is marginally less sharp than Image 7. Image 6 demonstrates solid fastener 
+
+construction with a clear hexagonal head, well -rendered threading, and good metallic appearance with blue -tinted 
+
+highlights suggesting steel, though the shaft appears slightly longer than the "short -shaft" specification and 
+
+some surface details are less refined . Image 5 shows recognizable bolt structure with hexagonal head and 
+
+threading, but the head has an unusual faceted or crystalline appearance that deviates from typical hardware 
+
+geometry, and the overall surface quality appears less polished despite attempting metallic rendering . Image 4
+
+fundamentally misinterprets the prompt by generating what appears to be a set screw or threaded rod without 
+
+any hexagonal head —it's essentially just a cylindrical threaded shaft, completely missing the "crisp hexagonal 
+
+head" requirement that defines the fastener type . Image 2 significantly deviates by producing an amorphous, 
+
+rock -like or eroded object with vague geometric features and minimal threading detail, appearing more like a
+
+weathered artifact than a precision -manufactured fastener, with only a hint of hexagonal form and no clear 
+
+threading . Image 1 represents total generation failure with chaotic, fragmented geometry featuring iridescent 
+
+rainbow coloring, scattered polygons, and completely incoherent structure that bears no resemblance to any 
+
+hardware component, indicating complete inability to parse or execute the prompt successfully .(a) Hexagonal Stud Q: Please use a short paragraph to evaluate the overall effectiveness of these seven models and rank them. 
+
+A: Based on the comprehensive evaluation across nine different industrial component prompts (hex nut, 
+
+screw, red LED, green LED, resistor, bearing, ceramic capacitor, gasket, nail, and nut -screw), a clear 
+
+performance hierarchy emerges among these seven text -to -3D generation methods . Overall ranking from 
+
+best to worst : Model 7, Model 3, Model 6, Model 5, Model 4, Model 2, Model 1. Model 7 demonstrates 
+
+exceptional consistency and reliability, consistently producing geometrically accurate results with proper 
+
+material rendering, clean edges, and faithful adherence to prompt specifications —it excels particularly at 
+
+precision components requiring sharp detail and metallic finishes . Model 3 follows as a strong performer 
+
+with good geometric accuracy and reasonable surface quality, though occasionally showing simplified 
+
+details or less refined textures compared to Model 7. Model 6 shows decent competency with 
+
+recognizable component structures and appropriate material rendering, but sometimes introduces 
+
+unnecessary complexity or deviates from standard component forms . Model 5 produces variable results 
+
+with acceptable basic geometry but frequently exhibits surface artifacts, crystalline appearances, or 
+
+texture irregularities that reduce realism . Model 4 demonstrates significant weaknesses by often 
+
+misinterpreting fundamental component characteristics —generating wrong geometries like threaded rods 
+
+instead of headed fasteners or bullet shapes instead of nails —despite occasionally showing clean surface 
+
+rendering . Model 2 consistently struggles with accuracy, frequently producing oversimplified, weathered, 
+
+or completely wrong component types (like mechanical assemblies instead of simple capacitors), indicating 
+
+poor prompt comprehension . Model 1 represents catastrophic failure across nearly all prompts, generating 
+
+fragmented, chaotic geometry with rainbow artifacts and scattered polygons that bear no resemblance to 
+
+the requested objects, suggesting fundamental issues in the generation pipeline that prevent any useful 
+
+output .
+
+(b) Overall Comment 
+
+Figure 18. LLM-based qualitative evaluation (Part 10-11). 
+
+10
