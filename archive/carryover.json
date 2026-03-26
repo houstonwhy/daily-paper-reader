@@ -1,342 +1,8 @@
 {
-  "generated_at": "2026-03-25T19:16:47.804886+00:00",
-  "updated_date": "20260325",
+  "generated_at": "2026-03-26T19:03:00.479124+00:00",
+  "updated_date": "20260326",
   "carryover_days": 9,
   "items": [
-    {
-      "id": "2603.17995v1",
-      "title": "LoST: Level of Semantics Tokenization for 3D Shapes",
-      "abstract": "Tokenization is a fundamental technique in the generative modeling of various modalities. In particular, it plays a critical role in autoregressive (AR) models, which have recently emerged as a compelling option for 3D generation. However, optimal tokenization of 3D shapes remains an open question. State-of-the-art (SOTA) methods primarily rely on geometric level-of-detail (LoD) hierarchies, originally designed for rendering and compression. These spatial hierarchies are often token-inefficient and lack semantic coherence for AR modeling. We propose Level-of-Semantics Tokenization (LoST), which orders tokens by semantic salience, such that early prefixes decode into complete, plausible shapes that possess principal semantics, while subsequent tokens refine instance-specific geometric and semantic details. To train LoST, we introduce Relational Inter-Distance Alignment (RIDA), a novel 3D semantic alignment loss that aligns the relational structure of the 3D shape latent space with that of the semantic DINO feature space. Experiments show that LoST achieves SOTA reconstruction, surpassing previous LoD-based 3D shape tokenizers by large margins on both geometric and semantic reconstruction metrics. Moreover, LoST achieves efficient, high-quality AR 3D generation and enables downstream tasks like semantic retrieval, while using only 0.1%-10% of the tokens needed by prior AR models.",
-      "authors": [
-        "Niladri Shekhar Dutt",
-        "Zifan Shi",
-        "Paul Guerrero",
-        "Chun-Hao Paul Huang",
-        "Duygu Ceylan",
-        "Niloy J. Mitra",
-        "Xuelin Chen"
-      ],
-      "primary_category": "cs.CV",
-      "categories": [
-        "cs.CV",
-        "cs.GR",
-        "cs.LG"
-      ],
-      "published": "2026-03-18T17:56:06+00:00",
-      "link": "https://arxiv.org/pdf/2603.17995v1",
-      "tags": [
-        "keyword:3DGEN",
-        "query:3DGEN"
-      ],
-      "llm_score": 8.0,
-      "llm_evidence_en": "semantic tokenization for 3D shape generative modeling",
-      "llm_evidence_cn": "用于3D形状生成式建模的语义标记化",
-      "llm_evidence": "用于3D形状生成式建模的语义标记化",
-      "canonical_evidence": "用于3D形状生成式建模的语义标记化",
-      "llm_tldr_en": "Proposes a semantic-based tokenization method to improve autoregressive 3D shape generation.",
-      "llm_tldr_cn": "提出一种基于语义的标记化方法，以改进自回归3D形状生成。",
-      "llm_tldr": "提出一种基于语义的标记化方法，以改进自回归3D形状生成。",
-      "llm_tags": [
-        "query:3dgen"
-      ],
-      "matched_query_tag": "query:3dgen",
-      "matched_query_text": "generative models for 3D environments",
-      "matched_requirement_id": "req-5",
-      "selection_source": "carryover_cache",
-      "paper_id": "2603.17995v1",
-      "carry_days": 1
-    },
-    {
-      "id": "2603.19121v2",
-      "title": "CustomTex: High-fidelity Indoor Scene Texturing via Multi-Reference Customization",
-      "abstract": "The creation of high-fidelity, customizable 3D indoor scene textures remains a significant challenge. While text-driven methods offer flexibility, they lack the precision for fine-grained, instance-level control, and often produce textures with insufficient quality, artifacts, and baked-in shading. To overcome these limitations, we introduce CustomTex, a novel framework for instance-level, high-fidelity scene texturing driven by reference images. CustomTex takes an untextured 3D scene and a set of reference images specifying the desired appearance for each object instance, and generates a unified, high-resolution texture map. The core of our method is a dual-distillation approach that separates semantic control from pixel-level enhancement. We employ semantic-level distillation, equipped with an instance cross-attention, to ensure semantic plausibility and ``reference-instance'' alignment, and pixel-level distillation to enforce high visual fidelity. Both are unified within a Variational Score Distillation (VSD) optimization framework. Experiments demonstrate that CustomTex achieves precise instance-level consistency with reference images and produces textures with superior sharpness, reduced artifacts, and minimal baked-in shading compared to state-of-the-art methods. Our work establishes a more direct and user-friendly path to high-quality, customizable 3D scene appearance editing.",
-      "authors": [
-        "Weilin Chen",
-        "Jiahao Rao",
-        "Wenhao Wang",
-        "Xinyang Li",
-        "Xuan Cheng",
-        "Liujuan Cao"
-      ],
-      "primary_category": "cs.CV",
-      "categories": [
-        "cs.CV",
-        "cs.AI"
-      ],
-      "published": "2026-03-19T16:44:08+00:00",
-      "link": "https://arxiv.org/pdf/2603.19121v2",
-      "tags": [
-        "keyword:3DGEN",
-        "query:3DGEN"
-      ],
-      "llm_score": 8.0,
-      "llm_evidence_en": "high-fidelity indoor scene texturing framework",
-      "llm_evidence_cn": "高保真室内场景纹理生成框架",
-      "llm_evidence": "高保真室内场景纹理生成框架",
-      "canonical_evidence": "高保真室内场景纹理生成框架",
-      "llm_tldr_en": "Generates high-resolution textures for 3D indoor scenes using reference images and dual-distillation.",
-      "llm_tldr_cn": "利用参考图像和双重蒸馏为3D室内场景生成高分辨率纹理。",
-      "llm_tldr": "利用参考图像和双重蒸馏为3D室内场景生成高分辨率纹理。",
-      "llm_tags": [
-        "query:3dgen"
-      ],
-      "matched_query_tag": "query:3dgen",
-      "matched_query_text": "3D scene generation and synthesis methods",
-      "matched_requirement_id": "req-4",
-      "selection_source": "carryover_cache",
-      "paper_id": "2603.19121v2",
-      "carry_days": 1
-    },
-    {
-      "id": "2603.19235v1",
-      "title": "Generation Models Know Space: Unleashing Implicit 3D Priors for Scene Understanding",
-      "abstract": "While Multimodal Large Language Models demonstrate impressive semantic capabilities, they often suffer from spatial blindness, struggling with fine-grained geometric reasoning and physical dynamics. Existing solutions typically rely on explicit 3D modalities or complex geometric scaffolding, which are limited by data scarcity and generalization challenges. In this work, we propose a paradigm shift by leveraging the implicit spatial prior within large-scale video generation models. We posit that to synthesize temporally coherent videos, these models inherently learn robust 3D structural priors and physical laws. We introduce VEGA-3D (Video Extracted Generative Awareness), a plug-and-play framework that repurposes a pre-trained video diffusion model as a Latent World Simulator. By extracting spatiotemporal features from intermediate noise levels and integrating them with semantic representations via a token-level adaptive gated fusion mechanism, we enrich MLLMs with dense geometric cues without explicit 3D supervision. Extensive experiments across 3D scene understanding, spatial reasoning, and embodied manipulation benchmarks demonstrate that our method outperforms state-of-the-art baselines, validating that generative priors provide a scalable foundation for physical-world understanding. Code is publicly available at https://github.com/H-EmbodVis/VEGA-3D.",
-      "authors": [
-        "Xianjin Wu",
-        "Dingkang Liang",
-        "Tianrui Feng",
-        "Kui Xia",
-        "Yumeng Zhang",
-        "Xiaofan Li",
-        "Xiao Tan",
-        "Xiang Bai"
-      ],
-      "primary_category": "cs.CV",
-      "categories": [
-        "cs.CV",
-        "cs.RO"
-      ],
-      "published": "2026-03-19T17:59:58+00:00",
-      "link": "https://arxiv.org/pdf/2603.19235v1",
-      "tags": [
-        "keyword:3DGEN",
-        "query:3DGEN"
-      ],
-      "llm_score": 8.0,
-      "llm_evidence_en": "leveraging implicit spatial priors in video generation models for scene understanding",
-      "llm_evidence_cn": "利用视频生成模型中的隐式空间先验进行场景理解",
-      "llm_evidence": "利用视频生成模型中的隐式空间先验进行场景理解",
-      "canonical_evidence": "利用视频生成模型中的隐式空间先验进行场景理解",
-      "llm_tldr_en": "Repurposes video diffusion models to extract 3D structural priors for enhanced spatial reasoning in scenes.",
-      "llm_tldr_cn": "将预训练视频扩散模型转化为空间先验提取器，以增强对3D场景的几何推理能力。",
-      "llm_tldr": "将预训练视频扩散模型转化为空间先验提取器，以增强对3D场景的几何推理能力。",
-      "llm_tags": [
-        "query:3dgen"
-      ],
-      "matched_query_tag": "query:3dgen",
-      "matched_query_text": "generative models for 3D environments",
-      "matched_requirement_id": "req-5",
-      "selection_source": "carryover_cache",
-      "paper_id": "2603.19235v1",
-      "carry_days": 1
-    },
-    {
-      "id": "2603.17735v1",
-      "title": "TAPESTRY: From Geometry to Appearance via Consistent Turntable Videos",
-      "abstract": "Automatically generating photorealistic and self-consistent appearances for untextured 3D models is a critical challenge in digital content creation. The advancement of large-scale video generation models offers a natural approach: directly synthesizing 360-degree turntable videos (TTVs), which can serve not only as high-quality dynamic previews but also as an intermediate representation to drive texture synthesis and neural rendering. However, existing general-purpose video diffusion models struggle to maintain strict geometric consistency and appearance stability across the full range of views, making their outputs ill-suited for high-quality 3D reconstruction. To this end, we introduce TAPESTRY, a framework for generating high-fidelity TTVs conditioned on explicit 3D geometry. We reframe the 3D appearance generation task as a geometry-conditioned video diffusion problem: given a 3D mesh, we first render and encode multi-modal geometric features to constrain the video generation process with pixel-level precision, thereby enabling the creation of high-quality and consistent TTVs. Building upon this, we also design a method for downstream reconstruction tasks from the TTV input, featuring a multi-stage pipeline with 3D-Aware Inpainting. By rotating the model and performing a context-aware secondary generation, this pipeline effectively completes self-occluded regions to achieve full surface coverage. The videos generated by TAPESTRY are not only high-quality dynamic previews but also serve as a reliable, 3D-aware intermediate representation that can be seamlessly back-projected into UV textures or used to supervise neural rendering methods like 3DGS. This enables the automated creation of production-ready, complete 3D assets from untextured meshes. Experimental results demonstrate that our method outperforms existing approaches in both video consistency and final reconstruction quality.",
-      "authors": [
-        "Yan Zeng",
-        "Haoran Jiang",
-        "Kaixin Yao",
-        "Qixuan Zhang",
-        "Longwen Zhang",
-        "Lan Xu",
-        "Jingyi Yu"
-      ],
-      "primary_category": "cs.CV",
-      "categories": [
-        "cs.CV"
-      ],
-      "published": "2026-03-18T14:02:09+00:00",
-      "link": "https://arxiv.org/pdf/2603.17735v1",
-      "tags": [
-        "keyword:3DGEN",
-        "query:3DGEN"
-      ],
-      "llm_score": 8.0,
-      "llm_evidence_en": "generating appearances for untextured 3D models via video diffusion",
-      "llm_evidence_cn": "通过视频扩散为无纹理3D模型生成外观",
-      "llm_evidence": "通过视频扩散为无纹理3D模型生成外观",
-      "canonical_evidence": "通过视频扩散为无纹理3D模型生成外观",
-      "llm_tldr_en": "Uses video diffusion to generate consistent turntable videos for high-quality 3D texture synthesis.",
-      "llm_tldr_cn": "利用视频扩散生成一致的转盘视频，用于高质量的3D纹理合成。",
-      "llm_tldr": "利用视频扩散生成一致的转盘视频，用于高质量的3D纹理合成。",
-      "llm_tags": [
-        "query:3dgen"
-      ],
-      "matched_query_tag": "query:3dgen",
-      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
-      "matched_requirement_id": "req-6",
-      "selection_source": "carryover_cache",
-      "paper_id": "2603.17735v1",
-      "carry_days": 1
-    },
-    {
-      "id": "2603.21487v1",
-      "title": "GaussianSSC: Triplane-Guided Directional Gaussian Fields for 3D Semantic Completion",
-      "abstract": "We present \\emph{GaussianSSC}, a two-stage, grid-native and triplane-guided approach to semantic scene completion (SSC) that injects the benefits of Gaussians without replacing the voxel grid or maintaining a separate Gaussian set. We introduce \\emph{Gaussian Anchoring}, a sub-pixel, Gaussian-weighted image aggregation over fused FPN features that tightens voxel--image alignment and improves monocular occupancy estimation. We further convert point-like voxel features into a learned per-voxel Gaussian field and refine triplane features via a triplane-aligned \\emph{Gaussian--Triplane Refinement} module that combines \\emph{local gathering} (target-centric) and \\emph{global aggregation} (source-centric). This directional, anisotropic support captures surface tangency, scale, and occlusion-aware asymmetry while preserving the efficiency of triplane representations. On SemanticKITTI~\\cite{behley2019semantickitti}, GaussianSSC improves Stage~1 occupancy by +1.0\\% Recall, +2.0\\% Precision, and +1.8\\% IoU over state-of-the-art baselines, and improves Stage~2 semantic prediction by +1.8\\% IoU and +0.8\\% mIoU.",
-      "authors": [
-        "Ruiqi Xian",
-        "Jing Liang",
-        "He Yin",
-        "Xuewei Qi",
-        "Dinesh Manocha"
-      ],
-      "primary_category": "cs.RO",
-      "categories": [
-        "cs.RO",
-        "cs.LG"
-      ],
-      "published": "2026-03-23T02:21:22+00:00",
-      "link": "https://arxiv.org/pdf/2603.21487v1",
-      "tags": [
-        "keyword:3DGEN",
-        "query:3DGEN"
-      ],
-      "llm_score": 8.0,
-      "llm_evidence_en": "triplane-guided approach to 3D semantic scene completion",
-      "llm_evidence_cn": "三平面引导的3D语义场景补全方法",
-      "llm_evidence": "三平面引导的3D语义场景补全方法",
-      "canonical_evidence": "三平面引导的3D语义场景补全方法",
-      "llm_tldr_en": "Presents GaussianSSC for 3D semantic scene completion using triplane-guided Gaussian fields.",
-      "llm_tldr_cn": "提出了GaussianSSC，利用三平面引导的高斯场进行3D语义场景补全。",
-      "llm_tldr": "提出了GaussianSSC，利用三平面引导的高斯场进行3D语义场景补全。",
-      "llm_tags": [
-        "query:3dgen"
-      ],
-      "matched_query_tag": "query:3dgen",
-      "matched_query_text": "3D scene generation and synthesis methods",
-      "matched_requirement_id": "req-4",
-      "selection_source": "carryover_cache",
-      "paper_id": "2603.21487v1",
-      "carry_days": 1
-    },
-    {
-      "id": "2603.19121v1",
-      "title": "CustomTex: High-fidelity Indoor Scene Texturing via Multi-Reference Customization",
-      "abstract": "The creation of high-fidelity, customizable 3D indoor scene textures remains a significant challenge. While text-driven methods offer flexibility, they lack the precision for fine-grained, instance-level control, and often produce textures with insufficient quality, artifacts, and baked-in shading. To overcome these limitations, we introduce CustomTex, a novel framework for instance-level, high-fidelity scene texturing driven by reference images. CustomTex takes an untextured 3D scene and a set of reference images specifying the desired appearance for each object instance, and generates a unified, high-resolution texture map. The core of our method is a dual-distillation approach that separates semantic control from pixel-level enhancement. We employ semantic-level distillation, equipped with an instance cross-attention, to ensure semantic plausibility and ``reference-instance'' alignment, and pixel-level distillation to enforce high visual fidelity. Both are unified within a Variational Score Distillation (VSD) optimization framework. Experiments demonstrate that CustomTex achieves precise instance-level consistency with reference images and produces textures with superior sharpness, reduced artifacts, and minimal baked-in shading compared to state-of-the-art methods. Our work establishes a more direct and user-friendly path to high-quality, customizable 3D scene appearance editing.",
-      "authors": [
-        "Weilin Chen",
-        "Jiahao Rao",
-        "Wenhao Wang",
-        "Xinyang Li",
-        "Xuan Cheng",
-        "Liujuan Cao"
-      ],
-      "primary_category": "cs.CV",
-      "categories": [
-        "cs.CV",
-        "cs.AI"
-      ],
-      "published": "2026-03-19T16:44:08+00:00",
-      "link": "https://arxiv.org/pdf/2603.19121v1",
-      "tags": [
-        "keyword:3DGEN",
-        "query:3DGEN"
-      ],
-      "llm_score": 8.0,
-      "llm_evidence_en": "high-fidelity indoor scene texturing",
-      "llm_evidence_cn": "高保真室内场景纹理生成",
-      "llm_evidence": "高保真室内场景纹理生成",
-      "canonical_evidence": "高保真室内场景纹理生成",
-      "llm_tldr_en": "CustomTex provides a framework for instance-level, high-fidelity 3D indoor scene texturing from reference images.",
-      "llm_tldr_cn": "CustomTex提供了一个根据参考图像进行实例级、高保真3D室内场景纹理生成的框架。",
-      "llm_tldr": "CustomTex提供了一个根据参考图像进行实例级、高保真3D室内场景纹理生成的框架。",
-      "llm_tags": [
-        "query:3dgen"
-      ],
-      "matched_query_tag": "query:3dgen",
-      "matched_query_text": "3D scene generation and synthesis methods",
-      "matched_requirement_id": "req-4",
-      "selection_source": "carryover_cache",
-      "paper_id": "2603.19121v1",
-      "carry_days": 1
-    },
-    {
-      "id": "2603.22275v1",
-      "title": "Repurposing Geometric Foundation Models for Multi-view Diffusion",
-      "abstract": "While recent advances in generative latent spaces have driven substantial progress in single-image generation, the optimal latent space for novel view synthesis (NVS) remains largely unexplored. In particular, NVS requires geometrically consistent generation across viewpoints, but existing approaches typically operate in a view-independent VAE latent space. In this paper, we propose Geometric Latent Diffusion (GLD), a framework that repurposes the geometrically consistent feature space of geometric foundation models as the latent space for multi-view diffusion. We show that these features not only support high-fidelity RGB reconstruction but also encode strong cross-view geometric correspondences, providing a well-suited latent space for NVS. Our experiments demonstrate that GLD outperforms both VAE and RAE on 2D image quality and 3D consistency metrics, while accelerating training by more than 4.4x compared to the VAE latent space. Notably, GLD remains competitive with state-of-the-art methods that leverage large-scale text-to-image pretraining, despite training its diffusion model from scratch without such generative pretraining.",
-      "authors": [
-        "Wooseok Jang",
-        "Seonghu Jeon",
-        "Jisang Han",
-        "Jinhyeok Choi",
-        "Minkyung Kwon",
-        "Seungryong Kim",
-        "Saining Xie",
-        "Sainan Liu"
-      ],
-      "primary_category": "cs.CV",
-      "categories": [
-        "cs.CV"
-      ],
-      "published": "2026-03-23T17:57:05+00:00",
-      "link": "https://arxiv.org/pdf/2603.22275v1",
-      "tags": [
-        "keyword:3DGEN",
-        "query:3DGEN"
-      ],
-      "llm_score": 8.0,
-      "llm_evidence_en": "geometric latent diffusion for multi-view synthesis",
-      "llm_evidence_cn": "用于多视图合成的几何潜扩散",
-      "llm_evidence": "用于多视图合成的几何潜扩散",
-      "canonical_evidence": "用于多视图合成的几何潜扩散",
-      "llm_tldr_en": "Repurposes geometric foundation models as a latent space for consistent multi-view diffusion.",
-      "llm_tldr_cn": "将几何基础模型重新利用为一致性多视图扩散的潜空间。",
-      "llm_tldr": "将几何基础模型重新利用为一致性多视图扩散的潜空间。",
-      "llm_tags": [
-        "query:3dgen"
-      ],
-      "matched_query_tag": "query:3dgen",
-      "matched_query_text": "3D scene generation and synthesis methods",
-      "matched_requirement_id": "req-4",
-      "selection_source": "carryover_cache",
-      "paper_id": "2603.22275v1",
-      "carry_days": 1
-    },
-    {
-      "id": "2603.22782v1",
-      "title": "Know3D: Prompting 3D Generation with Knowledge from Vision-Language Models",
-      "abstract": "Recent advances in 3D generation have improved the fidelity and geometric details of synthesized 3D assets. However, due to the inherent ambiguity of single-view observations and the lack of robust global structural priors caused by limited 3D training data, the unseen regions generated by existing models are often stochastic and difficult to control, which may sometimes fail to align with user intentions or produce implausible geometries. In this paper, we propose Know3D, a novel framework that incorporates rich knowledge from multimodal large language models into 3D generative processes via latent hidden-state injection, enabling language-controllable generation of the back-view for 3D assets. We utilize a VLM-diffusion-based model, where the VLM is responsible for semantic understanding and guidance. The diffusion model acts as a bridge that transfers semantic knowledge from the VLM to the 3D generation model. In this way, we successfully bridge the gap between abstract textual instructions and the geometric reconstruction of unobserved regions, transforming the traditionally stochastic back-view hallucination into a semantically controllable process, demonstrating a promising direction for future 3D generation models.",
-      "authors": [
-        "Wenyue Chen",
-        "Wenjue Chen",
-        "Peng Li",
-        "Qinghe Wang",
-        "Xu Jia",
-        "Heliang Zheng",
-        "Rongfei Jia",
-        "Yuan Liu",
-        "Ronggang Wang"
-      ],
-      "primary_category": "cs.CV",
-      "categories": [
-        "cs.CV"
-      ],
-      "published": "2026-03-24T04:18:29+00:00",
-      "link": "https://arxiv.org/pdf/2603.22782v1",
-      "tags": [
-        "keyword:3DGEN",
-        "query:3DGEN"
-      ],
-      "llm_score": 8.0,
-      "llm_evidence_en": "language-controllable generation of 3D assets using VLMs",
-      "llm_evidence_cn": "使用视觉语言模型进行语言可控的3D资产生成",
-      "llm_evidence": "使用视觉语言模型进行语言可控的3D资产生成",
-      "canonical_evidence": "使用视觉语言模型进行语言可控的3D资产生成",
-      "llm_tldr_en": "Injects VLM knowledge into 3D diffusion to enable controllable generation of unseen regions in 3D assets.",
-      "llm_tldr_cn": "将VLM知识注入3D扩散过程，实现3D资产未见区域的可控生成。",
-      "llm_tldr": "将VLM知识注入3D扩散过程，实现3D资产未见区域的可控生成。",
-      "llm_tags": [
-        "query:3dgen"
-      ],
-      "matched_query_tag": "query:3dgen",
-      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
-      "matched_requirement_id": "req-6",
-      "selection_source": "carryover_cache",
-      "paper_id": "2603.22782v1",
-      "carry_days": 1
-    },
     {
       "id": "2603.21064v2",
       "title": "2Xplat: Two Experts Are Better Than One Generalist",
@@ -361,13 +27,13 @@
         "query:3DGEN"
       ],
       "llm_score": 8.0,
-      "llm_evidence_en": "pose-free feed-forward 3D Gaussian Splatting generation",
-      "llm_evidence_cn": "无位姿前馈3D高斯泼溅生成",
-      "llm_evidence": "无位姿前馈3D高斯泼溅生成",
-      "canonical_evidence": "无位姿前馈3D高斯泼溅生成",
-      "llm_tldr_en": "Introduces 2Xplat, a two-expert framework for high-fidelity pose-free 3DGS generation from multi-view images.",
-      "llm_tldr_cn": "引入2Xplat，一种基于双专家设计的无位姿前馈3DGS生成框架，提升三维建模质量。",
-      "llm_tldr": "引入2Xplat，一种基于双专家设计的无位姿前馈3DGS生成框架，提升三维建模质量。",
+      "llm_evidence_en": "Feed-forward 3D Gaussian Splatting for rapid 3D modeling and synthesis",
+      "llm_evidence_cn": "用于快速3D建模和合成的前馈3D高斯泼溅技术",
+      "llm_evidence": "用于快速3D建模和合成的前馈3D高斯泼溅技术",
+      "canonical_evidence": "用于快速3D建模和合成的前馈3D高斯泼溅技术",
+      "llm_tldr_en": "Introduces 2Xplat, a two-expert framework for high-fidelity pose-free 3D Gaussian Splatting from multi-view images.",
+      "llm_tldr_cn": "提出2Xplat框架，通过双专家设计从多视图图像中实现高保真、无位姿的前馈3D高斯泼溅生成。",
+      "llm_tldr": "提出2Xplat框架，通过双专家设计从多视图图像中实现高保真、无位姿的前馈3D高斯泼溅生成。",
       "llm_tags": [
         "query:3dgen"
       ],
@@ -379,36 +45,34 @@
       "carry_days": 1
     },
     {
-      "id": "2603.19137v1",
-      "title": "GSMem: 3D Gaussian Splatting as Persistent Spatial Memory for Zero-Shot Embodied Exploration and Reasoning",
-      "abstract": "Effective embodied exploration requires agents to accumulate and retain spatial knowledge over time. However, existing scene representations, such as discrete scene graphs or static view-based snapshots, lack \\textit{post-hoc re-observability}. If an initial observation misses a target, the resulting memory omission is often irrecoverable. To bridge this gap, we propose \\textbf{GSMem}, a zero-shot embodied exploration and reasoning framework built upon 3D Gaussian Splatting (3DGS). By explicitly parameterizing continuous geometry and dense appearance, 3DGS serves as a persistent spatial memory that endows the agent with \\textit{Spatial Recollection}: the ability to render photorealistic novel views from optimal, previously unoccupied viewpoints. To operationalize this, GSMem employs a retrieval mechanism that simultaneously leverages parallel object-level scene graphs and semantic-level language fields. This complementary design robustly localizes target regions, enabling the agent to ``hallucinate'' optimal views for high-fidelity Vision-Language Model (VLM) reasoning. Furthermore, we introduce a hybrid exploration strategy that combines VLM-driven semantic scoring with a 3DGS-based coverage objective, balancing task-aware exploration with geometric coverage. Extensive experiments on embodied question answering and lifelong navigation demonstrate the robustness and effectiveness of our framework",
+      "id": "2603.19613v1",
+      "title": "OrbitNVS: Harnessing Video Diffusion Priors for Novel View Synthesis",
+      "abstract": "Novel View Synthesis (NVS) aims to generate unseen views of a 3D object given a limited number of known views. Existing methods often struggle to synthesize plausible views for unobserved regions, particularly under single-view input, and still face challenges in maintaining geometry- and appearance-consistency. To address these issues, we propose OrbitNVS, which reformulates NVS as an orbit video generation task. Through tailored model design and training strategies, we adapt a pre-trained video generation model to the NVS task, leveraging its rich visual priors to achieve high-quality view synthesis. Specifically, we incorporate camera adapters into the video model to enable accurate camera control. To enhance two key properties of 3D objects, geometry and appearance, we design a normal map generation branch and use normal map features to guide the synthesis of the target views via attention mechanism, thereby improving geometric consistency. Moreover, we apply a pixel-space supervision to alleviate blurry appearance caused by spatial compression in the latent space. Extensive experiments show that OrbitNVS significantly outperforms previous methods on the GSO and OmniObject3D benchmarks, especially in the challenging single-view setting (\\eg, +2.9 dB and +2.4 dB PSNR).",
       "authors": [
-        "Yiren Lu",
-        "Yi Du",
-        "Disheng Liu",
-        "Yunlai Zhou",
-        "Chen Wang",
-        "Yu Yin"
+        "Jinglin Liang",
+        "Zijian Zhou",
+        "Rui Huang",
+        "Shuangping Huang",
+        "Yichen Gong"
       ],
       "primary_category": "cs.CV",
       "categories": [
-        "cs.CV",
-        "cs.RO"
+        "cs.CV"
       ],
-      "published": "2026-03-19T16:55:54+00:00",
-      "link": "https://arxiv.org/pdf/2603.19137v1",
+      "published": "2026-03-20T03:40:36+00:00",
+      "link": "https://arxiv.org/pdf/2603.19613v1",
       "tags": [
         "keyword:3DGEN",
         "query:3DGEN"
       ],
       "llm_score": 8.0,
-      "llm_evidence_en": "3D Gaussian Splatting as persistent spatial memory for scene exploration",
-      "llm_evidence_cn": "将3D高斯泼溅作为场景探索的持久空间记忆",
-      "llm_evidence": "将3D高斯泼溅作为场景探索的持久空间记忆",
-      "canonical_evidence": "将3D高斯泼溅作为场景探索的持久空间记忆",
-      "llm_tldr_en": "Uses 3DGS as a spatial memory to enable zero-shot reasoning and photorealistic re-observation in 3D environments.",
-      "llm_tldr_cn": "将3DGS作为持久空间记忆，使智能体能在3D环境中进行零样本推理和重观察。",
-      "llm_tldr": "将3DGS作为持久空间记忆，使智能体能在3D环境中进行零样本推理和重观察。",
+      "llm_evidence_en": "Harnessing video diffusion priors for 3D object view synthesis",
+      "llm_evidence_cn": "利用视频扩散先验进行3D物体视角合成",
+      "llm_evidence": "利用视频扩散先验进行3D物体视角合成",
+      "canonical_evidence": "利用视频扩散先验进行3D物体视角合成",
+      "llm_tldr_en": "OrbitNVS adapts pre-trained video generation models to achieve high-quality, consistent novel view synthesis.",
+      "llm_tldr_cn": "OrbitNVS通过适配预训练视频生成模型，实现了高质量且一致的新视角合成。",
+      "llm_tldr": "OrbitNVS通过适配预训练视频生成模型，实现了高质量且一致的新视角合成。",
       "llm_tags": [
         "query:3dgen"
       ],
@@ -416,7 +80,88 @@
       "matched_query_text": "generative models for 3D environments",
       "matched_requirement_id": "req-5",
       "selection_source": "carryover_cache",
-      "paper_id": "2603.19137v1",
+      "paper_id": "2603.19613v1",
+      "carry_days": 1
+    },
+    {
+      "id": "2603.19753v1",
+      "title": "ReLi3D: Relightable Multi-view 3D Reconstruction with Disentangled Illumination",
+      "abstract": "Reconstructing 3D assets from images has long required separate pipelines for geometry reconstruction, material estimation, and illumination recovery, each with distinct limitations and computational overhead. We present ReLi3D, the first unified end-to-end pipeline that simultaneously reconstructs complete 3D geometry, spatially-varying physically-based materials, and environment illumination from sparse multi-view images in under one second. Our key insight is that multi-view constraints can dramatically improve material and illumination disentanglement, a problem that remains fundamentally ill-posed for single-image methods. Key to our approach is the fusion of the multi-view input via a transformer cross-conditioning architecture, followed by a novel unified two-path prediction strategy. The first path predicts the object's structure and appearance, while the second path predicts the environment illumination from image background or object reflections. This, combined with a differentiable Monte Carlo multiple importance sampling renderer, creates an optimal illumination disentanglement training pipeline. In addition, with our mixed domain training protocol, which combines synthetic PBR datasets with real-world RGB captures, we establish generalizable results in geometry, material accuracy, and illumination quality. By unifying previously separate reconstruction tasks into a single feed-forward pass, we enable near-instantaneous generation of complete, relightable 3D assets. Project Page: https://reli3d.jdihlmann.com/",
+      "authors": [
+        "Jan-Niklas Dihlmann",
+        "Mark Boss",
+        "Simon Donne",
+        "Andreas Engelhardt",
+        "Hendrik P. A. Lensch",
+        "Varun Jampani"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-03-20T08:37:39+00:00",
+      "link": "https://arxiv.org/pdf/2603.19753v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "unified end-to-end 3D geometry and illumination reconstruction",
+      "llm_evidence_cn": "统一的端到端3D几何与光照重建",
+      "llm_evidence": "统一的端到端3D几何与光照重建",
+      "canonical_evidence": "统一的端到端3D几何与光照重建",
+      "llm_tldr_en": "A fast pipeline for reconstructing 3D geometry, materials, and illumination from sparse multi-view images.",
+      "llm_tldr_cn": "一种从稀疏多视图图像中快速重建3D几何、材质和光照的流水线。",
+      "llm_tldr": "一种从稀疏多视图图像中快速重建3D几何、材质和光照的流水线。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "carryover_cache",
+      "paper_id": "2603.19753v1",
+      "carry_days": 1
+    },
+    {
+      "id": "2603.23637v1",
+      "title": "Stochastic Ray Tracing for the Reconstruction of 3D Gaussian Splatting",
+      "abstract": "Ray-tracing-based 3D Gaussian splatting (3DGS) methods overcome the limitations of rasterization -- rigid pinhole camera assumptions, inaccurate shadows, and lack of native reflection or refraction -- but remain slower due to the cost of sorting all intersecting Gaussians along every ray. Moreover, existing ray-tracing methods still rely on rasterization-style approximations such as shadow mapping for relightable scenes, undermining the generality that ray tracing promises.   We present a differentiable, sorting-free stochastic formulation for ray-traced 3DGS -- the first framework that uses stochastic ray tracing to both reconstruct and render standard and relightable 3DGS scenes. At its core is an unbiased Monte Carlo estimator for pixel-color gradients that evaluates only a small sampled subset of Gaussians per ray, bypassing the need for sorting. For standard 3DGS, our method matches the reconstruction quality and speed of rasterization-based 3DGS while substantially outperforming sorting-based ray tracing. For relightable 3DGS, the same stochastic estimator drives per-Gaussian shading with fully ray-traced shadow rays, delivering notably higher reconstruction fidelity than prior work.",
+      "authors": [
+        "Peiyu Xu",
+        "Xin Sun",
+        "Krishna Mullia",
+        "Raymond Fei",
+        "Iliyan Georgiev",
+        "Shuang Zhao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-24T18:23:12+00:00",
+      "link": "https://arxiv.org/pdf/2603.23637v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "stochastic ray tracing for 3D scene reconstruction",
+      "llm_evidence_cn": "用于3D场景重建的随机光线追踪",
+      "llm_evidence": "用于3D场景重建的随机光线追踪",
+      "canonical_evidence": "用于3D场景重建的随机光线追踪",
+      "llm_tldr_en": "Introduces a differentiable stochastic ray tracing framework for reconstructing and rendering 3D Gaussian scenes.",
+      "llm_tldr_cn": "引入了一种可微分的随机光线追踪框架，用于重建和渲染3D高斯场景。",
+      "llm_tldr": "引入了一种可微分的随机光线追踪框架，用于重建和渲染3D高斯场景。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "carryover_cache",
+      "paper_id": "2603.23637v1",
       "carry_days": 1
     }
   ]

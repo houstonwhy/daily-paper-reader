@@ -6,73 +6,73 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-03-25
-- 运行时间：2026-03-25 19:19:06 UTC
+- 最新运行日期：2026-03-26
+- 运行时间：2026-03-26 19:05:24 UTC
 - 运行状态：成功
 - 本次总论文数：17
 - 精读区：6
 - 速读区：11
 
 ### 今日简报（AI）
-今日聚焦 3D 场景生成与动态重建，深度解析 WorldMesh 与 AeroScene 等 17 篇前沿成果。
-重点关注通过网格引导扩散实现的多房间 3D 建模，以及面向航拍机器人的渐进式场景合成技术。
-建议从 4D 高斯泼溅与视频世界模型入手，探索空间智能在自动驾驶与机器人仿真中的应用潜力。
-- 详情：[/202603/25/README](/202603/25/README)
+今日聚焦 3D 场景生成与语义表征，深度解析 WorldMesh 等 17 篇前沿成果。
+满分论文 WorldMesh 攻克了多房间可导航场景生成难题，LoST 则通过分级语义离散化重塑 3D 形状理解。
+推荐优先研读 3D 场景的自动化构建技术，把握具身智能与自动驾驶的底层视觉趋势。
+- 详情：[/202603/26/README](/202603/26/README)
 
 ### 精读区论文标签
-1. [WorldMesh: Generating Navigable Multi-Room 3D Scenes via Mesh-Conditioned Image Diffusion](/202603/25/2603.22972v1-worldmesh-generating-navigable-multi-room-3d-scenes-via-mesh-conditioned-image-diffusion)  
+1. [WorldMesh: Generating Navigable Multi-Room 3D Scenes via Mesh-Conditioned Image Diffusion](/202603/26/2603.22972v2-worldmesh-generating-navigable-multi-room-3d-scenes-via-mesh-conditioned-image-diffusion)  
    标签：评分：10.0/10、query:3dgen
-   evidence：通过网格条件扩散进行文本到3D场景生成
-2. [AeroScene: Progressive Scene Synthesis for Aerial Robotics](/202603/25/2603.23224v1-aeroscene-progressive-scene-synthesis-for-aerial-robotics)  
-   标签：评分：10.0/10、query:3dgen
-   evidence：用于渐进式3D场景合成的分层扩散模型
-3. [Training-Free Instance-Aware 3D Scene Reconstruction and Diffusion-Based View Synthesis from Sparse Images](/202603/25/2603.21166v1-training-free-instance-aware-3d-scene-reconstruction-and-diffusion-based-view-synthesis-from-sparse-images)  
+   evidence：用于大规模3D场景合成的文本到图像扩散
+2. [LoST: Level of Semantics Tokenization for 3D Shapes](/202603/26/2603.17995v1-lost-level-of-semantics-tokenization-for-3d-shapes)  
    标签：评分：9.0/10、query:3dgen
-   evidence：3D场景重建与基于扩散的视角合成
-4. [3D-Layout-R1: Structured Reasoning for Language-Instructed Spatial Editing](/202603/25/2603.22279v1-3d-layout-r1-structured-reasoning-for-language-instructed-spatial-editing)  
+   evidence：用于自回归3D形状生成的语义标记化
+3. [GaussianSSC: Triplane-Guided Directional Gaussian Fields for 3D Semantic Completion](/202603/26/2603.21487v1-gaussianssc-triplane-guided-directional-gaussian-fields-for-3d-semantic-completion)  
    标签：评分：9.0/10、query:3dgen
-   evidence：通过场景图推理进行文本条件的空间布局编辑
-5. [I3DM: Implicit 3D-aware Memory Retrieval and Injection for Consistent Video Scene Generation](/202603/25/2603.23413v1-i3dm-implicit-3d-aware-memory-retrieval-and-injection-for-consistent-video-scene-generation)  
+   evidence：使用高斯场进行3D语义场景补全
+4. [Know3D: Prompting 3D Generation with Knowledge from Vision-Language Models](/202603/26/2603.22782v1-know3d-prompting-3d-generation-with-knowledge-from-vision-language-models)  
    标签：评分：9.0/10、query:3dgen
-   evidence：用于一致性视频场景生成的隐式3D感知记忆
-6. [FlatLands: Generative Floormap Completion From a Single Egocentric View](/202603/25/2603.16016v1-flatlands-generative-floormap-completion-from-a-single-egocentric-view)  
+   evidence：利用视觉语言模型知识的语言可控3D生成
+5. [TAPESTRY: From Geometry to Appearance via Consistent Turntable Videos](/202603/26/2603.17735v1-tapestry-from-geometry-to-appearance-via-consistent-turntable-videos)  
    标签：评分：8.0/10、query:3dgen
-   evidence：单视角生成式平面图补全
+   evidence：为3D重建生成一致的360度环绕视频
+6. [3DreamBooth: High-Fidelity 3D Subject-Driven Video Generation Model](/202603/26/2603.18524v1-3dreambooth-high-fidelity-3d-subject-driven-video-generation-model)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：具有空间先验的3D主体驱动视频生成
 
 ### 速读区论文标签
-1. [Mango-GS: Enhancing Spatio-Temporal Consistency in Dynamic Scenes Reconstruction using Multi-Frame Node-Guided 4D Gaussian Splatting](/202603/25/2603.11543v1-mango-gs-enhancing-spatio-temporal-consistency-in-dynamic-scenes-reconstruction-using-multi-frame-node-guided-4d-gaussian-splatting)  
+1. [CustomTex: High-fidelity Indoor Scene Texturing via Multi-Reference Customization](/202603/26/2603.19121v1-customtex-high-fidelity-indoor-scene-texturing-via-multi-reference-customization)  
    标签：评分：8.0/10、query:3dgen
-   evidence：以照片级细节重建动态3D场景
-2. [DriveFix: Spatio-Temporally Coherent Driving Scene Restoration](/202603/25/2603.16306v1-drivefix-spatio-temporally-coherent-driving-scene-restoration)  
+   evidence：高保真室内场景纹理生成框架
+2. [CustomTex: High-fidelity Indoor Scene Texturing via Multi-Reference Customization](/202603/26/2603.19121v2-customtex-high-fidelity-indoor-scene-texturing-via-multi-reference-customization)  
    标签：评分：8.0/10、query:3dgen
-   evidence：驾驶场景的多视图修复框架
-3. [MosaicMem: Hybrid Spatial Memory for Controllable Video World Models](/202603/25/2603.17117v1-mosaicmem-hybrid-spatial-memory-for-controllable-video-world-models)  
+   evidence：用于3D场景的高保真室内场景纹理贴图框架
+3. [DriveTok: 3D Driving Scene Tokenization for Unified Multi-View Reconstruction and Understanding](/202603/26/2603.19219v1-drivetok-3d-driving-scene-tokenization-for-unified-multi-view-reconstruction-and-understanding)  
    标签：评分：8.0/10、query:3dgen
-   evidence：用于3D世界模型的混合空间记忆
-4. [ReLaGS: Relational Language Gaussian Splatting](/202603/25/2603.17605v1-relags-relational-language-gaussian-splatting)  
+   evidence：用于重建的3D驾驶场景标记化
+4. [Generation Models Know Space: Unleashing Implicit 3D Priors for Scene Understanding](/202603/26/2603.19235v1-generation-models-know-space-unleashing-implicit-3d-priors-for-scene-understanding)  
    标签：评分：8.0/10、query:3dgen
-   evidence：分层语言蒸馏3D场景构建
-5. [VIEW2SPACE: Studying Multi-View Visual Reasoning from Sparse Observations](/202603/25/2603.16506v2-view2space-studying-multi-view-visual-reasoning-from-sparse-observations)  
+   evidence：释放视频生成模型中的隐式3D先验用于场景理解
+5. [UniSem: Generalizable Semantic 3D Reconstruction from Sparse Unposed Images](/202603/26/2603.17519v1-unisem-generalizable-semantic-3d-reconstruction-from-sparse-unposed-images)  
    标签：评分：7.0/10、query:3dgen
-   evidence：可扩展的3D场景数据生成
-6. [VideoMatGen: PBR Materials through Joint Generative Modeling](/202603/25/2603.16566v1-videomatgen-pbr-materials-through-joint-generative-modeling)  
+   evidence：稀疏图像的语义3D重建
+6. [CrowdGaussian: Reconstructing High-Fidelity 3D Gaussians for Human Crowd from a Single Image](/202603/26/2603.17779v2-crowdgaussian-reconstructing-high-fidelity-3d-gaussians-for-human-crowd-from-a-single-image)  
    标签：评分：7.0/10、query:3dgen
-   evidence：3D形状PBR材质的生成式建模
-7. [World Reconstruction From Inconsistent Views](/202603/25/2603.16736v1-world-reconstruction-from-inconsistent-views)  
+   evidence：从单张图像重建多人的3D高斯泼溅表示
+7. [AHOY! Animatable Humans under Occlusion from YouTube Videos with Gaussian Splatting and Video Diffusion Priors](/202603/26/2603.17975v1-ahoy-animatable-humans-under-occlusion-from-youtube-videos-with-gaussian-splatting-and-video-diffusion-priors)  
    标签：评分：7.0/10、query:3dgen
-   evidence：从视频扩散模型重建3D世界
-8. [MessyKitchens: Contact-rich object-level 3D scene reconstruction](/202603/25/2603.16868v1-messykitchens-contact-rich-object-level-3d-scene-reconstruction)  
+   evidence：从视频中重建可动画化的3D高斯化身
+8. [Loc3R-VLM: Language-based Localization and 3D Reasoning with Vision-Language Models](/202603/26/2603.18002v1-loc3r-vlm-language-based-localization-and-3d-reasoning-with-vision-language-models)  
    标签：评分：7.0/10、query:3dgen
-   evidence：物体级3D场景重建
-9. [NanoGS: Training-Free Gaussian Splat Simplification](/202603/25/2603.16103v1-nanogs-training-free-gaussian-splat-simplification)  
+   evidence：基于视频的3D推理与全局布局重建
+9. [Material Magic Wand: Material-Aware Grouping of 3D Parts in Untextured Meshes](/202603/26/2603.17370v1-material-magic-wand-material-aware-grouping-of-3d-parts-in-untextured-meshes)  
    标签：评分：6.0/10、query:3dgen
-   evidence：高斯泼溅场景表示简化
-10. [Rethinking Pose Refinement in 3D Gaussian Splatting under Pose Prior and Geometric Uncertainty](/202603/25/2603.16538v1-rethinking-pose-refinement-in-3d-gaussian-splatting-under-pose-prior-and-geometric-uncertainty)  
+   evidence：非纹理网格中3D部件的材质感知分组，用于场景编辑
+10. [VisionNVS: Self-Supervised Inpainting for Novel View Synthesis under the Virtual-Shift Paradigm](/202603/26/2603.17382v1-visionnvs-self-supervised-inpainting-for-novel-view-synthesis-under-the-virtual-shift-paradigm)  
    标签：评分：6.0/10、query:3dgen
-   evidence：3D高斯泼溅场景表示与姿态精细化
-11. [Stereo World Model: Camera-Guided Stereo Video Generation](/202603/25/2603.17375v1-stereo-world-model-camera-guided-stereo-video-generation)  
+   evidence：自动驾驶场景的新视角合成
+11. [Feeling the Space: Egomotion-Aware Video Representation for Efficient and Accurate 3D Scene Understanding](/202603/26/2603.17980v1-feeling-the-space-egomotion-aware-video-representation-for-efficient-and-accurate-3d-scene-understanding)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于视频生成和几何落地的立体世界模型
+   evidence：用于3D场景理解的自我运动感知视频表示
 
 
 <div class="dpr-home-promo-card">
