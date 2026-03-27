@@ -6,73 +6,73 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-03-26
-- 运行时间：2026-03-26 19:05:24 UTC
+- 最新运行日期：2026-03-27
+- 运行时间：2026-03-27 19:11:48 UTC
 - 运行状态：成功
 - 本次总论文数：17
 - 精读区：6
 - 速读区：11
 
 ### 今日简报（AI）
-今日聚焦 3D 场景生成与语义表征，深度解析 WorldMesh 等 17 篇前沿成果。
-满分论文 WorldMesh 攻克了多房间可导航场景生成难题，LoST 则通过分级语义离散化重塑 3D 形状理解。
-推荐优先研读 3D 场景的自动化构建技术，把握具身智能与自动驾驶的底层视觉趋势。
-- 详情：[/202603/26/README](/202603/26/README)
+今日精选 17 篇前沿论文，深度解析几何大模型在多视图扩散及 3D 高斯泼溅语义地图中的最新突破。
+重点关注几何基础模型对多视图生成的跨界赋能，以及 3DGS 在在线全景建图与全景视频重建中的高效应用。
+建议优先研读 9.0 分力作，掌握如何利用预训练几何模型提升三维生成的一致性与质量。
+- 详情：[/202603/27/README](/202603/27/README)
 
 ### 精读区论文标签
-1. [WorldMesh: Generating Navigable Multi-Room 3D Scenes via Mesh-Conditioned Image Diffusion](/202603/26/2603.22972v2-worldmesh-generating-navigable-multi-room-3d-scenes-via-mesh-conditioned-image-diffusion)  
-   标签：评分：10.0/10、query:3dgen
-   evidence：用于大规模3D场景合成的文本到图像扩散
-2. [LoST: Level of Semantics Tokenization for 3D Shapes](/202603/26/2603.17995v1-lost-level-of-semantics-tokenization-for-3d-shapes)  
+1. [Repurposing Geometric Foundation Models for Multi-view Diffusion](/202603/27/2603.22275v1-repurposing-geometric-foundation-models-for-multi-view-diffusion)  
    标签：评分：9.0/10、query:3dgen
-   evidence：用于自回归3D形状生成的语义标记化
-3. [GaussianSSC: Triplane-Guided Directional Gaussian Fields for 3D Semantic Completion](/202603/26/2603.21487v1-gaussianssc-triplane-guided-directional-gaussian-fields-for-3d-semantic-completion)  
-   标签：评分：9.0/10、query:3dgen
-   evidence：使用高斯场进行3D语义场景补全
-4. [Know3D: Prompting 3D Generation with Knowledge from Vision-Language Models](/202603/26/2603.22782v1-know3d-prompting-3d-generation-with-knowledge-from-vision-language-models)  
-   标签：评分：9.0/10、query:3dgen
-   evidence：利用视觉语言模型知识的语言可控3D生成
-5. [TAPESTRY: From Geometry to Appearance via Consistent Turntable Videos](/202603/26/2603.17735v1-tapestry-from-geometry-to-appearance-via-consistent-turntable-videos)  
+   evidence：用于几何一致性生成的项多视图扩散模型
+2. [OnlinePG: Online Open-Vocabulary Panoptic Mapping with 3D Gaussian Splatting](/202603/27/2603.18510v1-onlinepg-online-open-vocabulary-panoptic-mapping-with-3d-gaussian-splatting)  
    标签：评分：8.0/10、query:3dgen
-   evidence：为3D重建生成一致的360度环绕视频
-6. [3DreamBooth: High-Fidelity 3D Subject-Driven Video Generation Model](/202603/26/2603.18524v1-3dreambooth-high-fidelity-3d-subject-driven-video-generation-model)  
+   evidence：使用3D高斯泼溅进行在线开放词汇全景地图构建
+3. [OrbitNVS: Harnessing Video Diffusion Priors for Novel View Synthesis](/202603/27/2603.19613v1-orbitnvs-harnessing-video-diffusion-priors-for-novel-view-synthesis)  
    标签：评分：8.0/10、query:3dgen
-   evidence：具有空间先验的3D主体驱动视频生成
+   evidence：利用视频扩散先验进行3D物体视角合成
+4. [Uni-Classifier: Leveraging Video Diffusion Priors for Universal Guidance Classifier](/202603/27/2603.20382v1-uni-classifier-leveraging-video-diffusion-priors-for-universal-guidance-classifier)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：利用视频扩散先验进行3D生成任务
+5. [2Xplat: Two Experts Are Better Than One Generalist](/202603/27/2603.21064v2-2xplat-two-experts-are-better-than-one-generalist)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：最先进的前馈3DGS生成
+6. [SLARM: Streaming and Language-Aligned Reconstruction Model for Dynamic Scenes](/202603/27/2603.22893v1-slarm-streaming-and-language-aligned-reconstruction-model-for-dynamic-scenes)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：动态场景重建与语言对齐表示
 
 ### 速读区论文标签
-1. [CustomTex: High-fidelity Indoor Scene Texturing via Multi-Reference Customization](/202603/26/2603.19121v1-customtex-high-fidelity-indoor-scene-texturing-via-multi-reference-customization)  
+1. [UniQueR: Unified Query-based Feedforward 3D Reconstruction](/202603/27/2603.22851v1-uniquer-unified-query-based-feedforward-3d-reconstruction)  
    标签：评分：8.0/10、query:3dgen
-   evidence：高保真室内场景纹理生成框架
-2. [CustomTex: High-fidelity Indoor Scene Texturing via Multi-Reference Customization](/202603/26/2603.19121v2-customtex-high-fidelity-indoor-scene-texturing-via-multi-reference-customization)  
+   evidence：场景结构的自前馈3D重建
+2. [Pose-Free Omnidirectional Gaussian Splatting for 360-Degree Videos with Consistent Depth Priors](/202603/27/2603.23324v1-pose-free-omnidirectional-gaussian-splatting-for-360-degree-videos-with-consistent-depth-priors)  
    标签：评分：8.0/10、query:3dgen
-   evidence：用于3D场景的高保真室内场景纹理贴图框架
-3. [DriveTok: 3D Driving Scene Tokenization for Unified Multi-View Reconstruction and Understanding](/202603/26/2603.19219v1-drivetok-3d-driving-scene-tokenization-for-unified-multi-view-reconstruction-and-understanding)  
+   evidence：全景视频的3D场景表示与重建
+3. [SEGAR: Selective Enhancement for Generative Augmented Reality](/202603/27/2603.24541v1-segar-selective-enhancement-for-generative-augmented-reality)  
    标签：评分：8.0/10、query:3dgen
-   evidence：用于重建的3D驾驶场景标记化
-4. [Generation Models Know Space: Unleashing Implicit 3D Priors for Scene Understanding](/202603/26/2603.19235v1-generation-models-know-space-unleashing-implicit-3d-priors-for-scene-understanding)  
+   evidence：用于增强现实的生成式世界模型
+4. [MoRGS: Efficient Per-Gaussian Motion Reasoning for Streamable Dynamic 3D Scenes](/202603/27/2603.25042v1-morgs-efficient-per-gaussian-motion-reasoning-for-streamable-dynamic-3d-scenes)  
    标签：评分：8.0/10、query:3dgen
-   evidence：释放视频生成模型中的隐式3D先验用于场景理解
-5. [UniSem: Generalizable Semantic 3D Reconstruction from Sparse Unposed Images](/202603/26/2603.17519v1-unisem-generalizable-semantic-3d-reconstruction-from-sparse-unposed-images)  
+   evidence：使用高斯泼溅进行动态3D场景的在线重建
+5. [FILT3R: Latent State Adaptive Kalman Filter for Streaming 3D Reconstruction](/202603/27/2603.18493v1-filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction)  
    标签：评分：7.0/10、query:3dgen
-   evidence：稀疏图像的语义3D重建
-6. [CrowdGaussian: Reconstructing High-Fidelity 3D Gaussians for Human Crowd from a Single Image](/202603/26/2603.17779v2-crowdgaussian-reconstructing-high-fidelity-3d-gaussians-for-human-crowd-from-a-single-image)  
+   evidence：具有潜状态更新的流式3D重建
+6. [ReLi3D: Relightable Multi-view 3D Reconstruction with Disentangled Illumination](/202603/27/2603.19753v1-reli3d-relightable-multi-view-3d-reconstruction-with-disentangled-illumination)  
    标签：评分：7.0/10、query:3dgen
-   evidence：从单张图像重建多人的3D高斯泼溅表示
-7. [AHOY! Animatable Humans under Occlusion from YouTube Videos with Gaussian Splatting and Video Diffusion Priors](/202603/26/2603.17975v1-ahoy-animatable-humans-under-occlusion-from-youtube-videos-with-gaussian-splatting-and-video-diffusion-priors)  
+   evidence：3D几何与材质重建的统一流水线
+7. [SegVGGT: Joint 3D Reconstruction and Instance Segmentation from Multi-View Images](/202603/27/2603.19926v1-segvggt-joint-3d-reconstruction-and-instance-segmentation-from-multi-view-images)  
    标签：评分：7.0/10、query:3dgen
-   evidence：从视频中重建可动画化的3D高斯化身
-8. [Loc3R-VLM: Language-based Localization and 3D Reasoning with Vision-Language Models](/202603/26/2603.18002v1-loc3r-vlm-language-based-localization-and-3d-reasoning-with-vision-language-models)  
+   evidence：联合3D重建与实例分割
+8. [LagerNVS: Latent Geometry for Fully Neural Real-time Novel View Synthesis](/202603/27/2603.20176v1-lagernvs-latent-geometry-for-fully-neural-real-time-novel-view-synthesis)  
    标签：评分：7.0/10、query:3dgen
-   evidence：基于视频的3D推理与全局布局重建
-9. [Material Magic Wand: Material-Aware Grouping of 3D Parts in Untextured Meshes](/202603/26/2603.17370v1-material-magic-wand-material-aware-grouping-of-3d-parts-in-untextured-meshes)  
+   evidence：用于新视角合成的3D感知潜特征，无需显式重建
+9. [SEAR: Simple and Efficient Adaptation of Visual Geometric Transformers for RGB+Thermal 3D Reconstruction](/202603/27/2603.18774v1-sear-simple-and-efficient-adaptation-of-visual-geometric-transformers-for-rgbthermal-3d-reconstruction)  
    标签：评分：6.0/10、query:3dgen
-   evidence：非纹理网格中3D部件的材质感知分组，用于场景编辑
-10. [VisionNVS: Self-Supervised Inpainting for Novel View Synthesis under the Virtual-Shift Paradigm](/202603/26/2603.17382v1-visionnvs-self-supervised-inpainting-for-novel-view-synthesis-under-the-virtual-shift-paradigm)  
+   evidence：RGB+热成像3D场景重建
+10. [SwiftTailor: Efficient 3D Garment Generation with Geometry Image Representation](/202603/27/2603.19053v1-swifttailor-efficient-3d-garment-generation-with-geometry-image-representation)  
    标签：评分：6.0/10、query:3dgen
-   evidence：自动驾驶场景的新视角合成
-11. [Feeling the Space: Egomotion-Aware Video Representation for Efficient and Accurate 3D Scene Understanding](/202603/26/2603.17980v1-feeling-the-space-egomotion-aware-video-representation-for-efficient-and-accurate-3d-scene-understanding)  
+   evidence：3D服装生成与网格合成
+11. [Fourier Splatting: Generalized Fourier encoded primitives for scalable radiance fields](/202603/27/2603.19834v1-fourier-splatting-generalized-fourier-encoded-primitives-for-scalable-radiance-fields)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于3D场景理解的自我运动感知视频表示
+   evidence：用于可扩展辐射场的3D表示和渲染
 
 
 <div class="dpr-home-promo-card">
