@@ -1,46 +1,6 @@
 {
-  "generated_at": "2026-03-27T19:09:10.736740+00:00",
-  "updated_date": "20260327",
+  "generated_at": "2026-03-28T19:03:33.968598+00:00",
+  "updated_date": "20260328",
   "carryover_days": 9,
-  "items": [
-    {
-      "id": "2603.25494v1",
-      "title": "AdaSFormer: Adaptive Serialized Transformers for Monocular Semantic Scene Completion from Indoor Environments",
-      "abstract": "Indoor monocular semantic scene completion (MSSC) is notably more challenging than its outdoor counterpart due to complex spatial layouts and severe occlusions. While transformers are well suited for modeling global dependencies, their high memory cost and difficulty in reconstructing fine-grained details have limited their use in indoor MSSC. To address these limitations, we introduce AdaSFormer, a serialized transformer framework tailored for indoor MSSC. Our model features three key designs: (1) an Adaptive Serialized Transformer with learnable shifts that dynamically adjust receptive fields; (2) a Center-Relative Positional Encoding that captures spatial information richness; and (3) a Convolution-Modulated Layer Normalization that bridges heterogeneous representations between convolutional and transformer features. Extensive experiments on NYUv2 and Occ-ScanNet demonstrate that AdaSFormer achieves state-of-the-art performance. The code is publicly available at: https://github.com/alanWXZ/AdaSFormer.",
-      "authors": [
-        "Xuzhi Wang",
-        "Xinran Wu",
-        "Song Wang",
-        "Lingdong Kong",
-        "Ziping Zhao"
-      ],
-      "primary_category": "cs.CV",
-      "categories": [
-        "cs.CV"
-      ],
-      "published": "2026-03-26T14:33:36+00:00",
-      "link": "https://arxiv.org/pdf/2603.25494v1",
-      "tags": [
-        "keyword:3DGEN",
-        "query:3DGEN"
-      ],
-      "llm_score": 8.0,
-      "llm_evidence_en": "Semantic scene completion for indoor 3D environments",
-      "llm_evidence_cn": "室内3D环境的语义场景补全",
-      "llm_evidence": "室内3D环境的语义场景补全",
-      "canonical_evidence": "室内3D环境的语义场景补全",
-      "llm_tldr_en": "AdaSFormer uses serialized transformers for monocular semantic scene completion in indoor settings.",
-      "llm_tldr_cn": "AdaSFormer采用序列化Transformer进行室内环境的单目语义场景补全。",
-      "llm_tldr": "AdaSFormer采用序列化Transformer进行室内环境的单目语义场景补全。",
-      "llm_tags": [
-        "query:3dgen"
-      ],
-      "matched_query_tag": "query:3dgen",
-      "matched_query_text": "3D scene generation and synthesis methods",
-      "matched_requirement_id": "req-4",
-      "selection_source": "carryover_cache",
-      "paper_id": "2603.25494v1",
-      "carry_days": 1
-    }
-  ]
+  "items": []
 }

@@ -1,0 +1,654 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-28T19:03:33.967507+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 6,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 39,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2603.21304v2",
+      "title": "F4Splat: Feed-Forward Predictive Densification for Feed-Forward 3D Gaussian Splatting",
+      "abstract": "Feed-forward 3D Gaussian Splatting methods enable single-pass reconstruction and real-time rendering. However, they typically adopt rigid pixel-to-Gaussian or voxel-to-Gaussian pipelines that uniformly allocate Gaussians, leading to redundant Gaussians across views. Moreover, they lack an effective mechanism to control the total number of Gaussians while maintaining reconstruction fidelity. To address these limitations, we present F4Splat, which performs Feed-Forward predictive densification for Feed-Forward 3D Gaussian Splatting, introducing a densification-score-guided allocation strategy that adaptively distributes Gaussians according to spatial complexity and multi-view overlap. Our model predicts per-region densification scores to estimate the required Gaussian density and allows explicit control over the final Gaussian budget without retraining. This spatially adaptive allocation reduces redundancy in simple regions and minimizes duplicate Gaussians across overlapping views, producing compact yet high-quality 3D representations. Extensive experiments demonstrate that our model achieves superior novel-view synthesis performance compared to prior uncalibrated feed-forward methods, while using significantly fewer Gaussians.",
+      "authors": [
+        "Injae Kim",
+        "Chaehyeon Kim",
+        "Minseong Bae",
+        "Minseok Joo",
+        "Hyunwoo J. Kim"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-22T16:03:56+00:00",
+      "link": "https://arxiv.org/pdf/2603.21304v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Feed-forward predictive densification for 3D Gaussian Splatting",
+      "llm_evidence_cn": "3D高斯泼溅的前馈预测加密",
+      "llm_evidence": "3D高斯泼溅的前馈预测加密",
+      "canonical_evidence": "3D高斯泼溅的前馈预测加密",
+      "llm_tldr_en": "Presents an adaptive densification strategy for efficient feed-forward 3D scene reconstruction.",
+      "llm_tldr_cn": "提出一种自适应加密策略，用于高效的前馈3D场景重建。",
+      "llm_tldr": "提出一种自适应加密策略，用于高效的前馈3D场景重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "state of the art methods in 3D scene generation",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.23192v1",
+      "title": "GTLR-GS: Geometry-Texture Aware LiDAR-Regularized 3D Gaussian Splatting for Realistic Scene Reconstruction",
+      "abstract": "Recent advances in 3D Gaussian Splatting (3DGS) have enabled real-time, photorealistic scene reconstruction. However, conventional 3DGS frameworks typically rely on sparse point clouds derived from Structure-from-Motion (SfM), which inherently suffer from scale ambiguity, limited geometric consistency, and strong view dependency due to the lack of geometric priors. In this work, a LiDAR-centric 3D Gaussian Splatting framework is proposed that explicitly incorporates metric geometric priors into the entire Gaussian optimization process. Instead of treating LiDAR data as a passive initialization source, 3DGS optimization is reformulated as a geometry-conditioned allocation and refinement problem under a fixed representational budget. Specifically, this work introduces (i) a geometry-texture-aware allocation strategy that selectively assigns Gaussian primitives to regions with high structural or appearance complexity, (ii) a curvature-adaptive refinement mechanism that dynamically guides Gaussian splitting toward geometrically complex areas during training, and (iii) a confidence-aware metric depth regularization that anchors the reconstructed geometry to absolute scale using LiDAR measurements while maintaining optimization stability. Extensive experiments on the ScanNet++ dataset and a custom real-world dataset validate the proposed approach. The results demonstrate state-of-the-art performance in metric-scale reconstruction with high geometric fidelity.",
+      "authors": [
+        "Yan Fang",
+        "Jianfei Ge",
+        "Jiangjian Xiao"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR",
+        "cs.MM"
+      ],
+      "published": "2026-03-24T13:37:52+00:00",
+      "link": "https://arxiv.org/pdf/2603.23192v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "3D Gaussian Splatting for realistic scene reconstruction",
+      "llm_evidence_cn": "用于逼真场景重建的3D高斯泼溅",
+      "llm_evidence": "用于逼真场景重建的3D高斯泼溅",
+      "canonical_evidence": "用于逼真场景重建的3D高斯泼溅",
+      "llm_tldr_en": "Introduces a LiDAR-regularized 3DGS framework for improved geometric consistency in scene reconstruction.",
+      "llm_tldr_cn": "引入激光雷达正则化的3DGS框架，以提高场景重建中的几何一致性。",
+      "llm_tldr": "引入激光雷达正则化的3DGS框架，以提高场景重建中的几何一致性。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.25053v1",
+      "title": "GaussFusion: Improving 3D Reconstruction in the Wild with A Geometry-Informed Video Generator",
+      "abstract": "We present GaussFusion, a novel approach for improving 3D Gaussian splatting (3DGS) reconstructions in the wild through geometry-informed video generation. GaussFusion mitigates common 3DGS artifacts, including floaters, flickering, and blur caused by camera pose errors, incomplete coverage, and noisy geometry initialization. Unlike prior RGB-based approaches limited to a single reconstruction pipeline, our method introduces a geometry-informed video-to-video generator that refines 3DGS renderings across both optimization-based and feed-forward methods. Given an existing reconstruction, we render a Gaussian primitive video buffer encoding depth, normals, opacity, and covariance, which the generator refines to produce temporally coherent, artifact-free frames. We further introduce an artifact synthesis pipeline that simulates diverse degradation patterns, ensuring robustness and generalization. GaussFusion achieves state-of-the-art performance on novel-view synthesis benchmarks, and an efficient variant runs in real time at 21 FPS while maintaining similar performance, enabling interactive 3D applications.",
+      "authors": [
+        "Liyuan Zhu",
+        "Manjunath Narayana",
+        "Michal Stary",
+        "Will Hutchcroft",
+        "Gordon Wetzstein",
+        "Iro Armeni"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-26T05:42:12+00:00",
+      "link": "https://arxiv.org/pdf/2603.25053v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "geometry-informed video generator for 3D reconstruction",
+      "llm_evidence_cn": "用于3D重建的几何感知视频生成器",
+      "llm_evidence": "用于3D重建的几何感知视频生成器",
+      "canonical_evidence": "用于3D重建的几何感知视频生成器",
+      "llm_tldr_en": "Refines 3D Gaussian Splatting reconstructions using a geometry-informed video-to-video generator.",
+      "llm_tldr_cn": "利用几何感知的视频到视频生成器优化3D高斯泼溅重建效果。",
+      "llm_tldr": "利用几何感知的视频到视频生成器优化3D高斯泼溅重建效果。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.25494v1",
+      "title": "AdaSFormer: Adaptive Serialized Transformers for Monocular Semantic Scene Completion from Indoor Environments",
+      "abstract": "Indoor monocular semantic scene completion (MSSC) is notably more challenging than its outdoor counterpart due to complex spatial layouts and severe occlusions. While transformers are well suited for modeling global dependencies, their high memory cost and difficulty in reconstructing fine-grained details have limited their use in indoor MSSC. To address these limitations, we introduce AdaSFormer, a serialized transformer framework tailored for indoor MSSC. Our model features three key designs: (1) an Adaptive Serialized Transformer with learnable shifts that dynamically adjust receptive fields; (2) a Center-Relative Positional Encoding that captures spatial information richness; and (3) a Convolution-Modulated Layer Normalization that bridges heterogeneous representations between convolutional and transformer features. Extensive experiments on NYUv2 and Occ-ScanNet demonstrate that AdaSFormer achieves state-of-the-art performance. The code is publicly available at: https://github.com/alanWXZ/AdaSFormer.",
+      "authors": [
+        "Xuzhi Wang",
+        "Xinran Wu",
+        "Song Wang",
+        "Lingdong Kong",
+        "Ziping Zhao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-26T14:33:36+00:00",
+      "link": "https://arxiv.org/pdf/2603.25494v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Semantic scene completion for indoor 3D environments",
+      "llm_evidence_cn": "室内3D环境的语义场景补全",
+      "llm_evidence": "室内3D环境的语义场景补全",
+      "canonical_evidence": "室内3D环境的语义场景补全",
+      "llm_tldr_en": "AdaSFormer uses serialized transformers for monocular semantic scene completion in indoor settings.",
+      "llm_tldr_cn": "AdaSFormer采用序列化Transformer进行室内环境的单目语义场景补全。",
+      "llm_tldr": "AdaSFormer采用序列化Transformer进行室内环境的单目语义场景补全。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "carryover_cache",
+      "paper_id": "2603.25494v1"
+    },
+    {
+      "id": "2603.25129v1",
+      "title": "AirSplat: Alignment and Rating for Robust Feed-Forward 3D Gaussian Splatting",
+      "abstract": "While 3D Vision Foundation Models (3DVFMs) have demonstrated remarkable zero-shot capabilities in visual geometry estimation, their direct application to generalizable novel view synthesis (NVS) remains challenging.   In this paper, we propose AirSplat, a novel training framework that effectively adapts the robust geometric priors of 3DVFMs into high-fidelity, pose-free NVS. Our approach introduces two key technical contributions:   (1) Self-Consistent Pose Alignment (SCPA), a training-time feedback loop that ensures pixel-aligned supervision to resolve pose-geometry discrepancy; and   (2) Rating-based Opacity Matching (ROM), which leverages the local 3D geometry consistency knowledge from a sparse-view NVS teacher model to filter out degraded primitives.   Experimental results on large-scale benchmarks demonstrate that our method significantly outperforms state-of-the-art pose-free NVS approaches in reconstruction quality.   Our AirSplat highlights the potential of adapting 3DVFMs to enable simultaneous visual geometry estimation and high-quality view synthesis.",
+      "authors": [
+        "Minh-Quan Viet Bui",
+        "Jaeho Moon",
+        "Munchurl Kim"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-26T07:52:33+00:00",
+      "link": "https://arxiv.org/pdf/2603.25129v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "feed-forward 3D Gaussian Splatting for scene synthesis",
+      "llm_evidence_cn": "用于场景合成的前馈3D高斯泼溅",
+      "llm_evidence": "用于场景合成的前馈3D高斯泼溅",
+      "canonical_evidence": "用于场景合成的前馈3D高斯泼溅",
+      "llm_tldr_en": "Adapts 3D vision foundation models for high-fidelity, pose-free novel view synthesis of 3D scenes.",
+      "llm_tldr_cn": "将3D视觉基础模型应用于高保真、无位姿要求的3D场景新视角合成。",
+      "llm_tldr": "将3D视觉基础模型应用于高保真、无位姿要求的3D场景新视角合成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.25265v1",
+      "title": "ViewSplat: View-Adaptive Dynamic Gaussian Splatting for Feed-Forward Synthesis",
+      "abstract": "We present ViewSplat, a view-adaptive 3D Gaussian splatting network for novel view synthesis from unposed images. While recent feed-forward 3D Gaussian splatting has significantly accelerated 3D scene reconstruction by bypassing per-scene optimization, a fundamental fidelity gap remains. We attribute this bottleneck to the limited capacity of single-step feed-forward networks to regress static Gaussian primitives that satisfy all viewpoints. To address this limitation, we shift the paradigm from static primitive regression to view-adaptive dynamic splatting. Instead of a rigid Gaussian representation, our pipeline learns a view-adaptable latent representation. Specifically, ViewSplat initially predicts base Gaussian primitives alongside the weights of dynamic MLPs. During rendering, these MLPs take target view coordinates as input and predict view-dependent residual updates for each Gaussian attribute (i.e., 3D position, scale, rotation, opacity, and color). This mechanism, which we term view-adaptive dynamic splatting, allows each primitive to rectify initial estimation errors, effectively capturing high-fidelity appearances. Extensive experiments demonstrate that ViewSplat achieves state-of-the-art fidelity while maintaining fast inference (17 FPS) and real-time rendering (154 FPS).",
+      "authors": [
+        "Moonyeon Jeong",
+        "Seunggi Min",
+        "Suhyeon Lee",
+        "Hongje Seong"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-26T10:03:44+00:00",
+      "link": "https://arxiv.org/pdf/2603.25265v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "3D Gaussian splatting for 3D scene reconstruction",
+      "llm_evidence_cn": "用于3D场景重建的3D高斯泼溅",
+      "llm_evidence": "用于3D场景重建的3D高斯泼溅",
+      "canonical_evidence": "用于3D场景重建的3D高斯泼溅",
+      "llm_tldr_en": "Shifts to view-adaptive dynamic splatting to improve the fidelity of feed-forward 3D scene synthesis.",
+      "llm_tldr_cn": "转向视角自适应动态泼溅，以提高前馈3D场景合成的保真度。",
+      "llm_tldr": "转向视角自适应动态泼溅，以提高前馈3D场景合成的保真度。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.19682v1",
+      "title": "3D Gaussian Splatting with Self-Constrained Priors for High Fidelity Surface Reconstruction",
+      "abstract": "Rendering 3D surfaces has been revolutionized within the modeling of radiance fields through either 3DGS or NeRF. Although 3DGS has shown advantages over NeRF in terms of rendering quality or speed, there is still room for improvement in recovering high fidelity surfaces through 3DGS. To resolve this issue, we propose a self-constrained prior to constrain the learning of 3D Gaussians, aiming for more accurate depth rendering. Our self-constrained prior is derived from a TSDF grid that is obtained by fusing the depth maps rendered with current 3D Gaussians. The prior measures a distance field around the estimated surface, offering a band centered at the surface for imposing more specific constraints on 3D Gaussians, such as removing Gaussians outside the band, moving Gaussians closer to the surface, and encouraging larger or smaller opacity in a geometry-aware manner. More importantly, our prior can be regularly updated by the most recent depth images which are usually more accurate and complete. In addition, the prior can also progressively narrow the band to tighten the imposed constraints. We justify our idea and report our superiority over the state-of-the-art methods in evaluations on widely used benchmarks.",
+      "authors": [
+        "Takeshi Noda",
+        "Yu-Shen Liu",
+        "Zhizhong Han"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-20T06:31:03+00:00",
+      "link": "https://arxiv.org/pdf/2603.19682v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D Gaussian Splatting for surface reconstruction",
+      "llm_evidence_cn": "用于表面重建的3D高斯泼溅技术",
+      "llm_evidence": "用于表面重建的3D高斯泼溅技术",
+      "canonical_evidence": "用于表面重建的3D高斯泼溅技术",
+      "llm_tldr_en": "Proposes self-constrained priors for 3DGS to improve high-fidelity surface reconstruction and depth accuracy.",
+      "llm_tldr_cn": "提出一种自约束先验，通过优化3D高斯泼溅学习过程来提升高保真表面重建的精度。",
+      "llm_tldr": "提出一种自约束先验，通过优化3D高斯泼溅学习过程来提升高保真表面重建的精度。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.19682v2",
+      "title": "3D Gaussian Splatting with Self-Constrained Priors for High Fidelity Surface Reconstruction",
+      "abstract": "Rendering 3D surfaces has been revolutionized within the modeling of radiance fields through either 3DGS or NeRF. Although 3DGS has shown advantages over NeRF in terms of rendering quality or speed, there is still room for improvement in recovering high fidelity surfaces through 3DGS. To resolve this issue, we propose a self-constrained prior to constrain the learning of 3D Gaussians, aiming for more accurate depth rendering. Our self-constrained prior is derived from a TSDF grid that is obtained by fusing the depth maps rendered with current 3D Gaussians. The prior measures a distance field around the estimated surface, offering a band centered at the surface for imposing more specific constraints on 3D Gaussians, such as removing Gaussians outside the band, moving Gaussians closer to the surface, and encouraging larger or smaller opacity in a geometry-aware manner. More importantly, our prior can be regularly updated by the most recent depth images which are usually more accurate and complete. In addition, the prior can also progressively narrow the band to tighten the imposed constraints. We justify our idea and report our superiority over the state-of-the-art methods in evaluations on widely used benchmarks.",
+      "authors": [
+        "Takeshi Noda",
+        "Yu-Shen Liu",
+        "Zhizhong Han"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-20T06:31:03+00:00",
+      "link": "https://arxiv.org/pdf/2603.19682v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D Gaussian Splatting for high fidelity surface reconstruction",
+      "llm_evidence_cn": "用于高保真表面重建的3D高斯泼溅",
+      "llm_evidence": "用于高保真表面重建的3D高斯泼溅",
+      "canonical_evidence": "用于高保真表面重建的3D高斯泼溅",
+      "llm_tldr_en": "Enhances 3D Gaussian Splatting with self-constrained priors for more accurate 3D surface recovery.",
+      "llm_tldr_cn": "通过自约束先验增强3D高斯泼溅，以实现更准确的3D表面恢复。",
+      "llm_tldr": "通过自约束先验增强3D高斯泼溅，以实现更准确的3D表面恢复。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.20588v1",
+      "title": "RayMap3R: Inference-Time RayMap for Dynamic 3D Reconstruction",
+      "abstract": "Streaming feed-forward 3D reconstruction enables real-time joint estimation of scene geometry and camera poses from RGB images. However, without explicit dynamic reasoning, streaming models can be affected by moving objects, causing artifacts and drift. In this work, we propose RayMap3R, a training-free streaming framework for dynamic scene reconstruction. We observe that RayMap-based predictions exhibit a static-scene bias, providing an internal cue for dynamic identification. Based on this observation, we construct a dual-branch inference scheme that identifies dynamic regions by contrasting RayMap and image predictions, suppressing their interference during memory updates. We further introduce reset metric alignment and state-aware smoothing to preserve metric consistency and stabilize predicted trajectories. Our method achieves state-of-the-art performance among streaming approaches on dynamic scene reconstruction across multiple benchmarks.",
+      "authors": [
+        "Feiran Wang",
+        "Zezhou Shang",
+        "Gaowen Liu",
+        "Yan Yan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-21T01:04:31+00:00",
+      "link": "https://arxiv.org/pdf/2603.20588v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "dynamic 3D reconstruction and scene geometry estimation",
+      "llm_evidence_cn": "动态3D重建与场景几何估计",
+      "llm_evidence": "动态3D重建与场景几何估计",
+      "canonical_evidence": "动态3D重建与场景几何估计",
+      "llm_tldr_en": "Proposes a training-free streaming framework for real-time joint estimation of dynamic scene geometry and poses.",
+      "llm_tldr_cn": "提出了一种无需训练的流式框架，用于实时联合估计动态场景的几何和位姿。",
+      "llm_tldr": "提出了一种无需训练的流式框架，用于实时联合估计动态场景的几何和位姿。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.20128v1",
+      "title": "Generalizable NGP-SR: Generalizable Neural Radiance Fields Super-Resolution via Neural Graph Primitives",
+      "abstract": "Neural Radiance Fields (NeRF) achieve photorealistic novel view synthesis but become costly when high-resolution (HR) rendering is required, as HR outputs demand dense sampling and higher-capacity models. Moreover, naively super-resolving per-view renderings in 2D often breaks multi-view consistency. We propose Generalizable NGP-SR, a 3D-aware super-resolution framework that reconstructs an HR radiance field directly from low-resolution (LR) posed images. Built on Neural Graphics Primitives (NGP), NGP-SR conditions radiance prediction on 3D coordinates and learned local texture tokens, enabling recovery of high-frequency details within the radiance field and producing view-consistent HR novel views without external HR references or post-hoc 2D upsampling. Importantly, our model is generalizable: once trained, it can be applied to unseen scenes and rendered from novel viewpoints without per-scene optimization. Experiments on multiple datasets show that NGP-SR consistently improves both reconstruction quality and runtime efficiency over prior NeRF-based super-resolution methods, offering a practical solution for scalable high-resolution novel view synthesis.",
+      "authors": [
+        "Wanqi Yuan",
+        "Omkar Sharad Mayekar",
+        "Connor Pennington",
+        "Nianyi Li"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-20T16:50:16+00:00",
+      "link": "https://arxiv.org/pdf/2603.20128v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D-aware super-resolution for radiance fields",
+      "llm_evidence_cn": "辐射场的3D感知超分辨率",
+      "llm_evidence": "辐射场的3D感知超分辨率",
+      "canonical_evidence": "辐射场的3D感知超分辨率",
+      "llm_tldr_en": "Reconstructs high-resolution radiance fields from low-resolution images using neural graph primitives.",
+      "llm_tldr_cn": "利用神经图形原语从低分辨率图像重建高分辨率辐射场。",
+      "llm_tldr": "利用神经图形原语从低分辨率图像重建高分辨率辐射场。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.20857v1",
+      "title": "Fast and Robust Deformable 3D Gaussian Splatting",
+      "abstract": "3D Gaussian Splatting has demonstrated remarkable real-time rendering capabilities and superior visual quality in novel view synthesis for static scenes. Building upon these advantages, researchers have progressively extended 3D Gaussians to dynamic scene reconstruction. Deformation field-based methods have emerged as a promising approach among various techniques. These methods maintain 3D Gaussian attributes in a canonical field and employ the deformation field to transform this field across temporal sequences. Nevertheless, these approaches frequently encounter challenges such as suboptimal rendering speeds, significant dependence on initial point clouds, and vulnerability to local optima in dim scenes. To overcome these limitations, we present FRoG, an efficient and robust framework for high-quality dynamic scene reconstruction. FRoG integrates per-Gaussian embedding with a coarse-to-fine temporal embedding strategy, accelerating rendering through the early fusion of temporal embeddings. Moreover, to enhance robustness against sparse initializations, we introduce a novel depth- and error-guided sampling strategy. This strategy populates the canonical field with new 3D Gaussians at low-deviation initial positions, significantly reducing the optimization burden on the deformation field and improving detail reconstruction in both static and dynamic regions. Furthermore, by modulating opacity variations, we mitigate the local optima problem in dim scenes, improving color fidelity. Comprehensive experimental results validate that our method achieves accelerated rendering speeds while maintaining state-of-the-art visual quality.",
+      "authors": [
+        "Han Jiao",
+        "Jiakai Sun",
+        "Lei Zhao",
+        "Zhanjie Zhang",
+        "Wei Xing",
+        "Huaizhong Lin"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-03-21T15:24:54+00:00",
+      "link": "https://arxiv.org/pdf/2603.20857v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Dynamic scene reconstruction using deformable 3D Gaussians",
+      "llm_evidence_cn": "使用可变形3D高斯的动态场景重建",
+      "llm_evidence": "使用可变形3D高斯的动态场景重建",
+      "canonical_evidence": "使用可变形3D高斯的动态场景重建",
+      "llm_tldr_en": "Presents FRoG, an efficient method for robust and fast deformable 3D Gaussian Splatting in dynamic scenes.",
+      "llm_tldr_cn": "提出FRoG，一种针对动态场景的高效、鲁棒的可变形3D高斯泼溅重建方法。",
+      "llm_tldr": "提出FRoG，一种针对动态场景的高效、鲁棒的可变形3D高斯泼溅重建方法。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.20428v1",
+      "title": "Benchmarking Efficient & Effective Camera Pose Estimation Strategies for Novel View Synthesis",
+      "abstract": "Novel view synthesis (NVS) approaches such as NeRFs or 3DGS can produce photo-realistic 3D scene representation from a set of images with known extrinsic and intrinsic parameters. The necessary camera poses and calibrations are typically obtained from the images via Structure-from-Motion (SfM). Classical SfM approaches rely on local feature matches between the images to estimate both the poses and a sparse 3D model of the scene, using bundle adjustment to refine initial pose, intrinsics, and geometry estimates. In order to increase run-time efficiency, recent SfM systems forgo optimization via bundle adjustment. Instead, they train feed-forward (transformer-based) neural networks to directly regress camera parameters and the 3D structure. While orders of magnitude more efficient, such recent works produce significantly less accurate estimates. To stimulate research on developing SfM approaches that are both efficient \\emph{and} effective, this paper develops a benchmark focused on SfM for novel view synthesis. Using existing datasets and two simple strategies for making the reconstruction process more efficient, we show that: (1) simply using fewer features already significantly accelerates classical SfM methods while maintaining high pose accuracy. (2) using feed-forward networks to obtain initial estimates and refining them using classical SfM techniques leads to the best efficiency-effectiveness trade-off. We will make our benchmark and code publicly available.",
+      "authors": [
+        "Jhacson Meza",
+        "Martin R. Oswald",
+        "Torsten Sattler"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-20T18:59:58+00:00",
+      "link": "https://arxiv.org/pdf/2603.20428v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D scene representation and novel view synthesis",
+      "llm_evidence_cn": "3D场景表示与新视角合成",
+      "llm_evidence": "3D场景表示与新视角合成",
+      "canonical_evidence": "3D场景表示与新视角合成",
+      "llm_tldr_en": "Benchmarks camera pose estimation strategies to improve the efficiency of 3D scene representation and synthesis.",
+      "llm_tldr_cn": "基准测试了相机位姿估计策略，以提高3D场景表示和合成的效率。",
+      "llm_tldr": "基准测试了相机位姿估计策略，以提高3D场景表示和合成的效率。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.21695v1",
+      "title": "RefracGS: Novel View Synthesis Through Refractive Water Surfaces with 3D Gaussian Ray Tracing",
+      "abstract": "Novel view synthesis (NVS) through non-planar refractive surfaces presents fundamental challenges due to severe, spatially varying optical distortions. While recent representations like NeRF and 3D Gaussian Splatting (3DGS) excel at NVS, their assumption of straight-line ray propagation fails under these conditions, leading to significant artifacts. To overcome this limitation, we introduce RefracGS, a framework that jointly reconstructs the refractive water surface and the scene beneath the interface. Our key insight is to explicitly decouple the refractive boundary from the target objects: the refractive surface is modeled via a neural height field, capturing wave geometry, while the underlying scene is represented as a 3D Gaussian field. We formulate a refraction-aware Gaussian ray tracing approach that accurately computes non-linear ray trajectories using Snell's law and efficiently renders the underlying Gaussian field while backpropagating the loss gradients to the parameterized refractive surface. Through end-to-end joint optimization of both representations, our method ensures high-fidelity NVS and view-consistent surface recovery. Experiments on both synthetic and real-world scenes with complex waves demonstrate that RefracGS outperforms prior refractive methods in visual quality, while achieving 15x faster training and real-time rendering at 200 FPS. The project page for RefracGS is available at https://yimgshao.github.io/refracgs/.",
+      "authors": [
+        "Yiming Shao",
+        "Qiyu Dai",
+        "Chong Gao",
+        "Guanbin Li",
+        "Yeqiang Wang",
+        "He Sun",
+        "Qiong Zeng",
+        "Baoquan Chen",
+        "Wenzheng Chen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-03-23T08:31:08+00:00",
+      "link": "https://arxiv.org/pdf/2603.21695v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "reconstructs scene beneath refractive surfaces",
+      "llm_evidence_cn": "重建折射表面下的场景",
+      "llm_evidence": "重建折射表面下的场景",
+      "canonical_evidence": "重建折射表面下的场景",
+      "llm_tldr_en": "Jointly reconstructs refractive water surfaces and underlying 3D scenes using Gaussian Splatting.",
+      "llm_tldr_cn": "利用高斯泼溅联合重建折射水面及其下方的3D场景。",
+      "llm_tldr": "利用高斯泼溅联合重建折射水面及其下方的3D场景。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.21304v1",
+      "title": "F4Splat: Feed-Forward Predictive Densification for Feed-Forward 3D Gaussian Splatting",
+      "abstract": "Feed-forward 3D Gaussian Splatting methods enable single-pass reconstruction and real-time rendering. However, they typically adopt rigid pixel-to-Gaussian or voxel-to-Gaussian pipelines that uniformly allocate Gaussians, leading to redundant Gaussians across views. Moreover, they lack an effective mechanism to control the total number of Gaussians while maintaining reconstruction fidelity. To address these limitations, we present F4Splat, which performs Feed-Forward predictive densification for Feed-Forward 3D Gaussian Splatting, introducing a densification-score-guided allocation strategy that adaptively distributes Gaussians according to spatial complexity and multi-view overlap. Our model predicts per-region densification scores to estimate the required Gaussian density and allows explicit control over the final Gaussian budget without retraining. This spatially adaptive allocation reduces redundancy in simple regions and minimizes duplicate Gaussians across overlapping views, producing compact yet high-quality 3D representations. Extensive experiments demonstrate that our model achieves superior novel-view synthesis performance compared to prior uncalibrated feed-forward methods, while using significantly fewer Gaussians.",
+      "authors": [
+        "Injae Kim",
+        "Chaehyeon Kim",
+        "Minseong Bae",
+        "Minseok Joo",
+        "Hyunwoo J. Kim"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-22T16:03:56+00:00",
+      "link": "https://arxiv.org/pdf/2603.21304v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "feed-forward 3D Gaussian Splatting for scene reconstruction",
+      "llm_evidence_cn": "用于场景重建的前馈3D高斯泼溅技术",
+      "llm_evidence": "用于场景重建的前馈3D高斯泼溅技术",
+      "canonical_evidence": "用于场景重建的前馈3D高斯泼溅技术",
+      "llm_tldr_en": "Introduces F4Splat for efficient feed-forward 3D Gaussian Splatting with predictive densification.",
+      "llm_tldr_cn": "引入F4Splat，通过预测性加密实现高效的前馈3D高斯泼溅重建。",
+      "llm_tldr": "引入F4Splat，通过预测性加密实现高效的前馈3D高斯泼溅重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.21978v1",
+      "title": "GeoFusion-CAD: Structure-Aware Diffusion with Geometric State Space for Parametric 3D Design",
+      "abstract": "Parametric Computer-Aided Design (CAD) is fundamental to modern 3D modeling, yet existing methods struggle to generate long command sequences, especially under complex geometric and topological dependencies. Transformer-based architectures dominate CAD sequence generation due to their strong dependency modeling, but their quadratic attention cost and limited context windowing hinder scalability to long programs. We propose GeoFusion-CAD, an end-to-end diffusion framework for scalable and structure-aware generation. Our proposal encodes CAD programs as hierarchical trees, jointly capturing geometry and topology within a state-space diffusion process. Specifically, a lightweight C-Mamba block models long-range structural dependencies through selective state transitions, enabling coherent generation across extended command sequences. To support long-sequence evaluation, we introduce DeepCAD-240, an extended benchmark that increases the sequence length ranging from 40 to 240 while preserving sketch-extrusion semantics from the ABC dataset. Extensive experiments demonstrate that GeoFusion-CAD achieves superior performance on both short and long command ranges, maintaining high geometric fidelity and topological consistency where Transformer-based models degrade. Our approach sets new state-of-the-art scores for long-sequence parametric CAD generation, establishing a scalable foundation for next-generation CAD modeling systems. Code and datasets are available at GitHub.",
+      "authors": [
+        "Xiaolei Zhou",
+        "Chuangjie Fang",
+        "Jie Wu",
+        "Jingyi Yang",
+        "Boyi Lin",
+        "Jianwei Zheng"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-03-23T13:41:39+00:00",
+      "link": "https://arxiv.org/pdf/2603.21978v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "diffusion framework for 3D CAD modeling and generation",
+      "llm_evidence_cn": "用于3D CAD建模和生成的扩散框架",
+      "llm_evidence": "用于3D CAD建模和生成的扩散框架",
+      "canonical_evidence": "用于3D CAD建模和生成的扩散框架",
+      "llm_tldr_en": "Proposes GeoFusion-CAD, a diffusion framework for scalable and structure-aware parametric 3D design generation.",
+      "llm_tldr_cn": "提出GeoFusion-CAD，一种用于可扩展且感知结构的参数化3D设计生成的扩散框架。",
+      "llm_tldr": "提出GeoFusion-CAD，一种用于可扩展且感知结构的参数化3D设计生成的扩散框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.21436v1",
+      "title": "PAS3R: Pose-Adaptive Streaming 3D Reconstruction for Long Video Sequences",
+      "abstract": "Online monocular 3D reconstruction enables dense scene recovery from streaming video but remains fundamentally limited by the stability-adaptation dilemma: the reconstruction model must rapidly incorporate novel viewpoints while preserving previously accumulated scene structure. Existing streaming approaches rely on uniform or attention-based update mechanisms that often fail to account for abrupt viewpoint transitions, leading to trajectory drift and geometric inconsistencies over long sequences. We introduce PAS3R, a pose-adaptive streaming reconstruction framework that dynamically modulates state updates according to camera motion and scene structure. Our key insight is that frames contributing significant geometric novelty should exert stronger influence on the reconstruction state, while frames with minor viewpoint variation should prioritize preserving historical context. PAS3R operationalizes this principle through a motion-aware update mechanism that jointly leverages inter-frame pose variation and image frequency cues to estimate frame importance. To further stabilize long-horizon reconstruction, we introduce trajectory-consistent training objectives that incorporate relative pose constraints and acceleration regularization. A lightweight online stabilization module further suppresses high-frequency trajectory jitter and geometric artifacts without increasing memory consumption. Extensive experiments across multiple benchmarks demonstrate that PAS3R significantly improves trajectory accuracy, depth estimation, and point cloud reconstruction quality in long video sequences while maintaining competitive performance on shorter sequences.",
+      "authors": [
+        "Lanbo Xu",
+        "Liang Guo",
+        "Caigui Jiang",
+        "Cheng Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-22T22:57:30+00:00",
+      "link": "https://arxiv.org/pdf/2603.21436v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "online monocular 3D reconstruction",
+      "llm_evidence_cn": "在线单目3D重建",
+      "llm_evidence": "在线单目3D重建",
+      "canonical_evidence": "在线单目3D重建",
+      "llm_tldr_en": "A pose-adaptive streaming framework for dense 3D scene recovery from long video sequences.",
+      "llm_tldr_cn": "一种用于从长视频序列中进行稠密3D场景恢复的姿态自适应流式框架。",
+      "llm_tldr": "一种用于从长视频序列中进行稠密3D场景恢复的姿态自适应流式框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.22450v1",
+      "title": "Static Scene Reconstruction from Dynamic Egocentric Videos",
+      "abstract": "Egocentric videos present unique challenges for 3D reconstruction due to rapid camera motion and frequent dynamic interactions. State-of-the-art static reconstruction systems, such as MapAnything, often degrade in these settings, suffering from catastrophic trajectory drift and \"ghost\" geometry caused by moving hands. We bridge this gap by proposing a robust pipeline that adapts static reconstruction backbones to long-form egocentric video. Our approach introduces a mask-aware reconstruction mechanism that explicitly suppresses dynamic foreground in the attention layers, preventing hand artifacts from contaminating the static map. Furthermore, we employ a chunked reconstruction strategy with pose-graph stitching to ensure global consistency and eliminate long-term drift. Experiments on HD-EPIC and indoor drone datasets demonstrate that our pipeline significantly improves absolute trajectory error and yields visually clean static geometry compared to naive baselines, effectively extending the capability of foundation models to dynamic first-person scenes.",
+      "authors": [
+        "Qifei Cui",
+        "Patrick Chen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-03-23T18:19:46+00:00",
+      "link": "https://arxiv.org/pdf/2603.22450v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Static scene reconstruction from egocentric videos",
+      "llm_evidence_cn": "从第一人称视频中进行静态场景重建",
+      "llm_evidence": "从第一人称视频中进行静态场景重建",
+      "canonical_evidence": "从第一人称视频中进行静态场景重建",
+      "llm_tldr_en": "Adapts reconstruction backbones to handle dynamic interactions and rapid motion in long-form egocentric videos.",
+      "llm_tldr_cn": "提出一种鲁棒流水线，用于从含有动态交互的第一人称视频中重建静态场景地图。",
+      "llm_tldr": "提出一种鲁棒流水线，用于从含有动态交互的第一人称视频中重建静态场景地图。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
