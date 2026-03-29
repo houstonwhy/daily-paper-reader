@@ -1,0 +1,523 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-29T18:50:35.097679+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 27,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2603.23386v1",
+      "title": "SIMART: Decomposing Monolithic Meshes into Sim-ready Articulated Assets via MLLM",
+      "abstract": "High-quality articulated 3D assets are indispensable for embodied AI and physical simulation, yet 3D generation still focuses on static meshes, leaving a gap in \"sim-ready\" interactive objects. Most recent articulated object creation methods rely on multi-stage pipelines that accumulate errors across decoupled modules. Alternatively, unified MLLMs offer a single-stage path to joint static asset understanding and sim-ready asset generation. However dense voxel-based 3D tokenization yields long 3D token sequences and high memory overhead, limiting scalability to complex articulated objects. To address this, we propose SIMART, a unified MLLM framework that jointly performs part-level decomposition and kinematic prediction. By introducing a Sparse 3D VQ-VAE, SIMART reduces token counts by 70% vs. dense voxel tokens, enabling high-fidelity multi-part assemblies. SIMART achieves state-of-the-art performance on PartNet-Mobility and in-the-wild AIGC datasets, and enables physics-based robotic simulation.",
+      "authors": [
+        "Chuanrui Zhang",
+        "Minghan Qin",
+        "Yuang Wang",
+        "Baifeng Xie",
+        "Hang Li",
+        "Ziwei Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR",
+        "cs.RO"
+      ],
+      "published": "2026-03-24T16:16:52+00:00",
+      "link": "https://arxiv.org/pdf/2603.23386v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Generative MLLM for articulated 3D asset creation",
+      "llm_evidence_cn": "用于关节式3D资产生成的生成式多模态大模型",
+      "llm_evidence": "用于关节式3D资产生成的生成式多模态大模型",
+      "canonical_evidence": "用于关节式3D资产生成的生成式多模态大模型",
+      "llm_tldr_en": "SIMART uses an MLLM to decompose meshes and generate sim-ready articulated 3D objects.",
+      "llm_tldr_cn": "SIMART利用多模态大模型分解网格并生成可用于仿真的关节式3D物体。",
+      "llm_tldr": "SIMART利用多模态大模型分解网格并生成可用于仿真的关节式3D物体。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.23462v1",
+      "title": "RealMaster: Lifting Rendered Scenes into Photorealistic Video",
+      "abstract": "State-of-the-art video generation models produce remarkable photorealism, but they lack the precise control required to align generated content with specific scene requirements. Furthermore, without an underlying explicit geometry, these models cannot guarantee 3D consistency. Conversely, 3D engines offer granular control over every scene element and provide native 3D consistency by design, yet their output often remains trapped in the \"uncanny valley\". Bridging this sim-to-real gap requires both structural precision, where the output must exactly preserve the geometry and dynamics of the input, and global semantic transformation, where materials, lighting, and textures must be holistically transformed to achieve photorealism. We present RealMaster, a method that leverages video diffusion models to lift rendered video into photorealistic video while maintaining full alignment with the output of the 3D engine. To train this model, we generate a paired dataset via an anchor-based propagation strategy, where the first and last frames are enhanced for realism and propagated across the intermediate frames using geometric conditioning cues. We then train an IC-LoRA on these paired videos to distill the high-quality outputs of the pipeline into a model that generalizes beyond the pipeline's constraints, handling objects and characters that appear mid-sequence and enabling inference without requiring anchor frames. Evaluated on complex GTA-V sequences, RealMaster significantly outperforms existing video editing baselines, improving photorealism while preserving the geometry, dynamics, and identity specified by the original 3D control.",
+      "authors": [
+        "Dana Cohen-Bar",
+        "Ido Sobol",
+        "Raphael Bensadoun",
+        "Shelly Sheynin",
+        "Oran Gafni",
+        "Or Patashnik",
+        "Daniel Cohen-Or",
+        "Amit Zohar"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-24T17:32:42+00:00",
+      "link": "https://arxiv.org/pdf/2603.23462v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Generative model for lifting rendered scenes to photorealistic video",
+      "llm_evidence_cn": "将渲染场景提升为写实视频的生成模型",
+      "llm_evidence": "将渲染场景提升为写实视频的生成模型",
+      "canonical_evidence": "将渲染场景提升为写实视频的生成模型",
+      "llm_tldr_en": "RealMaster transforms 3D engine outputs into photorealistic videos while maintaining geometric consistency.",
+      "llm_tldr_cn": "RealMaster在保持几何一致性的同时，将3D引擎输出转化为写实视频。",
+      "llm_tldr": "RealMaster在保持几何一致性的同时，将3D引擎输出转化为写实视频。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.20714v1",
+      "title": "The Role and Relationship of Initialization and Densification in 3D Gaussian Splatting",
+      "abstract": "3D Gaussian Splatting (3DGS) has become the method of choice for photo-realistic 3D reconstruction of scenes, due to being able to efficiently and accurately recover the scene appearance and geometry from images. 3DGS represents the scene through a set of 3D Gaussians, parameterized by their position, spatial extent, and view-dependent color. Starting from an initial point cloud, 3DGS refines the Gaussians' parameters as to reconstruct a set of training images as accurately as possible. Typically, a sparse Structure-from-Motion point cloud is used as initialization. In order to obtain dense Gaussian clouds, 3DGS methods thus rely on a densification stage. In this paper, we systematically study the relation between densification and initialization. Proposing a new benchmark, we study combinations of different types of initializations (dense laser scans, dense (multi-view) stereo point clouds, dense monocular depth estimates, sparse SfM point clouds) and different densification schemes. We show that current densification approaches are not able to take full advantage of dense initialization as they are often unable to (significantly) improve over sparse SfM-based initialization. We will make our benchmark publicly available.",
+      "authors": [
+        "Ivan Desiatov",
+        "Torsten Sattler"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-21T08:37:36+00:00",
+      "link": "https://arxiv.org/pdf/2603.20714v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D Gaussian Splatting for photo-realistic 3D reconstruction of scenes",
+      "llm_evidence_cn": "用于照片级真实感3D场景重建的3D高斯泼溅",
+      "llm_evidence": "用于照片级真实感3D场景重建的3D高斯泼溅",
+      "canonical_evidence": "用于照片级真实感3D场景重建的3D高斯泼溅",
+      "llm_tldr_en": "A systematic study of initialization and densification in 3D Gaussian Splatting for scene reconstruction.",
+      "llm_tldr_cn": "系统研究了3D高斯泼溅在场景重建中的初始化与加密关系。",
+      "llm_tldr": "系统研究了3D高斯泼溅在场景重建中的初始化与加密关系。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.22509v1",
+      "title": "Sketch2CT: Multimodal Diffusion for Structure-Aware 3D Medical Volume Generation",
+      "abstract": "Diffusion probabilistic models have demonstrated significant potential in generating high-quality, realistic medical images, providing a promising solution to the persistent challenge of data scarcity in the medical field. Nevertheless, producing 3D medical volumes with anatomically consistent structures under multimodal conditions remains a complex and unresolved problem. We introduce Sketch2CT, a multimodal diffusion framework for structure-aware 3D medical volume generation, jointly guided by a user-provided 2D sketch and a textual description that captures 3D geometric semantics. The framework initially generates 3D segmentation masks of the target organ from random noise, conditioned on both modalities. To effectively align and fuse these inputs, we propose two key modules that refine sketch features with localized textual cues and integrate global sketch-text representations. Built upon a capsule-attention backbone, these modules leverage the complementary strengths of sketches and text to produce anatomically accurate organ shapes. The synthesized segmentation masks subsequently guide a latent diffusion model for 3D CT volume synthesis, enabling realistic reconstruction of organ appearances that are consistent with user-defined sketches and descriptions. Extensive experiments on public CT datasets demonstrate that Sketch2CT achieves superior performance in generating multimodal medical volumes. Its controllable, low-cost generation pipeline enables principled, efficient augmentation of medical datasets. Code is available at https://github.com/adlsn/Sketch2CT.",
+      "authors": [
+        "Delin An",
+        "Chaoli Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-23T19:14:44+00:00",
+      "link": "https://arxiv.org/pdf/2603.22509v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D medical volume generation from text and sketches",
+      "llm_evidence_cn": "基于文本和草图的3D医学体数据生成",
+      "llm_evidence": "基于文本和草图的3D医学体数据生成",
+      "canonical_evidence": "基于文本和草图的3D医学体数据生成",
+      "llm_tldr_en": "Introduces a multimodal diffusion framework for structure-aware 3D medical volume generation.",
+      "llm_tldr_cn": "引入了一种用于结构感知3D医学体生成的图文多模态扩散框架。",
+      "llm_tldr": "引入了一种用于结构感知3D医学体生成的图文多模态扩散框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.22796v1",
+      "title": "PhotoAgent: A Robotic Photographer with Spatial and Aesthetic Understanding",
+      "abstract": "Embodied agents for creative tasks like photography must bridge the semantic gap between high-level language commands and geometric control. We introduce PhotoAgent, an agent that achieves this by integrating Large Multimodal Models (LMMs) reasoning with a novel control paradigm. PhotoAgent first translates subjective aesthetic goals into solvable geometric constraints via LMM-driven, chain-of-thought (CoT) reasoning, allowing an analytical solver to compute a high-quality initial viewpoint. This initial pose is then iteratively refined through visual reflection within a photorealistic internal world model built with 3D Gaussian Splatting (3DGS). This ``mental simulation'' replaces costly and slow physical trial-and-error, enabling rapid convergence to aesthetically superior results. Evaluations confirm that PhotoAgent excels in spatial reasoning and achieves superior final image quality.",
+      "authors": [
+        "Lirong Che",
+        "Zhenfeng Gan",
+        "Yanbo Chen",
+        "Junbo Tan",
+        "Xueqian Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.RO"
+      ],
+      "published": "2026-03-24T04:40:33+00:00",
+      "link": "https://arxiv.org/pdf/2603.22796v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "photorealistic internal world model built with 3D Gaussian Splatting",
+      "llm_evidence_cn": "使用3D高斯泼溅构建的逼真内部世界模型",
+      "llm_evidence": "使用3D高斯泼溅构建的逼真内部世界模型",
+      "canonical_evidence": "使用3D高斯泼溅构建的逼真内部世界模型",
+      "llm_tldr_en": "PhotoAgent uses 3DGS world models and LMMs to bridge language commands with geometric camera control.",
+      "llm_tldr_cn": "PhotoAgent结合大模型与3DGS世界模型，实现了从语言指令到几何相机控制的跨越。",
+      "llm_tldr": "PhotoAgent结合大模型与3DGS世界模型，实现了从语言指令到几何相机控制的跨越。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.22572v1",
+      "title": "FullCircle: Effortless 3D Reconstruction from Casual 360$^\\circ$ Captures",
+      "abstract": "Radiance fields have emerged as powerful tools for 3D scene reconstruction. However, casual capture remains challenging due to the narrow field of view of perspective cameras, which limits viewpoint coverage and feature correspondences necessary for reliable camera calibration and reconstruction. While commercially available 360$^\\circ$ cameras offer significantly broader coverage than perspective cameras for the same capture effort, existing 360$^\\circ$ reconstruction methods require special capture protocols and pre-processing steps that undermine the promise of radiance fields: effortless workflows to capture and reconstruct 3D scenes. We propose a practical pipeline for reconstructing 3D scenes directly from raw 360$^\\circ$ camera captures. We require no special capture protocols or pre-processing, and exhibit robustness to a prevalent source of reconstruction errors: the human operator that is visible in all 360$^\\circ$ imagery. To facilitate evaluation, we introduce a multi-tiered dataset of scenes captured as raw dual-fisheye images, establishing a benchmark for robust casual 360$^\\circ$ reconstruction. Our method significantly outperforms not only vanilla 3DGS for 360$^\\circ$ cameras but also robust perspective baselines when perspective cameras are simulated from the same capture, demonstrating the advantages of 360$^\\circ$ capture for casual reconstruction. Additional results are available at: https://theialab.github.io/fullcircle",
+      "authors": [
+        "Yalda Foroutan",
+        "Ipek Oztas",
+        "Daniel Rebain",
+        "Aysegul Dundar",
+        "Kwang Moo Yi",
+        "Lily Goli",
+        "Andrea Tagliasacchi"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-23T21:09:28+00:00",
+      "link": "https://arxiv.org/pdf/2603.22572v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D scene reconstruction from 360-degree camera captures",
+      "llm_evidence_cn": "基于360度全景相机的3D场景重建",
+      "llm_evidence": "基于360度全景相机的3D场景重建",
+      "canonical_evidence": "基于360度全景相机的3D场景重建",
+      "llm_tldr_en": "FullCircle enables effortless 3D scene reconstruction directly from raw 360-degree camera captures.",
+      "llm_tldr_cn": "FullCircle实现了直接从原始360度相机拍摄中进行简便的3D场景重建。",
+      "llm_tldr": "FullCircle实现了直接从原始360度相机拍摄中进行简便的3D场景重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.22852v1",
+      "title": "Gau-Occ: Geometry-Completed Gaussians for Multi-Modal 3D Occupancy Prediction",
+      "abstract": "3D semantic occupancy prediction is crucial for autonomous driving. While multi-modal fusion improves accuracy over vision-only methods, it typically relies on computationally expensive dense voxel or BEV tensors. We present Gau-Occ, a multi-modal framework that bypasses dense volumetric processing by modeling the scene as a compact collection of semantic 3D Gaussians. To ensure geometric completeness, we propose a LiDAR Completion Diffuser (LCD) that recovers missing structures from sparse LiDAR to initialize robust Gaussian anchors. Furthermore, we introduce Gaussian Anchor Fusion (GAF), which efficiently integrates multi-view image semantics via geometry-aligned 2D sampling and cross-modal alignment. By refining these compact Gaussian descriptors, Gau-Occ captures both spatial consistency and semantic discriminability. Extensive experiments across challenging benchmarks demonstrate that Gau-Occ achieves state-of-the-art performance with significant computational efficiency.",
+      "authors": [
+        "Chengxin Lv",
+        "Yihui Li",
+        "Hongyu Yang",
+        "YunHong Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-24T06:44:46+00:00",
+      "link": "https://arxiv.org/pdf/2603.22852v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "modeling the scene as a compact collection of semantic 3D Gaussians",
+      "llm_evidence_cn": "将场景建模为语义3D高斯的紧凑集合",
+      "llm_evidence": "将场景建模为语义3D高斯的紧凑集合",
+      "canonical_evidence": "将场景建模为语义3D高斯的紧凑集合",
+      "llm_tldr_en": "Gau-Occ uses semantic 3D Gaussians for efficient multi-modal 3D occupancy prediction in autonomous driving.",
+      "llm_tldr_cn": "Gau-Occ利用语义3D高斯实现自动驾驶中高效的多模态3D占据预测。",
+      "llm_tldr": "Gau-Occ利用语义3D高斯实现自动驾驶中高效的多模态3D占据预测。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.22631v1",
+      "title": "CAM3R: Camera-Agnostic Model for 3D Reconstruction",
+      "abstract": "Recovering dense 3D geometry from unposed images remains a foundational challenge in computer vision. Current state-of-the-art models are predominantly trained on perspective datasets, which implicitly constrains them to a standard pinhole camera geometry. As a result, these models suffer from significant geometric degradation when applied to wide-angle imagery captured via non-rectilinear optics, such as fisheye or panoramic sensors. To address this, we present CAM3R, a Camera-Agnostic, feed-forward Model for 3D Reconstruction capable of processing images from wide-angle camera models without prior calibration. Our framework consists of a two-view network which is bifurcated into a Ray Module (RM) to estimate per-pixel ray directions and a Cross-view Module (CVM) to infer radial distance with confidence maps, pointmaps, and relative poses. To unify these pairwise predictions into a consistent 3D scene, we introduce a Ray-Aware Global Alignment framework for pose refinement and scale optimization while strictly preserving the predicted local geometry. Extensive experiments on various camera model datasets, including panorama, fisheye and pinhole imagery, demonstrate that CAM3R establishes a new state-of-the-art in pose estimation and reconstruction.",
+      "authors": [
+        "Namitha Guruprasad",
+        "Abhay Yadav",
+        "Cheng Peng",
+        "Rama Chellappa"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-23T23:20:15+00:00",
+      "link": "https://arxiv.org/pdf/2603.22631v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Camera-agnostic model for dense 3D geometry recovery",
+      "llm_evidence_cn": "相机无关的稠密3D几何恢复模型",
+      "llm_evidence": "相机无关的稠密3D几何恢复模型",
+      "canonical_evidence": "相机无关的稠密3D几何恢复模型",
+      "llm_tldr_en": "CAM3R is a feed-forward model for 3D reconstruction that works across different camera types without calibration.",
+      "llm_tldr_cn": "CAM3R是一个无需校准即可在不同相机类型下工作的前馈3D重建模型。",
+      "llm_tldr": "CAM3R是一个无需校准即可在不同相机类型下工作的前馈3D重建模型。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.22893v2",
+      "title": "SLARM: Streaming and Language-Aligned Reconstruction Model for Dynamic Scenes",
+      "abstract": "We propose SLARM, a feed-forward model that unifies dynamic scene reconstruction, semantic understanding, and real-time streaming inference. SLARM captures complex, non-uniform motion through higher-order motion modeling, trained solely on differentiable renderings without any flow supervision. Besides, SLARM distills semantic features from LSeg to obtain language-aligned representations. This design enables semantic querying via natural language, and the tight coupling between semantics and geometry further enhances the accuracy and robustness of dynamic reconstruction. Moreover, SLARM processes image sequences using window-based causal attention, achieving stable, low-latency streaming inference without accumulating memory cost. Within this unified framework, SLARM achieves state-of-the-art results in dynamic estimation, rendering quality, and scene parsing, improving motion accuracy by 21%, reconstruction PSNR by 1.6 dB, and segmentation mIoU by 20% over existing methods.",
+      "authors": [
+        "Zhicheng Qiu",
+        "Jiarui Meng",
+        "Tong-an Luo",
+        "Yican Huang",
+        "Xuan Feng",
+        "Xuanfu Li",
+        "ZHan Xu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-24T07:42:05+00:00",
+      "link": "https://arxiv.org/pdf/2603.22893v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "dynamic scene reconstruction and language-aligned representations",
+      "llm_evidence_cn": "动态场景重建与语言对齐表示",
+      "llm_evidence": "动态场景重建与语言对齐表示",
+      "canonical_evidence": "动态场景重建与语言对齐表示",
+      "llm_tldr_en": "A feed-forward model for dynamic scene reconstruction and semantic understanding using language-aligned features.",
+      "llm_tldr_cn": "一种用于动态场景重建和语义理解的前馈模型，利用语言对齐特征实现语义查询。",
+      "llm_tldr": "一种用于动态场景重建和语义理解的前馈模型，利用语言对齐特征实现语义查询。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.22786v1",
+      "title": "Predictive Photometric Uncertainty in Gaussian Splatting for Novel View Synthesis",
+      "abstract": "Recent advances in 3D Gaussian Splatting have enabled impressive photorealistic novel view synthesis. However, to transition from a pure rendering engine to a reliable spatial map for autonomous agents and safety-critical applications, knowing where the representation is uncertain is as important as the rendering fidelity itself. We bridge this critical gap by introducing a lightweight, plug-and-play framework for pixel-wise, view-dependent predictive uncertainty estimation. Our post-hoc method formulates uncertainty as a Bayesian-regularized linear least-squares optimization over reconstruction residuals. This architecture-agnostic approach extracts a per-primitive uncertainty channel without modifying the underlying scene representation or degrading baseline visual fidelity. Crucially, we demonstrate that providing this actionable reliability signal successfully translates 3D Gaussian splatting into a trustworthy spatial map, further improving state-of-the-art performance across three critical downstream perception tasks: active view selection, pose-agnostic scene change detection, and pose-agnostic anomaly detection.",
+      "authors": [
+        "Chamuditha Jayanga Galappaththige",
+        "Thomas Gottwald",
+        "Peter Stehr",
+        "Edgar Heinert",
+        "Niko Suenderhauf",
+        "Dimity Miller",
+        "Matthias Rottmann"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-24T04:21:42+00:00",
+      "link": "https://arxiv.org/pdf/2603.22786v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "uncertainty estimation in Gaussian Splatting for scene representation",
+      "llm_evidence_cn": "场景表示中高斯泼溅的不确定性估计",
+      "llm_evidence": "场景表示中高斯泼溅的不确定性估计",
+      "canonical_evidence": "场景表示中高斯泼溅的不确定性估计",
+      "llm_tldr_en": "A framework for predictive uncertainty estimation in 3D Gaussian Splatting for reliable scene representation.",
+      "llm_tldr_cn": "一种用于3D高斯泼溅预测不确定性估计的框架，增强场景表示的可靠性。",
+      "llm_tldr": "一种用于3D高斯泼溅预测不确定性估计的框架，增强场景表示的可靠性。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.22893v3",
+      "title": "SLARM: Streaming and Language-Aligned Reconstruction Model for Dynamic Scenes",
+      "abstract": "We propose SLARM, a feed-forward model that unifies dynamic scene reconstruction, semantic understanding, and real-time streaming inference. SLARM captures complex, non-uniform motion through higher-order motion modeling, trained solely on differentiable renderings without any flow supervision. Besides, SLARM distills semantic features from LSeg to obtain language-aligned representations. This design enables semantic querying via natural language, and the tight coupling between semantics and geometry further enhances the accuracy and robustness of dynamic reconstruction. Moreover, SLARM processes image sequences using window-based causal attention, achieving stable, low-latency streaming inference without accumulating memory cost. Within this unified framework, SLARM achieves state-of-the-art results in dynamic estimation, rendering quality, and scene parsing, improving motion accuracy by 21%, reconstruction PSNR by 1.6 dB, and segmentation mIoU by 20% over existing methods.",
+      "authors": [
+        "Zhicheng Qiu",
+        "Jiarui Meng",
+        "Tong-an Luo",
+        "Yican Huang",
+        "Xuan Feng",
+        "Xuanfu Li",
+        "ZHan Xu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-24T07:42:05+00:00",
+      "link": "https://arxiv.org/pdf/2603.22893v3",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Unified model for dynamic scene reconstruction and language-aligned representations",
+      "llm_evidence_cn": "动态场景重建与语言对齐表示的统一模型",
+      "llm_evidence": "动态场景重建与语言对齐表示的统一模型",
+      "canonical_evidence": "动态场景重建与语言对齐表示的统一模型",
+      "llm_tldr_en": "SLARM unifies dynamic scene reconstruction and semantic querying through language-aligned representations.",
+      "llm_tldr_cn": "SLARM通过语言对齐的表示，统一了动态场景重建与语义查询。",
+      "llm_tldr": "SLARM通过语言对齐的表示，统一了动态场景重建与语义查询。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.23023v1",
+      "title": "Cog3DMap: Multi-View Vision-Language Reasoning with 3D Cognitive Maps",
+      "abstract": "Precise spatial understanding from multi-view images remains a fundamental challenge for Multimodal Large Language Models (MLLMs), as their visual representations are predominantly semantic and lack explicit geometric grounding. While existing approaches augment visual tokens with geometric cues from visual geometry models, their MLLM is still required to implicitly infer the underlying 3D structure of the scene from these augmented tokens, limiting its spatial reasoning capability. To address this issue, we introduce Cog3DMap, a framework that recurrently constructs an explicit 3D memory from multi-view images, where each token is grounded in 3D space and possesses both semantic and geometric information. By feeding these tokens into the MLLM, our framework enables direct reasoning over a spatially structured 3D map, achieving state-of-the-art performance on various spatial reasoning benchmarks. Code will be made publicly available.",
+      "authors": [
+        "Chanyoung Gwak",
+        "Yoonwoo Jeong",
+        "Byungwoo Jeon",
+        "Hyunseok Lee",
+        "Jinwoo Shin",
+        "Minsu Cho"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-24T10:05:32+00:00",
+      "link": "https://arxiv.org/pdf/2603.23023v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Explicit 3D memory construction for scene understanding",
+      "llm_evidence_cn": "用于场景理解的显式3D记忆构建",
+      "llm_evidence": "用于场景理解的显式3D记忆构建",
+      "canonical_evidence": "用于场景理解的显式3D记忆构建",
+      "llm_tldr_en": "Cog3DMap constructs 3D cognitive maps from multi-view images to enhance spatial reasoning in MLLMs.",
+      "llm_tldr_cn": "Cog3DMap从多视图图像构建3D认知地图，以增强多模态大模型的空间推理能力。",
+      "llm_tldr": "Cog3DMap从多视图图像构建3D认知地图，以增强多模态大模型的空间推理能力。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.23246v1",
+      "title": "GO-Renderer: Generative Object Rendering with 3D-aware Controllable Video Diffusion Models",
+      "abstract": "Reconstructing a renderable 3D model from images is a useful but challenging task. Recent feedforward 3D reconstruction methods have demonstrated remarkable success in efficiently recovering geometry, but still cannot accurately model the complex appearances of these 3D reconstructed models. Recent diffusion-based generative models can synthesize realistic images or videos of an object using reference images without explicitly modeling its appearance, which provides a promising direction for object rendering, but lacks accurate control over the viewpoints. In this paper, we propose GO-Renderer, a unified framework integrating the reconstructed 3D proxies to guide the video generative models to achieve high-quality object rendering on arbitrary viewpoints under arbitrary lighting conditions. Our method not only enjoys the accurate viewpoint control using the reconstructed 3D proxy but also enables high-quality rendering in different lighting environments using diffusion generative models without explicitly modeling complex materials and lighting. Extensive experiments demonstrate that GO-Renderer achieves state-of-the-art performance across the object rendering tasks, including synthesizing images on new viewpoints, rendering the objects in a novel lighting environment, and inserting an object into an existing video.",
+      "authors": [
+        "Zekai Gu",
+        "Shuoxuan Feng",
+        "Yansong Wang",
+        "Hanzhuo Huang",
+        "Zhongshuo Du",
+        "Chengfeng Zhao",
+        "Chengwei Ren",
+        "Peng Wang",
+        "Yuan Liu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-24T14:14:21+00:00",
+      "link": "https://arxiv.org/pdf/2603.23246v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Generative object rendering using 3D-aware controllable video diffusion",
+      "llm_evidence_cn": "使用3D感知可控视频扩散进行生成式物体渲染",
+      "llm_evidence": "使用3D感知可控视频扩散进行生成式物体渲染",
+      "canonical_evidence": "使用3D感知可控视频扩散进行生成式物体渲染",
+      "llm_tldr_en": "GO-Renderer integrates 3D proxies with video diffusion models for high-quality, controllable object rendering.",
+      "llm_tldr_cn": "GO-Renderer将3D代理与视频扩散模型结合，实现高质量、可控的物体渲染。",
+      "llm_tldr": "GO-Renderer将3D代理与视频扩散模型结合，实现高质量、可控的物体渲染。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

@@ -6,71 +6,61 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-03-28
-- 运行时间：2026-03-28 19:05:50 UTC
+- 最新运行日期：2026-03-29
+- 运行时间：2026-03-29 18:52:19 UTC
 - 运行状态：成功
-- 本次总论文数：17
-- 精读区：6
+- 本次总论文数：13
+- 精读区：2
 - 速读区：11
 
 ### 今日简报（AI）
-今日深度解析 17 篇论文，聚焦 3D Gaussian Splatting 在前馈预测加密与 LiDAR 约束下的高保真
-- 详情：[/202603/28/README](/202603/28/README)
+今日聚焦 3D 资产智能化与视频生成，重点攻克了静态模型自动关节化及渲染场景向照片级视频的跨越。
+核心突破在于利用 MLLM 实现仿真资产的自动化分解，以及通过 RealMaster 显著提升渲染画面的真实感。
+建议关注大语言模型在 3D 物理仿真中的新角色，以及高保真视频生成的最新演进。
+- 详情：[/202603/29/README](/202603/29/README)
 
 ### 精读区论文标签
-1. [F4Splat: Feed-Forward Predictive Densification for Feed-Forward 3D Gaussian Splatting](/202603/28/2603.21304v2-f4splat-feed-forward-predictive-densification-for-feed-forward-3d-gaussian-splatting)  
+1. [SIMART: Decomposing Monolithic Meshes into Sim-ready Articulated Assets via MLLM](/202603/29/2603.23386v1-simart-decomposing-monolithic-meshes-into-sim-ready-articulated-assets-via-mllm)  
    标签：评分：8.0/10、query:3dgen
-   evidence：3D高斯泼溅的前馈预测加密
-2. [GTLR-GS: Geometry-Texture Aware LiDAR-Regularized 3D Gaussian Splatting for Realistic Scene Reconstruction](/202603/28/2603.23192v1-gtlr-gs-geometry-texture-aware-lidar-regularized-3d-gaussian-splatting-for-realistic-scene-reconstruction)  
+   evidence：用于关节式3D资产生成的生成式多模态大模型
+2. [RealMaster: Lifting Rendered Scenes into Photorealistic Video](/202603/29/2603.23462v1-realmaster-lifting-rendered-scenes-into-photorealistic-video)  
    标签：评分：8.0/10、query:3dgen
-   evidence：用于逼真场景重建的3D高斯泼溅
-3. [GaussFusion: Improving 3D Reconstruction in the Wild with A Geometry-Informed Video Generator](/202603/28/2603.25053v1-gaussfusion-improving-3d-reconstruction-in-the-wild-with-a-geometry-informed-video-generator)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：用于3D重建的几何感知视频生成器
-4. [AirSplat: Alignment and Rating for Robust Feed-Forward 3D Gaussian Splatting](/202603/28/2603.25129v1-airsplat-alignment-and-rating-for-robust-feed-forward-3d-gaussian-splatting)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：用于场景合成的前馈3D高斯泼溅
-5. [ViewSplat: View-Adaptive Dynamic Gaussian Splatting for Feed-Forward Synthesis](/202603/28/2603.25265v1-viewsplat-view-adaptive-dynamic-gaussian-splatting-for-feed-forward-synthesis)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：用于3D场景重建的3D高斯泼溅
-6. [AdaSFormer: Adaptive Serialized Transformers for Monocular Semantic Scene Completion from Indoor Environments](/202603/28/2603.25494v1-adasformer-adaptive-serialized-transformers-for-monocular-semantic-scene-completion-from-indoor-environments)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：室内3D环境的语义场景补全
+   evidence：将渲染场景提升为写实视频的生成模型
 
 ### 速读区论文标签
-1. [3D Gaussian Splatting with Self-Constrained Priors for High Fidelity Surface Reconstruction](/202603/28/2603.19682v1-3d-gaussian-splatting-with-self-constrained-priors-for-high-fidelity-surface-reconstruction)  
+1. [The Role and Relationship of Initialization and Densification in 3D Gaussian Splatting](/202603/29/2603.20714v1-the-role-and-relationship-of-initialization-and-densification-in-3d-gaussian-splatting)  
    标签：评分：7.0/10、query:3dgen
-   evidence：用于表面重建的3D高斯泼溅技术
-2. [RayMap3R: Inference-Time RayMap for Dynamic 3D Reconstruction](/202603/28/2603.20588v1-raymap3r-inference-time-raymap-for-dynamic-3d-reconstruction)  
+   evidence：用于照片级真实感3D场景重建的3D高斯泼溅
+2. [PhotoAgent: A Robotic Photographer with Spatial and Aesthetic Understanding](/202603/29/2603.22796v1-photoagent-a-robotic-photographer-with-spatial-and-aesthetic-understanding)  
    标签：评分：7.0/10、query:3dgen
-   evidence：动态3D重建与场景几何估计
-3. [Fast and Robust Deformable 3D Gaussian Splatting](/202603/28/2603.20857v1-fast-and-robust-deformable-3d-gaussian-splatting)  
+   evidence：使用3D高斯泼溅构建的逼真内部世界模型
+3. [Gau-Occ: Geometry-Completed Gaussians for Multi-Modal 3D Occupancy Prediction](/202603/29/2603.22852v1-gau-occ-geometry-completed-gaussians-for-multi-modal-3d-occupancy-prediction)  
    标签：评分：7.0/10、query:3dgen
-   evidence：使用可变形3D高斯的动态场景重建
-4. [RefracGS: Novel View Synthesis Through Refractive Water Surfaces with 3D Gaussian Ray Tracing](/202603/28/2603.21695v1-refracgs-novel-view-synthesis-through-refractive-water-surfaces-with-3d-gaussian-ray-tracing)  
+   evidence：将场景建模为语义3D高斯的紧凑集合
+4. [SLARM: Streaming and Language-Aligned Reconstruction Model for Dynamic Scenes](/202603/29/2603.22893v2-slarm-streaming-and-language-aligned-reconstruction-model-for-dynamic-scenes)  
    标签：评分：7.0/10、query:3dgen
-   evidence：重建折射表面下的场景
-5. [GeoFusion-CAD: Structure-Aware Diffusion with Geometric State Space for Parametric 3D Design](/202603/28/2603.21978v1-geofusion-cad-structure-aware-diffusion-with-geometric-state-space-for-parametric-3d-design)  
+   evidence：动态场景重建与语言对齐表示
+5. [SLARM: Streaming and Language-Aligned Reconstruction Model for Dynamic Scenes](/202603/29/2603.22893v3-slarm-streaming-and-language-aligned-reconstruction-model-for-dynamic-scenes)  
    标签：评分：7.0/10、query:3dgen
-   evidence：用于3D CAD建模和生成的扩散框架
-6. [Static Scene Reconstruction from Dynamic Egocentric Videos](/202603/28/2603.22450v1-static-scene-reconstruction-from-dynamic-egocentric-videos)  
+   evidence：动态场景重建与语言对齐表示的统一模型
+6. [GO-Renderer: Generative Object Rendering with 3D-aware Controllable Video Diffusion Models](/202603/29/2603.23246v1-go-renderer-generative-object-rendering-with-3d-aware-controllable-video-diffusion-models)  
    标签：评分：7.0/10、query:3dgen
-   evidence：从第一人称视频中进行静态场景重建
-7. [3D Gaussian Splatting with Self-Constrained Priors for High Fidelity Surface Reconstruction](/202603/28/2603.19682v2-3d-gaussian-splatting-with-self-constrained-priors-for-high-fidelity-surface-reconstruction)  
+   evidence：使用3D感知可控视频扩散进行生成式物体渲染
+7. [Sketch2CT: Multimodal Diffusion for Structure-Aware 3D Medical Volume Generation](/202603/29/2603.22509v1-sketch2ct-multimodal-diffusion-for-structure-aware-3d-medical-volume-generation)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于高保真表面重建的3D高斯泼溅
-8. [Generalizable NGP-SR: Generalizable Neural Radiance Fields Super-Resolution via Neural Graph Primitives](/202603/28/2603.20128v1-generalizable-ngp-sr-generalizable-neural-radiance-fields-super-resolution-via-neural-graph-primitives)  
+   evidence：基于文本和草图的3D医学体数据生成
+8. [FullCircle: Effortless 3D Reconstruction from Casual 360$^\circ$ Captures](/202603/29/2603.22572v1-fullcircle-effortless-3d-reconstruction-from-casual-360circ-captures)  
    标签：评分：6.0/10、query:3dgen
-   evidence：辐射场的3D感知超分辨率
-9. [Benchmarking Efficient & Effective Camera Pose Estimation Strategies for Novel View Synthesis](/202603/28/2603.20428v1-benchmarking-efficient--effective-camera-pose-estimation-strategies-for-novel-view-synthesis)  
+   evidence：基于360度全景相机的3D场景重建
+9. [CAM3R: Camera-Agnostic Model for 3D Reconstruction](/202603/29/2603.22631v1-cam3r-camera-agnostic-model-for-3d-reconstruction)  
    标签：评分：6.0/10、query:3dgen
-   evidence：3D场景表示与新视角合成
-10. [F4Splat: Feed-Forward Predictive Densification for Feed-Forward 3D Gaussian Splatting](/202603/28/2603.21304v1-f4splat-feed-forward-predictive-densification-for-feed-forward-3d-gaussian-splatting)  
+   evidence：相机无关的稠密3D几何恢复模型
+10. [Predictive Photometric Uncertainty in Gaussian Splatting for Novel View Synthesis](/202603/29/2603.22786v1-predictive-photometric-uncertainty-in-gaussian-splatting-for-novel-view-synthesis)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于场景重建的前馈3D高斯泼溅技术
-11. [PAS3R: Pose-Adaptive Streaming 3D Reconstruction for Long Video Sequences](/202603/28/2603.21436v1-pas3r-pose-adaptive-streaming-3d-reconstruction-for-long-video-sequences)  
+   evidence：场景表示中高斯泼溅的不确定性估计
+11. [Cog3DMap: Multi-View Vision-Language Reasoning with 3D Cognitive Maps](/202603/29/2603.23023v1-cog3dmap-multi-view-vision-language-reasoning-with-3d-cognitive-maps)  
    标签：评分：6.0/10、query:3dgen
-   evidence：在线单目3D重建
+   evidence：用于场景理解的显式3D记忆构建
 
 
 <div class="dpr-home-promo-card">
