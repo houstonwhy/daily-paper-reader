@@ -6,61 +6,67 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-03-29
-- 运行时间：2026-03-29 18:52:19 UTC
+- 最新运行日期：2026-03-30
+- 运行时间：2026-03-30 19:42:50 UTC
 - 运行状态：成功
-- 本次总论文数：13
-- 精读区：2
+- 本次总论文数：15
+- 精读区：4
 - 速读区：11
 
 ### 今日简报（AI）
-今日聚焦 3D 资产智能化与视频生成，重点攻克了静态模型自动关节化及渲染场景向照片级视频的跨越。
-核心突破在于利用 MLLM 实现仿真资产的自动化分解，以及通过 RealMaster 显著提升渲染画面的真实感。
-建议关注大语言模型在 3D 物理仿真中的新角色，以及高保真视频生成的最新演进。
-- 详情：[/202603/29/README](/202603/29/README)
+今日聚焦 3D 高斯泼溅（3DGS）的前沿突破，涵盖从自回归场景生成到全景视频重建的 15 篇最新成果。
+重点关注满分论文 GaussianGPT 实现的 3D 场景自回归生成，以及无需位姿信息的 360 度全景深度一致性建模。
+建议优先研读 GaussianGPT 以掌握 3D 生成新范式，并关注 3DGS 在城市感知与光线追踪中的跨界应用。
+- 详情：[/202603/30/README](/202603/30/README)
 
 ### 精读区论文标签
-1. [SIMART: Decomposing Monolithic Meshes into Sim-ready Articulated Assets via MLLM](/202603/29/2603.23386v1-simart-decomposing-monolithic-meshes-into-sim-ready-articulated-assets-via-mllm)  
+1. [GaussianGPT: Towards Autoregressive 3D Gaussian Scene Generation](/202603/30/2603.26661v1-gaussiangpt-towards-autoregressive-3d-gaussian-scene-generation)  
+   标签：评分：10.0/10、query:3dgen
+   evidence：用于全3D场景生成的自回归Transformer
+2. [Pose-Free Omnidirectional Gaussian Splatting for 360-Degree Videos with Consistent Depth Priors](/202603/30/2603.23324v2-pose-free-omnidirectional-gaussian-splatting-for-360-degree-videos-with-consistent-depth-priors)  
    标签：评分：8.0/10、query:3dgen
-   evidence：用于关节式3D资产生成的生成式多模态大模型
-2. [RealMaster: Lifting Rendered Scenes into Photorealistic Video](/202603/29/2603.23462v1-realmaster-lifting-rendered-scenes-into-photorealistic-video)  
+   evidence：全景视频的3D场景表示与重建
+3. [3DCity-LLM: Empowering Multi-modality Large Language Models for 3D City-scale Perception and Understanding](/202603/30/2603.23447v1-3dcity-llm-empowering-multi-modality-large-language-models-for-3d-city-scale-perception-and-understanding)  
    标签：评分：8.0/10、query:3dgen
-   evidence：将渲染场景提升为写实视频的生成模型
+   evidence：3D城市级视觉语言感知与规划
+4. [Relaxed Rigidity with Ray-based Grouping for Dynamic Gaussian Splatting](/202603/30/2603.24994v1-relaxed-rigidity-with-ray-based-grouping-for-dynamic-gaussian-splatting)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：使用高斯泼溅重建动态3D场景
 
 ### 速读区论文标签
-1. [The Role and Relationship of Initialization and Densification in 3D Gaussian Splatting](/202603/29/2603.20714v1-the-role-and-relationship-of-initialization-and-densification-in-3d-gaussian-splatting)  
+1. [OccAny: Generalized Unconstrained Urban 3D Occupancy](/202603/30/2603.23502v1-occany-generalized-unconstrained-urban-3d-occupancy)  
    标签：评分：7.0/10、query:3dgen
-   evidence：用于照片级真实感3D场景重建的3D高斯泼溅
-2. [PhotoAgent: A Robotic Photographer with Spatial and Aesthetic Understanding](/202603/29/2603.22796v1-photoagent-a-robotic-photographer-with-spatial-and-aesthetic-understanding)  
+   evidence：城市3D占据预测与补全
+2. [Stochastic Ray Tracing for the Reconstruction of 3D Gaussian Splatting](/202603/30/2603.23637v1-stochastic-ray-tracing-for-the-reconstruction-of-3d-gaussian-splatting)  
    标签：评分：7.0/10、query:3dgen
-   evidence：使用3D高斯泼溅构建的逼真内部世界模型
-3. [Gau-Occ: Geometry-Completed Gaussians for Multi-Modal 3D Occupancy Prediction](/202603/29/2603.22852v1-gau-occ-geometry-completed-gaussians-for-multi-modal-3d-occupancy-prediction)  
+   evidence：3D高斯泼溅场景的重建与渲染
+3. [Stochastic Ray Tracing for the Reconstruction of 3D Gaussian Splatting](/202603/30/2603.23637v2-stochastic-ray-tracing-for-the-reconstruction-of-3d-gaussian-splatting)  
    标签：评分：7.0/10、query:3dgen
-   evidence：将场景建模为语义3D高斯的紧凑集合
-4. [SLARM: Streaming and Language-Aligned Reconstruction Model for Dynamic Scenes](/202603/29/2603.22893v2-slarm-streaming-and-language-aligned-reconstruction-model-for-dynamic-scenes)  
+   evidence：用于 3D 高斯泼溅场景重建的随机光线追踪
+4. [FilterGS: Traversal-Free Parallel Filtering and Adaptive Shrinking for Large-Scale LoD 3D Gaussian Splatting](/202603/30/2603.23891v1-filtergs-traversal-free-parallel-filtering-and-adaptive-shrinking-for-large-scale-lod-3d-gaussian-splatting)  
    标签：评分：7.0/10、query:3dgen
-   evidence：动态场景重建与语言对齐表示
-5. [SLARM: Streaming and Language-Aligned Reconstruction Model for Dynamic Scenes](/202603/29/2603.22893v3-slarm-streaming-and-language-aligned-reconstruction-model-for-dynamic-scenes)  
+   evidence：将3D高斯泼溅扩展至大规模场景
+5. [LightSplat: Fast and Memory-Efficient Open-Vocabulary 3D Scene Understanding in Five Seconds](/202603/30/2603.24146v1-lightsplat-fast-and-memory-efficient-open-vocabulary-3d-scene-understanding-in-five-seconds)  
    标签：评分：7.0/10、query:3dgen
-   evidence：动态场景重建与语言对齐表示的统一模型
-6. [GO-Renderer: Generative Object Rendering with 3D-aware Controllable Video Diffusion Models](/202603/29/2603.23246v1-go-renderer-generative-object-rendering-with-3d-aware-controllable-video-diffusion-models)  
+   evidence：通过自然语言进行开放词汇 3D 场景理解
+6. [ViHOI: Human-Object Interaction Synthesis with Visual Priors](/202603/30/2603.24383v1-vihoi-human-object-interaction-synthesis-with-visual-priors)  
    标签：评分：7.0/10、query:3dgen
-   evidence：使用3D感知可控视频扩散进行生成式物体渲染
-7. [Sketch2CT: Multimodal Diffusion for Structure-Aware 3D Medical Volume Generation](/202603/29/2603.22509v1-sketch2ct-multimodal-diffusion-for-structure-aware-3d-medical-volume-generation)  
+   evidence：使用基于扩散的生成模型进行3D人机交互合成
+7. [4DGS360: 360° Gaussian Reconstruction of Dynamic Objects from a Single Video](/202603/30/2603.21618v1-4dgs360-360-gaussian-reconstruction-of-dynamic-objects-from-a-single-video)  
    标签：评分：6.0/10、query:3dgen
-   evidence：基于文本和草图的3D医学体数据生成
-8. [FullCircle: Effortless 3D Reconstruction from Casual 360$^\circ$ Captures](/202603/29/2603.22572v1-fullcircle-effortless-3d-reconstruction-from-casual-360circ-captures)  
+   evidence：从视频中进行360度动态对象重建
+8. [UniFunc3D: Unified Active Spatial-Temporal Grounding for 3D Functionality Segmentation](/202603/30/2603.23478v1-unifunc3d-unified-active-spatial-temporal-grounding-for-3d-functionality-segmentation)  
    标签：评分：6.0/10、query:3dgen
-   evidence：基于360度全景相机的3D场景重建
-9. [CAM3R: Camera-Agnostic Model for 3D Reconstruction](/202603/29/2603.22631v1-cam3r-camera-agnostic-model-for-3d-reconstruction)  
+   evidence：将自然语言指令落地为 3D 场景功能掩码
+9. [Grounding Vision and Language to 3D Masks for Long-Horizon Box Rearrangement](/202603/30/2603.23676v1-grounding-vision-and-language-to-3d-masks-for-long-horizon-box-rearrangement)  
    标签：评分：6.0/10、query:3dgen
-   evidence：相机无关的稠密3D几何恢复模型
-10. [Predictive Photometric Uncertainty in Gaussian Splatting for Novel View Synthesis](/202603/29/2603.22786v1-predictive-photometric-uncertainty-in-gaussian-splatting-for-novel-view-synthesis)  
+   evidence：将语言对应到3D掩码以在3D环境中进行规划
+10. [Scalable Object Relation Encoding for Better 3D Spatial Reasoning in Large Language Models](/202603/30/2603.24721v1-scalable-object-relation-encoding-for-better-3d-spatial-reasoning-in-large-language-models)  
    标签：评分：6.0/10、query:3dgen
-   evidence：场景表示中高斯泼溅的不确定性估计
-11. [Cog3DMap: Multi-View Vision-Language Reasoning with 3D Cognitive Maps](/202603/29/2603.23023v1-cog3dmap-multi-view-vision-language-reasoning-with-3d-cognitive-maps)  
+   evidence：大语言模型中的3D空间推理与场景表示
+11. [HiSpatial: Taming Hierarchical 3D Spatial Understanding in Vision-Language Models](/202603/30/2603.25411v1-hispatial-taming-hierarchical-3d-spatial-understanding-in-vision-language-models)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于场景理解的显式3D记忆构建
+   evidence：视觉语言模型中 3D 空间理解的分层框架
 
 
 <div class="dpr-home-promo-card">

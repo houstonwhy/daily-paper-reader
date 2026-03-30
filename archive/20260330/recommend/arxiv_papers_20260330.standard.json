@@ -1,0 +1,596 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-30T19:41:15.091610+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 25,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2603.26661v1",
+      "title": "GaussianGPT: Towards Autoregressive 3D Gaussian Scene Generation",
+      "abstract": "Most recent advances in 3D generative modeling rely on diffusion or flow-matching formulations. We instead explore a fully autoregressive alternative and introduce GaussianGPT, a transformer-based model that directly generates 3D Gaussians via next-token prediction, thus facilitating full 3D scene generation. We first compress Gaussian primitives into a discrete latent grid using a sparse 3D convolutional autoencoder with vector quantization. The resulting tokens are serialized and modeled using a causal transformer with 3D rotary positional embedding, enabling sequential generation of spatial structure and appearance. Unlike diffusion-based methods that refine scenes holistically, our formulation constructs scenes step-by-step, naturally supporting completion, outpainting, controllable sampling via temperature, and flexible generation horizons. This formulation leverages the compositional inductive biases and scalability of autoregressive modeling while operating on explicit representations compatible with modern neural rendering pipelines, positioning autoregressive transformers as a complementary paradigm for controllable and context-aware 3D generation.",
+      "authors": [
+        "Nicolas von Lützow",
+        "Barbara Rössle",
+        "Katharina Schmid",
+        "Matthias Nießner"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-27T17:58:05+00:00",
+      "link": "https://arxiv.org/pdf/2603.26661v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "autoregressive transformer for full 3D scene generation",
+      "llm_evidence_cn": "用于全3D场景生成的自回归Transformer",
+      "llm_evidence": "用于全3D场景生成的自回归Transformer",
+      "canonical_evidence": "用于全3D场景生成的自回归Transformer",
+      "llm_tldr_en": "GaussianGPT introduces an autoregressive transformer approach for step-by-step 3D Gaussian scene generation.",
+      "llm_tldr_cn": "GaussianGPT引入了一种自回归Transformer方法，用于逐步生成3D高斯场景。",
+      "llm_tldr": "GaussianGPT引入了一种自回归Transformer方法，用于逐步生成3D高斯场景。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "state of the art methods in 3D scene generation",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.23324v2",
+      "title": "Pose-Free Omnidirectional Gaussian Splatting for 360-Degree Videos with Consistent Depth Priors",
+      "abstract": "Omnidirectional 3D Gaussian Splatting with panoramas is a key technique for 3D scene representation, and existing methods typically rely on slow SfM to provide camera poses and sparse points priors. In this work, we propose a pose-free omnidirectional 3DGS method, named PFGS360, that reconstructs 3D Gaussians from unposed omnidirectional videos. To achieve accurate camera pose estimation, we first construct a spherical consistency-aware pose estimation module, which recovers poses by establishing consistent 2D-3D correspondences between the reconstructed Gaussians and the unposed images using Gaussians' internal depth priors. Besides, to enhance the fidelity of novel view synthesis, we introduce a depth-inlier-aware densification module to extract depth inliers and Gaussian outliers with consistent monocular depth priors, enabling efficient Gaussian densification and achieving photorealistic novel view synthesis. The experiments show significant outperformance over existing pose-free and pose-aware 3DGS methods on both real-world and synthetic 360-degree videos. Code is available at https://github.com/zcq15/PFGS360.",
+      "authors": [
+        "Chuanqing Zhuang",
+        "Xin Lu",
+        "Zehui Deng",
+        "Zhengda Lu",
+        "Yiqun Wang",
+        "Junqi Diao",
+        "Jun Xiao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-24T15:25:24+00:00",
+      "link": "https://arxiv.org/pdf/2603.23324v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "3D scene representation and reconstruction from omnidirectional video",
+      "llm_evidence_cn": "全景视频的3D场景表示与重建",
+      "llm_evidence": "全景视频的3D场景表示与重建",
+      "canonical_evidence": "全景视频的3D场景表示与重建",
+      "llm_tldr_en": "A pose-free method for reconstructing 3D scenes from 360-degree videos using Gaussian Splatting.",
+      "llm_tldr_cn": "一种利用高斯泼溅从360度视频中重建3D场景的免位姿方法。",
+      "llm_tldr": "一种利用高斯泼溅从360度视频中重建3D场景的免位姿方法。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.23447v1",
+      "title": "3DCity-LLM: Empowering Multi-modality Large Language Models for 3D City-scale Perception and Understanding",
+      "abstract": "While multi-modality large language models excel in object-centric or indoor scenarios, scaling them to 3D city-scale environments remains a formidable challenge. To bridge this gap, we propose 3DCity-LLM, a unified framework designed for 3D city-scale vision-language perception and understanding. 3DCity-LLM employs a coarse-to-fine feature encoding strategy comprising three parallel branches for target object, inter-object relationship, and global scene. To facilitate large-scale training, we introduce 3DCity-LLM-1.2M dataset that comprises approximately 1.2 million high-quality samples across seven representative task categories, ranging from fine-grained object analysis to multi-faceted scene planning. This strictly quality-controlled dataset integrates explicit 3D numerical information and diverse user-oriented simulations, enriching the question-answering diversity and realism of urban scenarios. Furthermore, we apply a multi-dimensional protocol based on text-similarity metrics and LLM-based semantic assessment to ensure faithful and comprehensive evaluations for all methods. Extensive experiments on two benchmarks demonstrate that 3DCity-LLM significantly outperforms existing state-of-the-art methods, offering a promising and meaningful direction for advancing spatial reasoning and urban intelligence. The source code and dataset are available at https://github.com/SYSU-3DSTAILab/3D-City-LLM.",
+      "authors": [
+        "Yiping Chen",
+        "Jinpeng Li",
+        "Wenyu Ke",
+        "Yang Luo",
+        "Jie Ouyang",
+        "Zhongjie He",
+        "Li Liu",
+        "Hongchao Fan",
+        "Hao Wu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-03-24T17:18:44+00:00",
+      "link": "https://arxiv.org/pdf/2603.23447v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "3D city-scale vision-language perception and planning",
+      "llm_evidence_cn": "3D城市级视觉语言感知与规划",
+      "llm_evidence": "3D城市级视觉语言感知与规划",
+      "canonical_evidence": "3D城市级视觉语言感知与规划",
+      "llm_tldr_en": "Proposes 3DCity-LLM for city-scale 3D scene understanding and planning using multi-modality models.",
+      "llm_tldr_cn": "提出3DCity-LLM，利用多模态大模型进行城市级3D场景理解与规划。",
+      "llm_tldr": "提出3DCity-LLM，利用多模态大模型进行城市级3D场景理解与规划。",
+      "llm_tags": [
+        "query:3dgen:composite"
+      ],
+      "matched_query_tag": "query:3dgen:composite",
+      "matched_query_text": "Papers central to 查找与3D场景生成有关的论文，要求已经在期刊发表或者正式被会议接收的论文。, especially work that connects or combines: i; text-to-3D scene generation frameworks; 3; 3D scene generation and synthesis methods; generative models for 3D environments; research papers about 3D scene generation, including different methods, representations, and applications; state of the art methods in 3D scene generation; state of the art 3D scene generation papers in top conferences.",
+      "matched_requirement_id": "req-composite-3dgen",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.24994v1",
+      "title": "Relaxed Rigidity with Ray-based Grouping for Dynamic Gaussian Splatting",
+      "abstract": "The reconstruction of dynamic 3D scenes using 3D Gaussian Splatting has shown significant promise. A key challenge, however, remains in modeling realistic motion, as most methods fail to align the motion of Gaussians with real-world physical dynamics. This misalignment is particularly problematic for monocular video datasets, where failing to maintain coherent motion undermines local geometric structure, ultimately leading to degraded reconstruction quality. Consequently, many state-of-the-art approaches rely heavily on external priors, such as optical flow or 2D tracks, to enforce temporal coherence. In this work, we propose a novel method to explicitly preserve the local geometric structure of Gaussians across time in 4D scenes. Our core idea is to introduce a view-space ray grouping strategy that clusters Gaussians intersected by the same ray, considering only those whose $α$-blending weights exceed a threshold. We then apply constraints to these groups to maintain a consistent spatial distribution, effectively preserving their local geometry. This approach enforces a more physically plausible motion model by ensuring that local geometry remains stable over time, eliminating the reliance on external guidance. We demonstrate the efficacy of our method by integrating it into two distinct baseline models. Extensive experiments on challenging monocular datasets show that our approach significantly outperforms existing methods, achieving superior temporal consistency and reconstruction quality.",
+      "authors": [
+        "Junoh Leea",
+        "Junmyeong Lee",
+        "Yeon-Ji Song",
+        "Inhwan Bae",
+        "Jisu Shin",
+        "Hae-Gon Jeon",
+        "Jin-Hwa Kim"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-26T03:38:38+00:00",
+      "link": "https://arxiv.org/pdf/2603.24994v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Reconstruction of dynamic 3D scenes using Gaussian Splatting",
+      "llm_evidence_cn": "使用高斯泼溅重建动态3D场景",
+      "llm_evidence": "使用高斯泼溅重建动态3D场景",
+      "canonical_evidence": "使用高斯泼溅重建动态3D场景",
+      "llm_tldr_en": "Preserves local geometric structure in 4D scenes to improve the reconstruction of dynamic 3D environments.",
+      "llm_tldr_cn": "在4D场景中保留局部几何结构，以改进动态3D环境的重建。",
+      "llm_tldr": "在4D场景中保留局部几何结构，以改进动态3D环境的重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.23502v1",
+      "title": "OccAny: Generalized Unconstrained Urban 3D Occupancy",
+      "abstract": "Relying on in-domain annotations and precise sensor-rig priors, existing 3D occupancy prediction methods are limited in both scalability and out-of-domain generalization. While recent visual geometry foundation models exhibit strong generalization capabilities, they were mainly designed for general purposes and lack one or more key ingredients required for urban occupancy prediction, namely metric prediction, geometry completion in cluttered scenes and adaptation to urban scenarios. We address this gap and present OccAny, the first unconstrained urban 3D occupancy model capable of operating on out-of-domain uncalibrated scenes to predict and complete metric occupancy coupled with segmentation features. OccAny is versatile and can predict occupancy from sequential, monocular, or surround-view images. Our contributions are three-fold: (i) we propose the first generalized 3D occupancy framework with (ii) Segmentation Forcing that improves occupancy quality while enabling mask-level prediction, and (iii) a Novel View Rendering pipeline that infers novel-view geometry to enable test-time view augmentation for geometry completion. Extensive experiments demonstrate that OccAny outperforms all visual geometry baselines on 3D occupancy prediction task, while remaining competitive with in-domain self-supervised methods across three input settings on two established urban occupancy prediction datasets. Our code is available at https://github.com/valeoai/OccAny .",
+      "authors": [
+        "Anh-Quan Cao",
+        "Tuan-Hung Vu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-24T17:59:58+00:00",
+      "link": "https://arxiv.org/pdf/2603.23502v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "urban 3D occupancy prediction and completion",
+      "llm_evidence_cn": "城市3D占据预测与补全",
+      "llm_evidence": "城市3D占据预测与补全",
+      "canonical_evidence": "城市3D占据预测与补全",
+      "llm_tldr_en": "Presents OccAny, a generalized model for unconstrained urban 3D occupancy prediction and geometry completion.",
+      "llm_tldr_cn": "展示了OccAny，一种用于无约束城市3D占据预测和几何补全的通用模型。",
+      "llm_tldr": "展示了OccAny，一种用于无约束城市3D占据预测和几何补全的通用模型。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.21618v1",
+      "title": "4DGS360: 360° Gaussian Reconstruction of Dynamic Objects from a Single Video",
+      "abstract": "We introduce 4DGS360, a diffusion-free framework for 360$^{\\circ}$ dynamic object reconstruction from casual monocular video. Existing methods often fail to reconstruct consistent 360$^{\\circ}$ geometry, as their heavy reliance on 2D-native priors causes initial points to overfit to visible surface in each training view. 4DGS360 addresses this challenge through a advanced 3D-native initialization that mitigates the geometric ambiguity of occluded regions. Our proposed 3D tracker, AnchorTAP3D, produces reinforced 3D point trajectories by leveraging confident 2D track points as anchors, suppressing drift and providing reliable initialization that preserves geometry in occluded regions. This initialization, combined with optimization, yields coherent 360$^{\\circ}$ 4D reconstructions. We further present iPhone360, a new benchmark where test cameras are placed up to 135$^{\\circ}$ apart from training views, enabling 360$^{\\circ}$ evaluation that existing datasets cannot provide. Experiments show that 4DGS360 achieves state-of-the-art performance on the iPhone360, iPhone, and DAVIS datasets, both qualitatively and quantitatively.",
+      "authors": [
+        "Jae Won Jang",
+        "Yeonjin Chang",
+        "Wonsik Shin",
+        "Juhwan Cho",
+        "Nojun Kwak"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-23T06:30:46+00:00",
+      "link": "https://arxiv.org/pdf/2603.21618v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "360 degree dynamic object reconstruction from video",
+      "llm_evidence_cn": "从视频中进行360度动态对象重建",
+      "llm_evidence": "从视频中进行360度动态对象重建",
+      "canonical_evidence": "从视频中进行360度动态对象重建",
+      "llm_tldr_en": "Reconstructs consistent 360-degree dynamic object geometry from monocular video using 3D-native initialization.",
+      "llm_tldr_cn": "利用3D原生初始化从单目视频中重建一致的360度动态对象几何结构。",
+      "llm_tldr": "利用3D原生初始化从单目视频中重建一致的360度动态对象几何结构。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.23637v1",
+      "title": "Stochastic Ray Tracing for the Reconstruction of 3D Gaussian Splatting",
+      "abstract": "Ray-tracing-based 3D Gaussian splatting (3DGS) methods overcome the limitations of rasterization -- rigid pinhole camera assumptions, inaccurate shadows, and lack of native reflection or refraction -- but remain slower due to the cost of sorting all intersecting Gaussians along every ray. Moreover, existing ray-tracing methods still rely on rasterization-style approximations such as shadow mapping for relightable scenes, undermining the generality that ray tracing promises.   We present a differentiable, sorting-free stochastic formulation for ray-traced 3DGS -- the first framework that uses stochastic ray tracing to both reconstruct and render standard and relightable 3DGS scenes. At its core is an unbiased Monte Carlo estimator for pixel-color gradients that evaluates only a small sampled subset of Gaussians per ray, bypassing the need for sorting. For standard 3DGS, our method matches the reconstruction quality and speed of rasterization-based 3DGS while substantially outperforming sorting-based ray tracing. For relightable 3DGS, the same stochastic estimator drives per-Gaussian shading with fully ray-traced shadow rays, delivering notably higher reconstruction fidelity than prior work.",
+      "authors": [
+        "Peiyu Xu",
+        "Xin Sun",
+        "Krishna Mullia",
+        "Raymond Fei",
+        "Iliyan Georgiev",
+        "Shuang Zhao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-24T18:23:12+00:00",
+      "link": "https://arxiv.org/pdf/2603.23637v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "reconstruction and rendering of 3D Gaussian Splatting scenes",
+      "llm_evidence_cn": "3D高斯泼溅场景的重建与渲染",
+      "llm_evidence": "3D高斯泼溅场景的重建与渲染",
+      "canonical_evidence": "3D高斯泼溅场景的重建与渲染",
+      "llm_tldr_en": "Develops a stochastic ray tracing framework for high-quality 3DGS scene reconstruction.",
+      "llm_tldr_cn": "开发了一种随机光线追踪框架，用于高质量的3DGS场景重建。",
+      "llm_tldr": "开发了一种随机光线追踪框架，用于高质量的3DGS场景重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.23478v1",
+      "title": "UniFunc3D: Unified Active Spatial-Temporal Grounding for 3D Functionality Segmentation",
+      "abstract": "Functionality segmentation in 3D scenes requires an agent to ground implicit natural-language instructions into precise masks of fine-grained interactive elements. Existing methods rely on fragmented pipelines that suffer from visual blindness during initial task parsing. We observe that these methods are limited by single-scale, passive and heuristic frame selection. We present UniFunc3D, a unified and training-free framework that treats the multimodal large language model as an active observer. By consolidating semantic, temporal, and spatial reasoning into a single forward pass, UniFunc3D performs joint reasoning to ground task decomposition in direct visual evidence. Our approach introduces active spatial-temporal grounding with a coarse-to-fine strategy. This allows the model to select correct video frames adaptively and focus on high-detail interactive parts while preserving the global context necessary for disambiguation. On SceneFun3D, UniFunc3D achieves state-of-the-art performance, surpassing both training-free and training-based methods by a large margin with a relative 59.9\\% mIoU improvement, without any task-specific training. Code will be released on our project page: https://jiaying.link/unifunc3d.",
+      "authors": [
+        "Jiaying Lin",
+        "Dan Xu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-24T17:42:31+00:00",
+      "link": "https://arxiv.org/pdf/2603.23478v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "grounds natural-language instructions into 3D scene functionality masks",
+      "llm_evidence_cn": "将自然语言指令落地为 3D 场景功能掩码",
+      "llm_evidence": "将自然语言指令落地为 3D 场景功能掩码",
+      "canonical_evidence": "将自然语言指令落地为 3D 场景功能掩码",
+      "llm_tldr_en": "UniFunc3D uses multimodal LLMs for active spatial-temporal grounding in 3D functionality segmentation.",
+      "llm_tldr_cn": "UniFunc3D 利用多模态大模型在 3D 功能分割中进行主动时空定位。",
+      "llm_tldr": "UniFunc3D 利用多模态大模型在 3D 功能分割中进行主动时空定位。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.23637v2",
+      "title": "Stochastic Ray Tracing for the Reconstruction of 3D Gaussian Splatting",
+      "abstract": "Ray-tracing-based 3D Gaussian splatting (3DGS) methods overcome the limitations of rasterization -- rigid pinhole camera assumptions, inaccurate shadows, and lack of native reflection or refraction -- but remain slower due to the cost of sorting all intersecting Gaussians along every ray. Moreover, existing ray-tracing methods still rely on rasterization-style approximations such as shadow mapping for relightable scenes, undermining the generality that ray tracing promises.   We present a differentiable, sorting-free stochastic formulation for ray-traced 3DGS -- the first framework that uses stochastic ray tracing to both reconstruct and render standard and relightable 3DGS scenes. At its core is an unbiased Monte Carlo estimator for pixel-color gradients that evaluates only a small sampled subset of Gaussians per ray, bypassing the need for sorting. For standard 3DGS, our method matches the reconstruction quality and speed of rasterization-based 3DGS while substantially outperforming sorting-based ray tracing. For relightable 3DGS, the same stochastic estimator drives per-Gaussian shading with fully ray-traced shadow rays, delivering notably higher reconstruction fidelity than prior work.",
+      "authors": [
+        "Peiyu Xu",
+        "Xin Sun",
+        "Krishna Mullia",
+        "Raymond Fei",
+        "Iliyan Georgiev",
+        "Shuang Zhao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-24T18:23:12+00:00",
+      "link": "https://arxiv.org/pdf/2603.23637v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "stochastic ray tracing for the reconstruction of 3D Gaussian Splatting scenes",
+      "llm_evidence_cn": "用于 3D 高斯泼溅场景重建的随机光线追踪",
+      "llm_evidence": "用于 3D 高斯泼溅场景重建的随机光线追踪",
+      "canonical_evidence": "用于 3D 高斯泼溅场景重建的随机光线追踪",
+      "llm_tldr_en": "A differentiable stochastic ray tracing framework for reconstructing and rendering relightable 3DGS scenes.",
+      "llm_tldr_cn": "一个用于重建和渲染可重光照 3DGS 场景的可微随机光线追踪框架。",
+      "llm_tldr": "一个用于重建和渲染可重光照 3DGS 场景的可微随机光线追踪框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.23676v1",
+      "title": "Grounding Vision and Language to 3D Masks for Long-Horizon Box Rearrangement",
+      "abstract": "We study long-horizon planning in 3D environments from under-specified natural-language goals using only visual observations, focusing on multi-step 3D box rearrangement tasks. Existing approaches typically rely on symbolic planners with brittle relational grounding of states and goals, or on direct action-sequence generation from 2D vision-language models (VLMs). Both approaches struggle with reasoning over many objects, rich 3D geometry, and implicit semantic constraints. Recent advances in 3D VLMs demonstrate strong grounding of natural-language referents to 3D segmentation masks, suggesting the potential for more general planning capabilities. We extend existing 3D grounding models and propose Reactive Action Mask Planner (RAMP-3D), which formulates long-horizon planning as sequential reactive prediction of paired 3D masks: a \"which-object\" mask indicating what to pick and a \"which-target-region\" mask specifying where to place it. The resulting system processes RGB-D observations and natural-language task specifications to reactively generate multi-step pick-and-place actions for 3D box rearrangement. We conduct experiments across 11 task variants in warehouse-style environments with 1-30 boxes and diverse natural-language constraints. RAMP-3D achieves 79.5% success rate on long-horizon rearrangement tasks and significantly outperforms 2D VLM-based baselines, establishing mask-based reactive policies as a promising alternative to symbolic pipelines for long-horizon planning.",
+      "authors": [
+        "Ashish Malik",
+        "Caleb Lowe",
+        "Aayam Shrestha",
+        "Stefan Lee",
+        "Fuxin Li",
+        "Alan Fern"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.RO"
+      ],
+      "published": "2026-03-24T19:31:13+00:00",
+      "link": "https://arxiv.org/pdf/2603.23676v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "grounding language to 3D masks for planning in 3D environments",
+      "llm_evidence_cn": "将语言对应到3D掩码以在3D环境中进行规划",
+      "llm_evidence": "将语言对应到3D掩码以在3D环境中进行规划",
+      "canonical_evidence": "将语言对应到3D掩码以在3D环境中进行规划",
+      "llm_tldr_en": "Proposes RAMP-3D for long-horizon planning in 3D environments using vision-language grounding.",
+      "llm_tldr_cn": "提出RAMP-3D，利用视觉语言对齐在3D环境中进行长程任务规划。",
+      "llm_tldr": "提出RAMP-3D，利用视觉语言对齐在3D环境中进行长程任务规划。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.23891v1",
+      "title": "FilterGS: Traversal-Free Parallel Filtering and Adaptive Shrinking for Large-Scale LoD 3D Gaussian Splatting",
+      "abstract": "3D Gaussian Splatting has revolutionized neural rendering with real-time performance. However, scaling this approach to large scenes using Level-of-Detail methods faces critical challenges: inefficient serial traversal consuming over 60\\% of rendering time, and redundant Gaussian-tile pairs that incur unnecessary processing overhead. To address these limitations, we introduce FilterGS, featuring a parallel filtering mechanism with two complementary filters that select Gaussian elements efficiently without tree traversal. Additionally, we propose a novel GTC metric that quantifies the redundancy of Gaussian-tile key-value pairs. Based on this metric, we introduce a scene-adaptive Gaussian shrinking strategy that effectively reduces redundant pairs. Extensive experiments demonstrate that FilterGS achieves state-of-the-art rendering speeds while maintaining competitive visual quality across multiple large-scale datasets. Project page: https://github.com/xenon-w/FilterGS",
+      "authors": [
+        "Yixian Wang",
+        "Haolin Yu",
+        "Jiadong Tang",
+        "Yu Gao",
+        "Xihan Wang",
+        "Yufeng Yue",
+        "Yi Yang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-25T03:29:01+00:00",
+      "link": "https://arxiv.org/pdf/2603.23891v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "scaling 3D Gaussian Splatting to large scenes",
+      "llm_evidence_cn": "将3D高斯泼溅扩展至大规模场景",
+      "llm_evidence": "将3D高斯泼溅扩展至大规模场景",
+      "canonical_evidence": "将3D高斯泼溅扩展至大规模场景",
+      "llm_tldr_en": "Introduces FilterGS, a parallel filtering and adaptive shrinking strategy for large-scale 3D Gaussian Splatting.",
+      "llm_tldr_cn": "引入FilterGS，一种用于大规模3D高斯泼溅的并行过滤和自适应收缩策略。",
+      "llm_tldr": "引入FilterGS，一种用于大规模3D高斯泼溅的并行过滤和自适应收缩策略。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.24721v1",
+      "title": "Scalable Object Relation Encoding for Better 3D Spatial Reasoning in Large Language Models",
+      "abstract": "Spatial reasoning focuses on locating target objects based on spatial relations in 3D scenes, which plays a crucial role in developing intelligent embodied agents. Due to the limited availability of 3D scene-language paired data, it is challenging to train models with strong reasoning ability from scratch. Previous approaches have attempted to inject 3D scene representations into the input space of Large Language Models (LLMs) and leverage the pretrained comprehension and reasoning abilities for spatial reasoning. However, models encoding absolute positions struggle to extract spatial relations from prematurely fused features, while methods explicitly encoding all spatial relations (which is quadratic in the number of objects) as input tokens suffer from poor scalability. To address these limitations, we propose QuatRoPE, a novel positional embedding method with an input length that is linear to the number of objects, and explicitly calculates pairwise spatial relations through the dot product in attention layers. QuatRoPE's holistic vector encoding of 3D coordinates guarantees a high degree of spatial consistency, maintaining fidelity to the scene's geometric integrity. Additionally, we introduce the Isolated Gated RoPE Extension (IGRE), which effectively limits QuatRoPE's influence to object-related tokens, thereby minimizing interference with the LLM's existing positional embeddings and maintaining the LLM's original capabilities. Extensive experiments demonstrate the effectiveness of our approaches. The code and data are available at https://github.com/oceanflowlab/QuatRoPE.",
+      "authors": [
+        "Shengli Zhou",
+        "Minghang Zheng",
+        "Feng Zheng",
+        "Yang Liu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.LG",
+        "cs.MM"
+      ],
+      "published": "2026-03-25T18:46:23+00:00",
+      "link": "https://arxiv.org/pdf/2603.24721v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D spatial reasoning and scene representation in LLMs",
+      "llm_evidence_cn": "大语言模型中的3D空间推理与场景表示",
+      "llm_evidence": "大语言模型中的3D空间推理与场景表示",
+      "canonical_evidence": "大语言模型中的3D空间推理与场景表示",
+      "llm_tldr_en": "This paper improves 3D spatial reasoning in LLMs by better encoding object relations within 3D scenes.",
+      "llm_tldr_cn": "该论文通过改进3D场景中的物体关系编码，提升了大语言模型的空间推理能力。",
+      "llm_tldr": "该论文通过改进3D场景中的物体关系编码，提升了大语言模型的空间推理能力。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.24146v1",
+      "title": "LightSplat: Fast and Memory-Efficient Open-Vocabulary 3D Scene Understanding in Five Seconds",
+      "abstract": "Open-vocabulary 3D scene understanding enables users to segment novel objects in complex 3D environments through natural language. However, existing approaches remain slow, memory-intensive, and overly complex due to iterative optimization and dense per-Gaussian feature assignments. To address this, we propose LightSplat, a fast and memory-efficient training-free framework that injects compact 2-byte semantic indices into 3D representations from multi-view images. By assigning semantic indices only to salient regions and managing them with a lightweight index-feature mapping, LightSplat eliminates costly feature optimization and storage overhead. We further ensure semantic consistency and efficient inference via single-step clustering that links geometrically and semantically related masks in 3D. We evaluate our method on LERF-OVS, ScanNet, and DL3DV-OVS across complex indoor-outdoor scenes. As a result, LightSplat achieves state-of-the-art performance with up to 50-400x speedup and 64x lower memory, enabling scalable language-driven 3D understanding. For more details, visit our project page https://vision3d-lab.github.io/lightsplat/.",
+      "authors": [
+        "Jaehun Bang",
+        "Jinhyeok Kim",
+        "Minji Kim",
+        "Seungheon Jeong",
+        "Kyungdon Joo"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-25T10:12:22+00:00",
+      "link": "https://arxiv.org/pdf/2603.24146v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "open-vocabulary 3D scene understanding through natural language",
+      "llm_evidence_cn": "通过自然语言进行开放词汇 3D 场景理解",
+      "llm_evidence": "通过自然语言进行开放词汇 3D 场景理解",
+      "canonical_evidence": "通过自然语言进行开放词汇 3D 场景理解",
+      "llm_tldr_en": "LightSplat enables fast and memory-efficient open-vocabulary 3D scene understanding using semantic indices.",
+      "llm_tldr_cn": "LightSplat 通过语义索引实现了快速且节省内存的开放词汇 3D 场景理解。",
+      "llm_tldr": "LightSplat 通过语义索引实现了快速且节省内存的开放词汇 3D 场景理解。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.25411v1",
+      "title": "HiSpatial: Taming Hierarchical 3D Spatial Understanding in Vision-Language Models",
+      "abstract": "Achieving human-like spatial intelligence for vision-language models (VLMs) requires inferring 3D structures from 2D observations, recognizing object properties and relations in 3D space, and performing high-level spatial reasoning. In this paper, we propose a principled hierarchical framework that decomposes the learning of 3D spatial understanding in VLMs into four progressively complex levels, from geometric perception to abstract spatial reasoning. Guided by this framework, we construct an automated pipeline that processes approximately 5M images with over 45M objects to generate 3D spatial VQA pairs across diverse tasks and scenes for VLM supervised fine-tuning. We also develop an RGB-D VLM incorporating metric-scale point maps as auxiliary inputs to further enhance spatial understanding. Extensive experiments demonstrate that our approach achieves state-of-the-art performance on multiple spatial understanding and reasoning benchmarks, surpassing specialized spatial models and large proprietary systems such as Gemini-2.5-pro and GPT-5. Moreover, our analysis reveals clear dependencies among hierarchical task levels, offering new insights into how multi-level task design facilitates the emergence of 3D spatial intelligence.",
+      "authors": [
+        "Huizhi Liang",
+        "Yichao Shen",
+        "Yu Deng",
+        "Sicheng Xu",
+        "Zhiyuan Feng",
+        "Tong Zhang",
+        "Yaobo Liang",
+        "Jiaolong Yang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-26T13:08:12+00:00",
+      "link": "https://arxiv.org/pdf/2603.25411v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "hierarchical framework for 3D spatial understanding in vision-language models",
+      "llm_evidence_cn": "视觉语言模型中 3D 空间理解的分层框架",
+      "llm_evidence": "视觉语言模型中 3D 空间理解的分层框架",
+      "canonical_evidence": "视觉语言模型中 3D 空间理解的分层框架",
+      "llm_tldr_en": "HiSpatial improves 3D spatial reasoning in VLMs through a hierarchical learning framework and large-scale data.",
+      "llm_tldr_cn": "HiSpatial 通过分层学习框架和大规模数据提升了视觉语言模型的 3D 空间推理能力。",
+      "llm_tldr": "HiSpatial 通过分层学习框架和大规模数据提升了视觉语言模型的 3D 空间推理能力。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.24383v1",
+      "title": "ViHOI: Human-Object Interaction Synthesis with Visual Priors",
+      "abstract": "Generating realistic and physically plausible 3D Human-Object Interactions (HOI) remains a key challenge in motion generation. One primary reason is that describing these physical constraints with words alone is difficult. To address this limitation, we propose a new paradigm: extracting rich interaction priors from easily accessible 2D images. Specifically, we introduce ViHOI, a novel framework that enables diffusion-based generative models to leverage rich, task-specific priors from 2D images to enhance generation quality. We utilize a large Vision-Language Model (VLM) as a powerful prior-extraction engine and adopt a layer-decoupled strategy to obtain visual and textual priors. Concurrently, we design a Q-Former-based adapter that compresses the VLM's high-dimensional features into compact prior tokens, which significantly facilitates the conditional training of our diffusion model. Our framework is trained on motion-rendered images from the dataset to ensure strict semantic alignment between visual inputs and motion sequences. During inference, it leverages reference images synthesized by a text-to-image generation model to improve generalization to unseen objects and interaction categories. Experimental results demonstrate that ViHOI achieves state-of-the-art performance, outperforming existing methods across multiple benchmarks and demonstrating superior generalization.",
+      "authors": [
+        "Songjin Cai",
+        "Linjie Zhong",
+        "Ling Guo",
+        "Changxing Ding"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-25T15:02:06+00:00",
+      "link": "https://arxiv.org/pdf/2603.24383v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D Human-Object Interaction synthesis using diffusion-based generative models",
+      "llm_evidence_cn": "使用基于扩散的生成模型进行3D人机交互合成",
+      "llm_evidence": "使用基于扩散的生成模型进行3D人机交互合成",
+      "canonical_evidence": "使用基于扩散的生成模型进行3D人机交互合成",
+      "llm_tldr_en": "ViHOI leverages visual priors from 2D images to synthesize realistic 3D human-object interactions.",
+      "llm_tldr_cn": "ViHOI利用2D图像的视觉先验来合成逼真且符合物理规律的3D人机交互。",
+      "llm_tldr": "ViHOI利用2D图像的视觉先验来合成逼真且符合物理规律的3D人机交互。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
