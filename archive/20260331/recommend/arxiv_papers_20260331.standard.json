@@ -1,0 +1,677 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-31T19:50:20.196078+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 8,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 25,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2603.27573v1",
+      "title": "SPREAD: Spatial-Physical REasoning via geometry Aware Diffusion",
+      "abstract": "Automated 3D scene generation is pivotal for applications spanning virtual reality, digital content creation, and Embodied AI. While computer graphics prioritizes aesthetic layouts, vision and robotics demand scenes that mirror real-world complexity which current data-driven methods struggle to achieve due to limited unstructured training data and insufficient spatial and physical modeling. We propose SPREAD, a diffusion-based framework that jointly learns spatial and physical relationships through a graph transformer, explicitly conditioning on posed scene point clouds for geometric awareness. Moreover, our model integrates differentiable guidance for collision avoidance, relational constraint, and gravity, ensuring physically coherent scenes without sacrificing relational context. Our experiments on 3D-FRONT and ProcTHOR datasets demonstrate state-of-the-art performance in spatial-relational reasoning and physical metrics. Moreover, \\ours{} outperforms baselines in scene consistency and stability during pre- and post-physics simulation, proving its capability to generate simulation-ready environments for embodied AI agents.",
+      "authors": [
+        "Minzhang Li",
+        "Kuixiang Shao",
+        "Xuebing Li",
+        "Yuyang Jiao",
+        "Yinuo Bai",
+        "Hengan Zhou",
+        "Sixian Shen",
+        "Jiayuan Gu",
+        "Jingyi Yu"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR"
+      ],
+      "published": "2026-03-29T08:15:17+00:00",
+      "link": "https://arxiv.org/pdf/2603.27573v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "automated 3D scene generation via diffusion-based framework",
+      "llm_evidence_cn": "通过扩散框架实现自动化3D场景生成",
+      "llm_evidence": "通过扩散框架实现自动化3D场景生成",
+      "canonical_evidence": "通过扩散框架实现自动化3D场景生成",
+      "llm_tldr_en": "SPREAD uses geometry-aware diffusion to generate physically coherent and spatially accurate 3D scenes.",
+      "llm_tldr_cn": "SPREAD利用几何感知扩散生成物理一致且空间准确的3D场景。",
+      "llm_tldr": "SPREAD利用几何感知扩散生成物理一致且空间准确的3D场景。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.28548v1",
+      "title": "Seen2Scene: Completing Realistic 3D Scenes with Visibility-Guided Flow",
+      "abstract": "We present Seen2Scene, the first flow matching-based approach that trains directly on incomplete, real-world 3D scans for scene completion and generation. Unlike prior methods that rely on complete and hence synthetic 3D data, our approach introduces visibility-guided flow matching, which explicitly masks out unknown regions in real scans, enabling effective learning from real-world, partial observations. We represent 3D scenes using truncated signed distance field (TSDF) volumes encoded in sparse grids and employ a sparse transformer to efficiently model complex scene structures while masking unknown regions. We employ 3D layout boxes as an input conditioning signal, and our approach is flexibly adapted to various other inputs such as text or partial scans. By learning directly from real-world, incomplete 3D scans, Seen2Scene enables realistic 3D scene completion for complex, cluttered real environments. Experiments demonstrate that our model produces coherent, complete, and realistic 3D scenes, outperforming baselines in completion accuracy and generation quality.",
+      "authors": [
+        "Quan Meng",
+        "Yujin Chen",
+        "Lei Li",
+        "Matthias Nießner",
+        "Angela Dai"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-30T15:08:38+00:00",
+      "link": "https://arxiv.org/pdf/2603.28548v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "flow matching-based approach for scene completion and generation from text or partial inputs",
+      "llm_evidence_cn": "基于流匹配的场景补全与生成方法，支持文本或部分输入",
+      "llm_evidence": "基于流匹配的场景补全与生成方法，支持文本或部分输入",
+      "canonical_evidence": "基于流匹配的场景补全与生成方法，支持文本或部分输入",
+      "llm_tldr_en": "Seen2Scene uses visibility-guided flow matching for realistic 3D scene completion and generation from real-world scans.",
+      "llm_tldr_cn": "Seen2Scene 利用可见性引导的流匹配技术，实现从真实扫描中进行 3D 场景补全与生成。",
+      "llm_tldr": "Seen2Scene 利用可见性引导的流匹配技术，实现从真实扫描中进行 3D 场景补全与生成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "text-to-3D scene generation frameworks",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.27084v1",
+      "title": "SceneExpander: Expanding 3D Scenes with Free-Form Inserted Views",
+      "abstract": "World building with 3D scene representations is increasingly important for content creation, simulation, and interactive experiences, yet real workflows are inherently iterative: creators must repeatedly extend an existing scene under user control. Motivated by this research gap, we study 3D scene expansion in a user-centric workflow: starting from a real scene captured by multi-view images, we extend its coverage by inserting an additional view synthesized by a generative model. Unlike simple object editing or style transfer in a fixed scene, the inserted view is often 3D-misaligned with the original reconstruction, introducing geometry shifts, hallucinated content, or view-dependent artifacts that break global multi-view consistency. To address the challenge, we propose SceneExpander, which applies test-time adaptation to a parametric feed-forward 3D reconstruction model with two complementary distillation signals: anchor distillation stabilizes the original scene by distilling geometric cues from the captured views, while inserted-view self-distillation preserves observation-supported predictions yet adapts latent geometry and appearance to accommodate the misaligned inserted view. Experiments on ETH scenes and online data demonstrate improved expansion behavior and reconstruction quality under misalignment.",
+      "authors": [
+        "Zijian He",
+        "enjie Liu",
+        "Yihao Wang",
+        "Weizhi Zhong",
+        "Huan Yuan",
+        "Kun Gai",
+        "Guangrun Wang",
+        "Guanbin Li"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-28T02:04:48+00:00",
+      "link": "https://arxiv.org/pdf/2603.27084v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "expanding 3D scenes by inserting views synthesized by generative models",
+      "llm_evidence_cn": "通过插入生成模型合成的视图来扩展3D场景",
+      "llm_evidence": "通过插入生成模型合成的视图来扩展3D场景",
+      "canonical_evidence": "通过插入生成模型合成的视图来扩展3D场景",
+      "llm_tldr_en": "Enables iterative 3D scene expansion by integrating generative view synthesis with existing reconstructions.",
+      "llm_tldr_cn": "通过将生成式视图合成与现有重建相结合，实现了可控的迭代式3D场景扩展。",
+      "llm_tldr": "通过将生成式视图合成与现有重建相结合，实现了可控的迭代式3D场景扩展。",
+      "llm_tags": [
+        "query:3dgen:composite"
+      ],
+      "matched_query_tag": "query:3dgen:composite",
+      "matched_query_text": "Papers central to 查找与3D场景生成有关的论文，要求已经在期刊发表或者正式被会议接收的论文。, especially work that connects or combines: i; text-to-3D scene generation frameworks; 3; 3D scene generation and synthesis methods; generative models for 3D environments; research papers about 3D scene generation, including different methods, representations, and applications; state of the art methods in 3D scene generation; state of the art 3D scene generation papers in top conferences.",
+      "matched_requirement_id": "req-composite-3dgen",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.28757v1",
+      "title": "SonoWorld: From One Image to a 3D Audio-Visual Scene",
+      "abstract": "Tremendous progress in visual scene generation now turns a single image into an explorable 3D world, yet immersion remains incomplete without sound. We introduce Image2AVScene, the task of generating a 3D audio-visual scene from a single image, and present SonoWorld, the first framework to tackle this challenge. From one image, our pipeline outpaints a 360° panorama, lifts it into a navigable 3D scene, places language-guided sound anchors, and renders ambisonics for point, areal, and ambient sources, yielding spatial audio aligned with scene geometry and semantics. Quantitative evaluations on a newly curated real-world dataset and a controlled user study confirm the effectiveness of our approach. Beyond free-viewpoint audio-visual rendering, we also demonstrate applications to one-shot acoustic learning and audio-visual spatial source separation. Project website: https://humathe.github.io/sonoworld/",
+      "authors": [
+        "Derong Jin",
+        "Xiyi Chen",
+        "Ming C. Lin",
+        "Ruohan Gao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.MM",
+        "cs.SD"
+      ],
+      "published": "2026-03-30T17:57:47+00:00",
+      "link": "https://arxiv.org/pdf/2603.28757v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "generating 3D audio-visual scenes from a single image",
+      "llm_evidence_cn": "从单张图像生成3D视听场景",
+      "llm_evidence": "从单张图像生成3D视听场景",
+      "canonical_evidence": "从单张图像生成3D视听场景",
+      "llm_tldr_en": "Presents SonoWorld, a framework for generating navigable 3D audio-visual scenes from a single image.",
+      "llm_tldr_cn": "提出SonoWorld，一个从单张图像生成可导航3D视听场景的框架。",
+      "llm_tldr": "提出SonoWorld，一个从单张图像生成可导航3D视听场景的框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "text-to-3D scene generation frameworks",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.24684v1",
+      "title": "KitchenTwin: Semantically and Geometrically Grounded 3D Kitchen Digital Twins",
+      "abstract": "Embodied AI training and evaluation require object-centric digital twin environments with accurate metric geometry and semantic grounding. Recent transformer-based feedforward reconstruction methods can efficiently predict global point clouds from sparse monocular videos, yet these geometries suffer from inherent scale ambiguity and inconsistent coordinate conventions. This mismatch prevents the reliable fusion of these dimensionless point cloud predictions with locally reconstructed object meshes. We propose a novel scale-aware 3D fusion framework that registers visually grounded object meshes with transformer-predicted global point clouds to construct metrically consistent digital twins. Our method introduces a Vision-Language Model (VLM)-guided geometric anchor mechanism that resolves this fundamental coordinate mismatch by recovering an accurate real-world metric scale. To fuse these networks, we propose a geometry-aware registration pipeline that explicitly enforces physical plausibility through gravity-aligned vertical estimation, Manhattan-world structural constraints, and collision-free local refinement. Experiments on real indoor kitchen environments demonstrate improved cross-network object alignment and geometric consistency for downstream tasks, including multi-primitive fitting and metric measurement. We additionally introduce an open-source indoor digital twin dataset with metrically scaled scenes and semantically grounded and registered object-centric mesh annotations.",
+      "authors": [
+        "Quanyun Wu",
+        "Kyle Gao",
+        "Daniel Long",
+        "David A. Clausi",
+        "Jonathan Li",
+        "Yuhao Chen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-25T18:03:45+00:00",
+      "link": "https://arxiv.org/pdf/2603.24684v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "3D scene synthesis and digital twins",
+      "llm_evidence_cn": "3D场景合成与数字孪生",
+      "llm_evidence": "3D场景合成与数字孪生",
+      "canonical_evidence": "3D场景合成与数字孪生",
+      "llm_tldr_en": "Develops a scale-aware fusion framework to construct metrically consistent 3D kitchen digital twins.",
+      "llm_tldr_cn": "开发了一种尺度感知融合框架，用于构建度量一致的3D厨房数字孪生场景。",
+      "llm_tldr": "开发了一种尺度感知融合框架，用于构建度量一致的3D厨房数字孪生场景。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.25053v2",
+      "title": "GaussFusion: Improving 3D Reconstruction in the Wild with A Geometry-Informed Video Generator",
+      "abstract": "We present GaussFusion, a novel approach for improving 3D Gaussian splatting (3DGS) reconstructions in the wild through geometry-informed video generation. GaussFusion mitigates common 3DGS artifacts, including floaters, flickering, and blur caused by camera pose errors, incomplete coverage, and noisy geometry initialization. Unlike prior RGB-based approaches limited to a single reconstruction pipeline, our method introduces a geometry-informed video-to-video generator that refines 3DGS renderings across both optimization-based and feed-forward methods. Given an existing reconstruction, we render a Gaussian primitive video buffer encoding depth, normals, opacity, and covariance, which the generator refines to produce temporally coherent, artifact-free frames. We further introduce an artifact synthesis pipeline that simulates diverse degradation patterns, ensuring robustness and generalization. GaussFusion achieves state-of-the-art performance on novel-view synthesis benchmarks, and an efficient variant runs in real time at 15 FPS while maintaining similar performance, enabling interactive 3D applications.",
+      "authors": [
+        "Liyuan Zhu",
+        "Manjunath Narayana",
+        "Michal Stary",
+        "Will Hutchcroft",
+        "Gordon Wetzstein",
+        "Iro Armeni"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-26T05:42:12+00:00",
+      "link": "https://arxiv.org/pdf/2603.25053v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "improving 3D reconstruction with video generation",
+      "llm_evidence_cn": "利用视频生成改进3D重建",
+      "llm_evidence": "利用视频生成改进3D重建",
+      "canonical_evidence": "利用视频生成改进3D重建",
+      "llm_tldr_en": "Introduces GaussFusion to refine 3D Gaussian Splatting reconstructions using geometry-informed video generation.",
+      "llm_tldr_cn": "提出GaussFusion，利用几何感知的视频生成来优化3D高斯泼溅重建效果。",
+      "llm_tldr": "提出GaussFusion，利用几何感知的视频生成来优化3D高斯泼溅重建效果。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.25745v1",
+      "title": "Less Gaussians, Texture More: 4K Feed-Forward Textured Splatting",
+      "abstract": "Existing feed-forward 3D Gaussian Splatting methods predict pixel-aligned primitives, leading to a quadratic growth in primitive count as resolution increases. This fundamentally limits their scalability, making high-resolution synthesis such as 4K intractable. We introduce LGTM (Less Gaussians, Texture More), a feed-forward framework that overcomes this resolution scaling barrier. By predicting compact Gaussian primitives coupled with per-primitive textures, LGTM decouples geometric complexity from rendering resolution. This approach enables high-fidelity 4K novel view synthesis without per-scene optimization, a capability previously out of reach for feed-forward methods, all while using significantly fewer Gaussian primitives. Project page: https://yxlao.github.io/lgtm/",
+      "authors": [
+        "Yixing Lao",
+        "Xuyang Bai",
+        "Xiaoyang Wu",
+        "Nuoyuan Yan",
+        "Zixin Luo",
+        "Tian Fang",
+        "Jean-Daniel Nahmias",
+        "Yanghai Tsin",
+        "Shiwei Li",
+        "Hengshuang Zhao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-26T17:59:59+00:00",
+      "link": "https://arxiv.org/pdf/2603.25745v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "high-resolution 3D scene synthesis",
+      "llm_evidence_cn": "高分辨率3D场景合成",
+      "llm_evidence": "高分辨率3D场景合成",
+      "canonical_evidence": "高分辨率3D场景合成",
+      "llm_tldr_en": "Introduces LGTM for scalable 4K feed-forward textured 3D Gaussian Splatting.",
+      "llm_tldr_cn": "提出LGTM，实现可扩展的4K前馈纹理3D高斯泼溅合成。",
+      "llm_tldr": "提出LGTM，实现可扩展的4K前馈纹理3D高斯泼溅合成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2603.24770v1",
+      "title": "DRoPS: Dynamic 3D Reconstruction of Pre-Scanned Objects",
+      "abstract": "Dynamic scene reconstruction from casual videos has seen recent remarkable progress. Numerous approaches have attempted to overcome the ill-posedness of the task by distilling priors from 2D foundational models and by imposing hand-crafted regularization on the optimized motion. However, these methods struggle to reconstruct scenes from extreme novel viewpoints, especially when highly articulated motions are present. In this paper, we present DRoPS, a novel approach that leverages a static pre-scan of the dynamic object as an explicit geometric and appearance prior. While existing state-of-the-art methods fail to fully exploit the pre-scan, DRoPS leverages our novel setup to effectively constrain the solution space and ensure geometrical consistency throughout the sequence. The core of our novelty is twofold: first, we establish a grid-structured and surface-aligned model by organizing Gaussian primitives into pixel grids anchored to the object surface. Second, by leveraging the grid structure of our primitives, we parameterize motion using a CNN conditioned on those grids, injecting strong implicit regularization and correlating the motion of nearby points. Extensive experiments demonstrate that our method significantly outperforms the current state of the art in rendering quality and 3D tracking accuracy.",
+      "authors": [
+        "Narek Tumanyan",
+        "Samuel Rota Bulò",
+        "Denis Rozumny",
+        "Lorenzo Porzi",
+        "Adam Harley",
+        "Tali Dekel",
+        "Peter Kontschieder",
+        "Jonathon Luiten"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-25T19:41:50+00:00",
+      "link": "https://arxiv.org/pdf/2603.24770v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Dynamic 3D scene reconstruction using geometric priors",
+      "llm_evidence_cn": "利用几何先验进行动态3D场景重建",
+      "llm_evidence": "利用几何先验进行动态3D场景重建",
+      "canonical_evidence": "利用几何先验进行动态3D场景重建",
+      "llm_tldr_en": "Presents DRoPS, a method for dynamic 3D reconstruction leveraging static pre-scans as priors.",
+      "llm_tldr_cn": "提出DRoPS，一种利用静态预扫描作为先验进行动态3D重建的方法。",
+      "llm_tldr": "提出DRoPS，一种利用静态预扫描作为先验进行动态3D重建的方法。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.24725v1",
+      "title": "Confidence-Based Mesh Extraction from 3D Gaussians",
+      "abstract": "Recently, 3D Gaussian Splatting (3DGS) greatly accelerated mesh extraction from posed images due to its explicit representation and fast software rasterization. While the addition of geometric losses and other priors has improved the accuracy of extracted surfaces, mesh extraction remains difficult in scenes with abundant view-dependent effects. To resolve the resulting ambiguities, prior works rely on multi-view techniques, iterative mesh extraction, or large pre-trained models, sacrificing the inherent efficiency of 3DGS. In this work, we present a simple and efficient alternative by introducing a self-supervised confidence framework to 3DGS: within this framework, learnable confidence values dynamically balance photometric and geometric supervision. Extending our confidence-driven formulation, we introduce losses which penalize per-primitive color and normal variance and demonstrate their benefits to surface extraction. Finally, we complement the above with an improved appearance model, by decoupling the individual terms of the D-SSIM loss. Our final approach delivers state-of-the-art results for unbounded meshes while remaining highly efficient.",
+      "authors": [
+        "Lukas Radl",
+        "Felix Windisch",
+        "Andreas Kurz",
+        "Thomas Köhler",
+        "Michael Steiner",
+        "Markus Steinberger"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-03-25T18:52:04+00:00",
+      "link": "https://arxiv.org/pdf/2603.24725v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Mesh extraction from 3D Gaussian representations of scenes",
+      "llm_evidence_cn": "从场景的3D高斯表示中提取网格",
+      "llm_evidence": "从场景的3D高斯表示中提取网格",
+      "canonical_evidence": "从场景的3D高斯表示中提取网格",
+      "llm_tldr_en": "Introduces a self-supervised confidence framework for efficient mesh extraction from 3D Gaussians.",
+      "llm_tldr_cn": "引入一种自监督置信度框架，用于从3D高斯中高效提取网格。",
+      "llm_tldr": "引入一种自监督置信度框架，用于从3D高斯中高效提取网格。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.28178v1",
+      "title": "ToLL: Topological Layout Learning with Structural Multi-view Augmentation for 3D Scene Graph Pretraining",
+      "abstract": "3D Scene Graph (3DSG) generation plays a pivotal role in spatial understanding and semantic-affordance perception. However, its generalizability is often constrained by data scarcity. Current solutions primarily focus on cross-modal assisted representation learning and object-centric generation pre-training. The former relies heavily on predicate annotations, while the latter's predicate learning may be bypassed due to strong object priors. Consequently, they could not often provide a label-free and robust self-supervised proxy task for 3DSG fine-tuning. To bridge this gap, we propose a Topological Layout Learning (ToLL) for 3DSG pretraining framework. In detail, we design an Anchor-Conditioned Topological Geometry Reasoning, with a GNN to recover the global layout of zero-centered subgraphs by the spatial priors from sparse anchors. This process is strictly modulated by predicate features, thereby enforcing the predicate relation learning. Furthermore, we construct a Structural Multi-view Augmentation to avoid semantic corruption, and enhancing representations via self-distillation. The extensive experiments on 3DSSG dataset demonstrate that our ToLL could improve representation quality, outperforming state-of-the-art baselines.",
+      "authors": [
+        "Yucheng Huang",
+        "Luping Ji",
+        "Xiangwei Jiang",
+        "Wen Li",
+        "Mao Ye"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-30T08:43:52+00:00",
+      "link": "https://arxiv.org/pdf/2603.28178v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "3D Scene Graph generation and pretraining",
+      "llm_evidence_cn": "3D场景图生成与预训练",
+      "llm_evidence": "3D场景图生成与预训练",
+      "canonical_evidence": "3D场景图生成与预训练",
+      "llm_tldr_en": "ToLL proposes a topological layout learning framework for self-supervised 3D scene graph pretraining.",
+      "llm_tldr_cn": "ToLL提出了一种拓扑布局学习框架，用于自监督的3D场景图预训练。",
+      "llm_tldr": "ToLL提出了一种拓扑布局学习框架，用于自监督的3D场景图预训练。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2603.25827v1",
+      "title": "Fus3D: Decoding Consolidated 3D Geometry from Feed-forward Geometry Transformer Latents",
+      "abstract": "We propose a feed-forward method for dense Signed Distance Field (SDF) regression from unstructured image collections in less than three seconds, without camera calibration or post-hoc fusion. Our key insight is that the intermediate feature space of pretrained multi-view feed-forward geometry transformers already encodes a powerful joint world representation; yet, existing pipelines discard it, routing features through per-view prediction heads before assembling 3D geometry post-hoc, which discards valuable completeness information and accumulates inaccuracies.   We instead perform 3D extraction directly from geometry transformer features via learned volumetric extraction: voxelized canonical embeddings that progressively absorb multi-view geometry information through interleaved cross- and self-attention into a structured volumetric latent grid. A simple convolutional decoder then maps this grid to a dense SDF. We additionally propose a scalable, validity-aware supervision scheme directly using SDFs derived from depth maps or 3D assets, tackling practical issues like non-watertight meshes. Our approach yields complete and well-defined distance values across sparse- and dense-view settings and demonstrates geometrically plausible completions. Code and further material can be found at https://lorafib.github.io/fus3d.",
+      "authors": [
+        "Laura Fink",
+        "Linus Franke",
+        "George Kopanas",
+        "Marc Stamminger",
+        "Peter Hedman"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-26T18:45:04+00:00",
+      "link": "https://arxiv.org/pdf/2603.25827v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Feed-forward 3D geometry extraction from image collections",
+      "llm_evidence_cn": "从图像集中进行前馈3D几何提取",
+      "llm_evidence": "从图像集中进行前馈3D几何提取",
+      "canonical_evidence": "从图像集中进行前馈3D几何提取",
+      "llm_tldr_en": "Proposes Fus3D for fast dense SDF regression and 3D extraction from geometry transformer features.",
+      "llm_tldr_cn": "提出Fus3D，用于从几何Transformer特征中快速进行稠密SDF回归和3D提取。",
+      "llm_tldr": "提出Fus3D，用于从几何Transformer特征中快速进行稠密SDF回归和3D提取。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.25008v1",
+      "title": "Few TensoRF: Enhance the Few-shot on Tensorial Radiance Fields",
+      "abstract": "This paper presents Few TensoRF, a 3D reconstruction framework that combines TensorRF's efficient tensor based representation with FreeNeRF's frequency driven few shot regularization. Using TensorRF to significantly accelerate rendering speed and introducing frequency and occlusion masks, the method improves stability and reconstruction quality under sparse input views. Experiments on the Synthesis NeRF benchmark show that Few TensoRF method improves the average PSNR from 21.45 dB (TensorRF) to 23.70 dB, with the fine tuned version reaching 24.52 dB, while maintaining TensorRF's fast \\(\\approx10-15\\) minute training time. Experiments on the THuman 2.0 dataset further demonstrate competitive performance in human body reconstruction, achieving 27.37 - 34.00 dB with only eight input images. These results highlight Few TensoRF as an efficient and data effective solution for real-time 3D reconstruction across diverse scenes.",
+      "authors": [
+        "Thanh-Hai Le",
+        "Hoang-Hau Tran",
+        "Trong-Nghia Vu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-03-26T04:10:20+00:00",
+      "link": "https://arxiv.org/pdf/2603.25008v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D reconstruction representation",
+      "llm_evidence_cn": "3D重建表示",
+      "llm_evidence": "3D重建表示",
+      "canonical_evidence": "3D重建表示",
+      "llm_tldr_en": "Enhances tensorial radiance fields for stable 3D reconstruction under sparse input views.",
+      "llm_tldr_cn": "增强了张量辐射场，以便在稀疏输入视图下进行稳定的3D重建。",
+      "llm_tldr": "增强了张量辐射场，以便在稀疏输入视图下进行稳定的3D重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.25985v1",
+      "title": "JRM: Joint Reconstruction Model for Multiple Objects without Alignment",
+      "abstract": "Object-centric reconstruction seeks to recover the 3D structure of a scene through composition of independent objects. While this independence can simplify modeling, it discards strong signals that could improve reconstruction, notably repetition where the same object model is seen multiple times in a scene, or across scans. We propose the Joint Reconstruction Model (JRM) to leverage repetition by framing object reconstruction as one of personalized generation: multiple observations share a common subject that should be consistent for all observations, while still adhering to the specific pose and state from each. Prior methods in this direction rely on explicit matching and rigid alignment across observations, making them sensitive to errors and difficult to extend to non-rigid transformations. In contrast, JRM is a 3D flow-matching generative model that implicitly aggregates unaligned observations in its latent space, learning to produce consistent and faithful reconstructions in a data-driven manner without explicit constraints. Evaluations on synthetic and real-world data show that JRM's implicit aggregation removes the need for explicit alignment, improves robustness to incorrect associations, and naturally handles non-rigid changes such as articulation. Overall, JRM outperforms both independent and alignment-based baselines in reconstruction quality.",
+      "authors": [
+        "Qirui Wu",
+        "Yawar Siddiqui",
+        "Duncan Frost",
+        "Samir Aroudj",
+        "Armen Avetisyan",
+        "Richard Newcombe",
+        "Angel X. Chang",
+        "Jakob Engel",
+        "Henry Howard-Jenkins"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-27T00:15:30+00:00",
+      "link": "https://arxiv.org/pdf/2603.25985v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "object-centric scene reconstruction and personalized generation",
+      "llm_evidence_cn": "以物体为中心的场景重建与个性化生成",
+      "llm_evidence": "以物体为中心的场景重建与个性化生成",
+      "canonical_evidence": "以物体为中心的场景重建与个性化生成",
+      "llm_tldr_en": "JRM leverages object repetition to improve 3D scene reconstruction through a joint generation framework.",
+      "llm_tldr_cn": "JRM通过联合生成框架利用物体重复性来改进3D场景重建。",
+      "llm_tldr": "JRM通过联合生成框架利用物体重复性来改进3D场景重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.25008v3",
+      "title": "Few TensoRF: Enhance the Few-shot on Tensorial Radiance Fields",
+      "abstract": "This paper presents Few TensoRF, a 3D reconstruction framework that combines TensorRF's efficient tensor based representation with FreeNeRF's frequency driven few shot regularization. Using TensorRF to significantly accelerate rendering speed and introducing frequency and occlusion masks, the method improves stability and reconstruction quality under sparse input views. Experiments on the Synthesis NeRF benchmark show that Few TensoRF method improves the average PSNR from 21.45 dB (TensorRF) to 23.70 dB, with the fine tuned version reaching 24.52 dB, while maintaining TensorRF's fast \\(\\approx10-15\\) minute training time. Experiments on the THuman 2.0 dataset further demonstrate competitive performance in human body reconstruction, achieving 27.37 - 34.00 dB with only eight input images. These results highlight Few TensoRF as an efficient and data effective solution for real-time 3D reconstruction across diverse scenes.",
+      "authors": [
+        "Thanh-Hai Le",
+        "Hoang-Hau Tran",
+        "Trong-Nghia Vu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-03-26T04:10:20+00:00",
+      "link": "https://arxiv.org/pdf/2603.25008v3",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D reconstruction framework for few-shot radiance fields",
+      "llm_evidence_cn": "少样本辐射场的 3D 重建框架",
+      "llm_evidence": "少样本辐射场的 3D 重建框架",
+      "canonical_evidence": "少样本辐射场的 3D 重建框架",
+      "llm_tldr_en": "Few TensoRF enhances few-shot 3D reconstruction by combining tensorial representations with frequency regularization.",
+      "llm_tldr_cn": "Few TensoRF 通过结合张量表示与频率正则化，增强了少样本下的 3D 重建效果。",
+      "llm_tldr": "Few TensoRF 通过结合张量表示与频率正则化，增强了少样本下的 3D 重建效果。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.26584v1",
+      "title": "Scene Grounding In the Wild",
+      "abstract": "Reconstructing accurate 3D models of large-scale real-world scenes from unstructured, in-the-wild imagery remains a core challenge in computer vision, especially when the input views have little or no overlap. In such cases, existing reconstruction pipelines often produce multiple disconnected partial reconstructions or erroneously merge non-overlapping regions into overlapping geometry. In this work, we propose a framework that grounds each partial reconstruction to a complete reference model of the scene, enabling globally consistent alignment even in the absence of visual overlap. We obtain reference models from dense, geospatially accurate pseudo-synthetic renderings derived from Google Earth Studio. These renderings provide full scene coverage but differ substantially in appearance from real-world photographs. Our key insight is that, despite this significant domain gap, both domains share the same underlying scene semantics. We represent the reference model using 3D Gaussian Splatting, augmenting each Gaussian with semantic features, and formulate alignment as an inverse feature-based optimization scheme that estimates a global 6DoF pose and scale while keeping the reference model fixed. Furthermore, we introduce the WikiEarth dataset, which registers existing partial 3D reconstructions with pseudo-synthetic reference models. We demonstrate that our approach consistently improves global alignment when initialized with various classical and learning-based pipelines, while mitigating failure modes of state-of-the-art end-to-end models. All code and data will be released.",
+      "authors": [
+        "Tamir Cohen",
+        "Leo Segre",
+        "Shay Shomer-Chai",
+        "Shai Avidan",
+        "Hadar Averbuch-Elor"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-27T16:41:20+00:00",
+      "link": "https://arxiv.org/pdf/2603.26584v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D scene reconstruction and grounding from unstructured imagery",
+      "llm_evidence_cn": "非结构化图像的3D场景重建与定位",
+      "llm_evidence": "非结构化图像的3D场景重建与定位",
+      "canonical_evidence": "非结构化图像的3D场景重建与定位",
+      "llm_tldr_en": "Proposes a framework for grounding partial 3D reconstructions to reference models for consistent alignment.",
+      "llm_tldr_cn": "提出一种将局部3D重建与参考模型对齐的框架，实现全局一致性。",
+      "llm_tldr": "提出一种将局部3D重建与参考模型对齐的框架，实现全局一致性。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.26665v1",
+      "title": "Detailed Geometry and Appearance from Opportunistic Motion",
+      "abstract": "Reconstructing 3D geometry and appearance from a sparse set of fixed cameras is a foundational task with broad applications, yet it remains fundamentally constrained by the limited viewpoints. We show that this bound can be broken by exploiting opportunistic object motion: as a person manipulates an object~(e.g., moving a chair or lifting a mug), the static cameras effectively ``orbit'' the object in its local coordinate frame, providing additional virtual viewpoints. Harnessing this object motion, however, poses two challenges: the tight coupling of object pose and geometry estimation and the complex appearance variations of a moving object under static illumination. We address these by formulating a joint pose and shape optimization using 2D Gaussian splatting with alternating minimization of 6DoF trajectories and primitive parameters, and by introducing a novel appearance model that factorizes diffuse and specular components with reflected directional probing within the spherical harmonics space. Extensive experiments on synthetic and real-world datasets with extremely sparse viewpoints demonstrate that our method recovers significantly more accurate geometry and appearance than state-of-the-art baselines.",
+      "authors": [
+        "Ryosuke Hirai",
+        "Kohei Yamashita",
+        "Antoine Guédon",
+        "Ryo Kawahara",
+        "Vincent Lepetit",
+        "Ko Nishino"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-27T17:59:16+00:00",
+      "link": "https://arxiv.org/pdf/2603.26665v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "reconstructing 3D geometry and appearance from sparse views and motion",
+      "llm_evidence_cn": "从稀疏视图和运动中重建3D几何与外观",
+      "llm_evidence": "从稀疏视图和运动中重建3D几何与外观",
+      "canonical_evidence": "从稀疏视图和运动中重建3D几何与外观",
+      "llm_tldr_en": "Uses object motion to provide virtual viewpoints for high-quality 3D reconstruction from sparse fixed cameras.",
+      "llm_tldr_cn": "利用物体的随机运动提供虚拟视角，从而在稀疏相机设置下实现高质量3D重建。",
+      "llm_tldr": "利用物体的随机运动提供虚拟视角，从而在稀疏相机设置下实现高质量3D重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.26942v1",
+      "title": "The Observability Gap: Why Output-Level Human Feedback Fails for LLM Coding Agents",
+      "abstract": "Large language model (LLM) multi-agent coding systems typically fix agent capabilities at design time. We study an alternative setting, earned autonomy, in which a coding agent starts with zero pre-defined functions and incrementally builds a reusable function library through lightweight human feedback on visual output alone. We evaluate this setup in a Blender-based 3D scene generation task requiring both spatial reasoning and programmatic geometric control. Although the agent rediscovered core utility functions comparable to a human reference implementation, it achieved 0% full-scene success under output-only feedback across multiple instruction granularities, where success required satisfying object completeness, ground contact, collision avoidance, and scale plausibility simultaneously. Our analysis identifies a structural observability gap: bugs originate in code logic and execution state, while human evaluation occurs only at the output layer, and the many-to-one mapping from internal states to visible outcomes prevents symptom-level feedback from reliably identifying root causes. This mismatch leads to persistent failure mode oscillation rather than convergence. A diagnostic intervention that injected minimal code-level knowledge restored convergence, strongly supporting the interpretation that the main bottleneck lies in feedback observability rather than programming competence. We formalize this phenomenon as a feedback paradox in domains with deep causal chains between internal code logic and perceptual outcomes, and argue that effective human-agent collaboration in such settings requires intermediate observability beyond output-only evaluation.",
+      "authors": [
+        "Yinghao Wang",
+        "Cheng Wang"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC"
+      ],
+      "published": "2026-03-27T19:32:18+00:00",
+      "link": "https://arxiv.org/pdf/2603.26942v1",
+      "tags": [
+        "keyword:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Blender-based 3D scene generation task",
+      "llm_evidence_cn": "基于Blender的3D场景生成任务",
+      "llm_evidence": "基于Blender的3D场景生成任务",
+      "canonical_evidence": "基于Blender的3D场景生成任务",
+      "llm_tldr_en": "Evaluates LLM agents on 3D scene generation tasks using human feedback on visual outputs.",
+      "llm_tldr_cn": "评估LLM代理在3D场景生成任务中通过视觉反馈进行学习的效果。",
+      "llm_tldr": "评估LLM代理在3D场景生成任务中通过视觉反馈进行学习的效果。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
