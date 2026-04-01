@@ -1,0 +1,675 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-01T18:59:14.584149+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 7,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 24,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2603.28980v1",
+      "title": "Stepper: Stepwise Immersive Scene Generation with Multiview Panoramas",
+      "abstract": "The synthesis of immersive 3D scenes from text is rapidly maturing, driven by novel video generative models and feed-forward 3D reconstruction, with vast potential in AR/VR and world modeling. While panoramic images have proven effective for scene initialization, existing approaches suffer from a trade-off between visual fidelity and explorability: autoregressive expansion suffers from context drift, while panoramic video generation is limited to low resolution. We present Stepper, a unified framework for text-driven immersive 3D scene synthesis that circumvents these limitations via stepwise panoramic scene expansion. Stepper leverages a novel multi-view 360° diffusion model that enables consistent, high-resolution expansion, coupled with a geometry reconstruction pipeline that enforces geometric coherence. Trained on a new large-scale, multi-view panorama dataset, Stepper achieves state-of-the-art fidelity and structural consistency, outperforming prior approaches, thereby setting a new standard for immersive scene generation.",
+      "authors": [
+        "Felix Wimbauer",
+        "Fabian Manhardt",
+        "Michael Oechsle",
+        "Nikolai Kalischek",
+        "Christian Rupprecht",
+        "Daniel Cremers",
+        "Federico Tombari"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-30T20:26:28+00:00",
+      "link": "https://arxiv.org/pdf/2603.28980v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Text-driven immersive 3D scene synthesis",
+      "llm_evidence_cn": "文本驱动的沉浸式3D场景合成",
+      "llm_evidence": "文本驱动的沉浸式3D场景合成",
+      "canonical_evidence": "文本驱动的沉浸式3D场景合成",
+      "llm_tldr_en": "Stepper is a framework for high-resolution, text-to-3D immersive scene generation using panoramas.",
+      "llm_tldr_cn": "Stepper是一个利用全景图实现高分辨率文本到3D沉浸式场景生成的框架。",
+      "llm_tldr": "Stepper是一个利用全景图实现高分辨率文本到3D沉浸式场景生成的框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "text-to-3D scene generation frameworks",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.29089v1",
+      "title": "WorldFlow3D: Flowing Through 3D Distributions for Unbounded World Generation",
+      "abstract": "Unbounded 3D world generation is emerging as a foundational task for scene modeling in computer vision, graphics, and robotics. In this work, we present WorldFlow3D, a novel method capable of generating unbounded 3D worlds. Building upon a foundational property of flow matching - namely, defining a path of transport between two data distributions - we model 3D generation more generally as a problem of flowing through 3D data distributions, not limited to conditional denoising. We find that our latent-free flow approach generates causal and accurate 3D structure, and can use this as an intermediate distribution to guide the generation of more complex structure and high-quality texture - all while converging more rapidly than existing methods. We enable controllability over generated scenes with vectorized scene layout conditions for geometric structure control and visual texture control through scene attributes. We confirm the effectiveness of WorldFlow3D on both real outdoor driving scenes and synthetic indoor scenes, validating cross-domain generalizability and high-quality generation on real data distributions. We confirm favorable scene generation fidelity over approaches in all tested settings for unbounded scene generation. For more, see https://light.princeton.edu/worldflow3d.",
+      "authors": [
+        "Amogh Joshi",
+        "Julian Ost",
+        "Felix Heide"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.GR"
+      ],
+      "published": "2026-03-31T00:08:17+00:00",
+      "link": "https://arxiv.org/pdf/2603.29089v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "unbounded 3D world generation using flow matching",
+      "llm_evidence_cn": "使用流匹配生成无边界3D世界",
+      "llm_evidence": "使用流匹配生成无边界3D世界",
+      "canonical_evidence": "使用流匹配生成无边界3D世界",
+      "llm_tldr_en": "Presents WorldFlow3D for generating unbounded 3D worlds by flowing through 3D data distributions.",
+      "llm_tldr_cn": "提出WorldFlow3D，通过流经3D数据分布来生成无边界的3D世界。",
+      "llm_tldr": "提出WorldFlow3D，通过流经3D数据分布来生成无边界的3D世界。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.29387v1",
+      "title": "Extend3D: Town-Scale 3D Generation",
+      "abstract": "In this paper, we propose Extend3D, a training-free pipeline for 3D scene generation from a single image, built upon an object-centric 3D generative model. To overcome the limitations of fixed-size latent spaces in object-centric models for representing wide scenes, we extend the latent space in the $x$ and $y$ directions. Then, by dividing the extended latent space into overlapping patches, we apply the object-centric 3D generative model to each patch and couple them at each time step. Since patch-wise 3D generation with image conditioning requires strict spatial alignment between image and latent patches, we initialize the scene using a point cloud prior from a monocular depth estimator and iteratively refine occluded regions through SDEdit. We discovered that treating the incompleteness of 3D structure as noise during 3D refinement enables 3D completion via a concept, which we term under-noising. Furthermore, to address the sub-optimality of object-centric models for sub-scene generation, we optimize the extended latent during denoising, ensuring that the denoising trajectories remain consistent with the sub-scene dynamics. To this end, we introduce 3D-aware optimization objectives for improved geometric structure and texture fidelity. We demonstrate that our method yields better results than prior methods, as evidenced by human preference and quantitative experiments.",
+      "authors": [
+        "Seungwoo Yoon",
+        "Jinmo Kim",
+        "Jaesik Park"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-03-31T07:55:04+00:00",
+      "link": "https://arxiv.org/pdf/2603.29387v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "training-free pipeline for 3D scene generation from a single image",
+      "llm_evidence_cn": "从单张图像生成3D场景的免训练流水线",
+      "llm_evidence": "从单张图像生成3D场景的免训练流水线",
+      "canonical_evidence": "从单张图像生成3D场景的免训练流水线",
+      "llm_tldr_en": "Proposes Extend3D for town-scale 3D scene generation by extending latent spaces of object-centric models.",
+      "llm_tldr_cn": "提出Extend3D，通过扩展以物体为中心的模型潜空间来实现城镇级大规模3D场景生成。",
+      "llm_tldr": "提出Extend3D，通过扩展以物体为中心的模型潜空间来实现城镇级大规模3D场景生成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.27084v2",
+      "title": "SceneExpander: Expanding 3D Scenes with Free-Form Inserted Views",
+      "abstract": "World building with 3D scene representations is increasingly important for content creation, simulation, and interactive experiences, yet real workflows are inherently iterative: creators must repeatedly extend an existing scene under user control. Motivated by this research gap, we study 3D scene expansion in a user-centric workflow: starting from a real scene captured by multi-view images, we extend its coverage by inserting an additional view synthesized by a generative model. Unlike simple object editing or style transfer in a fixed scene, the inserted view is often 3D-misaligned with the original reconstruction, introducing geometry shifts, hallucinated content, or view-dependent artifacts that break global multi-view consistency. To address the challenge, we propose SceneExpander, which applies test-time adaptation to a parametric feed-forward 3D reconstruction model with two complementary distillation signals: anchor distillation stabilizes the original scene by distilling geometric cues from the captured views, while inserted-view self-distillation preserves observation-supported predictions yet adapts latent geometry and appearance to accommodate the misaligned inserted view. Experiments on ETH scenes and online data demonstrate improved expansion behavior and reconstruction quality under misalignment.",
+      "authors": [
+        "Zijian He",
+        "Renjie Liu",
+        "Yihao Wang",
+        "Weizhi Zhong",
+        "Huan Yuan",
+        "Kun Gai",
+        "Guangrun Wang",
+        "Guanbin Li"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-28T02:04:48+00:00",
+      "link": "https://arxiv.org/pdf/2603.27084v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Expanding 3D scenes with generative models",
+      "llm_evidence_cn": "利用生成模型扩展3D场景",
+      "llm_evidence": "利用生成模型扩展3D场景",
+      "canonical_evidence": "利用生成模型扩展3D场景",
+      "llm_tldr_en": "SceneExpander enables iterative 3D scene expansion by inserting views synthesized by generative models.",
+      "llm_tldr_cn": "SceneExpander通过插入生成模型合成的视图，实现了迭代式的3D场景扩展。",
+      "llm_tldr": "SceneExpander通过插入生成模型合成的视图，实现了迭代式的3D场景扩展。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.27516v2",
+      "title": "SGS-Intrinsic: Semantic-Invariant Gaussian Splatting for Sparse-View Indoor Inverse Rendering",
+      "abstract": "We present SGS-Intrinsic, an indoor inverse rendering framework that works well for sparse-view images. Unlike existing 3D Gaussian Splatting (3DGS) based methods that focus on object-centric reconstruction and fail to work under sparse view settings, our method allows to achieve high-quality geometry reconstruction and accurate disentanglement of material and illumination. The core idea is to construct a dense and geometry-consistent Gaussian semantic field guided by semantic and geometric priors, providing a reliable foundation for subsequent inverse rendering. Building upon this, we perform material-illumination disentanglement by combining a hybrid illumination model and material prior to effectively capture illumination-material interactions. To mitigate the impact of cast shadows and enhance the robustness of material recovery, we introduce illumination-invariant material constraint together with a deshadowing model. Extensive experiments on benchmark datasets show that our method consistently improves both reconstruction fidelity and inverse rendering quality over existing 3DGS-based inverse rendering approaches. Our code is available at https://github.com/GrumpySloths/SGS_Intrinsic.github.io.",
+      "authors": [
+        "Jiahao Niu",
+        "Rongjia Zheng",
+        "Wenju Xu",
+        "Wei-Shi Zheng",
+        "Qing Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-29T04:45:31+00:00",
+      "link": "https://arxiv.org/pdf/2603.27516v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Indoor 3D scene reconstruction and inverse rendering",
+      "llm_evidence_cn": "室内3D场景重建与逆向渲染",
+      "llm_evidence": "室内3D场景重建与逆向渲染",
+      "canonical_evidence": "室内3D场景重建与逆向渲染",
+      "llm_tldr_en": "Presents SGS-Intrinsic for sparse-view indoor inverse rendering using Gaussian Splatting.",
+      "llm_tldr_cn": "提出SGS-Intrinsic，利用高斯泼溅实现稀疏视角下的室内逆向渲染。",
+      "llm_tldr": "提出SGS-Intrinsic，利用高斯泼溅实现稀疏视角下的室内逆向渲染。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.29209v1",
+      "title": "LightHarmony3D: Harmonizing Illumination and Shadows for Object Insertion in 3D Gaussian Splatting",
+      "abstract": "3D Gaussian Splatting (3DGS) enables high-fidelity reconstruction of scene geometry and appearance. Building on this capability, inserting external mesh objects into reconstructed 3DGS scenes enables interactive editing and content augmentation for immersive applications such as AR/VR, virtual staging, and digital content creation. However, achieving physically consistent lighting and shadows for mesh insertion remains challenging, as it requires accurate scene illumination estimation and multi-view consistent rendering. To address this challenge, we present LightHarmony3D, a novel framework for illumination-consistent mesh insertion in 3DGS scenes. Central to our approach is our proposed generative module that predicts a full 360° HDR environment map at the insertion location via a single forward pass. By leveraging generative priors instead of iterative optimization, our method efficiently captures dominant scene illumination and enables physically grounded shading and shadows for inserted meshes while maintaining multi-view coherence. Furthermore, we introduce the first dedicated benchmark for mesh insertion in 3DGS, providing a standardized evaluation framework for assessing lighting consistency and photorealism. Extensive experiments across multiple real-world reconstruction datasets demonstrate that LightHarmony3D achieves state-of-the-art realism and multi-view consistency.",
+      "authors": [
+        "Tianyu Huang",
+        "Zhenyang Ren",
+        "Zhenchen Wan",
+        "Jiyang Zheng",
+        "Wenjie Wang",
+        "Runnan Chen",
+        "Mingming Gong",
+        "Tongliang Liu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-31T03:26:30+00:00",
+      "link": "https://arxiv.org/pdf/2603.29209v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "3D scene editing and object insertion in 3DGS",
+      "llm_evidence_cn": "3D场景编辑与3DGS中的物体插入",
+      "llm_evidence": "3D场景编辑与3DGS中的物体插入",
+      "canonical_evidence": "3D场景编辑与3DGS中的物体插入",
+      "llm_tldr_en": "Presents a framework for illumination-consistent mesh insertion in 3D Gaussian Splatting scenes.",
+      "llm_tldr_cn": "提出一种在3D高斯泼溅场景中进行光照一致性网格插入的框架。",
+      "llm_tldr": "提出一种在3D高斯泼溅场景中进行光照一致性网格插入的框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.30045v1",
+      "title": "OmniRoam: World Wandering via Long-Horizon Panoramic Video Generation",
+      "abstract": "Modeling scenes using video generation models has garnered growing research interest in recent years. However, most existing approaches rely on perspective video models that synthesize only limited observations of a scene, leading to issues of completeness and global consistency. We propose OmniRoam, a controllable panoramic video generation framework that exploits the rich per-frame scene coverage and inherent long-term spatial and temporal consistency of panoramic representation, enabling long-horizon scene wandering. Our framework begins with a preview stage, where a trajectory-controlled video generation model creates a quick overview of the scene from a given input image or video. Then, in the refine stage, this video is temporally extended and spatially upsampled to produce long-range, high-resolution videos, thus enabling high-fidelity world wandering. To train our model, we introduce two panoramic video datasets that incorporate both synthetic and real-world captured videos. Experiments show that our framework consistently outperforms state-of-the-art methods in terms of visual quality, controllability, and long-term scene consistency, both qualitatively and quantitatively. We further showcase several extensions of this framework, including real-time video generation and 3D reconstruction. Code is available at https://github.com/yuhengliu02/OmniRoam.",
+      "authors": [
+        "Yuheng Liu",
+        "Xin Lin",
+        "Xinke Li",
+        "Baihan Yang",
+        "Chen Wang",
+        "Kalyan Sunkavalli",
+        "Yannick Hold-Geoffroy",
+        "Hao Tan",
+        "Kai Zhang",
+        "Xiaohui Xie",
+        "Zifan Shi",
+        "Yiwei Hu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-31T17:59:33+00:00",
+      "link": "https://arxiv.org/pdf/2603.30045v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Controllable panoramic video generation for long-horizon scene wandering",
+      "llm_evidence_cn": "用于长程场景漫游的可控全景视频生成",
+      "llm_evidence": "用于长程场景漫游的可控全景视频生成",
+      "canonical_evidence": "用于长程场景漫游的可控全景视频生成",
+      "llm_tldr_en": "OmniRoam generates consistent panoramic videos to model long-horizon 3D scene exploration.",
+      "llm_tldr_cn": "OmniRoam通过生成一致的全景视频来模拟长程3D场景探索。",
+      "llm_tldr": "OmniRoam通过生成一致的全景视频来模拟长程3D场景探索。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2603.25993v1",
+      "title": "FAST3DIS: Feed-forward Anchored Scene Transformer for 3D Instance Segmentation",
+      "abstract": "While recent feed-forward 3D reconstruction models provide a strong geometric foundation for scene understanding, extending them to 3D instance segmentation typically relies on a disjointed \"lift-and-cluster\" paradigm. Grouping dense pixel-wise embeddings via non-differentiable clustering scales poorly with the number of views and disconnects representation learning from the final segmentation objective. In this paper, we present a Feed-forward Anchored Scene Transformer for 3D Instance Segmentation (FAST3DIS), an end-to-end approach that effectively bypasses post-hoc clustering. We introduce a 3D-anchored, query-based Transformer architecture built upon a foundational depth backbone, adapted efficiently to learn instance-specific semantics while retaining its zero-shot geometric priors. We formulate a learned 3D anchor generator coupled with an anchor-sampling cross-attention mechanism for view-consistent 3D instance segmentation. By projecting 3D object queries directly into multi-view feature maps, our method samples context efficiently. Furthermore, we introduce a dual-level regularization strategy, that couples multi-view contrastive learning with a dynamically scheduled spatial overlap penalty to explicitly prevent query collisions and ensure precise instance boundaries. Experiments on complex indoor 3D datasets demonstrate that our approach achieves competitive segmentation accuracy with significantly improved memory scalability and inference speed over state-of-the-art clustering-based methods.",
+      "authors": [
+        "Changyang Li",
+        "Xueqing Huang",
+        "Shin-Fang Chng",
+        "Huangying Zhan",
+        "Qingan Yan",
+        "Yi Xu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-27T00:45:31+00:00",
+      "link": "https://arxiv.org/pdf/2603.25993v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D scene understanding and instance segmentation",
+      "llm_evidence_cn": "3D场景理解与实例分割",
+      "llm_evidence": "3D场景理解与实例分割",
+      "canonical_evidence": "3D场景理解与实例分割",
+      "llm_tldr_en": "An end-to-end Transformer for 3D instance segmentation built on feed-forward reconstruction models.",
+      "llm_tldr_cn": "一种基于前馈重建模型的端到端Transformer，用于3D实例分割。",
+      "llm_tldr": "一种基于前馈重建模型的端到端Transformer，用于3D实例分割。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.25165v1",
+      "title": "Towards Foundation Models for 3D Scene Understanding: Instance-Aware Self-Supervised Learning for Point Clouds",
+      "abstract": "Recent advances in self-supervised learning (SSL) for point clouds have substantially improved 3D scene understanding without human annotations. Existing approaches emphasize semantic awareness by enforcing feature consistency across augmented views or by masked scene modeling. However, the resulting representations transfer poorly to instance localization, and often require full finetuning for strong performance. Instance awareness is a fundamental component of 3D perception, thus bridging this gap is crucial for progressing toward true 3D foundation models that support all downstream tasks on 3D data. In this work, we introduce PointINS, an instance-oriented self-supervised framework that enriches point cloud representations through geometry-aware learning. PointINS employs an orthogonal offset branch to jointly learn high-level semantic understanding and geometric reasoning, yielding instance awareness. We identify two consistent properties essential for robust instance localization and formulate them as complementary regularization strategies, Offset Distribution Regularization (ODR), which aligns predicted offsets with empirically observed geometric priors, and Spatial Clustering Regularization (SCR), which enforces local coherence by regularizing offsets with pseudo-instance masks. Through extensive experiments across five datasets, PointINS achieves on average +3.5% mAP improvement for indoor instance segmentation and +4.1% PQ gain for outdoor panoptic segmentation, paving the way for scalable 3D foundation models.",
+      "authors": [
+        "Bin Yang",
+        "Mohamed Abdelsamad",
+        "Miao Zhang",
+        "Alexandru Paul Condurache"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-26T08:31:06+00:00",
+      "link": "https://arxiv.org/pdf/2603.25165v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "foundation models for 3D scene understanding",
+      "llm_evidence_cn": "3D场景理解的基础模型",
+      "llm_evidence": "3D场景理解的基础模型",
+      "canonical_evidence": "3D场景理解的基础模型",
+      "llm_tldr_en": "PointINS introduces an instance-oriented self-supervised framework for 3D point cloud scene understanding.",
+      "llm_tldr_cn": "PointINS引入了一个面向实例的自监督框架，用于3D点云场景理解。",
+      "llm_tldr": "PointINS引入了一个面向实例的自监督框架，用于3D点云场景理解。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.26193v1",
+      "title": "MemCam: Memory-Augmented Camera Control for Consistent Video Generation",
+      "abstract": "Interactive video generation has significant potential for scene simulation and video creation. However, existing methods often struggle with maintaining scene consistency during long video generation under dynamic camera control due to limited contextual information. To address this challenge, we propose MemCam, a memory-augmented interactive video generation approach that treats previously generated frames as external memory and leverages them as contextual conditioning to achieve controllable camera viewpoints with high scene consistency. To enable longer and more relevant context, we design a context compression module that encodes memory frames into compact representations and employs co-visibility-based selection to dynamically retrieve the most relevant historical frames, thereby reducing computational overhead while enriching contextual information. Experiments on interactive video generation tasks show that MemCam significantly outperforms existing baseline methods as well as open-source state-of-the-art approaches in terms of scene consistency, particularly in long video scenarios with large camera rotations.",
+      "authors": [
+        "Xinhang Gao",
+        "Junlin Guan",
+        "Shuhan Luo",
+        "Wenzhuo Li",
+        "Guanghuan Tan",
+        "Jiacheng Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-03-27T09:11:31+00:00",
+      "link": "https://arxiv.org/pdf/2603.26193v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Consistent video scene generation",
+      "llm_evidence_cn": "一致性的视频场景生成",
+      "llm_evidence": "一致性的视频场景生成",
+      "canonical_evidence": "一致性的视频场景生成",
+      "llm_tldr_en": "MemCam uses memory-augmented camera control to ensure scene consistency in video generation.",
+      "llm_tldr_cn": "MemCam利用记忆增强的相机控制，确保视频生成中的场景一致性。",
+      "llm_tldr": "MemCam利用记忆增强的相机控制，确保视频生成中的场景一致性。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.27437v1",
+      "title": "SpatialStack: Layered Geometry-Language Fusion for 3D VLM Spatial Reasoning",
+      "abstract": "Large vision-language models (VLMs) still struggle with reliable 3D spatial reasoning, a core capability for embodied and physical AI systems. This limitation arises from their inability to capture fine-grained 3D geometry and spatial relationships. While recent efforts have introduced multi-view geometry transformers into VLMs, they typically fuse only the deep-layer features from vision and geometry encoders, discarding rich hierarchical signals and creating a fundamental bottleneck for spatial understanding. To overcome this, we propose SpatialStack, a general hierarchical fusion framework that progressively aligns vision, geometry, and language representations across the model hierarchy. Moving beyond conventional late-stage vision-geometry fusion, SpatialStack stacks and synchronizes multi-level geometric features with the language backbone, enabling the model to capture both local geometric precision and global contextual semantics. Building upon this framework, we develop VLM-SpatialStack, a model that achieves state-of-the-art performance on multiple 3D spatial reasoning benchmarks. Extensive experiments and ablations demonstrate that our multi-level fusion strategy consistently enhances 3D understanding and generalizes robustly across diverse spatial reasoning tasks, establishing SpatialStack as an effective and extensible design paradigm for vision-language-geometry integration in next-generation multimodal physical AI systems.",
+      "authors": [
+        "Jiang Zhang",
+        "Shijie Zhou",
+        "Bangya Liu",
+        "Achuta Kadambi",
+        "Zhiwen Fan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-28T22:49:40+00:00",
+      "link": "https://arxiv.org/pdf/2603.27437v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D spatial reasoning and geometry-language fusion",
+      "llm_evidence_cn": "3D空间推理与几何语言融合",
+      "llm_evidence": "3D空间推理与几何语言融合",
+      "canonical_evidence": "3D空间推理与几何语言融合",
+      "llm_tldr_en": "A hierarchical fusion framework aligning vision, geometry, and language for better 3D spatial reasoning.",
+      "llm_tldr_cn": "一种分层融合框架，对齐视觉、几何和语言以提升3D空间推理能力。",
+      "llm_tldr": "一种分层融合框架，对齐视觉、几何和语言以提升3D空间推理能力。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.27016v1",
+      "title": "Generative Shape Reconstruction with Geometry-Guided Langevin Dynamics",
+      "abstract": "Reconstructing complete 3D shapes from incomplete or noisy observations is a fundamentally ill-posed problem that requires balancing measurement consistency with shape plausibility. Existing methods for shape reconstruction can achieve strong geometric fidelity in ideal conditions but fail under realistic conditions with incomplete measurements or noise. At the same time, recent generative models for 3D shapes can synthesize highly realistic and detailed shapes but fail to be consistent with observed measurements. In this work, we introduce GG-Langevin: Geometry-Guided Langevin dynamics, a probabilistic approach that unifies these complementary perspectives. By traversing the trajectories of Langevin dynamics induced by a diffusion model, while preserving measurement consistency at every step, we generatively reconstruct shapes that fit both the measurements and the data-informed prior. We demonstrate through extensive experiments that GG-Langevin achieves higher geometric accuracy and greater robustness to missing data than existing methods for surface reconstruction.",
+      "authors": [
+        "Linus Härenstam-Nielsen",
+        "Dmitrii Pozdeev",
+        "Thomas Dagès",
+        "Nikita Araslanov",
+        "Daniel Cremers"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-03-27T22:11:11+00:00",
+      "link": "https://arxiv.org/pdf/2603.27016v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "generative models for 3D shapes using diffusion",
+      "llm_evidence_cn": "使用扩散模型的3D形状生成模型",
+      "llm_evidence": "使用扩散模型的3D形状生成模型",
+      "canonical_evidence": "使用扩散模型的3D形状生成模型",
+      "llm_tldr_en": "Introduces GG-Langevin to unify shape reconstruction and generative modeling for high-fidelity 3D shapes.",
+      "llm_tldr_cn": "引入GG-Langevin，将形状重建与生成模型统一，以实现高保真3D形状生成。",
+      "llm_tldr": "引入GG-Langevin，将形状重建与生成模型统一，以实现高保真3D形状生成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.27516v1",
+      "title": "SGS-Intrinsic: Semantic-Invariant Gaussian Splatting for Sparse-View Indoor Inverse Rendering",
+      "abstract": "We present SGS-Intrinsic, an indoor inverse rendering framework that works well for sparse-view images. Unlike existing 3D Gaussian Splatting (3DGS) based methods that focus on object-centric reconstruction and fail to work under sparse view settings, our method allows to achieve high-quality geometry reconstruction and accurate disentanglement of material and illumination. The core idea is to construct a dense and geometry-consistent Gaussian semantic field guided by semantic and geometric priors, providing a reliable foundation for subsequent inverse rendering. Building upon this, we perform material-illumination disentanglement by combining a hybrid illumination model and material prior to effectively capture illumination-material interactions. To mitigate the impact of cast shadows and enhance the robustness of material recovery, we introduce illumination-invariant material constraint together with a deshadowing model. Extensive experiments on benchmark datasets show that our method consistently improves both reconstruction fidelity and inverse rendering quality over existing 3DGS-based inverse rendering approaches. Our code is available at https://github.com/GrumpySloths/SGS_Intrinsic.github.io.",
+      "authors": [
+        "Jiahao Niu",
+        "Rongjia Zheng",
+        "Wenju Xu",
+        "WeiShi Zheng",
+        "Qing Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-29T04:45:31+00:00",
+      "link": "https://arxiv.org/pdf/2603.27516v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Indoor inverse rendering and geometry reconstruction",
+      "llm_evidence_cn": "室内逆渲染与几何重建",
+      "llm_evidence": "室内逆渲染与几何重建",
+      "canonical_evidence": "室内逆渲染与几何重建",
+      "llm_tldr_en": "SGS-Intrinsic enables high-quality indoor geometry reconstruction and material disentanglement from sparse views.",
+      "llm_tldr_cn": "SGS-Intrinsic实现了稀疏视图下的高质量室内几何重建以及材质与光照的解耦。",
+      "llm_tldr": "SGS-Intrinsic实现了稀疏视图下的高质量室内几何重建以及材质与光照的解耦。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.27228v1",
+      "title": "NimbusGS: Unified 3D Scene Reconstruction under Hybrid Weather",
+      "abstract": "We present NimbusGS, a unified framework for reconstructing high-quality 3D scenes from degraded multi-view inputs captured under diverse and mixed adverse weather conditions. Unlike existing methods that target specific weather types, NimbusGS addresses the broader challenge of generalization by modeling the dual nature of weather: a continuous, view-consistent medium that attenuates light, and dynamic, view-dependent particles that cause scattering and occlusion. To capture this structure, we decompose degradations into a global transmission field and per-view particulate residuals. The transmission field represents static atmospheric effects shared across views, while the residuals model transient disturbances unique to each input. To enable stable geometry learning under severe visibility degradation, we introduce a geometry-guided gradient scaling mechanism that mitigates gradient imbalance during the self-supervised optimization of 3D Gaussian representations. This physically grounded formulation allows NimbusGS to disentangle complex degradations while preserving scene structure, yielding superior geometry reconstruction and outperforming task-specific methods across diverse and challenging weather conditions. Code is available at https://github.com/lyy-ovo/NimbusGS.",
+      "authors": [
+        "Yanying Li",
+        "Jinyang Li",
+        "Shengfeng He",
+        "Yangyang Xu",
+        "Junyu Dong",
+        "Yong Du"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-28T10:46:29+00:00",
+      "link": "https://arxiv.org/pdf/2603.27228v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D scene reconstruction under adverse weather",
+      "llm_evidence_cn": "恶劣天气下的3D场景重建",
+      "llm_evidence": "恶劣天气下的3D场景重建",
+      "canonical_evidence": "恶劣天气下的3D场景重建",
+      "llm_tldr_en": "NimbusGS provides a unified framework for high-quality 3D scene reconstruction in diverse weather conditions.",
+      "llm_tldr_cn": "NimbusGS提供了一个统一的框架，用于在多种天气条件下进行高质量3D场景重建。",
+      "llm_tldr": "NimbusGS提供了一个统一的框架，用于在多种天气条件下进行高质量3D场景重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.27300v1",
+      "title": "Complet4R: Geometric Complete 4D Reconstruction",
+      "abstract": "We introduce Complet4R, a novel end-to-end framework for Geometric Complete 4D Reconstruction, which aims to recover temporally coherent and geometrically complete reconstruction for dynamic scenes. Our method formalizes the task of Geometric Complete 4D Reconstruction as a unified framework of reconstruction and completion, by directly accumulating full contexts onto each frame. Unlike previous approaches that rely on pairwise reconstruction or local motion estimation, Complet4R utilizes a decoder-only transformer to operate all context globally directly from sequential video input, reconstructing a complete geometry for every single timestamp, including occluded regions visible in other frames. Our method demonstrates the state-of-the-art performance on our proposed benchmark for Geometric Complete 4D Reconstruction and the 3D Point Tracking task. Code will be released to support future research.",
+      "authors": [
+        "Weibang Wang",
+        "Kenan Li",
+        "Zhuoguang Chen",
+        "Yijun Yuan",
+        "Hang Zhao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-28T15:06:42+00:00",
+      "link": "https://arxiv.org/pdf/2603.27300v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Geometric complete 4D reconstruction for dynamic scenes",
+      "llm_evidence_cn": "动态场景的几何完整4D重建",
+      "llm_evidence": "动态场景的几何完整4D重建",
+      "canonical_evidence": "动态场景的几何完整4D重建",
+      "llm_tldr_en": "Complet4R recovers temporally coherent and geometrically complete 4D reconstructions for dynamic scenes.",
+      "llm_tldr_cn": "Complet4R为动态场景恢复时间连续且几何完整的4D重建结果。",
+      "llm_tldr": "Complet4R为动态场景恢复时间连续且几何完整的4D重建结果。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.27455v1",
+      "title": "From None to All: Self-Supervised 3D Reconstruction via Novel View Synthesis",
+      "abstract": "In this paper, we introduce NAS3R, a self-supervised feed-forward framework that jointly learns explicit 3D geometry and camera parameters with no ground-truth annotations and no pretrained priors. During training, NAS3R reconstructs 3D Gaussians from uncalibrated and unposed context views and renders target views using its self-predicted camera parameters, enabling self-supervised training from 2D photometric supervision. To ensure stable convergence, NAS3R integrates reconstruction and camera prediction within a shared transformer backbone regulated by masked attention, and adopts a depth-based Gaussian formulation that facilitates well-conditioned optimization. The framework is compatible with state-of-the-art supervised 3D reconstruction architectures and can incorporate pretrained priors or intrinsic information when available. Extensive experiments show that NAS3R achieves superior results to other self-supervised methods, establishing a scalable and geometry-aware paradigm for 3D reconstruction from unconstrained data. Code and models are publicly available at https://ranrhuang.github.io/nas3r/.",
+      "authors": [
+        "Ranran Huang",
+        "Weixun Luo",
+        "Ye Mao",
+        "Krystian Mikolajczyk"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-29T00:28:38+00:00",
+      "link": "https://arxiv.org/pdf/2603.27455v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Self-supervised 3D reconstruction via view synthesis",
+      "llm_evidence_cn": "通过视角合成进行自监督3D重建",
+      "llm_evidence": "通过视角合成进行自监督3D重建",
+      "canonical_evidence": "通过视角合成进行自监督3D重建",
+      "llm_tldr_en": "NAS3R is a self-supervised framework for 3D reconstruction and camera prediction from 2D views.",
+      "llm_tldr_cn": "NAS3R是一个通过2D视图进行3D重建和相机预测的自监督框架。",
+      "llm_tldr": "NAS3R是一个通过2D视图进行3D重建和相机预测的自监督框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.27507v1",
+      "title": "Chat-Scene++: Exploiting Context-Rich Object Identification for 3D LLM",
+      "abstract": "Recent advancements in multi-modal large language models (MLLMs) have shown strong potential for 3D scene understanding. However, existing methods struggle with fine-grained object grounding and contextual reasoning, limiting their ability to interpret and interact with complex 3D environments. In this paper, we present Chat-Scene++, an MLLM framework that represents 3D scenes as context-rich object sequences. By structuring scenes as sequences of objects with contextual semantics, Chat-Scene++ enables object-centric representation and interaction. It decomposes a 3D scene into object representations paired with identifier tokens, allowing LLMs to follow instructions across diverse 3D vision-language tasks. To capture inter-object relationships and global semantics, Chat-Scene++ extracts context-rich object features using large-scale pre-trained 3D scene-level and 2D image-level encoders, unlike the isolated per-object features in Chat-Scene. Its flexible object-centric design also supports grounded chain-of-thought (G-CoT) reasoning, enabling the model to distinguish objects at both category and spatial levels during multi-step inference. Without the need for additional task-specific heads or fine-tuning, Chat-Scene++ achieves state-of-the-art performance on five major 3D vision-language benchmarks: ScanRefer, Multi3DRefer, Scan2Cap, ScanQA, and SQA3D. These results highlight its effectiveness in scene comprehension, object grounding, and spatial reasoning. Additionally, without reconstructing 3D worlds through computationally expensive processes, we demonstrate its applicability to real-world scenarios using only 2D inputs.",
+      "authors": [
+        "Haifeng Huang",
+        "Yilun Chen",
+        "Zehan Wang",
+        "Jiangmiao Pang",
+        "Zhou Zhao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-29T04:16:04+00:00",
+      "link": "https://arxiv.org/pdf/2603.27507v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D scene understanding and object-centric representation",
+      "llm_evidence_cn": "3D场景理解与以物体为中心的表示",
+      "llm_evidence": "3D场景理解与以物体为中心的表示",
+      "canonical_evidence": "3D场景理解与以物体为中心的表示",
+      "llm_tldr_en": "Presents Chat-Scene++ for context-rich object identification and interaction in 3D scenes.",
+      "llm_tldr_cn": "提出Chat-Scene++，通过上下文丰富的物体识别增强3D场景理解与交互。",
+      "llm_tldr": "提出Chat-Scene++，通过上下文丰富的物体识别增强3D场景理解与交互。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
