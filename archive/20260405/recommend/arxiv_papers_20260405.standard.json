@@ -1,0 +1,609 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-05T19:03:25.591539+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 25,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2603.29296v1",
+      "title": "MotionScale: Reconstructing Appearance, Geometry, and Motion of Dynamic Scenes with Scalable 4D Gaussian Splatting",
+      "abstract": "Realistic reconstruction of dynamic 4D scenes from monocular videos is essential for understanding the physical world. Despite recent progress in neural rendering, existing methods often struggle to recover accurate 3D geometry and temporally consistent motion in complex environments. To address these challenges, we propose MotionScale, a 4D Gaussian Splatting framework that scales efficiently to large scenes and extended sequences while maintaining high-fidelity structural and motion coherence. At the core of our approach is a scalable motion field parameterized by cluster-centric basis transformations that adaptively expand to capture diverse and evolving motion patterns. To ensure robust reconstruction over long durations, we introduce a progressive optimization strategy comprising two decoupled propagation stages: 1) A background extension stage that adapts to newly visible regions, refines camera poses, and explicitly models transient shadows; 2) A foreground propagation stage that enforces motion consistency through a specialized three-stage refinement process. Extensive experiments on challenging real-world benchmarks demonstrate that MotionScale significantly outperforms state-of-the-art methods in both reconstruction quality and temporal stability. Project page: https://hrzhou2.github.io/motion-scale-web/.",
+      "authors": [
+        "Haoran Zhou",
+        "Gim Hee Lee"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-31T06:03:59+00:00",
+      "link": "https://arxiv.org/pdf/2603.29296v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "reconstructing dynamic 4D scenes",
+      "llm_evidence_cn": "重建动态4D场景",
+      "llm_evidence": "重建动态4D场景",
+      "canonical_evidence": "重建动态4D场景",
+      "llm_tldr_en": "A scalable 4D Gaussian Splatting framework for reconstructing geometry and motion in large scenes.",
+      "llm_tldr_cn": "一种可扩展的4D高斯泼溅框架，用于重建大场景中的几何和运动。",
+      "llm_tldr": "一种可扩展的4D高斯泼溅框架，用于重建大场景中的几何和运动。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.01043v1",
+      "title": "ONE-SHOT: Compositional Human-Environment Video Synthesis via Spatial-Decoupled Motion Injection and Hybrid Context Integration",
+      "abstract": "Recent advances in Video Foundation Models (VFMs) have revolutionized human-centric video synthesis, yet fine-grained and independent editing of subjects and scenes remains a critical challenge. Recent attempts to incorporate richer environment control through rigid 3D geometric compositions often encounter a stark trade-off between precise control and generative flexibility. Furthermore, the heavy 3D pre-processing still limits practical scalability. In this paper, we propose ONE-SHOT, a parameter-efficient framework for compositional human-environment video generation. Our key insight is to factorize the generative process into disentangled signals. Specifically, we introduce a canonical-space injection mechanism that decouples human dynamics from environmental cues via cross-attention. We also propose Dynamic-Grounded-RoPE, a novel positional embedding strategy that establishes spatial correspondences between disparate spatial domains without any heuristic 3D alignments. To support long-horizon synthesis, we introduce a Hybrid Context Integration mechanism to maintain subject and scene consistency across minute-level generations. Experiments demonstrate that our method significantly outperforms state-of-the-art methods, offering superior structural control and creative diversity for video synthesis. Our project has been available on: https://martayang.github.io/ONE-SHOT/.",
+      "authors": [
+        "Fengyuan Yang",
+        "Luying Huang",
+        "Jiazhi Guan",
+        "Quanwei Yang",
+        "Dongwei Pan",
+        "Jianglin Fu",
+        "Haocheng Feng",
+        "Wei He",
+        "Kaisiyuan Wang",
+        "Hang Zhou",
+        "Angela Yao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-01T15:52:00+00:00",
+      "link": "https://arxiv.org/pdf/2604.01043v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Compositional human-environment video synthesis",
+      "llm_evidence_cn": "组合式人物-环境视频合成",
+      "llm_evidence": "组合式人物-环境视频合成",
+      "canonical_evidence": "组合式人物-环境视频合成",
+      "llm_tldr_en": "A framework for compositional video synthesis with independent control over subjects and 3D environments.",
+      "llm_tldr_cn": "一种能够独立控制主体和3D环境的组合式视频合成框架。",
+      "llm_tldr": "一种能够独立控制主体和3D环境的组合式视频合成框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.02003v1",
+      "title": "ProDiG: Progressive Diffusion-Guided Gaussian Splatting for Aerial to Ground Reconstruction",
+      "abstract": "Generating ground-level views and coherent 3D site models from aerial-only imagery is challenging due to extreme viewpoint changes, missing intermediate observations, and large scale variations. Existing methods either refine renderings post-hoc, often producing geometrically inconsistent results, or rely on multi-altitude ground-truth, which is rarely available. Gaussian Splatting and diffusion-based refinements improve fidelity under small variations but fail under wide aerial-to-ground gaps. To address these limitations, we introduce ProDiG (Progressive Altitude Gaussian Splatting), a diffusion-guided framework that progressively transforms aerial 3D representations toward ground-level fidelity. ProDiG synthesizes intermediate-altitude views and refines the Gaussian representation at each stage using a geometry-aware causal attention module that injects epipolar structure into reference-view diffusion. A distance-adaptive Gaussian module dynamically adjusts Gaussian scale and opacity based on camera distance, ensuring stable reconstruction across large viewpoint gaps. Together, these components enable progressive, geometrically grounded refinement without requiring additional ground-truth viewpoints. Extensive experiments on synthetic and real-world datasets demonstrate that ProDiG produces visually realistic ground-level renderings and coherent 3D geometry, significantly outperforming existing approaches in terms of visual quality, geometric consistency, and robustness to extreme viewpoint changes.",
+      "authors": [
+        "Sirshapan Mitra",
+        "Yogesh S. Rawat"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-02T13:09:05+00:00",
+      "link": "https://arxiv.org/pdf/2604.02003v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "3D site model synthesis and reconstruction",
+      "llm_evidence_cn": "3D场景模型合成与重建",
+      "llm_evidence": "3D场景模型合成与重建",
+      "canonical_evidence": "3D场景模型合成与重建",
+      "llm_tldr_en": "A diffusion-guided framework for progressive aerial-to-ground 3D scene reconstruction.",
+      "llm_tldr_cn": "一种用于渐进式航拍到地面3D场景重建的扩散引导框架。",
+      "llm_tldr": "一种用于渐进式航拍到地面3D场景重建的扩散引导框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.02329v1",
+      "title": "Generative World Renderer",
+      "abstract": "Scaling generative inverse and forward rendering to real-world scenarios is bottlenecked by the limited realism and temporal coherence of existing synthetic datasets. To bridge this persistent domain gap, we introduce a large-scale, dynamic dataset curated from visually complex AAA games. Using a novel dual-screen stitched capture method, we extracted 4M continuous frames (720p/30 FPS) of synchronized RGB and five G-buffer channels across diverse scenes, visual effects, and environments, including adverse weather and motion-blur variants. This dataset uniquely advances bidirectional rendering: enabling robust in-the-wild geometry and material decomposition, and facilitating high-fidelity G-buffer-guided video generation. Furthermore, to evaluate the real-world performance of inverse rendering without ground truth, we propose a novel VLM-based assessment protocol measuring semantic, spatial, and temporal consistency. Experiments demonstrate that inverse renderers fine-tuned on our data achieve superior cross-dataset generalization and controllable generation, while our VLM evaluation strongly correlates with human judgment. Combined with our toolkit, our forward renderer enables users to edit styles of AAA games from G-buffers using text prompts.",
+      "authors": [
+        "Zheng-Hui Huang",
+        "Zhixiang Wang",
+        "Jiaming Tan",
+        "Ruihan Yu",
+        "Yidan Zhang",
+        "Bo Zheng",
+        "Yu-Lun Liu",
+        "Yung-Yu Chuang",
+        "Kaipeng Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-02T17:59:53+00:00",
+      "link": "https://arxiv.org/pdf/2604.02329v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "generative world renderer and large-scale dynamic scene dataset",
+      "llm_evidence_cn": "生成式世界渲染器及大规模动态场景数据集",
+      "llm_evidence": "生成式世界渲染器及大规模动态场景数据集",
+      "canonical_evidence": "生成式世界渲染器及大规模动态场景数据集",
+      "llm_tldr_en": "Introduces a large-scale dataset and framework to advance generative rendering and scene decomposition.",
+      "llm_tldr_cn": "引入大规模数据集和框架，以推进生成式渲染和场景分解技术。",
+      "llm_tldr": "引入大规模数据集和框架，以推进生成式渲染和场景分解技术。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.27222v1",
+      "title": "HD-VGGT: High-Resolution Visual Geometry Transformer",
+      "abstract": "High-resolution imagery is essential for accurate 3D reconstruction, as many geometric details only emerge at fine spatial scales. Recent feed-forward approaches, such as the Visual Geometry Grounded Transformer (VGGT), have demonstrated the ability to infer scene geometry from large collections of images in a single forward pass. However, scaling these models to high-resolution inputs remains challenging: the number of tokens in transformer architectures grows rapidly with both image resolution and the number of views, leading to prohibitive computational and memory costs. Moreover, we observe that visually ambiguous regions, such as repetitive patterns, weak textures, or specular surfaces, often produce unstable feature tokens that degrade geometric inference, especially at higher resolutions. We introduce HD-VGGT, a dual-branch architecture for efficient and robust high-resolution 3D reconstruction. A low-resolution branch predicts a coarse, globally consistent geometry, while a high-resolution branch refines details via a learned feature upsampling module. To handle unstable tokens, we propose Feature Modulation, which suppresses unreliable features early in the transformer. HD-VGGT leverages high-resolution images and supervision without full-resolution transformer costs, achieving state-of-the-art reconstruction quality.",
+      "authors": [
+        "Tianrun Chen",
+        "Yuanqi Hu",
+        "Yidong Han",
+        "Hanjie Xu",
+        "Deyi Ji",
+        "Qi Zhu",
+        "Chunan Yu",
+        "Xin Zhang",
+        "Cheng Chen",
+        "Chaotao Ding",
+        "Ying Zang",
+        "Xuanfu Li",
+        "Jin Ma",
+        "Lanyun Zhu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-28T10:29:07+00:00",
+      "link": "https://arxiv.org/pdf/2603.27222v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "high-resolution 3D scene geometry inference",
+      "llm_evidence_cn": "高分辨率3D场景几何推理",
+      "llm_evidence": "高分辨率3D场景几何推理",
+      "canonical_evidence": "高分辨率3D场景几何推理",
+      "llm_tldr_en": "A transformer architecture for high-resolution 3D geometry inference from image collections.",
+      "llm_tldr_cn": "一种用于从图像集中进行高分辨率3D几何推理的Transformer架构。",
+      "llm_tldr": "一种用于从图像集中进行高分辨率3D几何推理的Transformer架构。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.27151v1",
+      "title": "DiffSoup: Direct Differentiable Rasterization of Triangle Soup for Extreme Radiance Field Simplification",
+      "abstract": "Radiance field reconstruction aims to recover high-quality 3D representations from multi-view RGB images. Recent advances, such as 3D Gaussian splatting, enable real-time rendering with high visual fidelity on sufficiently powerful graphics hardware. However, efficient online transmission and rendering across diverse platforms requires drastic model simplification, reducing the number of primitives by several orders of magnitude. We introduce DiffSoup, a radiance field representation that employs a soup (i.e., a highly unstructured set) of a small number of triangles with neural textures and binary opacity. We show that this binary opacity representation is directly differentiable via stochastic opacity masking, enabling stable training without a mollifier (i.e., smooth rasterization). DiffSoup can be rasterized using standard depth testing, enabling seamless integration into traditional graphics pipelines and interactive rendering on consumer-grade laptops and mobile devices. Code is available at https://github.com/kenji-tojo/diffsoup.",
+      "authors": [
+        "Kenji Tojo",
+        "Bernd Bickel",
+        "Nobuyuki Umetani"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR",
+        "cs.CV"
+      ],
+      "published": "2026-03-28T06:00:57+00:00",
+      "link": "https://arxiv.org/pdf/2603.27151v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "radiance field reconstruction and 3D representations",
+      "llm_evidence_cn": "辐射场重建与3D表示",
+      "llm_evidence": "辐射场重建与3D表示",
+      "canonical_evidence": "辐射场重建与3D表示",
+      "llm_tldr_en": "DiffSoup introduces a triangle-based radiance field representation for extreme model simplification.",
+      "llm_tldr_cn": "DiffSoup 引入了一种基于三角形的辐射场表示法，用于极端的模型简化。",
+      "llm_tldr": "DiffSoup 引入了一种基于三角形的辐射场表示法，用于极端的模型简化。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.27449v1",
+      "title": "LOME: Learning Human-Object Manipulation with Action-Conditioned Egocentric World Model",
+      "abstract": "Learning human-object manipulation presents significant challenges due to its fine-grained and contact-rich nature of the motions involved. Traditional physics-based animation requires extensive modeling and manual setup, and more importantly, it neither generalizes well across diverse object morphologies nor scales effectively to real-world environment. To address these limitations, we introduce LOME, an egocentric world model that can generate realistic human-object interactions as videos conditioned on an input image, a text prompt, and per-frame human actions, including both body poses and hand gestures. LOME injects strong and precise action guidance into object manipulation by jointly estimating spatial human actions and the environment contexts during training. After finetuning a pretrained video generative model on videos of diverse egocentric human-object interactions, LOME demonstrates not only high action-following accuracy and strong generalization to unseen scenarios, but also realistic physical consequences of hand-object interactions, e.g., liquid flowing from a bottle into a mug after executing a ``pouring'' action. Extensive experiments demonstrate that our video-based framework significantly outperforms state-of-the-art image based and video-based action-conditioned methods and Image/Text-to-Video (I/T2V) generative model in terms of both temporal consistency and motion control. LOME paves the way for photorealistic AR/VR experiences and scalable robotic training, without being limited to simulated environments or relying on explicit 3D/4D modeling.",
+      "authors": [
+        "Quankai Gao",
+        "Jiawei Yang",
+        "Qiangeng Xu",
+        "Le Chen",
+        "Yue Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-28T23:58:29+00:00",
+      "link": "https://arxiv.org/pdf/2603.27449v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "world model generating human-object interactions in environments",
+      "llm_evidence_cn": "在环境中生成人机交互的世界模型",
+      "llm_evidence": "在环境中生成人机交互的世界模型",
+      "canonical_evidence": "在环境中生成人机交互的世界模型",
+      "llm_tldr_en": "LOME is an egocentric world model that generates realistic human-object interactions as videos.",
+      "llm_tldr_cn": "LOME是一个以自我为中心的世界模型，能够以视频形式生成逼真的人机交互。",
+      "llm_tldr": "LOME是一个以自我为中心的世界模型，能够以视频形式生成逼真的人机交互。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.27309v1",
+      "title": "MeshTailor: Cutting Seams via Generative Mesh Traversal",
+      "abstract": "We present MeshTailor, the first mesh-native generative framework for synthesizing edge-aligned seams on 3D surfaces. Unlike prior optimization-based or extrinsic learning-based methods, MeshTailor operates directly on the mesh graph, eliminating projection artifacts and fragile snapping heuristics. We introduce ChainingSeams, a hierarchical serialization of the seam graph that prioritizes global structural cuts before local details in a coarse-to-fine manner, and a dual-stream encoder that fuses topological and geometric context. Leveraging this hierarchical representation and enriched vertex embeddings, our MeshTailor Transformer utilizes an autoregressive pointer layer to trace seams vertex-by-vertex within local neighborhoods, ensuring projection-free, edge-aligned seams. Extensive evaluations show that MeshTailor produces more coherent, professional-quality seam layouts compared to recent optimization-based and learning-based baselines.",
+      "authors": [
+        "Xueqi Ma",
+        "Xingguang Yan",
+        "Congyue Zhang",
+        "Hui Huang"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR",
+        "cs.CV"
+      ],
+      "published": "2026-03-28T15:30:24+00:00",
+      "link": "https://arxiv.org/pdf/2603.27309v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "generative framework for synthesizing seams on 3D surfaces",
+      "llm_evidence_cn": "在3D表面合成接缝的生成式框架",
+      "llm_evidence": "在3D表面合成接缝的生成式框架",
+      "canonical_evidence": "在3D表面合成接缝的生成式框架",
+      "llm_tldr_en": "Presents MeshTailor, a mesh-native generative framework for synthesizing edge-aligned seams on 3D surfaces.",
+      "llm_tldr_cn": "提出MeshTailor，一种用于在3D表面合成边缘对齐接缝的网格原生生成框架。",
+      "llm_tldr": "提出MeshTailor，一种用于在3D表面合成边缘对齐接缝的网格原生生成框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.28064v1",
+      "title": "\\textit{4DSurf}: High-Fidelity Dynamic Scene Surface Reconstruction",
+      "abstract": "This paper addresses the problem of dynamic scene surface reconstruction using Gaussian Splatting (GS), aiming to recover temporally consistent geometry. While existing GS-based dynamic surface reconstruction methods can yield superior reconstruction, they are typically limited to either a single object or objects with only small deformations, struggling to maintain temporally consistent surface reconstruction of large deformations over time. We propose ``\\textit{4DSurf}'', a novel and unified framework for generic dynamic surface reconstruction that does not require specifying the number or types of objects in the scene, can handle large surface deformations and temporal inconsistency in reconstruction. The key innovation of our framework is the introduction of Gaussian deformations induced Signed Distance Function Flow Regularization that constrains the motion of Gaussians to align with the evolving surface. To handle large deformations, we introduce an Overlapping Segment Partitioning strategy that divides the sequence into overlapping segments with small deformations and incrementally passes geometric information across segments through the shared overlapping timestep. Experiments on two challenging dynamic scene datasets, Hi4D and CMU Panoptic, demonstrate that our method outperforms state-of-the-art surface reconstruction methods by 49\\% and 19\\% in Chamfer distance, respectively, and achieves superior temporal consistency under sparse-view settings.",
+      "authors": [
+        "Renjie Wu",
+        "Hongdong Li",
+        "Jose M. Alvarez",
+        "Miaomiao Liu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-30T06:09:37+00:00",
+      "link": "https://arxiv.org/pdf/2603.28064v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "dynamic scene surface reconstruction using Gaussian Splatting",
+      "llm_evidence_cn": "使用高斯泼溅进行动态场景表面重建",
+      "llm_evidence": "使用高斯泼溅进行动态场景表面重建",
+      "canonical_evidence": "使用高斯泼溅进行动态场景表面重建",
+      "llm_tldr_en": "Proposes 4DSurf for high-fidelity, temporally consistent dynamic scene surface reconstruction.",
+      "llm_tldr_cn": "提出4DSurf框架，用于实现高保真且时间一致的动态场景表面重建。",
+      "llm_tldr": "提出4DSurf框架，用于实现高保真且时间一致的动态场景表面重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.27448v1",
+      "title": "GIFT: Bootstrapping Image-to-CAD Program Synthesis via Geometric Feedback",
+      "abstract": "Generating executable CAD programs from images requires alignment between visual geometry and symbolic program representations, a capability that current methods fail to learn reliably as design complexity increases. Existing fine-tuning approaches rely on either limited supervised datasets or expensive post-training pipelines, resulting in brittle systems that restrict progress in generative CAD design. We argue that the primary bottleneck lies not in model or algorithmic capacity, but in the scarcity of diverse training examples that align visual geometry with program syntax. This limitation is especially acute because the collection of diverse and verified engineering datasets is both expensive and difficult to scale, constraining the development of robust generative CAD models. We introduce Geometric Inference Feedback Tuning (GIFT), a data augmentation framework that leverages geometric feedback to turn test-time compute into a bootstrapped set of high-quality training samples. GIFT combines two mechanisms: Soft-Rejection Sampling (GIFT-REJECT), which retains diverse high-fidelity programs beyond exact ground-truth matches, and Failure-Driven Augmentation (GIFT-FAIL), which converts near-miss predictions into synthetic training examples that improve robustness on challenging geometries. By amortizing inference-time search into the model parameters, GIFT captures the benefits of test-time scaling while reducing inference compute by 80%. It improves mean IoU by 12% over a strong supervised baseline and remains competitive with more complex multimodal systems, without requiring additional human annotation or specialized architectures.",
+      "authors": [
+        "Giorgio Giannone",
+        "Anna Clare Doris",
+        "Amin Heyrani Nobari",
+        "Kai Xu",
+        "Akash Srivastava",
+        "Faez Ahmed"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CE"
+      ],
+      "published": "2026-03-28T23:49:20+00:00",
+      "link": "https://arxiv.org/pdf/2603.27448v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "generative CAD design and program synthesis",
+      "llm_evidence_cn": "生成式CAD设计与程序合成",
+      "llm_evidence": "生成式CAD设计与程序合成",
+      "canonical_evidence": "生成式CAD设计与程序合成",
+      "llm_tldr_en": "A method to bootstrap image-to-CAD program synthesis using geometric feedback for generative design.",
+      "llm_tldr_cn": "一种利用几何反馈引导图像到CAD程序合成的方法，用于生成式设计。",
+      "llm_tldr": "一种利用几何反馈引导图像到CAD程序合成的方法，用于生成式设计。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.28152v1",
+      "title": "ObjectMorpher: 3D-Aware Image Editing via Deformable 3DGS Models",
+      "abstract": "Achieving precise, object-level control in image editing remains challenging: 2D methods lack 3D awareness and often yield ambiguous or implausible results, while existing 3D-aware approaches rely on heavy optimization or incomplete monocular reconstructions. We present ObjectMorpher, a unified, interactive framework that converts ambiguous 2D edits into geometry-grounded operations. ObjectMorpher lifts target instances with an image-to-3D generator into editable 3D Gaussian Splatting (3DGS), enabling fast, identity-preserving manipulation. Users drag control points; a graph-based non-rigid deformation with as-rigid-as-possible (ARAP) constraints ensures physically sensible shape and pose changes. A composite diffusion module harmonizes lighting, color, and boundaries for seamless reintegration. Across diverse categories, ObjectMorpher delivers fine-grained, photorealistic edits with superior controllability and efficiency, outperforming 2D drag and 3D-aware baselines on KID, LPIPS, SIFID, and user preference.",
+      "authors": [
+        "Yuhuan Xie",
+        "Aoxuan Pan",
+        "Yi-Hua Huang",
+        "Chirui Chang",
+        "Peng Dai",
+        "Xin Yu",
+        "Xiaojuan Qi"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-30T08:15:29+00:00",
+      "link": "https://arxiv.org/pdf/2603.28152v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D-aware image editing and scene manipulation",
+      "llm_evidence_cn": "3D感知图像编辑与场景操作",
+      "llm_evidence": "3D感知图像编辑与场景操作",
+      "canonical_evidence": "3D感知图像编辑与场景操作",
+      "llm_tldr_en": "Enables precise 3D-aware object manipulation in images using deformable 3D Gaussian Splatting.",
+      "llm_tldr_cn": "利用可变形3D高斯泼溅技术实现图像中精确的3D感知物体操作。",
+      "llm_tldr": "利用可变形3D高斯泼溅技术实现图像中精确的3D感知物体操作。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.27970v1",
+      "title": "AffordMatcher: Affordance Learning in 3D Scenes from Visual Signifiers",
+      "abstract": "Affordance learning is a complex challenge in many applications, where existing approaches primarily focus on the geometric structures, visual knowledge, and affordance labels of objects to determine interactable regions. However, extending this learning capability to a scene is significantly more complicated, as incorporating object- and scene-level semantics is not straightforward. In this work, we introduce AffordBridge, a large-scale dataset with 291,637 functional interaction annotations across 685 high-resolution indoor scenes in the form of point clouds. Our affordance annotations are complemented by RGB images that are linked to the same instances within the scenes. Building upon our dataset, we propose AffordMatcher, an affordance learning method that establishes coherent semantic correspondences between image-based and point cloud-based instances for keypoint matching, enabling a more precise identification of affordance regions based on cues, so-called visual signifiers. Experimental results on our dataset demonstrate the effectiveness of our approach compared to other methods.",
+      "authors": [
+        "Nghia Vu",
+        "Tuong Do",
+        "Khang Nguyen",
+        "Baoru Huang",
+        "Nhat Le",
+        "Binh Xuan Nguyen",
+        "Erman Tjiputra",
+        "Quang D. Tran",
+        "Ravi Prakash",
+        "Te-Chuan Chiu",
+        "Anh Nguyen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-30T02:47:55+00:00",
+      "link": "https://arxiv.org/pdf/2603.27970v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "affordance learning in 3D scenes",
+      "llm_evidence_cn": "3D场景中的功能性学习",
+      "llm_evidence": "3D场景中的功能性学习",
+      "canonical_evidence": "3D场景中的功能性学习",
+      "llm_tldr_en": "Introduces a large-scale dataset and method for learning affordances in complex 3D scenes.",
+      "llm_tldr_cn": "引入了一个大规模数据集和方法，用于在复杂3D场景中学习功能性。",
+      "llm_tldr": "引入了一个大规模数据集和方法，用于在复杂3D场景中学习功能性。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.29185v1",
+      "title": "Hierarchical Visual Relocalization with Nearest View Synthesis from Feature Gaussian Splatting",
+      "abstract": "Visual relocalization is a fundamental task in the field of 3D computer vision, estimating a camera's pose when it revisits a previously known scene. While point-based hierarchical relocalization methods have shown strong scalability and efficiency, they are often limited by sparse image observations and weak feature matching. In this work, we propose SplatHLoc, a novel hierarchical visual relocalization framework that uses Feature Gaussian Splatting as the scene representation. To address the sparsity of database images, we propose an adaptive viewpoint retrieval method that synthesizes virtual candidates with viewpoints more closely aligned with the query, thereby improving the accuracy of initial pose estimation. For feature matching, we observe that Gaussian-rendered features and those extracted directly from images exhibit different strengths across the two-stage matching process: the former performs better in the coarse stage, while the latter proves more effective in the fine stage. Therefore, we introduce a hybrid feature matching strategy, enabling more accurate and efficient pose estimation. Extensive experiments on both indoor and outdoor datasets show that SplatHLoc enhances the robustness of visual relocalization, setting a new state-of-the-art.",
+      "authors": [
+        "Huaqi Tao",
+        "Bingxi Liu",
+        "Guangcheng Chen",
+        "Fulin Tang",
+        "Li He",
+        "Hong Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-31T02:51:14+00:00",
+      "link": "https://arxiv.org/pdf/2603.29185v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "view synthesis from feature Gaussian Splatting for 3D scenes",
+      "llm_evidence_cn": "基于特征高斯泼溅的3D场景视图合成",
+      "llm_evidence": "基于特征高斯泼溅的3D场景视图合成",
+      "canonical_evidence": "基于特征高斯泼溅的3D场景视图合成",
+      "llm_tldr_en": "Uses Feature Gaussian Splatting and view synthesis to improve hierarchical visual relocalization in 3D scenes.",
+      "llm_tldr_cn": "利用特征高斯泼溅和视图合成技术改进3D场景中的分层视觉重定位。",
+      "llm_tldr": "利用特征高斯泼溅和视图合成技术改进3D场景中的分层视觉重定位。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.28020v1",
+      "title": "Physically Inspired Gaussian Splatting for HDR Novel View Synthesis",
+      "abstract": "High dynamic range novel view synthesis (HDR-NVS) reconstructs scenes with dynamic details by fusing multi-exposure low dynamic range (LDR) views, yet it struggles to capture ambient illumination-dependent appearance. Implicitly supervising HDR content by constraining tone-mapped results fails in correcting abnormal HDR values, and results in limited gradients for Gaussians in under/over-exposed regions. To this end, we introduce PhysHDR-GS, a physically inspired HDR-NVS framework that models scene appearance via intrinsic reflectance and adjustable ambient illumination. PhysHDR-GS employs a complementary image-exposure (IE) branch and Gaussian-illumination (GI) branch to faithfully reproduce standard camera observations and capture illumination-dependent appearance changes, respectively. During training, the proposed cross-branch HDR consistency loss provides explicit supervision for HDR content, while an illumination-guided gradient scaling strategy mitigates exposure-biased gradient starvation and reduces under-densified representations. Experimental results across realistic and synthetic datasets demonstrate our superiority in reconstructing HDR details (e.g., a PSNR gain of 2.04 dB over HDR-GS), while maintaining real-time rendering speed (up to 76 FPS). Code and models are available at https://huimin-zeng.github.io/PhysHDR-GS/.",
+      "authors": [
+        "Huimin Zeng",
+        "Yue Bai",
+        "Hailing Wang",
+        "Yun Fu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-30T04:27:39+00:00",
+      "link": "https://arxiv.org/pdf/2603.28020v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "HDR novel view synthesis and scene appearance modeling",
+      "llm_evidence_cn": "HDR 新视角合成与场景外观建模",
+      "llm_evidence": "HDR 新视角合成与场景外观建模",
+      "canonical_evidence": "HDR 新视角合成与场景外观建模",
+      "llm_tldr_en": "PhysHDR-GS models scene appearance via intrinsic reflectance for high-quality HDR novel view synthesis.",
+      "llm_tldr_cn": "PhysHDR-GS 通过内在反射率建模场景外观，实现高质量的 HDR 新视角合成。",
+      "llm_tldr": "PhysHDR-GS 通过内在反射率建模场景外观，实现高质量的 HDR 新视角合成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.29734v1",
+      "title": "GRVS: a Generalizable and Recurrent Approach to Monocular Dynamic View Synthesis",
+      "abstract": "Synthesizing novel views from monocular videos of dynamic scenes remains a challenging problem. Scene-specific methods that optimize 4D representations with explicit motion priors often break down in highly dynamic regions where multi-view information is hard to exploit. Diffusion-based approaches that integrate camera control into large pre-trained models can produce visually plausible videos but frequently suffer from geometric inconsistencies across both static and dynamic areas. Both families of methods also require substantial computational resources. Building on the success of generalizable models for static novel view synthesis, we adapt the framework to dynamic inputs and propose a new model with two key components: (1) a recurrent loop that enables unbounded and asynchronous mapping between input and target videos and (2) an efficient use of plane sweeps over dynamic inputs to disentangle camera and scene motion, and achieve fine-grained, six-degrees-of-freedom camera controls. We train and evaluate our model on the UCSD dataset and on Kubric-4D-dyn, a new monocular dynamic dataset featuring longer, higher resolution sequences with more complex scene dynamics than existing alternatives. Our model outperforms four Gaussian Splatting-based scene-specific approaches, as well as two diffusion-based approaches in reconstructing fine-grained geometric details across both static and dynamic regions.",
+      "authors": [
+        "Thomas Tanay",
+        "Mohammed Brahimi",
+        "Michal Nazarczuk",
+        "Qingwen Zhang",
+        "Sibi Catley-Chandar",
+        "Arthur Moreau",
+        "Zhensong Zhang",
+        "Eduardo Pérez-Pellitero"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-31T13:35:14+00:00",
+      "link": "https://arxiv.org/pdf/2603.29734v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "monocular dynamic view synthesis and 4D representations",
+      "llm_evidence_cn": "单目动态视图合成与4D表示",
+      "llm_evidence": "单目动态视图合成与4D表示",
+      "canonical_evidence": "单目动态视图合成与4D表示",
+      "llm_tldr_en": "A recurrent approach for synthesizing novel views of dynamic scenes from monocular video.",
+      "llm_tldr_cn": "一种从单目视频中合成动态场景新视图的循环方法。",
+      "llm_tldr": "一种从单目视频中合成动态场景新视图的循环方法。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
