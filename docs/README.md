@@ -6,72 +6,67 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-07
-- 运行时间：2026-04-07 19:32:04 UTC
+- 最新运行日期：2026-04-08
+- 运行时间：2026-04-08 19:32:01 UTC
 - 运行状态：成功
-- 本次总论文数：17
-- 精读区：6
+- 本次总论文数：15
+- 精读区：4
 - 速读区：11
 
 ### 今日简报（AI）
-今日精选17篇论文，深度攻克3D场景补全与时空一致性故事板生成两大难题。
-Story
-- 详情：[/202604/07/README](/202604/07/README)
+今日深度解析 15 篇前沿论文，聚焦大规模驾驶场景生成与文本引导的 3D 高斯生长技术。
+重点关注 SEM-ROVER 的语义体素扩散模型及 GaussianGrow 的几何感知点云演化，两者在复杂场景构建上均取得突破性进展。
+建议读者关注 3D Gaussian Splatting 在烟雾环境及稀疏视角下的优化方案，探索三维重建在极端场景下的落地可能。
+- 详情：[/202604/08/README](/202604/08/README)
 
 ### 精读区论文标签
-1. [StoryBlender: Inter-Shot Consistent and Editable 3D Storyboard with Spatial-temporal Dynamics](/202604/07/2604.03315v1-storyblender-inter-shot-consistent-and-editable-3d-storyboard-with-spatial-temporal-dynamics)  
+1. [SEM-ROVER: Semantic Voxel-Guided Diffusion for Large-Scale Driving Scene Generation](/202604/08/2604.06113v1-sem-rover-semantic-voxel-guided-diffusion-for-large-scale-driving-scene-generation)  
+   标签：评分：10.0/10、query:3dgen
+   evidence：语义体素引导的扩散模型用于大规模驾驶场景生成
+2. [GaussianGrow: Geometry-aware Gaussian Growing from 3D Point Clouds with Text Guidance](/202604/08/2604.05721v1-gaussiangrow-geometry-aware-gaussian-growing-from-3d-point-clouds-with-text-guidance)  
    标签：评分：9.0/10、query:3dgen
-   evidence：接地的3D分镜脚本生成框架
-2. [3D-Fixer: Coarse-to-Fine In-place Completion for 3D Scenes from a Single Image](/202604/07/2604.04406v1-3d-fixer-coarse-to-fine-in-place-completion-for-3d-scenes-from-a-single-image)  
-   标签：评分：9.0/10、query:3dgen
-   evidence：单视图组合式3D场景生成
-3. [Resonance4D: Frequency-Domain Motion Supervision for Preset-Free Physical Parameter Learning in 4D Dynamic Physical Scene Simulation](/202604/07/2604.01994v1-resonance4d-frequency-domain-motion-supervision-for-preset-free-physical-parameter-learning-in-4d-dynamic-physical-scene-simulation)  
+   evidence：文本引导的从点云生成3D高斯
+3. [GA-GS: Generation-Assisted Gaussian Splatting for Static Scene Reconstruction](/202604/08/2604.04331v1-ga-gs-generation-assisted-gaussian-splatting-for-static-scene-reconstruction)  
    标签：评分：8.0/10、query:3dgen
-   evidence：从静态3D场景进行4D动态物理场景模拟
-4. [THOM: Generating Physically Plausible Hand-Object Meshes From Text](/202604/07/2604.02736v2-thom-generating-physically-plausible-hand-object-meshes-from-text)  
+   evidence：生成辅助的静态3D场景重建
+4. [FunRec: Reconstructing Functional 3D Scenes from Egocentric Interaction Videos](/202604/08/2604.05621v1-funrec-reconstructing-functional-3d-scenes-from-egocentric-interaction-videos)  
    标签：评分：8.0/10、query:3dgen
-   evidence：从文本生成3D手部-物体网格
-5. [M2StyleGS: Multi-Modality 3D Style Transfer with Gaussian Splatting](/202604/07/2604.03773v1-m2stylegs-multi-modality-3d-style-transfer-with-gaussian-splatting)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：使用文本描述和3DGS进行场景的3D风格迁移
-6. [InfBaGel: Human-Object-Scene Interaction Generation with Dynamic Perception and Iterative Refinement](/202604/07/2604.04843v1-infbagel-human-object-scene-interaction-generation-with-dynamic-perception-and-iterative-refinement)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：具有动态感知的入-物-场景交互生成
+   evidence：从交互视频中重建功能性3D场景
 
 ### 速读区论文标签
-1. [Free-Range Gaussians: Non-Grid-Aligned Generative 3D Gaussian Reconstruction](/202604/07/2604.04874v1-free-range-gaussians-non-grid-aligned-generative-3d-gaussian-reconstruction)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：针对未观测区域的生成式3D高斯重建
-2. [LG-HCC: Local Geometry-Aware Hierarchical Context Compression for 3D Gaussian Splatting](/202604/07/2603.28431v2-lg-hcc-local-geometry-aware-hierarchical-context-compression-for-3d-gaussian-splatting)  
+1. [GS^2: Graph-based Spatial Distribution Optimization for Compact 3D Gaussian Splatting](/202604/08/2604.01884v1-gs2-graph-based-spatial-distribution-optimization-for-compact-3d-gaussian-splatting)  
    标签：评分：7.0/10、query:3dgen
-   evidence：3D高斯泼溅表示的压缩框架
-3. [PoseDreamer: Scalable and Photorealistic Human Data Generation Pipeline with Diffusion Models](/202604/07/2603.28763v1-posedreamer-scalable-and-photorealistic-human-data-generation-pipeline-with-diffusion-models)  
+   evidence：优化3D高斯泼溅重建的空间分布
+2. [GenSmoke-GS: A Multi-Stage Method for Novel View Synthesis from Smoke-Degraded Images Using a Generative Model](/202604/08/2604.03039v1-gensmoke-gs-a-multi-stage-method-for-novel-view-synthesis-from-smoke-degraded-images-using-a-generative-model)  
    标签：评分：7.0/10、query:3dgen
-   evidence：利用扩散模型生成带有3D网格标注的合成数据集
-4. [SceneTeract: Agentic Functional Affordances and VLM Grounding in 3D Scenes](/202604/07/2603.29798v1-sceneteract-agentic-functional-affordances-and-vlm-grounding-in-3d-scenes)  
+   evidence：使用3DGS优化的3D修复与重建
+3. [SparseSplat: Towards Applicable Feed-Forward 3D Gaussian Splatting with Pixel-Unaligned Prediction](/202604/08/2604.03069v1-sparsesplat-towards-applicable-feed-forward-3d-gaussian-splatting-with-pixel-unaligned-prediction)  
    标签：评分：7.0/10、query:3dgen
-   evidence：评估合成3D场景中的功能可供性
-5. [ReFlow: Self-correction Motion Learning for Dynamic Scene Reconstruction](/202604/07/2604.01561v1-reflow-self-correction-motion-learning-for-dynamic-scene-reconstruction)  
+   evidence：用于场景结构的前馈3D高斯泼溅
+4. [FunFact: Building Probabilistic Functional 3D Scene Graphs via Factor-Graph Reasoning](/202604/08/2604.03696v1-funfact-building-probabilistic-functional-3d-scene-graphs-via-factor-graph-reasoning)  
    标签：评分：7.0/10、query:3dgen
-   evidence：动态场景重建与建模
-6. [Lifting Unlabeled Internet-level Data for 3D Scene Understanding](/202604/07/2604.01907v1-lifting-unlabeled-internet-level-data-for-3d-scene-understanding)  
+   evidence：从图像构建功能性3D场景图
+5. [HorizonWeaver: Generalizable Multi-Level Semantic Editing for Driving Scenes](/202604/08/2604.04887v1-horizonweaver-generalizable-multi-level-semantic-editing-for-driving-scenes)  
    标签：评分：7.0/10、query:3dgen
-   evidence：用于3D场景理解和空间推理的自动数据生成
-7. [Contrastive Language-Colored Pointmap Pretraining for Unified 3D Scene Understanding](/202604/07/2604.02546v1-contrastive-language-colored-pointmap-pretraining-for-unified-3d-scene-understanding)  
+   evidence：可扩展的真实驾驶场景生成
+6. [3D Smoke Scene Reconstruction Guided by Vision Priors from Multimodal Large Language Models](/202604/08/2604.05687v1-3d-smoke-scene-reconstruction-guided-by-vision-priors-from-multimodal-large-language-models)  
    标签：评分：7.0/10、query:3dgen
-   evidence：用于3D场景理解的统一场景表示
-8. [TrackerSplat: Exploiting Point Tracking for Fast and Robust Dynamic 3D Gaussians Reconstruction](/202604/07/2604.02586v1-trackersplat-exploiting-point-tracking-for-fast-and-robust-dynamic-3d-gaussians-reconstruction)  
-   标签：评分：7.0/10、query:3dgen
-   evidence：使用高斯进行动态3D场景重建
-9. [SHOW3D: Capturing Scenes of 3D Hands and Objects in the Wild](/202604/07/2603.28760v1-show3d-capturing-scenes-of-3d-hands-and-objects-in-the-wild)  
+   evidence：烟雾场景的3D场景重建与建模
+7. [Streaming Real-Time Rendered Scenes as 3D Gaussians](/202604/08/2604.02851v1-streaming-real-time-rendered-scenes-as-3d-gaussians)  
    标签：评分：6.0/10、query:3dgen
-   evidence：捕获并理解手物交互的3D场景
-10. [SeGPruner: Semantic-Geometric Visual Token Pruner for 3D Question Answering](/202604/07/2603.29437v1-segpruner-semantic-geometric-visual-token-pruner-for-3d-question-answering)  
+   evidence：流式传输3D高斯泼溅场景表示
+8. [HVG-3D: Bridging Real and Simulation Domains for 3D-Conditional Hand-Object Interaction Video Synthesis](/202604/08/2604.03305v1-hvg-3d-bridging-real-and-simulation-domains-for-3d-conditional-hand-object-interaction-video-synthesis)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于3D场景问答的视觉令牌剪枝
-11. [GenSmoke-GS: A Multi-Stage Method for Novel View Synthesis from Smoke-Degraded Images Using a Generative Model](/202604/07/2604.03039v2-gensmoke-gs-a-multi-stage-method-for-novel-view-synthesis-from-smoke-degraded-images-using-a-generative-model)  
+   evidence：基于显式3D表示的3D感知视频合成
+9. [Learning 3D Reconstruction with Priors in Test Time](/202604/08/2604.03878v1-learning-3d-reconstruction-with-priors-in-test-time)  
    标签：评分：6.0/10、query:3dgen
-   evidence：从退化图像中进行3D修复与重建
+   evidence：利用先验进行多视图任务的3D重建框架
+10. [PR-IQA: Partial-Reference Image Quality Assessment for Diffusion-Based Novel View Synthesis](/202604/08/2604.04576v1-pr-iqa-partial-reference-image-quality-assessment-for-diffusion-based-novel-view-synthesis)  
+   标签：评分：6.0/10、query:3dgen
+   evidence：辅助3D高斯泼溅等3D重建流水线
+11. [AvatarPointillist: AutoRegressive 4D Gaussian Avatarization](/202604/08/2604.04787v1-avatarpointillist-autoregressive-4d-gaussian-avatarization)  
+   标签：评分：6.0/10、query:3dgen
+   evidence：从单张图像生成动态4D高斯头像
 
 
 <div class="dpr-home-promo-card">

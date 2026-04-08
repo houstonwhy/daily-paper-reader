@@ -1,0 +1,614 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-08T19:30:13.352267+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 18,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2604.06113v1",
+      "title": "SEM-ROVER: Semantic Voxel-Guided Diffusion for Large-Scale Driving Scene Generation",
+      "abstract": "Scalable generation of outdoor driving scenes requires 3D representations that remain consistent across multiple viewpoints and scale to large areas. Existing solutions either rely on image or video generative models distilled to 3D space, harming the geometric coherence and restricting the rendering to training views, or are limited to small-scale 3D scene or object-centric generation. In this work, we propose a 3D generative framework based on $Σ$-Voxfield grid, a discrete representation where each occupied voxel stores a fixed number of colorized surface samples. To generate this representation, we train a semantic-conditioned diffusion model that operates on local voxel neighborhoods and uses 3D positional encodings to capture spatial structure. We scale to large scenes via progressive spatial outpainting over overlapping regions. Finally, we render the generated $Σ$-Voxfield grid with a deferred rendering module to obtain photorealistic images, enabling large-scale multiview-consistent 3D scene generation without per-scene optimization. Extensive experiments show that our approach can generate diverse large-scale urban outdoor scenes, renderable into photorealistic images with various sensor configurations and camera trajectories while maintaining moderate computation cost compared to existing approaches.",
+      "authors": [
+        "Hiba Dahmani",
+        "Nathan Piasco",
+        "Moussab Bennehar",
+        "Luis Roldão",
+        "Dzmitry Tsishkou",
+        "Laurent Caraffa",
+        "Jean-Philippe Tarel",
+        "Roland Brémond"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-07T17:24:29+00:00",
+      "link": "https://arxiv.org/pdf/2604.06113v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "semantic voxel-guided diffusion for large-scale driving scene generation",
+      "llm_evidence_cn": "语义体素引导的扩散模型用于大规模驾驶场景生成",
+      "llm_evidence": "语义体素引导的扩散模型用于大规模驾驶场景生成",
+      "canonical_evidence": "语义体素引导的扩散模型用于大规模驾驶场景生成",
+      "llm_tldr_en": "SEM-ROVER uses semantic-conditioned diffusion on voxel grids for scalable and consistent 3D driving scene generation.",
+      "llm_tldr_cn": "SEM-ROVER利用体素网格上的语义条件扩散模型，实现可扩展且一致的3D驾驶场景生成。",
+      "llm_tldr": "SEM-ROVER利用体素网格上的语义条件扩散模型，实现可扩展且一致的3D驾驶场景生成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.05721v1",
+      "title": "GaussianGrow: Geometry-aware Gaussian Growing from 3D Point Clouds with Text Guidance",
+      "abstract": "3D Gaussian Splatting has demonstrated superior performance in rendering efficiency and quality, yet the generation of 3D Gaussians still remains a challenge without proper geometric priors. Existing methods have explored predicting point maps as geometric references for inferring Gaussian primitives, while the unreliable estimated geometries may lead to poor generations. In this work, we introduce GaussianGrow, a novel approach that generates 3D Gaussians by learning to grow them from easily accessible 3D point clouds, naturally enforcing geometric accuracy in Gaussian generation. Specifically, we design a text-guided Gaussian growing scheme that leverages a multi-view diffusion model to synthesize consistent appearances from input point clouds for supervision. To mitigate artifacts caused by fusing neighboring views, we constrain novel views generated at non-preset camera poses identified in overlapping regions across different views. For completing the hard-to-observe regions, we propose to iteratively detect the camera pose by observing the largest un-grown regions in point clouds and inpainting them by inpainting the rendered view with a pretrained 2D diffusion model. The process continues until complete Gaussians are generated. We extensively evaluate GaussianGrow on text-guided Gaussian generation from synthetic and even real-scanned point clouds. Project Page: https://weiqi-zhang.github.io/GaussianGrow",
+      "authors": [
+        "Weiqi Zhang",
+        "Junsheng Zhou",
+        "Haotian Geng",
+        "Kanle Shi",
+        "Shenkun Xu",
+        "Yi Fang",
+        "Yu-Shen Liu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-07T11:23:23+00:00",
+      "link": "https://arxiv.org/pdf/2604.05721v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "text-guided 3D Gaussian generation from point clouds",
+      "llm_evidence_cn": "文本引导的从点云生成3D高斯",
+      "llm_evidence": "文本引导的从点云生成3D高斯",
+      "canonical_evidence": "文本引导的从点云生成3D高斯",
+      "llm_tldr_en": "GaussianGrow generates 3D Gaussians from point clouds using text guidance and multi-view diffusion.",
+      "llm_tldr_cn": "GaussianGrow通过文本引导和多视角扩散模型从点云生成3D高斯表示。",
+      "llm_tldr": "GaussianGrow通过文本引导和多视角扩散模型从点云生成3D高斯表示。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "text-to-3D scene generation frameworks",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.04331v1",
+      "title": "GA-GS: Generation-Assisted Gaussian Splatting for Static Scene Reconstruction",
+      "abstract": "Reconstructing static 3D scene from monocular video with dynamic objects is important for numerous applications such as virtual reality and autonomous driving. Current approaches typically rely on background for static scene reconstruction, limiting the ability to recover regions occluded by dynamic objects. In this paper, we propose GA-GS, a Generation-Assisted Gaussian Splatting method for Static Scene Reconstruction. The key innovation of our work lies in leveraging generation to assist in reconstructing occluded regions. We employ a motion-aware module to segment and remove dynamic regions, and thenuse a diffusion model to inpaint the occluded areas, providing pseudo-ground-truth supervision. To balance contributions from real background and generated region, we introduce a learnable authenticity scalar for each Gaussian primitive, which dynamically modulates opacity during splatting for authenticity-aware rendering and supervision. Since no existing dataset provides ground-truth static scene of video with dynamic objects, we construct a dataset named Trajectory-Match, using a fixed-path robot to record each scene with/without dynamic objects, enabling quantitative evaluation in reconstruction of occluded regions. Extensive experiments on both the DAVIS and our dataset show that GA-GS achieves state-of-the-art performance in static scene reconstruction, especially in challenging scenarios with large-scale, persistent occlusions.",
+      "authors": [
+        "Yedong Shen",
+        "Shiqi Zhang",
+        "Sha Zhang",
+        "Yifan Duan",
+        "Xinran Zhang",
+        "Wenhao Yu",
+        "Lu Zhang",
+        "Jiajun Deng",
+        "Yanyong Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-04-06T00:47:42+00:00",
+      "link": "https://arxiv.org/pdf/2604.04331v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "generation-assisted static 3D scene reconstruction",
+      "llm_evidence_cn": "生成辅助的静态3D场景重建",
+      "llm_evidence": "生成辅助的静态3D场景重建",
+      "canonical_evidence": "生成辅助的静态3D场景重建",
+      "llm_tldr_en": "Proposes GA-GS, using diffusion-based inpainting to assist Gaussian Splatting in 3D scene reconstruction.",
+      "llm_tldr_cn": "提出GA-GS，利用基于扩散的修复技术辅助高斯泼溅进行3D场景重建。",
+      "llm_tldr": "提出GA-GS，利用基于扩散的修复技术辅助高斯泼溅进行3D场景重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.05621v1",
+      "title": "FunRec: Reconstructing Functional 3D Scenes from Egocentric Interaction Videos",
+      "abstract": "We present FunRec, a method for reconstructing functional 3D digital twins of indoor scenes directly from egocentric RGB-D interaction videos. Unlike existing methods on articulated reconstruction, which rely on controlled setups, multi-state captures, or CAD priors, FunRec operates directly on in-the-wild human interaction sequences to recover interactable 3D scenes. It automatically discovers articulated parts, estimates their kinematic parameters, tracks their 3D motion, and reconstructs static and moving geometry in canonical space, yielding simulation-compatible meshes. Across new real and simulated benchmarks, FunRec surpasses prior work by a large margin, achieving up to +50 mIoU improvement in part segmentation, 5-10 times lower articulation and pose errors, and significantly higher reconstruction accuracy. We further demonstrate applications on URDF/USD export for simulation, hand-guided affordance mapping and robot-scene interaction.",
+      "authors": [
+        "Alexandros Delitzas",
+        "Chenyangguang Zhang",
+        "Alexey Gavryushin",
+        "Tommaso Di Mario",
+        "Boyang Sun",
+        "Rishabh Dabral",
+        "Leonidas Guibas",
+        "Christian Theobalt",
+        "Marc Pollefeys",
+        "Francis Engelmann",
+        "Daniel Barath"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-07T09:22:12+00:00",
+      "link": "https://arxiv.org/pdf/2604.05621v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Reconstructing functional 3D scenes from interaction videos",
+      "llm_evidence_cn": "从交互视频中重建功能性3D场景",
+      "llm_evidence": "从交互视频中重建功能性3D场景",
+      "canonical_evidence": "从交互视频中重建功能性3D场景",
+      "llm_tldr_en": "FunRec reconstructs interactable 3D digital twins from egocentric videos by tracking motion and kinematics.",
+      "llm_tldr_cn": "FunRec通过追踪运动和运动学参数，从第一视角视频中重建可交互的3D场景。",
+      "llm_tldr": "FunRec通过追踪运动和运动学参数，从第一视角视频中重建可交互的3D场景。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.01884v1",
+      "title": "GS^2: Graph-based Spatial Distribution Optimization for Compact 3D Gaussian Splatting",
+      "abstract": "3D Gaussian Splatting (3DGS) has demonstrated breakthrough performance in novel view synthesis and real-time rendering. Nevertheless, its practicality is constrained by the high memory cost due to a huge number of Gaussian points. Many pruning-based 3DGS variants have been proposed for memory saving, but often compromise spatial consistency and may lead to rendering artifacts. To address this issue, we propose graph-based spatial distribution optimization for compact 3D Gaussian Splatting (GS\\textasciicircum2), which enhances reconstruction quality by optimizing the spatial distribution of Gaussian points. Specifically, we introduce an evidence lower bound (ELBO)-based adaptive densification strategy that automatically controls the densification process. In addition, an opacity-aware progressive pruning strategy is proposed to further reduce memory consumption by dynamically removing low-opacity Gaussian points. Furthermore, we propose a graph-based feature encoding module to adjust the spatial distribution via feature-guided point shifting. Extensive experiments validate that GS\\textasciicircum2 achieves a compact Gaussian representation while delivering superior rendering quality. Compared with 3DGS, it achieves higher PSNR with only about 12.5\\% Gaussian points. Furthermore, it outperforms all compared baselines in both rendering quality and memory efficiency.",
+      "authors": [
+        "Xianben Yang",
+        "Tao Wang",
+        "Yuxuan Li",
+        "Yi Jin",
+        "Haibin Ling"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-02T10:41:51+00:00",
+      "link": "https://arxiv.org/pdf/2604.01884v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Optimizing spatial distribution for 3D Gaussian Splatting reconstruction",
+      "llm_evidence_cn": "优化3D高斯泼溅重建的空间分布",
+      "llm_evidence": "优化3D高斯泼溅重建的空间分布",
+      "canonical_evidence": "优化3D高斯泼溅重建的空间分布",
+      "llm_tldr_en": "Improves 3D Gaussian Splatting by optimizing spatial distribution for compact and high-quality rendering.",
+      "llm_tldr_cn": "通过优化高斯点的空间分布，实现了更紧凑且高质量的3D高斯泼溅渲染。",
+      "llm_tldr": "通过优化高斯点的空间分布，实现了更紧凑且高质量的3D高斯泼溅渲染。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "state of the art methods in 3D scene generation",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.02851v1",
+      "title": "Streaming Real-Time Rendered Scenes as 3D Gaussians",
+      "abstract": "Cloud rendering is widely used in gaming and XR to overcome limited client-side GPU resources and to support heterogeneous devices. Existing systems typically deliver the rendered scene as a 2D video stream, which tightly couples the transmitted content to the server-rendered viewpoint and limits latency compensation to image-space reprojection or warping. In this paper, we investigate an alternative approach based on streaming a live 3D Gaussian Splatting (3DGS) scene representation instead of only rendered video. We present a Unity-based prototype in which a server constructs and continuously optimizes a 3DGS model from real-time rendered reference views, while streaming the evolving representation to remote clients using full model snapshots and incremental updates supporting relighting and rigid object dynamics. The clients reconstruct the streamed Gaussian model locally and render their current viewpoint from the received representation. This approach aims to improve viewpoint flexibility for latency compensation and to better amortize server-side scene modeling across multiple users than per-user rendering and video streaming. We describe the system design, evaluate it, and compare it with conventional image warping.",
+      "authors": [
+        "Matti Siekkinen",
+        "Teemu Kämäräinen"
+      ],
+      "primary_category": "eess.IV",
+      "categories": [
+        "eess.IV",
+        "cs.GR",
+        "cs.MM"
+      ],
+      "published": "2026-04-03T08:11:27+00:00",
+      "link": "https://arxiv.org/pdf/2604.02851v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "streaming 3D Gaussian Splatting scene representation",
+      "llm_evidence_cn": "流式传输3D高斯泼溅场景表示",
+      "llm_evidence": "流式传输3D高斯泼溅场景表示",
+      "canonical_evidence": "流式传输3D高斯泼溅场景表示",
+      "llm_tldr_en": "Investigates streaming live 3D Gaussian Splatting representations for real-time cloud rendering applications.",
+      "llm_tldr_cn": "研究了用于实时云渲染应用的实时3D高斯泼溅表示的流式传输技术。",
+      "llm_tldr": "研究了用于实时云渲染应用的实时3D高斯泼溅表示的流式传输技术。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.03039v1",
+      "title": "GenSmoke-GS: A Multi-Stage Method for Novel View Synthesis from Smoke-Degraded Images Using a Generative Model",
+      "abstract": "This paper describes our method for Track 2 of the NTIRE 2026 3D Restoration and Reconstruction (3DRR) Challenge on smoke-degraded images. In this task, smoke reduces image visibility and weakens the cross-view consistency required by scene optimization and rendering. We address this problem with a multi-stage pipeline consisting of image restoration, dehazing, MLLM-based enhancement, 3DGS-MCMC optimization, and averaging over repeated runs. The main purpose of the pipeline is to improve visibility before rendering while limiting scene-content changes across input views. Experimental results on the challenge benchmark show improved quantitative performance and better visual quality than the provided baselines. The code is available at https://github.com/plbbl/GenSmoke-GS. Our method achieved a ranking of 1 out of 14 participants in Track 2 of the NTIRE 3DRR Challenge, as reported on the official competition website: https://www.codabench.org/competitions/13993/#/results-tab.",
+      "authors": [
+        "Qida Cao",
+        "Xinyuan Hu",
+        "Changyue Shi",
+        "Jiajun Ding",
+        "Zhou Yu",
+        "Jun Yu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-03T13:47:57+00:00",
+      "link": "https://arxiv.org/pdf/2604.03039v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D restoration and reconstruction using 3DGS optimization",
+      "llm_evidence_cn": "使用3DGS优化的3D修复与重建",
+      "llm_evidence": "使用3DGS优化的3D修复与重建",
+      "canonical_evidence": "使用3DGS优化的3D修复与重建",
+      "llm_tldr_en": "Proposes a multi-stage pipeline for novel view synthesis from smoke-degraded images using 3D Gaussian Splatting.",
+      "llm_tldr_cn": "提出一种多阶段流水线，利用3D高斯泼溅从烟雾退化图像中进行新视角合成。",
+      "llm_tldr": "提出一种多阶段流水线，利用3D高斯泼溅从烟雾退化图像中进行新视角合成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.03305v1",
+      "title": "HVG-3D: Bridging Real and Simulation Domains for 3D-Conditional Hand-Object Interaction Video Synthesis",
+      "abstract": "Recent methods have made notable progress in the visual quality of hand-object interaction video synthesis. However, most approaches rely on 2D control signals that lack spatial expressiveness and limit the utilization of synthetic 3D conditional data. To address these limitations, we propose HVG-3D, a unified framework for 3D-aware hand-object interaction (HOI) video synthesis conditioned on explicit 3D representations. Specifically, we develop a diffusion-based architecture augmented with a 3D ControlNet, which encodes geometric and motion cues from 3D inputs to enable explicit 3D reasoning during video synthesis. To achieve high-quality synthesis, HVG-3D is designed with two core components: (i) a 3D-aware HOI video generation diffusion architecture that encodes geometric and motion cues from 3D inputs for explicit 3D reasoning; and (ii) a hybrid pipeline for constructing input and condition signals, enabling flexible and precise control during both training and inference. During inference, given a single real image and a 3D control signal from either simulation or real data, HVG-3D generates high-fidelity, temporally consistent videos with precise spatial and temporal control. Experiments on the TASTE-Rob dataset demonstrate that HVG-3D achieves state-of-the-art spatial fidelity, temporal coherence, and controllability, while enabling effective utilization of both real and simulated data.",
+      "authors": [
+        "Mingjin Chen",
+        "Junhao Chen",
+        "Zhaoxin Fan",
+        "Yujian Lee",
+        "Zichen Dang",
+        "Lili Wang",
+        "Yawen Cui",
+        "Lap-Pui Chau",
+        "Yi Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-31T01:28:42+00:00",
+      "link": "https://arxiv.org/pdf/2604.03305v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D-aware video synthesis conditioned on explicit 3D representations",
+      "llm_evidence_cn": "基于显式3D表示的3D感知视频合成",
+      "llm_evidence": "基于显式3D表示的3D感知视频合成",
+      "canonical_evidence": "基于显式3D表示的3D感知视频合成",
+      "llm_tldr_en": "A diffusion-based framework for 3D-aware hand-object interaction video synthesis using 3D ControlNet.",
+      "llm_tldr_cn": "一种基于扩散模型的框架，利用3D ControlNet实现3D感知的交互视频合成。",
+      "llm_tldr": "一种基于扩散模型的框架，利用3D ControlNet实现3D感知的交互视频合成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.03069v1",
+      "title": "SparseSplat: Towards Applicable Feed-Forward 3D Gaussian Splatting with Pixel-Unaligned Prediction",
+      "abstract": "Recent progress in feed-forward 3D Gaussian Splatting (3DGS) has notably improved rendering quality. However, the spatially uniform and highly redundant 3DGS map generated by previous feed-forward 3DGS methods limits their integration into downstream reconstruction tasks. We propose SparseSplat, the first feed-forward 3DGS model that adaptively adjusts Gaussian density according to scene structure and information richness of local regions, yielding highly compact 3DGS maps. To achieve this, we propose entropy-based probabilistic sampling, generating large, sparse Gaussians in textureless areas and assigning small, dense Gaussians to regions with rich information. Additionally, we designed a specialized point cloud network that efficiently encodes local context and decodes it into 3DGS attributes, addressing the receptive field mismatch between the general 3DGS optimization pipeline and feed-forward models. Extensive experimental results demonstrate that SparseSplat can achieve state-of-the-art rendering quality with only 22% of the Gaussians and maintain reasonable rendering quality with only 1.5% of the Gaussians. Project page: https://victkk.github.io/SparseSplat-page/.",
+      "authors": [
+        "Zicheng Zhang",
+        "Xiangting Meng",
+        "Ke Wu",
+        "Wenchao Ding"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-03T14:48:33+00:00",
+      "link": "https://arxiv.org/pdf/2604.03069v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "feed-forward 3D Gaussian Splatting for scene structure",
+      "llm_evidence_cn": "用于场景结构的前馈3D高斯泼溅",
+      "llm_evidence": "用于场景结构的前馈3D高斯泼溅",
+      "canonical_evidence": "用于场景结构的前馈3D高斯泼溅",
+      "llm_tldr_en": "SparseSplat adaptively adjusts Gaussian density to create compact 3DGS maps for downstream reconstruction tasks.",
+      "llm_tldr_cn": "SparseSplat通过自适应调整高斯密度，为下游重建任务创建紧凑的3DGS地图。",
+      "llm_tldr": "SparseSplat通过自适应调整高斯密度，为下游重建任务创建紧凑的3DGS地图。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.03878v1",
+      "title": "Learning 3D Reconstruction with Priors in Test Time",
+      "abstract": "We introduce a test-time framework for multiview Transformers (MVTs) that incorporates priors (e.g., camera poses, intrinsics, and depth) to improve 3D tasks without retraining or modifying pre-trained image-only networks. Rather than feeding priors into the architecture, we cast them as constraints on the predictions and optimize the network at inference time. The optimization loss consists of a self-supervised objective and prior penalty terms. The self-supervised objective captures the compatibility among multi-view predictions and is implemented using photometric or geometric loss between renderings from other views and each view itself. Any available priors are converted into penalty terms on the corresponding output modalities. Across a series of 3D vision benchmarks, including point map estimation and camera pose estimation, our method consistently improves performance over base MVTs by a large margin. On the ETH3D, 7-Scenes, and NRGBD datasets, our method reduces the point-map distance error by more than half compared with the base image-only models. Our method also outperforms retrained prior-aware feed-forward methods, demonstrating the effectiveness of our test-time constrained optimization (TCO) framework for incorporating priors into 3D vision tasks.",
+      "authors": [
+        "Lei Zhou",
+        "Haoyu Wu",
+        "Akshat Dave",
+        "Dimitris Samaras"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-04T22:10:28+00:00",
+      "link": "https://arxiv.org/pdf/2604.03878v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D reconstruction framework using priors for multi-view tasks",
+      "llm_evidence_cn": "利用先验进行多视图任务的3D重建框架",
+      "llm_evidence": "利用先验进行多视图任务的3D重建框架",
+      "canonical_evidence": "利用先验进行多视图任务的3D重建框架",
+      "llm_tldr_en": "A test-time framework for multiview Transformers that uses priors as constraints to improve 3D reconstruction.",
+      "llm_tldr_cn": "一种多视图Transformer测试时框架，通过将先验作为约束来优化3D重建任务。",
+      "llm_tldr": "一种多视图Transformer测试时框架，通过将先验作为约束来优化3D重建任务。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.03696v1",
+      "title": "FunFact: Building Probabilistic Functional 3D Scene Graphs via Factor-Graph Reasoning",
+      "abstract": "Recent work in 3D scene understanding is moving beyond purely spatial analysis toward functional scene understanding. However, existing methods often consider functional relationships between object pairs in isolation, failing to capture the scene-wide interdependence that humans use to resolve ambiguity. We introduce FunFact, a framework for constructing probabilistic open-vocabulary functional 3D scene graphs from posed RGB-D images. FunFact first builds an object- and part-centric 3D map and uses foundation models to propose semantically plausible functional relations. These candidates are converted into factor graph variables and constrained by both LLM-derived common-sense priors and geometric priors. This formulation enables joint probabilistic inference over all functional edges and their marginals, yielding substantially better calibrated confidence scores. To benchmark this setting, we introduce FunThor, a synthetic dataset based on AI2-THOR with part-level geometry and rule-based functional annotations. Experiments on SceneFun3D, FunGraph3D, and FunThor show that FunFact improves node and relation discovery recall and significantly reduces calibration error for ambiguous relations, highlighting the benefits of holistic probabilistic modeling for functional scene understanding. See our project page at https://funfact-scenegraph.github.io/",
+      "authors": [
+        "Zhengyu Fu",
+        "René Zurbrügg",
+        "Kaixian Qu",
+        "Marc Pollefeys",
+        "Marco Hutter",
+        "Hermann Blum",
+        "Zuria Bauer"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-04T11:53:12+00:00",
+      "link": "https://arxiv.org/pdf/2604.03696v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "constructing functional 3D scene graphs from images",
+      "llm_evidence_cn": "从图像构建功能性3D场景图",
+      "llm_evidence": "从图像构建功能性3D场景图",
+      "canonical_evidence": "从图像构建功能性3D场景图",
+      "llm_tldr_en": "A framework for building probabilistic functional 3D scene graphs to improve scene understanding.",
+      "llm_tldr_cn": "一种构建概率功能性3D场景图的框架，旨在提升场景理解能力。",
+      "llm_tldr": "一种构建概率功能性3D场景图的框架，旨在提升场景理解能力。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.04576v1",
+      "title": "PR-IQA: Partial-Reference Image Quality Assessment for Diffusion-Based Novel View Synthesis",
+      "abstract": "Diffusion models are promising for sparse-view novel view synthesis (NVS), as they can generate pseudo-ground-truth views to aid 3D reconstruction pipelines like 3D Gaussian Splatting (3DGS). However, these synthesized images often contain photometric and geometric inconsistencies, and their direct use for supervision can impair reconstruction. To address this, we propose Partial-Reference Image Quality Assessment (PR-IQA), a framework that evaluates diffusion-generated views using reference images from different poses, eliminating the need for ground truth. PR-IQA first computes a geometrically consistent partial quality map in overlapping regions. It then performs quality completion to inpaint this partial map into a dense, full-image map. This completion is achieved via a cross-attention mechanism that incorporates reference-view context, ensuring cross-view consistency and enabling thorough quality assessment. When integrated into a diffusion-augmented 3DGS pipeline, PR-IQA restricts supervision to high-confidence regions identified by its quality maps. Experiments demonstrate that PR-IQA outperforms existing IQA methods, achieving full-reference-level accuracy without ground-truth supervision. Thus, our quality-aware 3DGS approach more effectively filters inconsistencies, producing superior 3D reconstructions and NVS results.The project page is available at https://kakaomacao.github.io/pr-iqa-project-page/.",
+      "authors": [
+        "Inseong Choi",
+        "Siwoo Lee",
+        "Seung-Hun Nam",
+        "Soohwan Song"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-06T10:17:41+00:00",
+      "link": "https://arxiv.org/pdf/2604.04576v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "aiding 3D reconstruction pipelines like 3D Gaussian Splatting",
+      "llm_evidence_cn": "辅助3D高斯泼溅等3D重建流水线",
+      "llm_evidence": "辅助3D高斯泼溅等3D重建流水线",
+      "canonical_evidence": "辅助3D高斯泼溅等3D重建流水线",
+      "llm_tldr_en": "Evaluates diffusion-generated views to improve the quality of 3D scene reconstruction pipelines.",
+      "llm_tldr_cn": "评估扩散模型生成的视图，以提高3D场景重建流水线的质量。",
+      "llm_tldr": "评估扩散模型生成的视图，以提高3D场景重建流水线的质量。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.04887v1",
+      "title": "HorizonWeaver: Generalizable Multi-Level Semantic Editing for Driving Scenes",
+      "abstract": "Ensuring safety in autonomous driving requires scalable generation of realistic, controllable driving scenes beyond what real-world testing provides. Yet existing instruction guided image editors, trained on object-centric or artistic data, struggle with dense, safety-critical driving layouts. We propose HorizonWeaver, which tackles three fundamental challenges in driving scene editing: (1) multi-level granularity, requiring coherent object- and scene-level edits in dense environments; (2) rich high-level semantics, preserving diverse objects while following detailed instructions; and (3) ubiquitous domain shifts, handling changes in climate, layout, and traffic across unseen environments. The core of HorizonWeaver is a set of complementary contributions across data, model, and training: (1) Data: Large-scale dataset generation, where we build a paired real/synthetic dataset from Boreas, nuScenes, and Argoverse2 to improve generalization; (2) Model: Language-Guided Masks for fine-grained editing, where semantics-enriched masks and prompts enable precise, language-guided edits; and (3) Training: Content preservation and instruction alignment, where joint losses enforce scene consistency and instruction fidelity. Together, HorizonWeaver provides a scalable framework for photorealistic, instruction-driven editing of complex driving scenes, collecting 255K images across 13 editing categories and outperforming prior methods in L1, CLIP, and DINO metrics, achieving +46.4% user preference and improving BEV segmentation IoU by +33%. Project page: https://msoroco.github.io/horizonweaver/",
+      "authors": [
+        "Mauricio Soroco",
+        "Francesco Pittaluga",
+        "Zaid Tasneem",
+        "Abhishek Aich",
+        "Bingbing Zhuang",
+        "Wuyang Chen",
+        "Manmohan Chandraker",
+        "Ziyu Jiang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-06T17:36:05+00:00",
+      "link": "https://arxiv.org/pdf/2604.04887v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "scalable generation of realistic driving scenes",
+      "llm_evidence_cn": "可扩展的真实驾驶场景生成",
+      "llm_evidence": "可扩展的真实驾驶场景生成",
+      "canonical_evidence": "可扩展的真实驾驶场景生成",
+      "llm_tldr_en": "HorizonWeaver enables multi-level semantic editing for controllable and realistic driving scene generation.",
+      "llm_tldr_cn": "HorizonWeaver通过多级语义编辑实现可控且真实的驾驶场景生成。",
+      "llm_tldr": "HorizonWeaver通过多级语义编辑实现可控且真实的驾驶场景生成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.04787v1",
+      "title": "AvatarPointillist: AutoRegressive 4D Gaussian Avatarization",
+      "abstract": "We introduce AvatarPointillist, a novel framework for generating dynamic 4D Gaussian avatars from a single portrait image. At the core of our method is a decoder-only Transformer that autoregressively generates a point cloud for 3D Gaussian Splatting. This sequential approach allows for precise, adaptive construction, dynamically adjusting point density and the total number of points based on the subject's complexity. During point generation, the AR model also jointly predicts per-point binding information, enabling realistic animation. After generation, a dedicated Gaussian decoder converts the points into complete, renderable Gaussian attributes. We demonstrate that conditioning the decoder on the latent features from the AR generator enables effective interaction between stages and markedly improves fidelity. Extensive experiments validate that AvatarPointillist produces high-quality, photorealistic, and controllable avatars. We believe this autoregressive formulation represents a new paradigm for avatar generation, and we will release our code inspire future research.",
+      "authors": [
+        "Hongyu Liu",
+        "Xuan Wang",
+        "Yating Wang",
+        "Zijian Wu",
+        "Ziyu Wan",
+        "Yue Ma",
+        "Runtao Liu",
+        "Boyao Zhou",
+        "Yujun Shen",
+        "Qifeng Chen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-06T15:56:50+00:00",
+      "link": "https://arxiv.org/pdf/2604.04787v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "generating dynamic 4D Gaussian avatars from a single image",
+      "llm_evidence_cn": "从单张图像生成动态4D高斯头像",
+      "llm_evidence": "从单张图像生成动态4D高斯头像",
+      "canonical_evidence": "从单张图像生成动态4D高斯头像",
+      "llm_tldr_en": "Uses an autoregressive Transformer to generate 3D Gaussian point clouds for dynamic digital avatars.",
+      "llm_tldr_cn": "使用自回归Transformer生成用于动态数字头像的3D高斯点云。",
+      "llm_tldr": "使用自回归Transformer生成用于动态数字头像的3D高斯点云。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.05687v1",
+      "title": "3D Smoke Scene Reconstruction Guided by Vision Priors from Multimodal Large Language Models",
+      "abstract": "Reconstructing 3D scenes from smoke-degraded multi-view images is particularly difficult because smoke introduces strong scattering effects, view-dependent appearance changes, and severe degradation of cross-view consistency. To address these issues, we propose a framework that integrates visual priors with efficient 3D scene modeling. We employ Nano-Banana-Pro to enhance smoke-degraded images and provide clearer visual observations for reconstruction and develop Smoke-GS, a medium-aware 3D Gaussian Splatting framework for smoke scene reconstruction and restoration-oriented novel view synthesis. Smoke-GS models the scene using explicit 3D Gaussians and introduces a lightweight view-dependent medium branch to capture direction-dependent appearance variations caused by smoke. Our method preserves the rendering efficiency of 3D Gaussian Splatting while improving robustness to smoke-induced degradation. Results demonstrate the effectiveness of our method for generating consistent and visually clear novel views in challenging smoke environments.",
+      "authors": [
+        "Xinye Zheng",
+        "Fei Wang",
+        "Yiqi Nie",
+        "Kun Li",
+        "Junjie Chen",
+        "Jiaqi Zhao",
+        "Yanyan Wei",
+        "Zhiliang Wu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-07T10:37:30+00:00",
+      "link": "https://arxiv.org/pdf/2604.05687v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D scene reconstruction and modeling for smoke scenes",
+      "llm_evidence_cn": "烟雾场景的3D场景重建与建模",
+      "llm_evidence": "烟雾场景的3D场景重建与建模",
+      "canonical_evidence": "烟雾场景的3D场景重建与建模",
+      "llm_tldr_en": "Introduces Smoke-GS for reconstructing and restoring 3D scenes from smoke-degraded multi-view images.",
+      "llm_tldr_cn": "引入Smoke-GS，用于从受烟雾干扰的多视图图像中重建和修复3D场景。",
+      "llm_tldr": "引入Smoke-GS，用于从受烟雾干扰的多视图图像中重建和修复3D场景。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
