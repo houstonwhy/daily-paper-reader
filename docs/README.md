@@ -6,70 +6,73 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-09
-- 运行时间：2026-04-09 19:50:07 UTC
+- 最新运行日期：2026-04-10
+- 运行时间：2026-04-10 19:03:06 UTC
 - 运行状态：成功
-- 本次总论文数：16
-- 精读区：5
+- 本次总论文数：17
+- 精读区：6
 - 速读区：11
 
 ### 今日简报（AI）
-今日聚焦 3D 场景生成与记忆重构，深度解析从短文本生成室内布局及从照片还原动态景观的前沿突破。
-满分论文 SDesc3D 实现了布局感知的室内建模，MemoryDiorama 则让日常照片化身为可交互的 3D 缩微记忆模型。
-建议关注 3D 高斯泼
-- 详情：[/202604/09/README](/202604/09/README)
+深度解析 17 篇 3D 生成前沿论文，聚焦 3D Gaussian Splatting 在车辆部件建模与几何先验上的关键突破。
+重点推荐车辆部件级 3D 高斯生成及引入几何先验的 AnchorSplat，实现了更精细的关节运动模拟与高效前馈重建。
+建议关注 3DGS 在动态车辆交互及零样本手部建模中的跨领域应用，探索高精度三维数字孪生的新可能。
+- 详情：[/202604/10/README](/202604/10/README)
 
 ### 精读区论文标签
-1. [SDesc3D: Towards Layout-Aware 3D Indoor Scene Generation from Short Descriptions](/202604/09/2604.01972v3-sdesc3d-towards-layout-aware-3d-indoor-scene-generation-from-short-descriptions)  
-   标签：评分：10.0/10、query:3dgen
-   evidence：文本驱动的3D室内场景生成框架
-2. [MemoryDiorama: Generating Dynamic 3D Diorama from Everyday Photos for Memory Recall](/202604/09/2604.06773v1-memorydiorama-generating-dynamic-3d-diorama-from-everyday-photos-for-memory-recall)  
-   标签：评分：9.0/10、query:3dgen
-   evidence：从照片生成动态3D透视模型
-3. [Genie Sim PanoRecon: Fast Immersive Scene Generation from Single-View Panorama](/202604/09/2604.07105v1-genie-sim-panorecon-fast-immersive-scene-generation-from-single-view-panorama)  
-   标签：评分：9.0/10、query:3dgen
-   evidence：基于单视图全景图的快速沉浸式场景生成
-4. [INSPATIO-WORLD: A Real-Time 4D World Simulator via Spatiotemporal Autoregressive Modeling](/202604/09/2604.07209v1-inspatio-world-a-real-time-4d-world-simulator-via-spatiotemporal-autoregressive-modeling)  
-   标签：评分：9.0/10、query:3dgen
-   evidence：生成高保真动态交互场景
-5. [AnchorSplat: Feed-Forward 3D Gaussian SplattingWith 3D Geometric Priors](/202604/09/2604.07053v1-anchorsplat-feed-forward-3d-gaussian-splattingwith-3d-geometric-priors)  
+1. [Part-Level 3D Gaussian Vehicle Generation with Joint and Hinge Axis Estimation](/202604/10/2604.05070v1-part-level-3d-gaussian-vehicle-generation-with-joint-and-hinge-axis-estimation)  
    标签：评分：8.0/10、query:3dgen
-   evidence：最先进的前馈3D场景重建
+   evidence：合成可动画化3D高斯车辆的生成框架
+2. [AnchorSplat: Feed-Forward 3D Gaussian Splatting with 3D Geometric Priors](/202604/10/2604.07053v2-anchorsplat-feed-forward-3d-gaussian-splatting-with-3d-geometric-priors)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：用于场景级重建的前馈3D高斯泼溅框架
+3. [Lighting-grounded Video Generation with Renderer-based Agent Reasoning](/202604/10/2604.07966v1-lighting-grounded-video-generation-with-renderer-based-agent-reasoning)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：以显式3D场景属性为条件的视频合成
+4. [3DrawAgent: Teaching LLM to Draw in 3D with Early Contrastive Experience](/202604/10/2604.08042v1-3drawagent-teaching-llm-to-draw-in-3d-with-early-contrastive-experience)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：语言驱动的3D草图生成框架
+5. [SurfelSplat: Learning Efficient and Generalizable Gaussian Surfel Representations for Sparse-View Surface Reconstruction](/202604/10/2604.08370v1-surfelsplat-learning-efficient-and-generalizable-gaussian-surfel-representations-for-sparse-view-surface-reconstruction)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：用于场景重建的可泛化高斯面元表示
+6. [Scal3R: Scalable Test-Time Training for Large-Scale 3D Reconstruction](/202604/10/2604.08542v1-scal3r-scalable-test-time-training-for-large-scale-3d-reconstruction)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：从长视频中进行大规模3D场景重建
 
 ### 速读区论文标签
-1. [Neural Harmonic Textures for High-Quality Primitive Based Neural Reconstruction](/202604/09/2604.01204v2-neural-harmonic-textures-for-high-quality-primitive-based-neural-reconstruction)  
+1. [4C4D: 4 Camera 4D Gaussian Splatting](/202604/10/2604.04063v1-4c4d-4-camera-4d-gaussian-splatting)  
    标签：评分：7.0/10、query:3dgen
-   evidence：基于基元的神经大场景重建
-2. [Rendering Multi-Human and Multi-Object with 3D Gaussian Splatting](/202604/09/2604.02996v2-rendering-multi-human-and-multi-object-with-3d-gaussian-splatting)  
+   evidence：从稀疏视频中恢复4D动态场景
+2. [HandDreamer: Zero-Shot Text to 3D Hand Model Generation using Corrective Hand Shape Guidance](/202604/10/2604.04425v1-handdreamer-zero-shot-text-to-3d-hand-model-generation-using-corrective-hand-shape-guidance)  
    标签：评分：7.0/10、query:3dgen
-   evidence：重建包含多个人物和物体的动态场景
-3. [SpectralSplat: Appearance-Disentangled Feed-Forward Gaussian Splatting for Driving Scenes](/202604/09/2604.03462v1-spectralsplat-appearance-disentangled-feed-forward-gaussian-splatting-for-driving-scenes)  
+   evidence：使用分数蒸馏采样的零样本从文本到3D手部模型生成
+3. [Human Interaction-Aware 3D Reconstruction from a Single Image](/202604/10/2604.05436v1-human-interaction-aware-3d-reconstruction-from-a-single-image)  
    标签：评分：7.0/10、query:3dgen
-   evidence：用于驾驶场景的3D高斯泼溅技术
-4. [Sparsity-Aware Voxel Attention and Foreground Modulation for 3D Semantic Scene Completion](/202604/09/2604.05780v1-sparsity-aware-voxel-attention-and-foreground-modulation-for-3d-semantic-scene-completion)  
+   evidence：从单张图像进行多人物场景的3D重建
+4. [PanopticQuery: Unified Query-Time Reasoning for 4D Scenes](/202604/10/2604.05638v1-panopticquery-unified-query-time-reasoning-for-4d-scenes)  
    标签：评分：7.0/10、query:3dgen
-   evidence：3D语义场景补全与重建
-5. [LiveStre4m: Feed-Forward Live Streaming of Novel Views from Unposed Multi-View Video](/202604/09/2604.06740v1-livestre4m-feed-forward-live-streaming-of-novel-views-from-unposed-multi-view-video)  
+   evidence：4D场景重建中的语义接地
+5. [GenLCA: 3D Diffusion for Full-Body Avatars from In-the-Wild Videos](/202604/10/2604.07273v2-genlca-3d-diffusion-for-full-body-avatars-from-in-the-wild-videos)  
    标签：评分：7.0/10、query:3dgen
-   evidence：3D场景重建与新视角合成
-6. [GenLCA: 3D Diffusion for Full-Body Avatars from In-the-Wild Videos](/202604/09/2604.07273v1-genlca-3d-diffusion-for-full-body-avatars-from-in-the-wild-videos)  
+   evidence：用于生成逼真化身的3D扩散模型
+6. [Mem3R: Streaming 3D Reconstruction with Hybrid Memory via Test-Time Training](/202604/10/2604.07279v1-mem3r-streaming-3d-reconstruction-with-hybrid-memory-via-test-time-training)  
    标签：评分：7.0/10、query:3dgen
-   evidence：用于生成化身的3D扩散模型
-7. [Non-Rigid 3D Shape Correspondences: From Foundations to Open Challenges and Opportunities](/202604/09/2604.01274v1-non-rigid-3d-shape-correspondences-from-foundations-to-open-challenges-and-opportunities)  
+   evidence：长视觉流的流式3D重建
+7. [UNICA: A Unified Neural Framework for Controllable 3D Avatars](/202604/10/2604.02799v1-unica-a-unified-neural-framework-for-controllable-3d-avatars)  
    标签：评分：6.0/10、query:3dgen
-   evidence：3D形状对应关系的最先进报告
-8. [Fully Procedural Synthetic Data from Simple Rules for Multi-View Stereo](/202604/09/2604.04925v1-fully-procedural-synthetic-data-from-simple-rules-for-multi-view-stereo)  
+   evidence：可控3D化身的生成模型
+8. [PR-IQA: Partial-Reference Image Quality Assessment for Diffusion-Based Novel View Synthesis](/202604/10/2604.04576v2-pr-iqa-partial-reference-image-quality-assessment-for-diffusion-based-novel-view-synthesis)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于合成3D训练数据的程序化生成器
-9. [In Depth We Trust: Reliable Monocular Depth Supervision for Gaussian Splatting](/202604/09/2604.05715v1-in-depth-we-trust-reliable-monocular-depth-supervision-for-gaussian-splatting)  
+   evidence：3D重建中基于扩散的新视角合成质量评估
+9. [SimpleProc: Fully Procedural Synthetic Data from Simple Rules for Multi-View Stereo](/202604/10/2604.04925v2-simpleproc-fully-procedural-synthetic-data-from-simple-rules-for-multi-view-stereo)  
    标签：评分：6.0/10、query:3dgen
-   evidence：使用高斯泼溅进行3D场景建模
-10. [Synthetic Dataset Generation for Partially Observed Indoor Objects](/202604/09/2604.07010v1-synthetic-dataset-generation-for-partially-observed-indoor-objects)  
+   evidence：用于合成3D数据的全程序化生成器
+10. [LSRM: High-Fidelity Object-Centric Reconstruction via Scaled Context Windows](/202604/10/2604.05182v1-lsrm-high-fidelity-object-centric-reconstruction-via-scaled-context-windows)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于生成合成3D扫描数据集的虚拟扫描框架
-11. [PhyEdit: Towards Real-World Object Manipulation via Physically-Grounded Image Editing](/202604/09/2604.07230v1-phyedit-towards-real-world-object-manipulation-via-physically-grounded-image-editing)  
+   evidence：通过扩展上下文窗口进行前馈3D重建
+11. [Indoor Asset Detection in Large Scale 360° Drone-Captured Imagery via 3D Gaussian Splatting](/202604/10/2604.05316v1-indoor-asset-detection-in-large-scale-360-drone-captured-imagery-via-3d-gaussian-splatting)  
    标签：评分：6.0/10、query:3dgen
-   evidence：包含3D几何的世界模型生成模型
+   evidence：用于室内资产检测的3D高斯泼溅技术
 
 
 <div class="dpr-home-promo-card">
