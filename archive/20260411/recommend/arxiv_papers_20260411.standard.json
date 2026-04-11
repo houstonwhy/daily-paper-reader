@@ -1,0 +1,447 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-11T19:00:09.443080+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 14,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2604.02867v1",
+      "title": "HairOrbit: Multi-view Aware 3D Hair Modeling from Single Portraits",
+      "abstract": "Reconstructing strand-level 3D hair from a single-view image is highly challenging, especially when preserving consistent and realistic attributes in unseen regions. Existing methods rely on limited frontal-view cues and small-scale/style-restricted synthetic data, often failing to produce satisfactory results in invisible regions. In this work, we propose a novel framework that leverages the strong 3D priors of video generation models to transform single-view hair reconstruction into a calibrated multi-view reconstruction task. To balance reconstruction quality and efficiency for the reformulated multi-view task, we further introduce a neural orientation extractor trained on sparse real-image annotations for better full-view orientation estimation. In addition, we design a two-stage strand-growing algorithm based on a hybrid implicit field to synthesize the 3D strand curves with fine-grained details at a relatively fast speed. Extensive experiments demonstrate that our method achieves state-of-the-art performance on single-view 3D hair strand reconstruction on a diverse range of hair portraits in both visible and invisible regions.",
+      "authors": [
+        "Leyang Jin",
+        "Yujian Zheng",
+        "Bingkui Tong",
+        "Yuda Qiu",
+        "Zhenyu Xie",
+        "Hao Li"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-03T08:35:35+00:00",
+      "link": "https://arxiv.org/pdf/2604.02867v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D hair modeling using video generation priors",
+      "llm_evidence_cn": "利用视频生成先验进行3D头发建模",
+      "llm_evidence": "利用视频生成先验进行3D头发建模",
+      "canonical_evidence": "利用视频生成先验进行3D头发建模",
+      "llm_tldr_en": "Leverages video generation priors to transform single-view hair reconstruction into multi-view 3D modeling.",
+      "llm_tldr_cn": "利用视频生成先验将单视图头发重建转化为高质量的多视图3D建模任务。",
+      "llm_tldr": "利用视频生成先验将单视图头发重建转化为高质量的多视图3D建模任务。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.04859v1",
+      "title": "Unified Vector Floorplan Generation via Markup Representation",
+      "abstract": "Automatic residential floorplan generation has long been a central challenge bridging architecture and computer graphics, aiming to make spatial design more efficient and accessible. While early methods based on constraint satisfaction or combinatorial optimization ensure feasibility, they lack diversity and flexibility. Recent generative models achieve promising results but struggle to generalize across heterogeneous conditional tasks, such as generation from site boundaries, room adjacency graphs, or partial layouts, due to their suboptimal representations. To address this gap, we introduce Floorplan Markup Language (FML), a general representation that encodes floorplan information within a single structured grammar, which casts the entire floorplan generation problem into a next token prediction task. Leveraging FML, we develop a transformer-based generative model, FMLM, capable of producing high-fidelity and functional floorplans under diverse conditions. Comprehensive experiments on the RPLAN dataset demonstrate that FMLM, despite being a single model, surpasses the previous task-specific state-of-the-art methods.",
+      "authors": [
+        "Kaede Shiohara",
+        "Toshihiko Yamasaki"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-06T17:04:30+00:00",
+      "link": "https://arxiv.org/pdf/2604.04859v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "automatic residential floorplan generation bridging architecture and computer graphics",
+      "llm_evidence_cn": "连接建筑与计算机图形学的自动住宅平面图生成",
+      "llm_evidence": "连接建筑与计算机图形学的自动住宅平面图生成",
+      "canonical_evidence": "连接建筑与计算机图形学的自动住宅平面图生成",
+      "llm_tldr_en": "FML is a structured grammar representation for unified and flexible vector floorplan generation.",
+      "llm_tldr_cn": "FML 是一种结构化语法表示，用于统一且灵活的矢量平面图生成。",
+      "llm_tldr": "FML 是一种结构化语法表示，用于统一且灵活的矢量平面图生成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.04016v1",
+      "title": "HOIGS: Human-Object Interaction Gaussian Splatting",
+      "abstract": "Reconstructing dynamic scenes with complex human-object interactions is a fundamental challenge in computer vision and graphics. Existing Gaussian Splatting methods either rely on human pose priors while neglecting dynamic objects, or approximate all motions within a single field, limiting their ability to capture interaction-rich dynamics. To address this gap, we propose Human-Object Interaction Gaussian Splatting (HOIGS), which explicitly models interaction-induced deformation between humans and objects through a cross-attention-based HOI module. Distinct deformation baselines are employed to extract features: HexPlane for humans and Cubic Hermite Spline (CHS) for objects. By integrating these heterogeneous features, HOIGS effectively captures interdependent motions and improves deformation estimation in scenarios involving occlusion, contact, and object manipulation. Comprehensive experiments on multiple datasets demonstrate that our method consistently outperforms state-of-the-art human-centric and 4D Gaussian approaches, highlighting the importance of explicitly modeling human-object interactions for high-fidelity reconstruction.",
+      "authors": [
+        "Taewoo Kim",
+        "Suwoong Yeom",
+        "Jaehyun Pyun",
+        "Geonho Cha",
+        "Dongyoon Wee",
+        "Joonsik Nam",
+        "Yun-Seong Jeong",
+        "Kyeongbo Kong",
+        "Suk-Ju Kang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-04-05T08:27:28+00:00",
+      "link": "https://arxiv.org/pdf/2604.04016v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Reconstructing dynamic scenes with human-object interactions",
+      "llm_evidence_cn": "重建具有人机交互的动态场景",
+      "llm_evidence": "重建具有人机交互的动态场景",
+      "canonical_evidence": "重建具有人机交互的动态场景",
+      "llm_tldr_en": "Models human-object interactions in dynamic scenes using Gaussian Splatting and cross-attention.",
+      "llm_tldr_cn": "使用高斯泼溅和交叉注意力机制建模动态场景中的人机交互。",
+      "llm_tldr": "使用高斯泼溅和交叉注意力机制建模动态场景中的人机交互。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.04911v1",
+      "title": "SpatialEdit: Benchmarking Fine-Grained Image Spatial Editing",
+      "abstract": "Image spatial editing performs geometry-driven transformations, allowing precise control over object layout and camera viewpoints. Current models are insufficient for fine-grained spatial manipulations, motivating a dedicated assessment suite. Our contributions are listed: (i) We introduce SpatialEdit-Bench, a complete benchmark that evaluates spatial editing by jointly measuring perceptual plausibility and geometric fidelity via viewpoint reconstruction and framing analysis. (ii) To address the data bottleneck for scalable training, we construct SpatialEdit-500k, a synthetic dataset generated with a controllable Blender pipeline that renders objects across diverse backgrounds and systematic camera trajectories, providing precise ground-truth transformations for both object- and camera-centric operations. (iii) Building on this data, we develop SpatialEdit-16B, a baseline model for fine-grained spatial editing. Our method achieves competitive performance on general editing while substantially outperforming prior methods on spatial manipulation tasks. All resources will be made public at https://github.com/EasonXiao-888/SpatialEdit.",
+      "authors": [
+        "Yicheng Xiao",
+        "Wenhu Zhang",
+        "Lin Song",
+        "Yukang Chen",
+        "Wenbo Li",
+        "Nan Jiang",
+        "Tianhe Ren",
+        "Haokun Lin",
+        "Wei Huang",
+        "Haoyang Huang",
+        "Xiu Li",
+        "Nan Duan",
+        "Xiaojuan Qi"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-06T17:54:42+00:00",
+      "link": "https://arxiv.org/pdf/2604.04911v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "synthetic dataset generation with a controllable Blender pipeline for 3D transformations",
+      "llm_evidence_cn": "使用可控Blender流水线生成用于3D变换的合成数据集",
+      "llm_evidence": "使用可控Blender流水线生成用于3D变换的合成数据集",
+      "canonical_evidence": "使用可控Blender流水线生成用于3D变换的合成数据集",
+      "llm_tldr_en": "SpatialEdit introduces a benchmark and synthetic dataset for evaluating fine-grained 3D spatial image editing.",
+      "llm_tldr_cn": "SpatialEdit引入了一个基准和合成数据集，用于评估细粒度的3D空间图像编辑。",
+      "llm_tldr": "SpatialEdit引入了一个基准和合成数据集，用于评估细粒度的3D空间图像编辑。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.05301v1",
+      "title": "SmokeGS-R: Physics-Guided Pseudo-Clean 3DGS for Real-World Multi-View Smoke Restoration",
+      "abstract": "Real-world smoke simultaneously attenuates scene radiance, adds airlight, and destabilizes multi-view appearance consistency, making robust 3D reconstruction particularly difficult. We present \\textbf{SmokeGS-R}, a practical pipeline developed for the NTIRE 2026 3D Restoration and Reconstruction Track 2 challenge. The key idea is to decouple geometry recovery from appearance correction: we generate physics-guided pseudo-clean supervision with a refined dark channel prior and guided filtering, train a sharp clean-only 3D Gaussian Splatting source model, and then harmonize its renderings with a donor ensemble using geometric-mean reference aggregation, LAB-space Reinhard transfer, and light Gaussian smoothing. On the official challenge testing leaderboard, the final submission achieved \\mbox{PSNR $=15.217$} and \\mbox{SSIM $=0.666$}. After the public release of RealX3D, we re-evaluated the same frozen result on the seven released challenge scenes without retraining and obtained \\mbox{PSNR $=15.209$}, \\mbox{SSIM $=0.644$}, and \\mbox{LPIPS $=0.551$}, outperforming the strongest official baseline average on the same scenes by $+3.68$ dB PSNR. These results suggest that a geometry-first reconstruction strategy combined with stable post-render appearance harmonization is an effective recipe for real-world multi-view smoke restoration. The code is available at https://github.com/windrise/3drr_Track2_SmokeGS-R.",
+      "authors": [
+        "Xueming Fu",
+        "Lixia Han"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-07T01:15:05+00:00",
+      "link": "https://arxiv.org/pdf/2604.05301v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D reconstruction and scene restoration pipeline",
+      "llm_evidence_cn": "3D重建与场景修复管线",
+      "llm_evidence": "3D重建与场景修复管线",
+      "canonical_evidence": "3D重建与场景修复管线",
+      "llm_tldr_en": "Presents a pipeline for robust 3D reconstruction and restoration of real-world smoke scenes.",
+      "llm_tldr_cn": "提出了一种用于真实烟雾场景鲁棒3D重建与修复的管线。",
+      "llm_tldr": "提出了一种用于真实烟雾场景鲁棒3D重建与修复的管线。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.04933v1",
+      "title": "PointTPA: Dynamic Network Parameter Adaptation for 3D Scene Understanding",
+      "abstract": "Scene-level point cloud understanding remains challenging due to diverse geometries, imbalanced category distributions, and highly varied spatial layouts. Existing methods improve object-level performance but rely on static network parameters during inference, limiting their adaptability to dynamic scene data. We propose PointTPA, a Test-time Parameter Adaptation framework that generates input-aware network parameters for scene-level point clouds. PointTPA adopts a Serialization-based Neighborhood Grouping (SNG) to form locally coherent patches and a Dynamic Parameter Projector (DPP) to produce patch-wise adaptive weights, enabling the backbone to adjust its behavior according to scene-specific variations while maintaining a low parameter overhead. Integrated into the PTv3 structure, PointTPA demonstrates strong parameter efficiency by introducing two lightweight modules of less than 2% of the backbone's parameters. Despite this minimal parameter overhead, PointTPA achieves 78.4% mIoU on ScanNet validation, surpassing existing parameter-efficient fine-tuning (PEFT) methods across multiple benchmarks, highlighting the efficacy of our test-time dynamic network parameter adaptation mechanism in enhancing 3D scene understanding. The code is available at https://github.com/H-EmbodVis/PointTPA.",
+      "authors": [
+        "Siyuan Liu",
+        "Chaoqun Zheng",
+        "Xin Zhou",
+        "Tianrui Feng",
+        "Dingkang Liang",
+        "Xiang Bai"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-06T17:59:58+00:00",
+      "link": "https://arxiv.org/pdf/2604.04933v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "dynamic network parameter adaptation for 3D scene understanding",
+      "llm_evidence_cn": "用于3D场景理解的动态网络参数自适应",
+      "llm_evidence": "用于3D场景理解的动态网络参数自适应",
+      "canonical_evidence": "用于3D场景理解的动态网络参数自适应",
+      "llm_tldr_en": "PointTPA adapts network parameters to specific 3D scene variations for better point cloud understanding.",
+      "llm_tldr_cn": "PointTPA通过使网络参数自适应特定的3D场景变化，提升了点云理解能力。",
+      "llm_tldr": "PointTPA通过使网络参数自适应特定的3D场景变化，提升了点云理解能力。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.06725v1",
+      "title": "Enhancing MLLM Spatial Understanding via Active 3D Scene Exploration for Multi-Perspective Reasoning",
+      "abstract": "Although Multimodal Large Language Models have achieved remarkable progress, they still struggle with complex 3D spatial reasoning due to the reliance on 2D visual priors. Existing approaches typically mitigate this limitation either through computationally expensive post-training procedures on limited 3D datasets or through rigid tool-calling mechanisms that lack explicit geometric understanding and viewpoint flexibility. To address these challenges, we propose a \\textit{training-free} framework that introduces a Visual Chain-of-Thought mechanism grounded in explicit 3D reconstruction. The proposed pipeline first reconstructs a high-fidelity 3D mesh from a single image using MLLM-guided keyword extraction and mask generation at multiple granularities. Subsequently, the framework leverages an external knowledge base to iteratively compute optimal camera extrinsic parameters and synthesize novel views, thereby emulating human perspective-taking. Extensive experiments demonstrate that the proposed approach significantly enhances spatial comprehension. Specifically, the framework outperforms specialized spatial models and general-purpose MLLMs, including \\textit{GPT-5.2} and \\textit{Gemini-2.5-Flash}, on major benchmarks such as 3DSRBench and Rel3D.",
+      "authors": [
+        "Jiahua Chen",
+        "Qihong Tang",
+        "Weinong Wang",
+        "Qi Fan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-08T06:47:55+00:00",
+      "link": "https://arxiv.org/pdf/2604.06725v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "active 3D scene exploration grounded in explicit 3D reconstruction",
+      "llm_evidence_cn": "基于显式 3D 重建的主动 3D 场景探索",
+      "llm_evidence": "基于显式 3D 重建的主动 3D 场景探索",
+      "canonical_evidence": "基于显式 3D 重建的主动 3D 场景探索",
+      "llm_tldr_en": "Enhances MLLM spatial reasoning through a training-free framework using explicit 3D mesh reconstruction.",
+      "llm_tldr_cn": "通过使用显式 3D 网格重建的免训练框架增强 MLLM 的空间推理能力。",
+      "llm_tldr": "通过使用显式 3D 网格重建的免训练框架增强 MLLM 的空间推理能力。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.05259v1",
+      "title": "Coverage Optimization for Camera View Selection",
+      "abstract": "What makes a good viewpoint? The quality of the data used to learn 3D reconstructions is crucial for enabling efficient and accurate scene modeling. We study the active view selection problem and develop a principled analysis that yields a simple and interpretable criterion for selecting informative camera poses. Our key insight is that informative views can be obtained by minimizing a tractable approximation of the Fisher Information Gain, which reduces to favoring viewpoints that cover geometry that has been insufficiently observed by past cameras. This leads to a lightweight coverage-based view selection metric that avoids expensive transmittance estimation and is robust to noise and training dynamics. We call this metric COVER (Camera Optimization for View Exploration and Reconstruction). We integrate our method into the Nerfstudio framework and evaluate it on real datasets within fixed and embodied data acquisition scenarios. Across multiple datasets and radiance-field baselines, our method consistently improves reconstruction quality compared to state-of-the-art active view selection methods. Additional visualizations and our Nerfstudio package can be found at https://chengine.github.io/nbv_gym/.",
+      "authors": [
+        "Timothy Chen",
+        "Adam Dai",
+        "Maximilian Adang",
+        "Grace Gao",
+        "Mac Schwager"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.RO"
+      ],
+      "published": "2026-04-06T23:48:34+00:00",
+      "link": "https://arxiv.org/pdf/2604.05259v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "View selection for 3D reconstruction and scene modeling",
+      "llm_evidence_cn": "用于3D重建和场景建模的视图选择",
+      "llm_evidence": "用于3D重建和场景建模的视图选择",
+      "canonical_evidence": "用于3D重建和场景建模的视图选择",
+      "llm_tldr_en": "Develops a coverage-based metric for optimal camera view selection to improve 3D scene modeling.",
+      "llm_tldr_cn": "开发了一种基于覆盖率的指标，用于优化相机视图选择以改进3D场景建模。",
+      "llm_tldr": "开发了一种基于覆盖率的指标，用于优化相机视图选择以改进3D场景建模。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.07728v1",
+      "title": "GEAR: GEometry-motion Alternating Refinement for Articulated Object Modeling with Gaussian Splatting",
+      "abstract": "High-fidelity interactive digital assets are essential for embodied intelligence and robotic interaction, yet articulated objects remain challenging to reconstruct due to their complex structures and coupled geometry-motion relationships. Existing methods suffer from instability in geometry-motion joint optimization, while their generalization remains limited on complex multi-joint or out-of-distribution objects. To address these challenges, we propose GEAR, an EM-style alternating optimization framework that jointly models geometry and motion as interdependent components within a Gaussian Splatting representation. GEAR treats part segmentation as a latent variable and joint motion parameters as explicit variables, alternately refining them for improved convergence and geometric-motion consistency. To enhance part segmentation quality without sacrificing generalization, we leverage a vanilla 2D segmentation model to provide multi-view part priors, and employ a weakly supervised constraint to regularize the latent variable. Experiments on multiple benchmarks and our newly constructed dataset GEAR-Multi demonstrate that GEAR achieves state-of-the-art results in geometric reconstruction and motion parameters estimation, particularly on complex articulated objects with multiple movable parts.",
+      "authors": [
+        "Jialin Li",
+        "Bin Fu",
+        "Ruiping Wang",
+        "Xilin Chen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR",
+        "cs.RO"
+      ],
+      "published": "2026-04-09T02:24:39+00:00",
+      "link": "https://arxiv.org/pdf/2604.07728v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D modeling of articulated objects in scenes",
+      "llm_evidence_cn": "场景中关节物体的3D建模",
+      "llm_evidence": "场景中关节物体的3D建模",
+      "canonical_evidence": "场景中关节物体的3D建模",
+      "llm_tldr_en": "Jointly models geometry and motion for articulated objects using an alternating optimization framework.",
+      "llm_tldr_cn": "采用交替优化框架对关节物体的几何和运动进行联合建模。",
+      "llm_tldr": "采用交替优化框架对关节物体的几何和运动进行联合建模。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.05695v1",
+      "title": "Let Geometry GUIDE: Layer-wise Unrolling of Geometric Priors in Multimodal LLMs",
+      "abstract": "Multimodal Large Language Models (MLLMs) have achieved remarkable progress in 2D visual tasks but still exhibit limited physical spatial awareness when processing real-world visual streams. Recently, feed-forward geometric foundation models, which implicitly extract geometric priors, have provided a new pathway to address this issue. However, existing geometry-aware MLLMs are predominantly constrained by the paradigm of single deep-layer extraction and input-level fusion. This flattened fusion leads to the loss of local geometric details and causes semantic mismatches in the early layers. To break this bottleneck, we propose GUIDE (Geometric Unrolling Inside MLLM Early-layers), a progressive geometric priors injection framework. GUIDE performs multi-level sampling within the geometric encoder, comprehensively capturing multi-granularity features ranging from local edges to global topologies. Subsequently, we rigorously align and fuse these multi-level geometric priors step-by-step with the early layers of the MLLM. Building upon the injection of multi-granularity geometric information, this design guides the model to progressively learn the 2D-to-3D transitional process. Furthermore, we introduce a context-aware gating that enables the model to fetch requisite spatial cues based on current semantics, thereby maximizing the utilization efficiency of spatial priors and effectively suppressing redundant geometric noise. Extensive experiments demonstrate that GUIDE significantly outperforms existing baselines on multiple complex spatial reasoning and perception tasks, establishing a novel paradigm for integrating 3D geometric priors into large models.",
+      "authors": [
+        "Chongyu Wang",
+        "Ting Huang",
+        "Chunyu Sun",
+        "Xinyu Ning",
+        "Di Wang",
+        "Hao Tang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-07T10:45:28+00:00",
+      "link": "https://arxiv.org/pdf/2604.05695v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "geometric priors injection framework for physical spatial awareness",
+      "llm_evidence_cn": "用于物理空间感知的几何先验注入框架",
+      "llm_evidence": "用于物理空间感知的几何先验注入框架",
+      "canonical_evidence": "用于物理空间感知的几何先验注入框架",
+      "llm_tldr_en": "GUIDE injects geometric priors into Multimodal LLMs to improve their physical spatial awareness of 3D environments.",
+      "llm_tldr_cn": "GUIDE将几何先验注入多模态大模型，以提高其对3D环境的物理空间感知。",
+      "llm_tldr": "GUIDE将几何先验注入多模态大模型，以提高其对3D环境的物理空间感知。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.07795v1",
+      "title": "Image-Guided Geometric Stylization of 3D Meshes",
+      "abstract": "Recent generative models can create visually plausible 3D representations of objects. However, the generation process often allows for implicit control signals, such as contextual descriptions, and rarely supports bold geometric distortions beyond existing data distributions. We propose a geometric stylization framework that deforms a 3D mesh, allowing it to express the style of an image. While style is inherently ambiguous, we utilize pre-trained diffusion models to extract an abstract representation of the provided image. Our coarse-to-fine stylization pipeline can drastically deform the input 3D model to express a diverse range of geometric variations while retaining the valid topology of the original mesh and part-level semantics. We also propose an approximate VAE encoder that provides efficient and reliable gradients from mesh renderings. Extensive experiments demonstrate that our method can create stylized 3D meshes that reflect unique geometric features of the pictured assets, such as expressive poses and silhouettes, thereby supporting the creation of distinctive artistic 3D creations. Project page: https://changwoonchoi.github.io/GeoStyle",
+      "authors": [
+        "Changwoon Choi",
+        "Hyunsoo Lee",
+        "Clément Jambon",
+        "Yael Vinker",
+        "Young Min Kim"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-04-09T04:44:42+00:00",
+      "link": "https://arxiv.org/pdf/2604.07795v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "generative models for 3D mesh stylization",
+      "llm_evidence_cn": "3D网格风格化的生成模型",
+      "llm_evidence": "3D网格风格化的生成模型",
+      "canonical_evidence": "3D网格风格化的生成模型",
+      "llm_tldr_en": "A framework using diffusion models to stylize and deform 3D meshes based on image guidance.",
+      "llm_tldr_cn": "一个利用扩散模型根据图像引导对3D网格进行风格化和变形的框架。",
+      "llm_tldr": "一个利用扩散模型根据图像引导对3D网格进行风格化和变形的框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
