@@ -6,56 +6,55 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-11
-- 运行时间：2026-04-11 19:01:19 UTC
+- 最新运行日期：2026-04-12
+- 运行时间：2026-04-12 19:25:10 UTC
 - 运行状态：成功
 - 本次总论文数：11
-- 精读区：0
-- 速读区：11
+- 精读区：1
+- 速读区：10
 
 ### 今日简报（AI）
-今日速览 11 篇前沿论文，聚焦 3D 高斯泼溅（3DGS）在复杂场景建模与修复中的突破。
-重点关注单图 3D 发型建模、人机交互动态重建及物理引导的烟雾修复技术。
-推荐对 3D 视觉和数字人建模感兴趣的读者深入了解 HairOrbit 与 HOIGS 的最新进展。
-- 详情：[/202604/11/README](/202604/11/README)
+今日聚焦第一视角 4D 场景重建与大规模几何语义数据集，深度解析 11 篇前沿成果。
+重点推荐 DP-DeGauss 的动态概率高斯分解技术，以及 SceneScribe-1M 提供的百万级视频标注资源。
+建议关注高斯泼溅（Gaussian Splatting）在动态建模与自动驾驶视图合成中的最新演进。
+- 详情：[/202604/12/README](/202604/12/README)
 
 ### 精读区论文标签
-- 本次无精读推荐。
+1. [DP-DeGauss: Dynamic Probabilistic Gaussian Decomposition for Egocentric 4D Scene Reconstruction](/202604/12/2604.07986v1-dp-degauss-dynamic-probabilistic-gaussian-decomposition-for-egocentric-4d-scene-reconstruction)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：第一视角4D场景重建框架
 
 ### 速读区论文标签
-1. [HairOrbit: Multi-view Aware 3D Hair Modeling from Single Portraits](/202604/11/2604.02867v1-hairorbit-multi-view-aware-3d-hair-modeling-from-single-portraits)  
+1. [Geo-EVS: Geometry-Conditioned Extrapolative View Synthesis for Autonomous Driving](/202604/12/2604.07250v1-geo-evs-geometry-conditioned-extrapolative-view-synthesis-for-autonomous-driving)  
    标签：评分：7.0/10、query:3dgen
-   evidence：利用视频生成先验进行3D头发建模
-2. [HOIGS: Human-Object Interaction Gaussian Splatting](/202604/11/2604.04016v1-hoigs-human-object-interaction-gaussian-splatting)  
+   evidence：为自动驾驶场景生成虚拟视角
+2. [From Blobs to Spokes: High-Fidelity Surface Reconstruction via Oriented Gaussians](/202604/12/2604.07337v1-from-blobs-to-spokes-high-fidelity-surface-reconstruction-via-oriented-gaussians)  
    标签：评分：7.0/10、query:3dgen
-   evidence：重建具有人机交互的动态场景
-3. [SmokeGS-R: Physics-Guided Pseudo-Clean 3DGS for Real-World Multi-View Smoke Restoration](/202604/11/2604.05301v1-smokegs-r-physics-guided-pseudo-clean-3dgs-for-real-world-multi-view-smoke-restoration)  
+   evidence：复杂场景的表面重建
+3. [SceneScribe-1M: A Large-Scale Video Dataset with Comprehensive Geometric and Semantic Annotations](/202604/12/2604.07990v1-scenescribe-1m-a-large-scale-video-dataset-with-comprehensive-geometric-and-semantic-annotations)  
    标签：评分：7.0/10、query:3dgen
-   evidence：3D重建与场景修复管线
-4. [Enhancing MLLM Spatial Understanding via Active 3D Scene Exploration for Multi-Perspective Reasoning](/202604/11/2604.06725v1-enhancing-mllm-spatial-understanding-via-active-3d-scene-exploration-for-multi-perspective-reasoning)  
+   evidence：用于3D几何感知和合成的大规模视频数据集
+4. [Novel View Synthesis as Video Completion](/202604/12/2604.08500v1-novel-view-synthesis-as-video-completion)  
    标签：评分：7.0/10、query:3dgen
-   evidence：基于显式 3D 重建的主动 3D 场景探索
-5. [GEAR: GEometry-motion Alternating Refinement for Articulated Object Modeling with Gaussian Splatting](/202604/11/2604.07728v1-gear-geometry-motion-alternating-refinement-for-articulated-object-modeling-with-gaussian-splatting)  
+   evidence：使用视频扩散模型进行场景预测的新视角合成
+5. [Visually-grounded Humanoid Agents](/202604/12/2604.08509v1-visually-grounded-humanoid-agents)  
    标签：评分：7.0/10、query:3dgen
-   evidence：场景中关节物体的3D建模
-6. [Image-Guided Geometric Stylization of 3D Meshes](/202604/11/2604.07795v1-image-guided-geometric-stylization-of-3d-meshes)  
-   标签：评分：7.0/10、query:3dgen
-   evidence：3D网格风格化的生成模型
-7. [Unified Vector Floorplan Generation via Markup Representation](/202604/11/2604.04859v1-unified-vector-floorplan-generation-via-markup-representation)  
+   evidence：在3D环境中填充数字人
+6. [SymphoMotion: Joint Control of Camera Motion and Object Dynamics for Coherent Video Generation](/202604/12/2604.03723v1-symphomotion-joint-control-of-camera-motion-and-object-dynamics-for-coherent-video-generation)  
    标签：评分：6.0/10、query:3dgen
-   evidence：连接建筑与计算机图形学的自动住宅平面图生成
-8. [SpatialEdit: Benchmarking Fine-Grained Image Spatial Editing](/202604/11/2604.04911v1-spatialedit-benchmarking-fine-grained-image-spatial-editing)  
+   evidence：使用3D轨迹嵌入的视频生成
+7. [OmniCamera: A Unified Framework for Multi-task Video Generation with Arbitrary Camera Control](/202604/12/2604.06010v1-omnicamera-a-unified-framework-for-multi-task-video-generation-with-arbitrary-camera-control)  
    标签：评分：6.0/10、query:3dgen
-   evidence：使用可控Blender流水线生成用于3D变换的合成数据集
-9. [PointTPA: Dynamic Network Parameter Adaptation for 3D Scene Understanding](/202604/11/2604.04933v1-pointtpa-dynamic-network-parameter-adaptation-for-3d-scene-understanding)  
+   evidence：场景内容与相机运动的生成模型
+8. [Language-Guided Multimodal Texture Authoring via Generative Models](/202604/12/2604.06489v1-language-guided-multimodal-texture-authoring-via-generative-models)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于3D场景理解的动态网络参数自适应
-10. [Coverage Optimization for Camera View Selection](/202604/11/2604.05259v1-coverage-optimization-for-camera-view-selection)  
+   evidence：语言驱动的多模态纹理创作系统
+9. [OpenSpatial: A Principled Data Engine for Empowering Spatial Intelligence](/202604/12/2604.07296v1-openspatial-a-principled-data-engine-for-empowering-spatial-intelligence)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于3D重建和场景建模的视图选择
-11. [Let Geometry GUIDE: Layer-wise Unrolling of Geometric Priors in Multimodal LLMs](/202604/11/2604.05695v1-let-geometry-guide-layer-wise-unrolling-of-geometric-priors-in-multimodal-llms)  
+   evidence：空间智能数据生成系统
+10. [Self-Improving 4D Perception via Self-Distillation](/202604/12/2604.08532v1-self-improving-4d-perception-via-self-distillation)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于物理空间感知的几何先验注入框架
+   evidence：动态场景的4D感知与重建
 
 
 <div class="dpr-home-promo-card">

@@ -1,0 +1,460 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-12T19:23:40.886627+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 10,
+    "quick_skim_target": 11,
+    "quick_selected": 10
+  },
+  "deep_dive": [
+    {
+      "id": "2604.07986v1",
+      "title": "DP-DeGauss: Dynamic Probabilistic Gaussian Decomposition for Egocentric 4D Scene Reconstruction",
+      "abstract": "Egocentric video is crucial for next-generation 4D scene reconstruction, with applications in AR/VR and embodied AI. However, reconstructing dynamic first-person scenes is challenging due to complex ego-motion, occlusions, and hand-object interactions. Existing decomposition methods are ill-suited, assuming fixed viewpoints or merging dynamics into a single foreground. To address these limitations, we introduce DP-DeGauss, a dynamic probabilistic Gaussian decomposition framework for egocentric 4D reconstruction. Our method initializes a unified 3D Gaussian set from COLMAP priors, augments each with a learnable category probability, and dynamically routes them into specialized deformation branches for background, hands, or object modeling. We employ category-specific masks for better disentanglement and introduce brightness and motion-flow control to improve static rendering and dynamic reconstruction. Extensive experiments show that DP-DeGauss outperforms baselines by +1.70dB in PSNR on average with SSIM and LPIPS gains. More importantly, our framework achieves the first and state-of-the-art disentanglement of background, hand, and object components, enabling explicit, fine-grained separation, paving the way for more intuitive ego scene understanding and editing.",
+      "authors": [
+        "Tingxi Chen",
+        "Zhengxue Cheng",
+        "Houqiang Zhong",
+        "Su Wang",
+        "Rong Xie",
+        "Li Song"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-09T08:55:39+00:00",
+      "link": "https://arxiv.org/pdf/2604.07986v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "egocentric 4D scene reconstruction framework",
+      "llm_evidence_cn": "第一视角4D场景重建框架",
+      "llm_evidence": "第一视角4D场景重建框架",
+      "canonical_evidence": "第一视角4D场景重建框架",
+      "llm_tldr_en": "A dynamic probabilistic Gaussian decomposition framework for reconstructing complex 4D scenes.",
+      "llm_tldr_cn": "一种用于重建复杂4D场景的动态概率高斯分解框架。",
+      "llm_tldr": "一种用于重建复杂4D场景的动态概率高斯分解框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.07250v1",
+      "title": "Geo-EVS: Geometry-Conditioned Extrapolative View Synthesis for Autonomous Driving",
+      "abstract": "Extrapolative novel view synthesis can reduce camera-rig dependency in autonomous driving by generating standardized virtual views from heterogeneous sensors. Existing methods degrade outside recorded trajectories because extrapolated poses provide weak geometric support and no dense target-view supervision. The key is to explicitly expose the model to out-of-trajectory condition defects during training. We propose Geo-EVS, a geometry-conditioned framework under sparse supervision. Geo-EVS has two components. Geometry-Aware Reprojection (GAR) uses fine-tuned VGGT to reconstruct colored point clouds and reproject them to observed and virtual target poses, producing geometric condition maps. This design unifies the reprojection path between training and inference. Artifact-Guided Latent Diffusion (AGLD) injects reprojection-derived artifact masks during training so the model learns to recover structure under missing support. For evaluation, we use a LiDAR-Projected Sparse-Reference (LPSR) protocol when dense extrapolated-view ground truth is unavailable. On Waymo, Geo-EVS improves sparse-view synthesis quality and geometric accuracy, especially in high-angle and low-coverage settings. It also improves downstream 3D detection.",
+      "authors": [
+        "Yatong Lan",
+        "Rongkui Tang",
+        "Lei He"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-08T16:13:10+00:00",
+      "link": "https://arxiv.org/pdf/2604.07250v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "generating virtual views for autonomous driving scenes",
+      "llm_evidence_cn": "为自动驾驶场景生成虚拟视角",
+      "llm_evidence": "为自动驾驶场景生成虚拟视角",
+      "canonical_evidence": "为自动驾驶场景生成虚拟视角",
+      "llm_tldr_en": "A geometry-conditioned framework for extrapolative novel view synthesis in autonomous driving environments.",
+      "llm_tldr_cn": "一种用于自动驾驶环境的外推式新视角合成的几何条件框架。",
+      "llm_tldr": "一种用于自动驾驶环境的外推式新视角合成的几何条件框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.03723v1",
+      "title": "SymphoMotion: Joint Control of Camera Motion and Object Dynamics for Coherent Video Generation",
+      "abstract": "Controlling both camera motion and object dynamics is essential for coherent and expressive video generation, yet current methods typically handle only one motion type or rely on ambiguous 2D cues that entangle camera-induced parallax with true object movement. We present SymphoMotion, a unified motion-control framework that jointly governs camera trajectories and object dynamics within a single model. SymphoMotion features a Camera Trajectory Control mechanism that integrates explicit camera paths with geometry-aware cues to ensure stable, structurally consistent viewpoint transitions, and an Object Dynamics Control mechanism that combines 2D visual guidance with 3D trajectory embeddings to enable depth-aware, spatially coherent object manipulation. To support large-scale training and evaluation, we further construct RealCOD-25K, a comprehensive real-world dataset containing paired camera poses and object-level 3D trajectories across diverse indoor and outdoor scenes, addressing a key data gap in unified motion control. Extensive experiments and user studies show that SymphoMotion significantly outperforms existing methods in visual fidelity, camera controllability, and object-motion accuracy, establishing a new benchmark for unified motion control in video generation.Codes and data are publicly available at https://grenoble-zhang.github.io/SymphoMotion/.",
+      "authors": [
+        "Guiyu Zhang",
+        "Yabo Chen",
+        "Xunzhi Xiang",
+        "Junchao Huang",
+        "Zhongyu Wang",
+        "Li Jiang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-04T12:59:24+00:00",
+      "link": "https://arxiv.org/pdf/2604.03723v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "video generation using 3D trajectory embeddings",
+      "llm_evidence_cn": "使用3D轨迹嵌入的视频生成",
+      "llm_evidence": "使用3D轨迹嵌入的视频生成",
+      "canonical_evidence": "使用3D轨迹嵌入的视频生成",
+      "llm_tldr_en": "Jointly controls camera motion and object dynamics for coherent video generation.",
+      "llm_tldr_cn": "联合控制相机运动和物体动力学，以实现连贯的视频生成。",
+      "llm_tldr": "联合控制相机运动和物体动力学，以实现连贯的视频生成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.07337v1",
+      "title": "From Blobs to Spokes: High-Fidelity Surface Reconstruction via Oriented Gaussians",
+      "abstract": "3D Gaussian Splatting (3DGS) has revolutionized fast novel view synthesis, yet its opacity-based formulation makes surface extraction fundamentally difficult. Unlike implicit methods built on Signed Distance Fields or occupancy, 3DGS lacks a global geometric field, forcing existing approaches to resort to heuristics such as TSDF fusion of blended depth maps.   Inspired by the Objects as Volumes framework, we derive a principled occupancy field for Gaussian Splatting and show how it can be used to extract highly accurate watertight meshes of complex scenes. Our key contribution is to introduce a learnable oriented normal at each Gaussian element and to define an adapted attenuation formulation, which leads to closed-form expressions for both the normal and occupancy fields at arbitrary locations in space. We further introduce a novel consistency loss and a dedicated densification strategy to enforce Gaussians to wrap the entire surface by closing geometric holes, ensuring a complete shell of oriented primitives. We modify the differentiable rasterizer to output depth as an isosurface of our continuous model, and introduce Primal Adaptive Meshing for Region-of-Interest meshing at arbitrary resolution.   We additionally expose fundamental biases in standard surface evaluation protocols and propose two more rigorous alternatives. Overall, our method Gaussian Wrapping sets a new state-of-the-art on DTU and Tanks and Temples, producing complete, watertight meshes at a fraction of the size of concurrent work-recovering thin structures such as the notoriously elusive bicycle spokes.",
+      "authors": [
+        "Diego Gomez",
+        "Antoine Guédon",
+        "Nissim Maruani",
+        "Bingchen Gong",
+        "Maks Ovsjanikov"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-08T17:52:39+00:00",
+      "link": "https://arxiv.org/pdf/2604.07337v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "surface reconstruction of complex scenes",
+      "llm_evidence_cn": "复杂场景的表面重建",
+      "llm_evidence": "复杂场景的表面重建",
+      "canonical_evidence": "复杂场景的表面重建",
+      "llm_tldr_en": "Derives a principled occupancy field for Gaussian Splatting to extract accurate 3D meshes.",
+      "llm_tldr_cn": "为高斯泼溅推导了原则性的占用场，以提取准确的3D网格。",
+      "llm_tldr": "为高斯泼溅推导了原则性的占用场，以提取准确的3D网格。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.06010v1",
+      "title": "OmniCamera: A Unified Framework for Multi-task Video Generation with Arbitrary Camera Control",
+      "abstract": "Video fundamentally intertwines two crucial axes: the dynamic content of a scene and the camera motion through which it is observed. However, existing generation models often entangle these factors, limiting independent control. In this work, we introduce OmniCamera, a unified framework designed to explicitly disentangle and command these two dimensions. This compositional approach enables flexible video generation by allowing arbitrary pairings of camera and content conditions, unlocking unprecedented creative control. To overcome the fundamental challenges of modality conflict and data scarcity inherent in such a system, we present two key innovations. First, we construct OmniCAM, a novel hybrid dataset combining curated real-world videos with synthetic data that provides diverse paired examples for robust multi-task learning. Second, we propose a Dual-level Curriculum Co-Training strategy that mitigates modality interference and synergistically learns from diverse data sources. This strategy operates on two levels: first, it progressively introduces control modalities by difficulties (condition-level), and second, trains for precise control on synthetic data before adapting to real data for photorealism (data-level). As a result, OmniCamera achieves state-of-the-art performance, enabling flexible control for complex camera movements while maintaining superior visual quality.",
+      "authors": [
+        "Yukun Wang",
+        "Ruihuang Li",
+        "Jiale Tao",
+        "Shiyuan Yang",
+        "Liyi Chen",
+        "Zhantao Yang",
+        "Handz",
+        "Yulan Guo",
+        "Shuai Shao",
+        "Qinglin Lu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-07T16:06:02+00:00",
+      "link": "https://arxiv.org/pdf/2604.06010v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "generative models for scene content and camera motion",
+      "llm_evidence_cn": "场景内容与相机运动的生成模型",
+      "llm_evidence": "场景内容与相机运动的生成模型",
+      "canonical_evidence": "场景内容与相机运动的生成模型",
+      "llm_tldr_en": "A framework for video generation with independent control over scene content and camera motion.",
+      "llm_tldr_cn": "一个能够独立控制场景内容和相机运动的视频生成框架。",
+      "llm_tldr": "一个能够独立控制场景内容和相机运动的视频生成框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.07990v1",
+      "title": "SceneScribe-1M: A Large-Scale Video Dataset with Comprehensive Geometric and Semantic Annotations",
+      "abstract": "The convergence of 3D geometric perception and video synthesis has created an unprecedented demand for large-scale video data that is rich in both semantic and spatio-temporal information. While existing datasets have advanced either 3D understanding or video generation, a significant gap remains in providing a unified resource that supports both domains at scale. To bridge this chasm, we introduce SceneScribe-1M, a new large-scale, multi-modal video dataset. It comprises one million in-the-wild videos, each meticulously annotated with detailed textual descriptions, precise camera parameters, dense depth maps, and consistent 3D point tracks. We demonstrate the versatility and value of SceneScribe-1M by establishing benchmarks across a wide array of downstream tasks, including monocular depth estimation, scene reconstruction, and dynamic point tracking, as well as generative tasks such as text-to-video synthesis, with or without camera control. By open-sourcing SceneScribe-1M, we aim to provide a comprehensive benchmark and a catalyst for research, fostering the development of models that can both perceive the dynamic 3D world and generate controllable, realistic video content.",
+      "authors": [
+        "Yunnan Wang",
+        "Kecheng Zheng",
+        "Jianyuan Wang",
+        "Minghao Chen",
+        "David Novotny",
+        "Christian Rupprecht",
+        "Yinghao Xu",
+        "Xing Zhu",
+        "Wenjun Zeng",
+        "Xin Jin",
+        "Yujun Shen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-09T08:59:33+00:00",
+      "link": "https://arxiv.org/pdf/2604.07990v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "large-scale video dataset for 3D geometric perception and synthesis",
+      "llm_evidence_cn": "用于3D几何感知和合成的大规模视频数据集",
+      "llm_evidence": "用于3D几何感知和合成的大规模视频数据集",
+      "canonical_evidence": "用于3D几何感知和合成的大规模视频数据集",
+      "llm_tldr_en": "Introduces SceneScribe-1M, a massive dataset with geometric annotations to bridge 3D understanding and generation.",
+      "llm_tldr_cn": "引入了SceneScribe-1M，这是一个带有几何标注的大规模数据集，旨在连接3D理解与生成。",
+      "llm_tldr": "引入了SceneScribe-1M，这是一个带有几何标注的大规模数据集，旨在连接3D理解与生成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.06489v1",
+      "title": "Language-Guided Multimodal Texture Authoring via Generative Models",
+      "abstract": "Authoring realistic haptic textures typically requires low-level parameter tuning and repeated trial-and-error, limiting speed, transparency, and creative reach. We present a language-driven authoring system that turns natural-language prompts into multimodal textures: two coordinated haptic channels - sliding vibrations via force/speed-conditioned autoregressive (AR) models and tapping transients - and a text-prompted visual preview from a diffusion model. A shared, language-aligned latent links modalities so a single prompt yields semantically consistent haptic and visual signals; designers can write goals (e.g., \"gritty but cushioned surface,\" \"smooth and hard metal surface\") and immediately see and feel the result through a 3D haptic device. To verify that the learned latent encodes perceptually meaningful structure, we conduct an anchor-referenced, attribute-wise evaluation for roughness, slipperiness, and hardness. Participant ratings are projected to the interpretable line between two real-material references, revealing consistent trends - asperity effects in roughness, compliance in hardness, and surface-film influence in slipperiness. A human-subject study further indicates coherent cross-modal experience and low effort for prompt-based iteration. The results show that language can serve as a practical control modality for texture authoring: prompts reliably steer material semantics across haptic and visual channels, enabling a prompt-first, designer-oriented workflow that replaces manual parameter tuning with interpretable, text-guided refinement.",
+      "authors": [
+        "Wanli Qian",
+        "Aiden Chang",
+        "Shihan Lu",
+        "Michael Gu",
+        "Heather Culbertson"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC",
+        "cs.MM"
+      ],
+      "published": "2026-04-07T21:47:55+00:00",
+      "link": "https://arxiv.org/pdf/2604.06489v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "language-driven authoring system for multimodal textures",
+      "llm_evidence_cn": "语言驱动的多模态纹理创作系统",
+      "llm_evidence": "语言驱动的多模态纹理创作系统",
+      "canonical_evidence": "语言驱动的多模态纹理创作系统",
+      "llm_tldr_en": "A generative system that creates multimodal haptic and visual textures from natural language prompts.",
+      "llm_tldr_cn": "一个根据自然语言提示创建多模态触觉和视觉纹理的生成系统。",
+      "llm_tldr": "一个根据自然语言提示创建多模态触觉和视觉纹理的生成系统。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.08500v1",
+      "title": "Novel View Synthesis as Video Completion",
+      "abstract": "We tackle the problem of sparse novel view synthesis (NVS) using video diffusion models; given $K$ ($\\approx 5$) multi-view images of a scene and their camera poses, we predict the view from a target camera pose. Many prior approaches leverage generative image priors encoded via diffusion models. However, models trained on single images lack multi-view knowledge. We instead argue that video models already contain implicit multi-view knowledge and so should be easier to adapt for NVS. Our key insight is to formulate sparse NVS as a low frame-rate video completion task. However, one challenge is that sparse NVS is defined over an unordered set of inputs, often too sparse to admit a meaningful order, so the models should be $\\textit{invariant}$ to permutations of that input set. To this end, we present FrameCrafter, which adapts video models (naturally trained with coherent frame orderings) to permutation-invariant NVS through several architectural modifications, including per-frame latent encodings and removal of temporal positional embeddings. Our results suggest that video models can be easily trained to \"forget\" about time with minimal supervision, producing competitive performance on sparse-view NVS benchmarks. Project page: https://frame-crafter.github.io/",
+      "authors": [
+        "Qi Wu",
+        "Khiem Vuong",
+        "Minsik Jeon",
+        "Srinivasa Narasimhan",
+        "Deva Ramanan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-09T17:44:18+00:00",
+      "link": "https://arxiv.org/pdf/2604.08500v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "novel view synthesis using video diffusion models for scene prediction",
+      "llm_evidence_cn": "使用视频扩散模型进行场景预测的新视角合成",
+      "llm_evidence": "使用视频扩散模型进行场景预测的新视角合成",
+      "canonical_evidence": "使用视频扩散模型进行场景预测的新视角合成",
+      "llm_tldr_en": "Formulates sparse novel view synthesis as a video completion task using generative video diffusion models.",
+      "llm_tldr_cn": "利用生成式视频扩散模型，将稀疏新视角合成任务建模为视频补全任务。",
+      "llm_tldr": "利用生成式视频扩散模型，将稀疏新视角合成任务建模为视频补全任务。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.07296v1",
+      "title": "OpenSpatial: A Principled Data Engine for Empowering Spatial Intelligence",
+      "abstract": "Spatial understanding is a fundamental cornerstone of human-level intelligence. Nonetheless, current research predominantly focuses on domain-specific data production, leaving a critical void: the absence of a principled, open-source engine capable of fully unleashing the potential of high-quality spatial data. To bridge this gap, we elucidate the design principles of a robust data generation system and introduce OpenSpatial -- an open-source data engine engineered for high quality, extensive scalability, broad task diversity, and optimized efficiency. OpenSpatial adopts 3D bounding boxes as the fundamental primitive to construct a comprehensive data hierarchy across five foundational tasks: Spatial Measurement (SM), Spatial Relationship (SR), Camera Perception (CP), Multi-view Consistency (MC), and Scene-Aware Reasoning (SAR). Leveraging this scalable infrastructure, we curate OpenSpatial-3M, a large-scale dataset comprising 3 million high-fidelity samples. Extensive evaluations demonstrate that versatile models trained on our dataset achieve state-of-the-art performance across a wide spectrum of spatial reasoning benchmarks. Notably, the best-performing model exhibits a substantial average improvement of 19 percent, relatively. Furthermore, we provide a systematic analysis of how data attributes influence spatial perception. By open-sourcing both the engine and the 3M-scale dataset, we provide a robust foundation to accelerate future research in spatial intelligence.",
+      "authors": [
+        "Jianhui Liu",
+        "Haoze Sun",
+        "Wenbo Li",
+        "Yanbing Zhang",
+        "Rui Yang",
+        "Zhiliang Zhu",
+        "Yijun Yang",
+        "Shenghe Zheng",
+        "Nan Jiang",
+        "Jiaxiu Jiang",
+        "Haoyang Huang",
+        "Tien-Tsin Wong",
+        "Nan Duan",
+        "Xiaojuan Qi"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-04-08T17:03:02+00:00",
+      "link": "https://arxiv.org/pdf/2604.07296v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "data generation system for spatial intelligence",
+      "llm_evidence_cn": "空间智能数据生成系统",
+      "llm_evidence": "空间智能数据生成系统",
+      "canonical_evidence": "空间智能数据生成系统",
+      "llm_tldr_en": "OpenSpatial is an open-source engine for generating high-quality spatial data for 3D tasks.",
+      "llm_tldr_cn": "OpenSpatial是一个为3D任务生成高质量空间数据的开源引擎。",
+      "llm_tldr": "OpenSpatial是一个为3D任务生成高质量空间数据的开源引擎。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.08509v1",
+      "title": "Visually-grounded Humanoid Agents",
+      "abstract": "Digital human generation has been studied for decades and supports a wide range of real-world applications. However, most existing systems are passively animated, relying on privileged state or scripted control, which limits scalability to novel environments. We instead ask: how can digital humans actively behave using only visual observations and specified goals in novel scenes? Achieving this would enable populating any 3D environments with digital humans at scale that exhibit spontaneous, natural, goal-directed behaviors. To this end, we introduce Visually-grounded Humanoid Agents, a coupled two-layer (world-agent) paradigm that replicates humans at multiple levels: they look, perceive, reason, and behave like real people in real-world 3D scenes. The World Layer reconstructs semantically rich 3D Gaussian scenes from real-world videos via an occlusion-aware pipeline and accommodates animatable Gaussian-based human avatars. The Agent Layer transforms these avatars into autonomous humanoid agents, equipping them with first-person RGB-D perception and enabling them to perform accurate, embodied planning with spatial awareness and iterative reasoning, which is then executed at the low level as full-body actions to drive their behaviors in the scene. We further introduce a benchmark to evaluate humanoid-scene interaction in diverse reconstructed environments. Experiments show our agents achieve robust autonomous behavior, yielding higher task success rates and fewer collisions than ablations and state-of-the-art planning methods. This work enables active digital human population and advances human-centric embodied AI. Data, code, and models will be open-sourced.",
+      "authors": [
+        "Hang Ye",
+        "Xiaoxuan Ma",
+        "Fan Lu",
+        "Wayne Wu",
+        "Kwan-Yee Lin",
+        "Yizhou Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.RO"
+      ],
+      "published": "2026-04-09T17:50:09+00:00",
+      "link": "https://arxiv.org/pdf/2604.08509v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "populating 3D environments with digital humans",
+      "llm_evidence_cn": "在3D环境中填充数字人",
+      "llm_evidence": "在3D环境中填充数字人",
+      "canonical_evidence": "在3D环境中填充数字人",
+      "llm_tldr_en": "Introduces humanoid agents that can perceive and behave naturally within 3D scenes.",
+      "llm_tldr_cn": "引入了能够在3D场景中自然感知和行动的类人智能体。",
+      "llm_tldr": "引入了能够在3D场景中自然感知和行动的类人智能体。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.08532v1",
+      "title": "Self-Improving 4D Perception via Self-Distillation",
+      "abstract": "Large-scale multi-view reconstruction models have made remarkable progress, but most existing approaches still rely on fully supervised training with ground-truth 3D/4D annotations. Such annotations are expensive and particularly scarce for dynamic scenes, limiting scalability. We propose SelfEvo, a self-improving framework that continually improves pretrained multi-view reconstruction models using unlabeled videos. SelfEvo introduces a self-distillation scheme using spatiotemporal context asymmetry, enabling self-improvement for learning-based 4D perception without external annotations. We systematically study design choices that make self-improvement effective, including loss signals, forms of asymmetry, and other training strategies. Across eight benchmarks spanning diverse datasets and domains, SelfEvo consistently improves pretrained baselines and generalizes across base models (e.g. VGGT and $π^3$), with significant gains on dynamic scenes. Overall, SelfEvo achieves up to 36.5% relative improvement in video depth estimation and 20.1% in camera estimation, without using any labeled data. Project Page: https://self-evo.github.io/.",
+      "authors": [
+        "Nan Huang",
+        "Pengcheng Yu",
+        "Weijia Zeng",
+        "James M. Rehg",
+        "Angjoo Kanazawa",
+        "Haiwen Feng",
+        "Qianqian Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-09T17:59:04+00:00",
+      "link": "https://arxiv.org/pdf/2604.08532v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "4D perception and reconstruction of dynamic scenes",
+      "llm_evidence_cn": "动态场景的4D感知与重建",
+      "llm_evidence": "动态场景的4D感知与重建",
+      "canonical_evidence": "动态场景的4D感知与重建",
+      "llm_tldr_en": "A self-distillation framework for improving 4D scene reconstruction without manual labels.",
+      "llm_tldr_cn": "一种无需人工标注即可改进4D场景重建的自蒸馏框架。",
+      "llm_tldr": "一种无需人工标注即可改进4D场景重建的自蒸馏框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

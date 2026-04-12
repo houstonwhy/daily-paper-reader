@@ -1,0 +1,633 @@
+Title: OmniCamera: A Unified Framework for Multi-task Video Generation with Arbitrary Camera Control
+
+URL Source: https://arxiv.org/pdf/2604.06010v1
+
+Published Time: Wed, 08 Apr 2026 01:26:53 GMT
+
+Number of Pages: 23
+
+Markdown Content:
+## OmniCamera: A Unified Framework for Multi-task Video Generation with Arbitrary Camera Control 
+
+Yukun Wang 1,2⋆, Ruihuang Li 2B, Jiale Tao 2, Shiyuan Yang 2,3, Liyi Chen 2,4,Zhantao Yang 2, Handz 2, Yulan Guo 1B, Shuai Shao 2, and Qinglin Lu 2
+
+1Sun Yat-sen University 2Hunyuan, Tencent 3CityU 4PolyU Tilt up 
+
+> Camera Condition
+
+Content Condition     
+
+> Motion  Text  3D Trajectory  Motion Reference Video
+> Afrozen river during sunset, with the river partially
+> thawed, reflecting the golden hues of the setting sun.
+> A young girl sitting on a wooden bench outdoors.
+> She is wearing a colorful floral dress and is holding
+> a small tabby kitten close to her chest.
+> A couple is dancing in a luxurious
+> ballroom filled with elegantly
+> dressed guests.
+> Generated Camera Ref.
+> The video showcases an aerial view of a traditional
+> Chinese town with a serene canal running through
+> its center.
+> A cruise ship passes through the
+> strait, surrounded by small islands,
+> with coastlines in the distance.
+> Generated
+> A young man performs a
+> series of acrobatic moves
+> on a paved street.
+> Camera Motion: [Roll Clockwise]
+> A man and a woman are dancing
+> together on a city street at dusk.
+> Camera Motion: [ Boom up and Tilt down ]
+> The video showcases an aerial view of Shanghai's urban landscape,
+> featuring a dense cluster of modern skyscrapers and high -rise buildings.
+> Camera Motion: [Dolly in and Tilt up ]
+> A silver Suzuki Jimny driving along a mountain road
+> surrounded by lush greenery and towering mountains.
+> Generated
+> Zoom In Pan Left Orbit Right
+
+Text Prompt  Image Content  Source Video Content 
+
+> Video Ref. Video Ref.
+> Image Ref.
+> Image Ref.
+> Image Ref.
+> Video Ref.
+> Truck left &
+> Pan Right
+> Orbiting Right
+
+Fig. 1: We propose OmniCamera , a unified framework that conceptually decouples video generation into two independent control dimensions: camera pose and scene con-tent. It seamlessly integrates three camera conditions (text, 3D trajectory, and motion reference video) with three content conditions (text prompt, image, and source video). 
+
+Abstract. Video fundamentally intertwines two crucial axes: the dy-namic content of a scene and the camera motion through which it is ob-served. However, existing generation models often entangle these factors, limiting independent control. In this work, we introduce OmniCamera, a unified framework designed to explicitly disentangle and command these two dimensions. This compositional approach enables flexible video gen-eration by allowing arbitrary pairings of camera and content conditions, unlocking unprecedented creative control. To overcome the fundamen-tal challenges of modality conflict and data scarcity inherent in such a system, we present two key innovations. First, we construct OmniCAM, a novel hybrid dataset combining curated real-world videos with syn-thetic data that provides diverse paired examples for robust multi-task learning. Second, we propose a Dual-level Curriculum Co-Training strat-egy that mitigates modality interference and synergistically learns from diverse data sources. This strategy operates on two levels: first, it pro-gressively introduces control modalities by difficulties (condition-level), 
+
+⋆ Work done during an internship at Tencent Hunyuan. 
+
+B Corresponding author  
+
+> arXiv:2604.06010v1 [cs.CV] 7 Apr 2026 2Y. Wang et al. and second, trains for precise control on synthetic data before adapt-ing to real data for photorealism (data-level). As a result, OmniCamera achieves state-of-the-art performance, enabling flexible control for com-plex camera movements while maintaining superior visual quality.
+
+1 Introduction 
+
+Fundamentally, every video is the physical projection of real-world scene content observed through continuous camera poses in 3D space. Driven by this universal mechanism, we propose to conceptually decouple video generation into two in-dependent control dimensions: scene content and camera pose. While simulating realistic cinematographic operations is crucial for professional applications, cur-rent approaches typically restrict control to a single modality or focus on narrow tasks as shown in Table. 1. For instance, existing methods separately utilize tex-tual descriptions [13, 15, 34], 3D trajectories [1, 2, 16, 22], or reference videos [26] for camera motion. They often struggle with the inherent limitations of each modality (e.g., text is too coarse, trajectories are hard to acquire) and fail to support the free combination of diverse content sources and camera conditions. To address these limitations and theoretically encompass all conceivable forms of video generation, we introduce OmniCamera , a unified framework that seamlessly integrates these independent conditions. Specifically, as shown in Fig. 1, the camera conditions involve textual descriptions, explicit trajectory matrices, or reference motion videos, and content conditions can be provided by text prompts, images, or source videos. This framework offers three significant advantages. Firstly, our synergistic co-training strategy leverages the comple-mentary strengths of diverse data sources. It learns precise camera control from the accurate geometry of synthetic data (e.g., UE5), while simultaneously learn-ing photorealism from real-world videos. Secondly, as illustrated in Fig. 2, by flexibly combining multiple camera conditions, users can synthesize arbitrarily complex and nuanced camera movements. Thirdly, our model achieves remark-able parameter efficiency by employing a single set of weights to handle all nine distinct combinations, eliminating the need for specialized models. Creating a system capable of unified multi-modal camera control is fraught with challenges, foremost among them being the inherent conflict between differ-ent control modalities. A naive joint training approach, which simply mixes data from various conditions (e.g., text, reference videos, trajectories), often leads to mutual interference. Besides, there is a profound scarcity of real-world data that simultaneously offers high visual quality and precise camera annotations, making it difficult to train a model that excels in both aspects. To address these challenges, we present OmniCAM, the first hybrid dataset for camera control, comprising both real-world and synthetic videos and pro-viding diverse types of paired data to facilitate multitask learning. As shown in Tab. 2, OmniCAM is the largest among publicly available datasets and uniquely supports multi-condition training across camera and content dimensions. The Abbreviated paper title 3Tilt up          
+
+> Dolly in
+> Dolly in
+> Dolly out
+> Pan Right
+> Dolly out
+> Tilt Up
+> Pan right
+> Dolly in
+> Dolly in
+> Tilt up
+> Dolly out
+> Traj .
+> Text
+> Text
+> Ref.
+> Ref.
+> Tilt Up
+> Traj .
+> Traj .
+> Text
+> Ref.
+
+Fig. 2: Compositional camera control with multi-modal conditions. Omni-Camera enables flexible combinations of multiple conditioning inputs, such as overlay-ing text-guided camera motion on top of trajectory or reference-video control, efficiently extending and diversifying camera motion effects. 
+
+real-world portion of the dataset is meticulously curated through a compre-hensive pipeline—including trajectory estimation, filtering, classification, and matching—to select high-quality video pairs with reliable camera trajectories. To leverage the unique structure of this dataset, we further propose a dual-level curriculum co-training strategy. Condition-level curriculum . We introduce conditioning modalities in three stages of increasing difficulty. We begin with text-conditioning, the least difficult task, as it closely aligns with the base model’s generation ability. Subsequently, we progressively incorporate the more chal-lenging modalities: first, reference-video conditioning, and finally, the most de-manding task, trajectory conditioning. This staged approach allows the model to gradually adapt from familiar semantic guidance to complex geometric control. 
+
+Data-level curriculum . We devise a two-substage training process to combine the strengths of diverse data sources. First, extensive training on large-scale synthetic data (UE5) establishes precise camera control. This is followed by a brief fine-tuning on a small set of real videos to restore photorealism. This short adaptation rapidly leverages the model’s inherent visual priors, correcting the realism gap from synthetic data without causing catastrophic forgetting of the learned motion control. Furthermore, we alleviate modality conflicts using Con-dition RoPE, which explicitly encodes and separates conditioning inputs. In summary, our contributions are: 
+
+– We propose OmniCamera , the first unified video generation model that seamlessly integrates three camera conditions (text, trajectory, reference video) with three content conditions (text, image, video). This framework enables arbitrary condition combinations with high parameter efficiency. 
+
+– We curate the OmniCAM dataset, a hybrid dataset combining high-precision synthetic camera trajectories with diverse real-world videos, providing robust multi-level supervision for generalized camera control. 
+
+– We introduce a Dual-level Curriculum Co-Training strategy, compris-ing a Condition-level Curriculum to avoid modality conflicts and a Data-level 4 Y. Wang et al. 
+
+Table 1: Method comparison. OmniCamera decouples video gen-eration into independent content conditions and camera conditions, enabling arbitrary combinations.                                                               
+
+> Method Content Camera Text Image Video Text Traj. Video CameraCtrl [17] ✓✓××✓×
+> AC3D [1] ✓×××✓×
+> RealCam [22] ×✓××✓×
+> FloVD [20] ×✓××✓×
+> CamCloneMaster [26] ×✓✓××✓
+> ReCamMaster [2] ××✓×✓×
+> UNIC [41] ××✓×✓×
+> OmniVCus [8] ××✓×✓×
+> Wan-Fun-Camera [34] ×✓×✓××
+> Ours ✓✓✓✓✓✓
+
+Table 2: Comparison of camera-controllable datasets. OmniCAM is the only dataset provid-ing comprehensive data types for both synthetic and real-world scenarios. SS : Same-Scene, Diverse-Trajectory; ST : Same-Trajectory, Diverse-Scene.                                                                          
+
+> Dataset Data Types Preference Text Traj. SS-Data ST-Data Triplet #Videos Resolution
+> Syn.  SynCamMaster [3] ×✓✓××34K 1280 ×1280
+> ReCamMaster [2] ×✓✓××136K 1280 ×1280
+> CamCloneMaster [26] ×××✓✓391K 1008 ×576
+> Ours (UE5) ✓✓✓✓✓500K 1280 ×1280
+> Real
+> RealEstate-10K [45] ×✓×××10K 1280 ×720
+> DL3DV-10K [24] ×✓×××10.5K 3840 ×2160
+> ScanNet [10] ×✓×××1513 1296 ×968
+> Matterport3D [9] ×✓×××90 1280 ×1024
+> ARKitScenes [4] ×✓×××1661 1920 ×1440
+> Ours (Real) ✓✓✓✓✓330K 3840 ×2160
+
+Curriculum to bridge the domain gap between synthetic and real data, en-suring stable and effective multimodal learning. Comprehensive quantitative and qualitative experiments demonstrate that our approach surpasses models trained under single-task or single-condition settings, highlighting the effectiveness of the proposed unified framework for camera-controlled video generation. 
+
+2 Related Works 
+
+Video Generation. Recent advances in video generation have led to rapid progress, with numerous studies focusing on text-to-video (T2V) [6, 7, 13, 18, 27, 34] and image-to-video (I2V) [13, 34, 36, 40] generation. Inspired by the success of powerful image generation models such as Stable Diffusion [11] and Flux [21], recent methods have widely adopted Diffusion Transformers (DiT) [28] and flow matching [25] architectures for video generation. Modern approaches increasingly aim to unify text and image conditioning within a single framework. For example, Wan 2.2 [34] introduces a TI2V model that replaces the first-frame latent with image embeddings for I2V tasks, while Seedance [13] jointly trains T2V and I2V models and integrates video-specific RLHF with multi-dimensional reward mechanisms to enhance quality. 
+
+Camera-controlled Video Generation. Existing methods incorporate var-ious camera motion control conditions into T2V and I2V models, including textual descriptions [15, 34], 3D trajectories [1, 1, 16, 17, 20, 22], and reference videos [26]. CameraCtrl [16] trains a camera adaptor integrated with T2V and I2V models to inject trajectory-based camera motion, while AC3D [1] explores camera motion representations within diffusion transformers to achieve control-lable generation. Several studies [12, 19, 20, 22, 29, 37, 43] further leverage expert models such as depth [29,39] and optical flow [20] networks to provide geometric priors via point clouds or motion fields. However, the effectiveness of motion control remains bounded by the precision of expert models and the overhead of computing explicit geometric information. 
+
+Camera-controlled Video-to-Video Generation. Camera-controllable V2V generation aims to synthesize a new video by combining the visual content of Abbreviated paper title 5Unified  Diffusion Transformer                 
+
+> Content Prompt Content Image/Video
+> “The camera moves
+> to the left.”
+> “A woman with sunlit,
+> fluffy curls holds a
+> black telescope,
+> gazing intently into
+> the distance”
+> Camera Prompt Camera Trajectory Camera Video
+> Noisy tokens Camera/Content text tokens //Camera/Content video VAE tokens Camera tokens
+> +
+> Predicted X 0
+> Condition RoPE
+> 𝑓
+> ℎ
+> Width
+> 𝑤
+
+Fig. 3: Pipeline of OmniCamera. Left: Diffusion Transformer with decoupled con-dition injection: text and reference video tokens are concatenated for self-attention; trajectory features are added to the noise latent. Right: Condition RoPE explicitly disentangles modalities using unique positional encodings. 
+
+a given video with a novel camera motion hint [2, 5, 14, 26, 33, 42, 44]. Early studies explored this task using Kubric-simulated data [33] or by leveraging additional geometric cues such as 3D point tracking [5,42]. Recent works, such as ReCamMaster [2], directly take a content video and a new trajectory as inputs to re-generate videos by training T2V models on carefully curated datasets. CamCloneMaster [26] further extends this idea by introducing a video re-shot model capable of guiding both I2V and V2V generation with video hints. 
+
+3 Method 
+
+Fig. 3 provides an overview of our OmniCamera framework. We begin by out-lining the preliminaries in Sec. 3.1. Our method is then presented through four key components: Dataset Design (Sec. 3.2), Model Architecture (Sec. 3.3), Multi-condition Co-Training (Sec. 3.4), and Multi-task Inference (Sec. 3.5). 
+
+3.1 Preliminary 
+
+We first introduce the fundamental concept of Flow Matching [25], which has been widely adopted in recent video generation models [34]. Flow Matching for-mulates generative modeling as learning a continuous velocity field that trans-ports a simple prior distribution (e.g., Gaussian) to the target data distribution. Given a data sample x0 ∼ pdata and a noise sample x1 ∼ pprior , Flow Matching constructs a linear interpolant: 
+
+xt = (1 − t)x0 + tx 1, t ∈ [0 , 1] . (1) The corresponding target velocity field is defined as: 
+
+ut(xt) = x1 − x0, (2) which is independent of timestep t but conditioned on the pair (x0, x 1). The training objective is to optimize a neural network vθ (xt, t ) to approximate this conditional velocity field, thereby recovering the probability flow between the prior and data distributions. 6 Y. Wang et al. 
+
+3.2 Dataset Design 
+
+Training our unified model requires diverse supervision signals: single videos with trajectories or textual motion annotations, same-scene video pairs with different camera motions, cross-scene pairs with matched motions, and video triplets. We construct the OmniCAM dataset, a hybrid dataset from synthetic and real-world sources, as illustrated in Fig. 4. 
+
+Synthetic Data. We define a library of approximately 50 camera-motion types (20 basic and 30 complex), each associated with a detailed textual description, and synthesize corresponding videos in UE5 following [2, 26]. As shown in the left of Fig. 4, the synthetic dataset is categorized into three distinct subsets: (1) Same-Scene, Diverse-Trajectory Data : Within a fixed Scene 1 , we first establish a set of camera movement rules to automatically batch-generate diverse camera trajectories. We then simulate a simultaneous shooting process by positioning multiple cameras that face the subjects and move along these pre-defined trajectories. This allows us to render datasets with synchronized cameras capturing objects from varying perspectives. (2) Same-Trajectory, Diverse-Scene Data : We place random subjects performing arbitrary actions in Scene 1 and Scene 2 . We then render these scenarios by applying identical camera trajectories across these scenes, ensuring consistent camera motion patterns. (3) Motion-Content-Target Triplets : We construct training triplets de-noted by {zm, z d, z 0}, where z0 represents the target video, which shares identi-cal camera motion with the motion video zm (derived from the same-trajectory, diverse-scene subset) and shares identical content with the content video zd (de-rived from the same-scene, diverse-trajectory subset). In total, we sample 250K distinct camera trajectories (5K trajectories for each of the 50 predefined motion categories) to render 500K independent video clips with accurate pose annotations. By combining these clips, we construct 500K same-scene diverse-trajectory pairs, 500K same-trajectory diverse-scene pairs, and 500K motion-content-target triplets, thereby providing massive and diverse paired supervision. 
+
+Real-World Data. In addition to synthetic data, we curate a real-world dataset through a rigorous pipeline. As illustrated in the right of Fig. 4, our data pro-cessing pipeline comprises four key steps: (1) Trajectory Estimation: We utilize MegaSaM [23] to extract camera tra-jectories, followed by camera parameter calibration from CameraCtrl2 [17]. (2) Trajectory Filtering: Since raw trajectories extracted by MegaSaM often contain significant noise, we filter them based on trajectory smoothness. Let ci
+
+denote the camera position at frame i (where i ∈ { 1, . . . , N } for a video of N
+
+frames) and di = ∥ci+1 − ci∥2 the frame-to-frame displacement. We compute: 
+
+rjump = max i di
+
+¯d , rcomplex = L
+
+∥cN − c1∥2 + ϵ , (3) where ¯d = 1 
+
+> N−1
+
+PN −1 
+
+> i=1
+
+di and L = PN −1 
+
+> i=1
+
+di. We apply two criteria: (i) jump filtering , discarding trajectories with rjump > τ jump ; and (ii) complexity filtering ,Abbreviated paper title 7(4) Intra -class Matching (1) Trajectory Estimation ( MegaSaM )                         
+
+> Video #2748 Video #38243
+> Unified OmniCamera Dataset ( Synthetic & Real -world Data )
+> Scene 1
+> Scene 2
+> Video #389 Video #1092
+> ❌
+> Jump Complex Smooth
+> ❌❌
+> Pre -defined Poses Library Filtered poses
+> ❌❌
+> 𝑧 !
+> 𝑧 "
+> 𝑧 #
+> 𝑧 !,𝑧 "
+> 𝑧 !,𝑧 #
+> 𝑧 #,𝑧 ",𝑧 !
+> Same -Scene , Diverse -Trajectory Data
+> Same -Trajectory , Diverse -Scene Data
+> Motion -Content -Target Triplets
+> (1)
+> (2)
+> (3)
+> Synthetic Data Construction (UE5) Real -World Data Construction
+> (2) Trajectory Filtering
+> (3) Trajectory Classification
+
+Fig. 4: OmniCAM dataset construction. Left: UE5 synthetic videos provide ac-curate camera poses to build paired and triplet supervision. Right: real videos are processed via trajectory estimation, trajectory filtering, trajectory classification, and intra-class matching to obtain reliable trajectories and cross-scene motion pairs. 
+
+discarding trajectories with rcomplex > τ complex , which indicates overly tortuous or jittery motion. Here, τjump and τcomplex are preset thresholds, and ϵ is a small constant for numerical stability. (3) Trajectory Classification: We categorize the filtered trajectories into 50 
+
+predefined camera motion patterns based on similarity. For each video, we com-pute the trajectory similarity with all 50 predefined templates based on transla-tion error (TransErr) and rotation error (RotErr) [16], and assign it to the class yielding the minimum error. (4) Intra-class Matching: Within each class, we perform random pairwise matching of trajectories. We compute the TransErr and RotErr between two candidate trajectories and consider them as a valid match only if both errors are below strict predefined thresholds. This process yields real-world data pairs characterized by identical trajectories but diverse scenes. Through this progressive pipeline, we obtain data at three levels of annota-tion: 380K videos with reliable trajectory annotations from Step (2), a total of 380K videos augmented with categorical motion descriptions from Step (3), and 300K Same-Trajectory, Diverse-Scene real-video pairs identified from Step (4). 
+
+3.3 Model Design 
+
+To avoid modality conflicts, we adopt a decoupled condition-injection strategy, as shown in the left of Fig. 3: textual prompts and visual conditions (content latent 
+
+zd and camera-motion latent zm) are unified as sequence-level representations to interact with the noise latent zt during joint attention; concurrently, trajectory parameters are processed via an MLP before being passed into DiT blocks. 
+
+3D Condition RoPE. As illustrated in the right of Fig. 3, to resolve the spatial-temporal ambiguity caused by sequence concatenation, we propose a 3D 8 Y. Wang et al. (Synthetic)   
+
+> (Real) (Real)
+> (Synthetic)
+> Fig. 5: Dual-level curriculum data composition. Condition-level curriculum pro-gresses from text control (Stage I) to reference-video control (Stage II) to trajectory control (Stage III), following a coarse-to-fine and easy-to-hard order. In Stage II and Stage III, data-level curriculum first trains on synthetic data with precise trajectories (Substage 1), then fine-tunes on real-world videos to recover photorealism (Substage 2).
+
+Condition RoPE. For an original token coordinate (f, h, w ) denoting the frame, height, and width index, we assign distinct spatial-temporal base offsets for each modality: (0 , 0, 0) for zt, (F, 0, 0) for zd, and (F, H, W ) for zm, where F, H, W rep-resent the total frames, height, and width dimensions of the noise latent zt. The positional codes are then computed on these shifted coordinates, with frequencies freq i = θ−2i/D , where D is the channel dimension of the token embeddings and θ
+
+is the base constant. This explicitly distinguishes identical coordinate structures, seamlessly integrating multiple conditions within our unified framework. 
+
+3.4 Dual-level Curriculum Co-Training 
+
+Simultaneously training 9 different generation combinations (3 camera-control modalities × 3 generative tasks) introduces severe representation conflicts and optimization instability. Naively mixing all data and conditions from scratch leads to degraded camera controllability and deteriorated visual quality. To ad-dress this, we propose a Dual-level Curriculum Co-Training strategy op-erating along two complementary axes: a task-level curriculum to align multi-modal conditions progressively, and a data-level curriculum to balance camera controllability and visual realism. 
+
+Condition-level Curriculum. As shown in Fig.5, we design a three-stage cur-riculum that evolves from coarse-to-fine granularity and easy-to-hard difficulty. In Stage I , we focus on text-based conditioning (across T2V, I2V, and V2V tasks). This acts as semantic guidance with the coarsest control granularity. Since it aligns closely with the base model’s inherent capabilities, this stage serves as the foundational and easiest learning step. In Stage II , we incorpo-rate reference-video control. Operating at a relatively coarse granularity, this stage employs in-context learning to transfer coarse global camera motion from a reference video to the target. This introduces a higher level of learning dif-ficulty compared to pure text guidance. In Stage III , we introduce camera trajectory control, which demands the finest granularity and precise geometric control. Consequently, this is the most challenging modality. By adhering to this coarse-to-fine and easy-to-hard progression, we effectively prevent optimization collapse and achieve reliable multi-condition control. Abbreviated paper title 9
+
+Data-level Curriculum. High-quality multi-condition training faces a severe data dilemma: simulated data (e.g., UE5) provides perfectly accurate trajecto-ries but suffers from a significant domain gap compared to real-world videos; conversely, real-world data possesses high visual realism but yields noisy trajec-tory estimates via Structure-from-Motion (SfM). To integrate the advantages of diverse data sources, we develop a two-substage data curriculum applied in the later conditioning stages (Stage II and Stage III). In Substage 1 , we utilize a large scale of UE5 data paired with precise trajectories to significantly boost camera motion accuracy. In Substage 2 , we employ a curated set of high-quality real videos with reliable trajectory estimates to restore the model’s capability in generating photorealistic content. 
+
+3.5 Multi-task Inference 
+
+We employ a dual-condition classifier-free guidance strategy. The model relies on text CT for semantic control and multimodal inputs CM for camera motion. To enable flexible controllability, we randomly drop conditions during training with a probability of 5% for CM only, 5% for CT only, and 5% for both simultaneously. At the inference stage, this allows us to utilize separate guidance scales, wT and 
+
+wM , to independently adjust the influence of text and motion guidance. The modified score estimate is as follows: 
+
+ˆϵθ (zt, c T , c M ) = ϵθ (zt, ϕ, ϕ )+ wT (ϵθ (zt, c T , ϕ ) − ϵθ (zt, ϕ, ϕ )) + wM (ϵθ (zt, c T , c M ) − ϵθ (zt, c T , ϕ )) 
+
+(4) Here, cM ∈ { Trajectory , Ref-Video } acts as a polymorphic camera condition. 
+
+4 Experiments 
+
+4.1 Implementation Details 
+
+We build upon the 5B-parameter Wan2.2-TI2V architecture, utilizing its VAE for 704 ×1248 video generation. During training, we exclusively optimize the self-attention, cross-attention, and camera embedding modules. We train the model on 32 H100 GPUs for 60K steps with a batch size of 32, using the AdamW opti-mizer (initial learning rate 7 × 10 −5 decaying to 5 × 10 −5 via a cosine schedule). 
+
+Evaluation. We have constructed a comprehensive evaluation dataset that com-prises 36 camera-motion text commands, 36 camera trajectories, and 36 reference videos. For each task, we assess the camera-control performance on 800 generated videos. The evaluation metrics include CLIP-T, CLIP-F, Rotation Error, Trans-lation Error, FVD or FVD-V, as well as motion accuracy. Detailed calculations for these metrics can be found in the Supplementary Material. 
+
+4.2 Text Condition 
+
+As shown in Fig. 6, text-controlled generation provides semantic-level camera guidance by prepending motion instructions to the input caption. As shown 10 Y. Wang et al. Text  to  video Image  to  video Video  to  video 
+
+[Camera Motion: Boom up and tilt down ]
+
++ Caption:  A skateboarder performing a trick at a skate park. 
+
+[Camera Motion:  Tilt up and dolly in ] + Caption:  The video captures a silver 
+
+Suzuki Jimny driving along a winding mountain road surrounded by lush greenery 
+
+and towering mountains. 
+
+[Camera Motion:  Truck Left ] + Caption:  A brown bear in an enclosed zoo or 
+
+wildlife sanctuary setting. The bear is walking slowly across a rocky terrain with 
+
+scattered boulders and patches of dirt. The background features a stone wall and 
+
+more rocks, creating a naturalistic habitat. 
+
+[Camera Motion:  Orbiting Left ] + Caption:  A red rally car with visible sponsor 
+
+decals is driving aggressively around a corner, kicking up tire marks on the 
+
+asphalt. The background features a mix of spectators behind barriers, event 
+
+tents, and other parked vehicles, indicating an organized racing event. 
+
+[Camera Motion:  Roll Counterclockwise ] + Caption:  The video captures a 
+
+serene scene at Jökulsárlón glacier lagoon in Iceland. 
+
+[Camera Motion : Arc trajectory right while panning left ] + Caption:  A
+
+snowboarder descending a snowy slope in a mountainous area. The individual 
+
+is dressed in dark winter gear, and is performing a turn on their snowboard. 
+
+> Generated  Text Generated Generated  Source  Video Text  Text
+
+Fig. 6: Qualitative results for text-controlled camera motion. 
+
+Table 3: Quantitative results of Text-controlled camera motion on T2V, I2V and V2V tasks. 
+
+Task Method FVD ↓ CLIP-F ↑ CLIP-T ↑ MotionAcc ↑
+
+T2V AnimateDiff [15] 1471.28 96.39 25.04 19.3% Wan2.1-T2V [34] 899.21 98.54 27.75 28.9% Wan2.2-TI2V [34] 867.27 98.92 28.06 31.4% 
+
+Ours 884.11 98.94 29.06 92.4% 
+
+I2V Wan2.1-I2V [34] 345.69 98.27 29.95 27.5% Wan2.2-TI2V [34] 285.52 99.05 30.30 30.3% Wan2.2-Fun-Camera 314.63 99.02 30.08 68.8% 
+
+Ours 308.83 99.05 30.29 91.3% 
+
+V2V Ours 430.71 99.02 30.17 89.7% 
+
+Table 4: Quantitative results of 
+
+Trajectory-controlled camera mo-tion on the tasks (CLIP-T for T2V/I2V, CLIP-V for V2V). 
+
+Task Method FVD ↓ RotErr ↓ TransErr ↓ CLIP(T/V) ↑
+
+T2V CameraCtrl [16] 1365.90 0.126 8.160 23.43 AC3D [1] 958.62 0.056 7.542 30.01 Ours 893.95 0.034 2.064 29.64 I2V CameraCtrl [16] 586.14 0.048 3.798 27.04 
+
+Ours 333.54 0.043 3.355 30.40 
+
+V2V ReCamMaster [2] 366.82 0.048 5.320 94.10 
+
+Ours 331.36 0.045 5.933 94.97 
+
+in Tab. 3, foundational video models (e.g., AnimateDiff [15] and Wan2.2 [34]) struggle to execute specific camera commands. Even the specialized Wan2.2-Fun-Camera model can only perform simple camera movements (e.g., pan and tilt) with suboptimal precision. As further visualized in Fig. 9, Wan2.2-Fun-Camera also suffers from severe content hallucination and structural artifacts (e.g., semantic confusion in animals and static volcanic smoke). In comparison, OmniCamera supports complex 3D spatial movements and outperforms all base-lines in motion accuracy by a large margin while maintaining competitive visual fidelity. Additionally, OmniCamera uniquely enables text-guided camera motion editing on existing videos (V2V), a capability under-explored in prior models. 
+
+4.3 Reference-Video Condition 
+
+As shown in Fig. 7 and Tab. 5, OmniCamera achieves accurate reference-video-controlled camera motion across T2V, I2V, and V2V tasks. Compared with CamCloneMaster [26] (Fig. 9), OmniCamera yields significantly more accurate camera motion, superior content preservation, and fewer visual artifacts. This Abbreviated paper title 11 
+
+Table 5: Quantitative results of Reference-video-controlled camera motion on T2V, I2V, and V2V tasks. “-” means methods fail to accomplish task. 
+
+Methods T2V I2V V2V FVD ↓ RotErr ↓ TransErr ↓ CLIP ↑ FVD ↓ RotErr ↓ TransErr ↓ CLIP ↑ FVD-V ↓ RotErr ↓ TransErr ↓ CLIP-V ↑
+
+CamCloneMaster [26] – – – – 380.73 0.021 3.953 30.18 376.33 0.019 4.936 93.60 Ours 868.63 0.024 7.109 29.30 352.76 0.023 4.195 30.45 348.51 0.019 5.392 93.71 Text  to  video               
+
+> Image to video
+> Video to video
+> Generated
+> Caption :A gray Mini Countryman driving through a city street lined with historic buildings and parked
+> cars. The car navigates a curved road, passing by a blue directional sign and a stone monument.
+> Caption :Ayoung girl is sitting on a wooden bench outdoors, surrounded by greenery and a red
+> structure. She is wearing a colorful floral dress and is holding a small tabby kitten close to her chest.
+> Source Video  Generated
+> Source Video  Generated
+> Generated
+> Camera Reference Video Camera Reference Video
+> Generated
+> Generated
+> Arc left Zoom in
+
+Fig. 7: Qualitative results for reference-video-controlled camera motion. 
+
+strong performance is directly attributed to the proposed dual-level curriculum training strategy and our superior data composition, which combines precise UE5 synthetic data with diverse real-world video pairs. 
+
+4.4 Trajectory Condition 
+
+As shown in Fig. 8 and Tab. 4, OmniCamera achieves highly accurate 3D tra-jectory control across T2V, I2V, and V2V tasks. Compared with state-of-the-art methods such as ReCamMaster [2] (Fig. 9), our approach exhibits superior mo-tion precision with fewer visual artifacts. Benefiting from our OmniCAM dataset and dual-level curriculum co-training, OmniCamera closely follows diverse tra-jectories and generalizes to complex paths (e.g., triangular and polyline paths). 
+
+4.5 Combining Control Modalities and Conflict Analysis 
+
+Multiple control modalities can be combined to achieve composite camera ef-fects. As shown in Fig. 2, distinct conditions can be seamlessly integrated; for instance, a semantic text command (e.g., “Pan right”) can be combined with a 3D trajectory (e.g., dolly out), producing a fused motion in the generated video. We further test potential modality conflicts by providing contradictory motions in pairwise combinations of trajectory, reference video, and text conditions. As shown in Fig. 10, we observe a consistent dominance hierarchy: Trajectory >
+
+Reference Video > Text , indicating that conditions with stronger geometric 12 Y. Wang et al. Text to video 
+
+Image to video 
+
+Video to video    
+
+> Generated  Source  Video
+> Caption :A wide aerial view of a narrow seaside beach lined with rows of
+> beachfront villas surrounded by seawater, with yachts docked in front .
+> Caption :A small flock of sheep gathered beside a tree on a quiet farm,
+> with two playful lambs running and playing next to a larger sheep.
+> Generated Source  Video Generated Generated
+> Generated  Generated
+
+Fig. 8: Qualitative results for trajectory-controlled camera motion. 
+
+Table 6: Ablation study of Curriculum Co-Training across different tasks. CC :condition-level curriculum, DC : data-level curriculum.                                                                              
+
+> Method
+> Trajectory-controlled Reference-video-controlled
+> T2V I2V V2V T2V I2V V2V TransErr ↓RotErr ↓FVD ↓TransErr ↓RotErr ↓FVD ↓TransErr ↓RotErr ↓FVD-V ↓TransErr ↓RotErr ↓FVD ↓TransErr ↓RotErr ↓FVD ↓TransErr ↓RotErr ↓FVD-V ↓
+> w/o CC 3.512 0.052 1024.31 4.821 0.061 412.50 7.425 0.068 405.12 9.510 0.038 982.45 5.762 0.035 410.28 7.214 0.029 415.82 w/o DC 2.845 0.045 965.84 4.103 0.052 378.42 6.512 0.055 362.75 8.324 0.031 925.61 4.951 0.028 381.54 6.185 0.024 382.46
+> Ours 2.064 0.034 893.95 3.355 0.043 333.54 5.933 0.045 331.36 7.109 0.024 868.63 4.195 0.023 352.76 5.392 0.019 348.51
+
+Table 7: Ablation study of Data Composition across different tasks. UE5 : UE5 syn-thetic data, Real : real-world data. 
+
+Method 
+
+Trajectory-controlled Reference-video-controlled 
+
+T2V I2V T2V I2V TransErr ↓ RotErr ↓ FVD ↓ TransErr ↓ RotErr ↓ FVD ↓ TransErr ↓ RotErr ↓ FVD ↓ TransErr ↓ RotErr ↓ FVD ↓
+
+w/o UE5 3.105 0.050 915.22 4.512 0.058 350.14 8.845 0.035 890.56 5.321 0.030 365.21 w/o Real 2.152 0.036 1150.45 3.481 0.045 485.62 7.315 0.026 1085.24 4.352 0.025 492.35 
+
+Ours 2.064 0.034 893.95 3.355 0.043 333.54 7.109 0.024 868.63 4.195 0.023 352.76 
+
+explicitness naturally override weaker, semantic-level ones. For instance, when the input condition combines a “pan left” trajectory with a “pan right” refer-ence video, the output strictly follows the “pan left” camera motion dictated by the trajectory. Similarly, when combining a “pan right” reference video with a “pan left” text prompt, the output adheres exclusively to the “pan right” motion dictated by the video. 
+
+4.6 Ablation Study 
+
+We perform ablation studies to analyze our dual-level curriculum, including the 
+
+condition-level curriculum (CC ) and the data-level curriculum (DC ), as well as the contribution of OmniCAM’s hybrid data sources by ablating either UE5 synthetic videos or curated real-world videos. 
+
+Effect of Dual-level Curriculum. Tab. 6 validates the necessity of our dual-level curriculum. w/o CC jointly trains all tasks from scratch; this naive mixing causes representation conflicts that fail to disentangle camera and content condi-tions. According to the qualitative results in Fig. 11(b)(c), removing CC leads to Abbreviated paper title 13 Trajectory Control   
+
+> Reference Video Control
+> Ours
+> CamClone -
+> Master  ReCamMaster  Content Ref. Ours Content Ref. Camera Ref.  Pan Right Orbiting Left
+> Dolly out Boom down
+> & Tilt up
+> Text Control
+> Ours  Wan -FunCamera
+
+Fig. 9: Visual comparison of OmniCamera with state-of-the-art methods. Text Control: Wan2.2-Fun-Camera produces some artifacts (e.g., the “ear” mutating into “eye”). Trajectory Control: ReCamMaster [2] produces severe distortions on the “bus” and “motorcyclist”. Reference-Video Control: CamCloneMaster [26] executes incorrect camera motion while introducing heavy background and object distortions. 
+
+severe visual degradation, including frame deterioration (e.g., in the car scene) and content hallucination (e.g., erroneous trees). Furthermore, according to the qualitative results w/o DC in Fig. 11(a), it hinders the learning of precise pose control, e.g., missing the “pan left” in the camel scene and “boom down, tilt up” in the bear scene, whereas ours strictly follows the desired trajectories. 
+
+Effect of Data Composition. Tab. 7 explores the effect of data sources by removing UE5 data ( w/o UE5 ) or real data ( w/o Real ). We observe that UE5 data mainly contributes to camera controllability, whereas real data is crucial for closing the domain gap and recovering photorealism. According to the qualitative results of removing real data in Fig. 11(d), relying solely on UE5 data ( w/o Real )results in a noticeable drop in visual realism and introduces erroneous artifacts such as grids in red boxes. In contrast, training with both data sources seamlessly preserves the learned camera control while yielding high-fidelity appearances. 
+
+Further ablations. Please refer to the supplementary materials for additional ablations on 3D Condition RoPE and dual-condition CFG. 14 Y. Wang et al. Content Ref.  
+
+> Pan Left Pan Right
+
+[Pan  Left ] 
+
+> Pan Right Pan Right
+
+[Pan  Left ]   
+
+> Ref. Traj .Ref. Text Text Traj .
+> Generated
+
+Fig. 10: Modality conflict analysis. Pairwise combination of contradictory camera conditions reveals a dominance order: trajectory>reference video>text prompts. w/o  
+
+> Data Curriculum Ours
+> Boom down and tilt up Pan Left
+
+(a) w/o DC on Trajectory-controlled T2V w/o Condition    
+
+> Curriculum Ours
+> Zoom in Boom down and tilt up
+
+(b) w/o CC on Trajectory-controlled I2V Content Reference Video Camera Reference Video  
+
+> w/o Condition
+> Curriculum Ours
+> Content Reference Video Camera Reference Video
+> Orbiting Right Pan Right
+
+(c) w/o CC on Reference-video-controlled V2V w/o Real Data Ours  
+
+> A wide cinematic view of a lush grassland with a winding river, sheep grazing by the banks,
+> and snow -capped mountains under a clear sky.
+> An aerial view of streets lined with historic European buildings, with a distant volcano rising
+> and emitting thick smoke.
+> Pan Right Pan Right
+
+(d) w/o Real data on Trajectory-controlled T2V 
+
+Fig. 11: Qualitative ablation. (a) Removing DC leads to failed camera motions and degraded visual quality. (b)(c) Omitting CC results in structural distortions in I2V and content hallucinations in V2V (red boxes). (d) Training solely on synthetic data ensures precise control but lacks photorealism. 
+
+5 Conclusion 
+
+This paper presents OmniCamera , a unified multi-task video generation frame-work that supports text, trajectory, and reference-video camera control across T2V, I2V, and V2V. We construct the OmniCAM dataset that combines high-precision synthetic trajectories with real-world videos, and propose a dual-level curriculum co-training strategy for stable multi-condition learning. We further introduce 3D Condition RoPE and a dual-condition CFG to mitigate condition conflicts and improve camera controllability. Extensive experiments demonstrate improved controllability with competitive visual quality across tasks. Abbreviated paper title 15 
+
+Limitation. OmniCamera successfully explores and demonstrates the feasibility of decoupling the observation perspective (camera) and scene content in video generation. However, while we unify the most common representations for these two dimensions, our current framework does not yet accommodate finer-grained controls, such as multiple reference images or localized motion guidance. We leave these extensions for future work. Abbreviated paper title 1
+
+## OmniCamera: A Unified Framework for Multi-task Video Generation with Arbitrary Camera Control Supplementary Material 
+
+I Dataset Details 
+
+In this section, we provide additional implementation details for the dataset construction pipeline described in the main paper. This section supplements the 
+
+Real-World Data pipeline in Sec. 3.2 , where Step (k) denotes the corre-sponding key step. Specifically, we report (i) Trajectory filtering in Step (2) , (ii) Trajectory classification in Step (3) , (iii) Intra-class matching in Step (4) , and (iv) Predefined camera-motion library in Sec. 3.2. 
+
+(i) Trajectory filtering (Step (2)). We follow the trajectory filtering criteria described in Sec. 3.2, Step (2) of Real-World Data and provide the concrete thresholds: τjump = 5 for jump filtering and τcomplex = 3 .0 for complexity filter-ing. These criteria apply to the vast majority of trajectories. For degenerate cases with negligible net translation (e.g., rotation-only clips), both rcomplex and rjump 
+
+become uninformative. We therefore skip both complexity filtering and jump filtering for these cases. Clips exhibiting negligible motion in both translation and rotation are removed. 
+
+(ii) Trajectory classification (Step (3); TransErr/RotErr). We perform tra-jectory classification by comparing each trajectory to the predefined motion tem-plates using translation error (TransErr) and rotation error (RotErr). The same TransErr/RotErr computation is also used in Step (4) for intra-class matching. For trajectories with non-negligible translation, we estimate a similarity trans-form between camera positions (centering → rotation via RANSAC+SVD →
+
+global scale via least squares), following the standard least-squares similarity transform estimation [30, 31]. After alignment, we compute: 
+
+TransErr = 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+eTi − Ti 2
+
+, RotErr = 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+cos −1 tr( eRiRT 
+
+> i
+
+) − 12
+
+!
+
+.
+
+(5) For rotation-only trajectories (near-zero translation), we do not perform camera-center alignment. Instead, we remove a single global orientation offset by aligning the first frame: bRi = RT1 Ri and beRi = eRT1 eRi, and then report RotErr using the same definition above with ( beRi, bRi). For identifying near-static clips, we measure both the overall translation displacement and the overall rotation magnitude (e.g., derived from relative rotations, which can be computed robustly via unit quaternions), and discard clips where both are below small thresholds. 2 Y. Wang et al. 
+
+(iii) Intra-class matching (Step (4)). Within each motion class, we accept a pair only if the trajectory discrepancies are below strict thresholds in terms of TransErr and RotErr. For rotation-only trajectories where translation is negli-gible, we ignore the translation discrepancy and match based on RotErr only. 
+
+(iv) Predefined camera-motion library (Synthetic Data in Sec. 3.2). We define 50 camera-motion types (20 basic and 30 composite types). For synthetic rendering, we sample 5K trajectories per type (50 ×5K =250K in total), and asso-ciate each type with a textual description for text-controlled training and motion categorization. For Trajectory Classification (Step (3)), we summarize each type by a single canonical template trajectory and compute TransErr/RotErr against these 50 templates (rather than matching against all 5K instances). Each tem-plate trajectory is generated from the corresponding motion rule with a fixed, canonical parameterization (e.g., default speed/radius and duration), yielding a compact and reproducible template set for efficient classification. The full list of motion types is shown in Tab. 8. Starting from 600K raw internet videos, Step (2) retains 380K videos with reliable trajectory annotations, which are subsequently categorized in Step (3). In Step (4), we perform 3.0M random intra-class candidate matchings and obtain 300K Same-Trajectory, Diverse-Scene real-video pairs after thresholding. 
+
+II Experiment Metrics 
+
+We provide detailed definitions and calculation methods for the evaluation met-rics used in our experiments. 
+
+Visual Quality. We evaluate generation fidelity, text coherence, and temporal consistency. 
+
+– FVD (Fréchet Video Distance): Following standard practice [32, 38], we calculate FVD to quantify the distribution gap between generated and real videos, serving as the primary metric for visual realism and motion naturalness .
+
+– CLIP-T: We compute the average cosine similarity between frames and text prompts to evaluate semantic alignment and prompt adherence. 
+
+– CLIP-F: We measure the average cosine similarity of CLIP embeddings between adjacent frames to assess temporal consistency and smoothness. 
+
+Trajectory Control Accuracy. We employ TransErr and RotErr to quantify the alignment between the target and generated camera poses. Specifically, we extract camera trajectories using MegaSaM [23] and apply the rigorous align-ment protocol described in Sec. I (Dataset Details) to address scale ambiguity. 
+
+– TransErr: The mean Euclidean distance between the aligned camera optical centers (Eq. 1). 
+
+– RotErr: The mean angular error between the aligned camera orientations (Eq. 2). Abbreviated paper title 3 
+
+> Table 8: Predefined camera-motion library: 20 basic and 30 composite types.
+
+Basic Types (20) Composite Types (30) 
+
+1. Pan Left 1. Truck Left+Pan Right 2. Pan Right 2. Truck Right+Pan Left 3. Tilt Up 3. Boom Up+Tilt Down 4. Tilt Down 4. Boom Down+Tilt Up 5. Truck Left 5. Pan Left + Tilt Up 6. Truck Right 6. Pan Right + Tilt Up 7. Dolly In 7. Pan Left + Tilt Down 8. Dolly Out 8. Pan Right + Tilt Down 9. Boom Up 9. Dolly In + Tilt Up 10. Boom Down 10. Dolly In + Tilt Down 11. Roll Clockwise 11. Dolly Out+Tilt Up 12. Roll Counterclockwise 12. Dolly Out+Tilt Down 13. Arc Left 13. Boom Up+Truck Left 14. Arc Right 14. Boom Up+Truck Right 15. Diagonal Forward-Left 15. Boom Up+Pan Left 16. Diagonal Forward-Right 16. Boom Up+Pan Right 17. Diagonal Backward-Left 17. Truck Right+Tilt Up 18. Diagonal Backward-Right 18. Truck Left+Tilt Down 19. Diagonal Forward-Up 19. Truck Left+Tilt Up 20. Diagonal Forward-Down 20. Truck Right+Tilt Down 21. Dolly In+Truck Left+Pan Right 22. Dolly In+Truck Right+Pan Left 23. Dolly Out+Truck Right+Pan Left 24. Dolly Out+Truck Left+Pan Right 25. Orbit Forward-Up+Tilt Down 26. Orbit Forward-Down+Tilt Up 27. Orbit Forward-Up-Left+Tilt Down+Pan Right 28. Orbit Forward-Up-Right+Tilt Down+Pan Left 29. Orbit Forward-Down-Left+Tilt Up+Pan Right 30. Orbit Forward-Down-Right+Tilt Up+Pan Left 
+
+Video Control Accuracy. For reference-video control, we compute TransErr and RotErr between the trajectories of the generated video and the reference video (extracted via MegaSaM). Additionally, for video-to-video (V2V) tasks, we report: 
+
+– FVD-V: We calculate FVD-V following SV4D [35] to measure the distribu-tion fidelity of the generated video to the input reference video. 
+
+– CLIP-V: We compute the average CLIP similarity between spatially aligned frames of the generated and reference videos to evaluate content preservation .
+
+Text Control Accuracy. Since automated metrics struggle to evaluate com-plex 3D camera motions described in text, we conduct a Human Evaluation .Evaluators rate the Motion Accuracy (MotionAcc), indicating whether the gen-erated camera movement correctly follows the textual instruction. 4 Y. Wang et al. 
+
+Table 9: Ablation of 3D Condition RoPE and dual-condition CFG across tasks.                                                                              
+
+> Method
+> Trajectory-controlled Reference-video-controlled
+> T2V I2V V2V T2V I2V V2V TransErr ↓RotErr ↓FVD ↓TransErr ↓RotErr ↓FVD ↓TransErr ↓RotErr ↓FVD-V ↓TransErr ↓RotErr ↓FVD ↓TransErr ↓RotErr ↓FVD ↓TransErr ↓RotErr ↓FVD-V ↓
+> w/o 3D Condition RoPE 3.654 0.055 1108.62 4.932 0.065 452.18 7.651 0.070 442.55 9.751 0.040 1052.37 5.894 0.037 448.24 7.432 0.032 455.46 w/o dual-condition CFG 2.956 0.048 902.45 4.215 0.054 331.12 6.715 0.058 334.87 8.512 0.033 870.21 5.124 0.031 358.33 6.315 0.026 346.92 Ours 2.064 0.034 893.95 3.355 0.043 333.54 5.933 0.045 331.36 7.109 0.024 868.63 4.195 0.023 352.76 5.392 0.019 348.51 Content Ref. Camera Ref.
+> w/o
+> Cond -RoPE Ours
+
+Fig. 12: Visualization of the effect of Condition RoPE. Without Condition RoPE, the model exhibits strong interference between positional encoding and injected con-ditions, leading to unstable and degraded outputs. Applying Condition RoPE yields significantly more coherent and robust generation. 
+
+III More Ablation Results 
+
+3D Condition RoPE. We ablate the 3D Condition RoPE component used for multi-condition camera control. As shown in Tab. 9, removing 3D Condition RoPE ( w/o 3D Condition RoPE ) leads to a consistent degradation across all tasks. The significant increase in both geometric errors (TransErr/RotErr) and visual quality metrics (FVD) demonstrates that 3D Condition RoPE is essential for disentangling the spatial-temporal structure of multiple control signals. This is further visualized in Fig. 12: without 3D Condition RoPE, the injected con-dition tokens interfere with the original positional encoding, making it difficult to establish stable correspondence. Consequently, the outputs exhibit obvious artifacts and structural inconsistency. In contrast, applying 3D Condition RoPE explicitly encodes the positional structure, reducing interference and yielding substantially more coherent results. 
+
+Dual-Condition CFG. We further validate the effectiveness of the dual-condition classifier-free guidance ( w/o dual-condition CFG ). The results shown in Tab. 9 indicate that removing this component primarily degrades camera controlla-bility, resulting in higher trajectory errors, while the impact on visual quality is relatively mild. This confirms that dual-condition CFG plays a critical role in enforcing precise adherence to camera instructions during inference without compromising the generative prior. 
+
+Content Injection Ablation. We explored multiple strategies for injecting video-based conditions into the generation network. First, we concatenate the feature of the condition video along the channel dimension to provide addi-tional semantic cues. Second, we inject the latent features of the condition video Abbreviated paper title 5Video  Ref. Channel  Concat KV - Concat Ours 
+
+> Boom Up
+> & Tilt Down
+
+Fig. 13: Comparison of different con-ditioning injection strategies, including Channel Concat, KV-Concat, and Token Concat (Ours) approach. Video Ref. Dense Inject Deep MLP Ours 
+
+> Pan Left
+
+Fig. 14: Visualization of different camera-conditioning injection strategies, including Dense Injection, Deep MLP, and Sparse Injection (Ours) .
+
+via KV-Concat . Specifically, we concatenate the condition features along the key and value dimensions within the self-attention mechanism. This allows the model to absorb appearance-level content information from the reference video by attending to the extended key-value pairs. As shown in Fig. 13, our proposed injection strategy achieves the most effec-tive conditioning performance. Channel-wise concatenation fails to preserve fine-grained appearance details and high-level semantics. Using KV-Concat 
+
+provides only shallow latent information; as the DiT layers deepen, the model requires progressively richer semantic cues, making this approach insufficient for effective video conditioning. Our integration strategy resolves these limitations and enables robust injection of video appearance and content. 
+
+Camera Injection Ablation. We also explored various strategies for injecting camera-control conditions. Directly inserting the camera MLP embedding into every DiT block of Wan2.2 (Dense Injection) results in unstable optimization and eventual divergence, as shown by the Dense Inject configuration in Fig. 14. We attribute this failure to the high compression ratio of Wan2.2’s VAE, which yields more abstract and high-level latent representations that are inherently fragile to dense perturbations. To mitigate this issue, we investigate two stabilization strategies. First, we adopt a deeper MLP to encode camera features, producing smoother and more expressive embeddings (Deep MLP) . Second, we introduce a (Sparse Injec-tion) scheme, where the camera embedding is injected into only a subset of DiT blocks—specifically, one block every five layers. As shown in Fig. 14, our Sparse Injection method provides a simple yet highly effective mechanism for integrating camera-control instructions without destabilizing training. 
+
+References 
+
+1. Bahmani, S., Skorokhodov, I., Qian, G., Siarohin, A., Menapace, W., Tagliasacchi, A., Lindell, D.B., Tulyakov, S.: Ac3d: Analyzing and improving 3d camera con-trol in video diffusion transformers. In: Proceedings of the Computer Vision and Pattern Recognition Conference (2025) 6 Y. Wang et al. 2. Bai, J., Xia, M., Fu, X., Wang, X., Mu, L., Cao, J., Liu, Z., Hu, H., Bai, X., Wan, P., et al.: Recammaster: Camera-controlled generative rendering from a single video. ICCV (2025) 3. Bai, J., Xia, M., Wang, X., Yuan, Z., Fu, X., Liu, Z., Hu, H., Wan, P., Zhang, D.: Syncammaster: Synchronizing multi-camera video generation from diverse view-points. arXiv preprint arXiv:2412.07760 (2024) 4. Baruch, G., Chen, Z., Dehghan, A., Dimry, T., Feigin, Y., Fu, P., Gebauer, T., Joffe, B., Kurz, D., Schwartz, A., Shulman, E.: ARKitscenes - a diverse real-world dataset for 3d indoor scene understanding using mobile RGB-d data. In: Thirty-fifth Con-ference on Neural Information Processing Systems Datasets and Benchmarks Track (Round 1) (2021), https://openreview.net/forum?id=tjZjv_qh_CE 
+
+5. Bian, W., Huang, Z., Shi, X., Li, Y., Wang, F.Y., Li, H.: Gs-dit: Advancing video generation with pseudo 4d gaussian fields through efficient dense 3d point tracking. arXiv preprint arXiv:2501.02690 (2025) 6. Blattmann, A., Dockhorn, T., Kulal, S., Mendelevitch, D., Kilian, M., Lorenz, D., Levi, Y., English, Z., Voleti, V., Letts, A., et al.: Stable video diffusion: Scaling latent video diffusion models to large datasets. arXiv preprint arXiv:2311.15127 (2023) 7. Brooks, T., Peebles, B., Holmes, C., DePue, W., Guo, Y., Jing, L., Schnurr, D., Taylor, J., Luhman, T., Luhman, E., et al.: Video generation models as world simulators. OpenAI Blog 1(8), 1 (2024) 8. Cai, Y., Zhang, H., Chen, X., Xing, J., Hu, Y., Zhou, Y., Zhang, K., Zhang, Z., Kim, S.Y., Wang, T., et al.: Omnivcus: Feedforward subject-driven video customization with multimodal control conditions. arXiv preprint arXiv:2506.23361 (2025) 9. Chang, A., Dai, A., Funkhouser, T., Halber, M., Niessner, M., Savva, M., Song, S., Zeng, A., Zhang, Y.: Matterport3d: Learning from rgb-d data in indoor envi-ronments. International Conference on 3D Vision (3DV) (2017) 10. Dai, A., Chang, A.X., Savva, M., Halber, M., Funkhouser, T., Nießner, M.: Scannet: Richly-annotated 3d reconstructions of indoor scenes. In: CVPR (2017) 11. Esser, P., Kulal, S., Blattmann, A., Entezari, R., Müller, J., Saini, H., Levi, Y., Lorenz, D., Sauer, A., Boesel, F., et al.: Scaling rectified flow transformers for high-resolution image synthesis. In: Forty-first international conference on machine learning (2024) 12. Feng, W., Liu, J., Tu, P., Qi, T., Sun, M., Ma, T., Zhao, S., Zhou, S., He, Q.: I2vcontrol-camera: Precise video camera control with adjustable motion strength. arXiv preprint arXiv:2411.06525 (2024) 13. Gao, Y., Guo, H., Hoang, T., Huang, W., Jiang, L., Kong, F., Li, H., Li, J., Li, L., Li, X., et al.: Seedance 1.0: Exploring the boundaries of video generation models. arXiv preprint arXiv:2506.09113 (2025) 14. Gu, Z., Yan, R., Lu, J., Li, P., Dou, Z., Si, C., Dong, Z., Liu, Q., Lin, C., Liu, Z., et al.: Diffusion as shader: 3d-aware video diffusion for versatile video generation control. In: Proceedings of the Special Interest Group on Computer Graphics and Interactive Techniques Conference Conference Papers (2025) 15. Guo, Y., Yang, C., Rao, A., Liang, Z., Wang, Y., Qiao, Y., Agrawala, M., Lin, D., Dai, B.: Animatediff: Animate your personalized text-to-image diffusion models without specific tuning. arXiv preprint arXiv:2307.04725 (2023) 16. He, H., Xu, Y., Guo, Y., Wetzstein, G., Dai, B., Li, H., Yang, C.: Cameractrl: En-abling camera control for text-to-video generation. arXiv preprint arXiv:2404.02101 (2024) Abbreviated paper title 717. He, H., Yang, C., Lin, S., Xu, Y., Wei, M., Gui, L., Zhao, Q., Wetzstein, G., Jiang, L., Li, H.: Cameractrl ii: Dynamic scene exploration via camera-controlled video diffusion models. arXiv preprint arXiv:2503.10592 (2025) 18. Hong, W., Ding, M., Zheng, W., Liu, X., Tang, J.: Cogvideo: Large-scale pretrain-ing for text-to-video generation via transformers. arXiv preprint arXiv:2205.15868 (2022) 19. Hou, C., Chen, Z.: Training-free camera control for video generation. arXiv preprint arXiv:2406.10126 (2024) 20. Jin, W., Dai, Q., Luo, C., Baek, S.H., Cho, S.: Flovd: Optical flow meets video diffusion model for enhanced camera-controlled video synthesis. In: CVPR (2025) 21. Labs, B.F.: Flux. https://github.com/black-forest-labs/flux (2024) 22. Li, T., Zheng, G., Jiang, R., Zhan, S., Wu, T., Lu, Y., Lin, Y., Deng, C., Xiong, Y., Chen, M., et al.: Realcam-i2v: Real-world image-to-video generation with in-teractive complex camera control. arXiv preprint arXiv:2502.10059 (2025) 23. Li, Z., Tucker, R., Cole, F., Wang, Q., Jin, L., Ye, V., Kanazawa, A., Holynski, A., Snavely, N.: MegaSaM: Accurate, fast and robust structure and motion from casual dynamic videos. In: CVPR (2025) 24. Ling, L., Sheng, Y., Tu, Z., Zhao, W., Xin, C., Wan, K., Yu, L., Guo, Q., Yu, Z., Lu, Y., et al.: Dl3dv-10k: A large-scale scene dataset for deep learning-based 3d vision. In: CVPR (2024) 25. Lipman, Y., Chen, R.T., Ben-Hamu, H., Nickel, M., Le, M.: Flow matching for generative modeling. arXiv preprint arXiv:2210.02747 (2022) 26. Luo, Y., Bai, J., Shi, X., Xia, M., Wang, X., Wan, P., Zhang, D., Gai, K., Xue, T.: Camclonemaster: Enabling reference-based camera control for video generation. arXiv preprint arXiv:2506.03140 (2025) 27. Ma, X., Wang, Y., Chen, X., Jia, G., Liu, Z., Li, Y.F., Chen, C., Qiao, Y.: Latte: Latent diffusion transformer for video generation. Transactions on Machine Learn-ing Research (2025) 28. Peebles, W., Xie, S.: Scalable diffusion models with transformers. In: Proceedings of the IEEE/CVF international conference on computer vision. pp. 4195–4205 (2023) 29. Ren, X., Shen, T., Huang, J., Ling, H., Lu, Y., Nimier-David, M., Müller, T., Keller, A., Fidler, S., Gao, J.: Gen3c: 3d-informed world-consistent video gener-ation with precise camera control. In: Proceedings of the Computer Vision and Pattern Recognition Conference. pp. 6121–6132 (2025) 30. Sturm, J., Engelhard, N., Endres, F., Burgard, W., Cremers, D.: A benchmark for the evaluation of rgb-d slam systems. In: 2012 IEEE/RSJ international conference on intelligent robots and systems. pp. 573–580. IEEE (2012) 31. Umeyama, S.: Least-squares estimation of transformation parameters between two point patterns. IEEE Transactions on pattern analysis and machine intelligence 
+
+13 (4), 376–380 (2002) 32. Unterthiner, T., van Steenkiste, S., Kurach, K., Marinier, R., Michalski, M., Gelly, S.: Towards accurate generative models of video: A new metric & challenges. arXiv preprint arXiv:1812.01717 (2018) 33. Van Hoorick, B., Wu, R., Ozguroglu, E., Sargent, K., Liu, R., Tokmakov, P., Dave, A., Zheng, C., Vondrick, C.: Generative camera dolly: Extreme monocular dynamic novel view synthesis. In: ECCV. pp. 313–331. Springer (2024) 34. Wan, T., Wang, A., Ai, B., Wen, B., Mao, C., Xie, C.W., Chen, D., Yu, F., Zhao, H., Yang, J., et al.: Wan: Open and advanced large-scale video generative models. arXiv preprint arXiv:2503.20314 (2025) 8 Y. Wang et al. 35. Xie, Y., Yao, C.H., Voleti, V., Jiang, H., Jampani, V.: Sv4d: Dynamic 3d con-tent generation with multi-frame and multi-view consistency. arXiv preprint arXiv:2407.17470 (2024) 36. Xing, J., Xia, M., Zhang, Y., Chen, H., Yu, W., Liu, H., Liu, G., Wang, X., Shan, Y., Wong, T.T.: Dynamicrafter: Animating open-domain images with video diffusion priors. In: ECCV. pp. 399–417. Springer (2024) 37. Xu, D., Nie, W., Liu, C., Liu, S., Kautz, J., Wang, Z., Vahdat, A.: Camco: Camera-controllable 3d-consistent image-to-video generation. arXiv preprint arXiv:2406.02509 (2024) 38. Yan, W., Zhang, Y., Abbeel, P., Srinivas, A.: Videogpt: Video generation using vq-vae and transformers (2021) 39. Yang, L., Kang, B., Huang, Z., Xu, X., Feng, J., Zhao, H.: Depth anything: Un-leashing the power of large-scale unlabeled data. In: Proceedings of the IEEE/CVF conference on computer vision and pattern recognition. pp. 10371–10381 (2024) 40. Yang, Z., Teng, J., Zheng, W., Ding, M., Huang, S., Xu, J., Yang, Y., Hong, W., Zhang, X., Feng, G., et al.: Cogvideox: Text-to-video diffusion models with an expert transformer. arXiv preprint arXiv:2408.06072 (2024) 41. Ye, Z., He, X., Liu, Q., Wang, Q., Wang, X., Wan, P., Zhang, D., Gai, K., Chen, Q., Luo, W.: Unic: Unified in-context video editing. arXiv preprint arXiv:2506.04216 (2025) 42. YU, M., Hu, W., Xing, J., Shan, Y.: Trajectorycrafter: Redirecting camera trajec-tory for monocular videos via diffusion models. arXiv preprint arXiv:2503.05638 (2025) 43. Yu, W., Xing, J., Yuan, L., Hu, W., Li, X., Huang, Z., Gao, X., Wong, T.T., Shan, Y., Tian, Y.: Viewcrafter: Taming video diffusion models for high-fidelity novel view synthesis. arXiv preprint arXiv:2409.02048 (2024) 44. Zhang, D.J., Paiss, R., Zada, S., Karnad, N., Jacobs, D.E., Pritch, Y., Mosseri, I., Shou, M.Z., Wadhwa, N., Ruiz, N.: Recapture: Generative video camera controls for user-provided videos using masked video fine-tuning. In: Proceedings of the Computer Vision and Pattern Recognition Conference. pp. 2050–2062 (2025) 45. Zhou, T., Tucker, R., Flynn, J., Fyffe, G., Snavely, N.: Stereo magnification: Learn-ing view synthesis using multiplane images. arXiv preprint arXiv:1805.09817 (2018)
