@@ -6,55 +6,63 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-12
-- 运行时间：2026-04-12 19:25:10 UTC
+- 最新运行日期：2026-04-13
+- 运行时间：2026-04-13 20:00:52 UTC
 - 运行状态：成功
-- 本次总论文数：11
-- 精读区：1
-- 速读区：10
+- 本次总论文数：14
+- 精读区：3
+- 速读区：11
 
 ### 今日简报（AI）
-今日聚焦第一视角 4D 场景重建与大规模几何语义数据集，深度解析 11 篇前沿成果。
-重点推荐 DP-DeGauss 的动态概率高斯分解技术，以及 SceneScribe-1M 提供的百万级视频标注资源。
-建议关注高斯泼溅（Gaussian Splatting）在动态建模与自动驾驶视图合成中的最新演进。
-- 详情：[/202604/12/README](/202604/12/README)
+今日深入探索 3D 生成前沿，重点解析了风格化 3D 高斯泼溅及可动画资产生成的最新突破。
+SIC3D 凭借 9.0 高分领衔风格化 3D 建模，AniGen 则通过统一场技术实现了高质量可动画 3D 资产的自动化生成。
+- 详情：[/202604/13/README](/202604/13/README)
 
 ### 精读区论文标签
-1. [DP-DeGauss: Dynamic Probabilistic Gaussian Decomposition for Egocentric 4D Scene Reconstruction](/202604/12/2604.07986v1-dp-degauss-dynamic-probabilistic-gaussian-decomposition-for-egocentric-4d-scene-reconstruction)  
+1. [SIC3D: Style Image Conditioned Text-to-3D Gaussian Splatting Generation](/202604/13/2604.08760v1-sic3d-style-image-conditioned-text-to-3d-gaussian-splatting-generation)  
+   标签：评分：9.0/10、query:3dgen
+   evidence：文本到3D高斯泼溅生成
+2. [AniGen: Unified $S^3$ Fields for Animatable 3D Asset Generation](/202604/13/2604.08746v1-anigen-unified-s3-fields-for-animatable-3d-asset-generation)  
    标签：评分：8.0/10、query:3dgen
-   evidence：第一视角4D场景重建框架
+   evidence：基于单张图像生成可动画化的3D资产
+3. [V-CAGE: Vision-Closed-Loop Agentic Generation Engine for Robotic Manipulation](/202604/13/2604.09036v1-v-cage-vision-closed-loop-agentic-generation-engine-for-robotic-manipulation)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：用于机器人数据合成的自主场景生成代理框架
 
 ### 速读区论文标签
-1. [Geo-EVS: Geometry-Conditioned Extrapolative View Synthesis for Autonomous Driving](/202604/12/2604.07250v1-geo-evs-geometry-conditioned-extrapolative-view-synthesis-for-autonomous-driving)  
+1. [A Semi-Automated Framework for 3D Reconstruction of Medieval Manuscript Miniatures](/202604/13/2604.08610v1-a-semi-automated-framework-for-3d-reconstruction-of-medieval-manuscript-miniatures)  
    标签：评分：7.0/10、query:3dgen
-   evidence：为自动驾驶场景生成虚拟视角
-2. [From Blobs to Spokes: High-Fidelity Surface Reconstruction via Oriented Gaussians](/202604/12/2604.07337v1-from-blobs-to-spokes-high-fidelity-surface-reconstruction-via-oriented-gaussians)  
+   evidence：评估包括Hi3DGen在内的图像转3D方法
+2. [TouchAnything: Diffusion-Guided 3D Reconstruction from Sparse Robot Touches](/202604/13/2604.08945v1-touchanything-diffusion-guided-3d-reconstruction-from-sparse-robot-touches)  
    标签：评分：7.0/10、query:3dgen
-   evidence：复杂场景的表面重建
-3. [SceneScribe-1M: A Large-Scale Video Dataset with Comprehensive Geometric and Semantic Annotations](/202604/12/2604.07990v1-scenescribe-1m-a-large-scale-video-dataset-with-comprehensive-geometric-and-semantic-annotations)  
+   evidence：基于稀疏机器人触觉的扩散引导3D重建
+3. [BlendFusion -- Scalable Synthetic Data Generation for Diffusion Model Training](/202604/13/2604.09022v1-blendfusion----scalable-synthetic-data-generation-for-diffusion-model-training)  
    标签：评分：7.0/10、query:3dgen
-   evidence：用于3D几何感知和合成的大规模视频数据集
-4. [Novel View Synthesis as Video Completion](/202604/12/2604.08500v1-novel-view-synthesis-as-video-completion)  
+   evidence：从3D场景生成合成数据
+4. [Physically Grounded 3D Generative Reconstruction under Hand Occlusion using Proprioception and Multi-Contact Touch](/202604/13/2604.09100v1-physically-grounded-3d-generative-reconstruction-under-hand-occlusion-using-proprioception-and-multi-contact-touch)  
    标签：评分：7.0/10、query:3dgen
-   evidence：使用视频扩散模型进行场景预测的新视角合成
-5. [Visually-grounded Humanoid Agents](/202604/12/2604.08509v1-visually-grounded-humanoid-agents)  
+   evidence：使用扩散模型的3D生成式重建
+5. [Strips as Tokens: Artist Mesh Generation with Native UV Segmentation](/202604/13/2604.09132v1-strips-as-tokens-artist-mesh-generation-with-native-uv-segmentation)  
    标签：评分：7.0/10、query:3dgen
-   evidence：在3D环境中填充数字人
-6. [SymphoMotion: Joint Control of Camera Motion and Object Dynamics for Coherent Video Generation](/202604/12/2604.03723v1-symphomotion-joint-control-of-camera-motion-and-object-dynamics-for-coherent-video-generation)  
+   evidence：用于艺术家级网格生成的自回归Transformer
+6. [Hitem3D 2.0: Multi-View Guided Native 3D Texture Generation](/202604/13/2604.09231v1-hitem3d-20-multi-view-guided-native-3d-texture-generation)  
+   标签：评分：7.0/10、query:3dgen
+   evidence：多视图引导的原生3D纹理生成框架
+7. [Rays as Pixels: Learning A Joint Distribution of Videos and Camera Trajectories](/202604/13/2604.09429v1-rays-as-pixels-learning-a-joint-distribution-of-videos-and-camera-trajectories)  
+   标签：评分：7.0/10、query:3dgen
+   evidence：从输入图像联合生成视频和相机轨迹
+8. [PhyEdit: Towards Real-World Object Manipulation via Physically-Grounded Image Editing](/202604/13/2604.07230v2-phyedit-towards-real-world-object-manipulation-via-physically-grounded-image-editing)  
    标签：评分：6.0/10、query:3dgen
-   evidence：使用3D轨迹嵌入的视频生成
-7. [OmniCamera: A Unified Framework for Multi-task Video Generation with Arbitrary Camera Control](/202604/12/2604.06010v1-omnicamera-a-unified-framework-for-multi-task-video-generation-with-arbitrary-camera-control)  
+   evidence：利用显式几何模拟的图像编辑框架
+9. [Scene-Agnostic Object-Centric Representation Learning for 3D Gaussian Splatting](/202604/13/2604.09045v1-scene-agnostic-object-centric-representation-learning-for-3d-gaussian-splatting)  
    标签：评分：6.0/10、query:3dgen
-   evidence：场景内容与相机运动的生成模型
-8. [Language-Guided Multimodal Texture Authoring via Generative Models](/202604/12/2604.06489v1-language-guided-multimodal-texture-authoring-via-generative-models)  
+   evidence：3D场景理解中的以对象为中心的表示
+10. [Structure-Aware Fine-Grained Gaussian Splatting for Expressive Avatar Reconstruction](/202604/13/2604.09324v1-structure-aware-fine-grained-gaussian-splatting-for-expressive-avatar-reconstruction)  
    标签：评分：6.0/10、query:3dgen
-   evidence：语言驱动的多模态纹理创作系统
-9. [OpenSpatial: A Principled Data Engine for Empowering Spatial Intelligence](/202604/12/2604.07296v1-openspatial-a-principled-data-engine-for-empowering-spatial-intelligence)  
+   evidence：从单目视频中重建具有表现力的全身3D人体化身
+11. [Robust 4D Visual Geometry Transformer with Uncertainty-Aware Priors](/202604/13/2604.09366v1-robust-4d-visual-geometry-transformer-with-uncertainty-aware-priors)  
    标签：评分：6.0/10、query:3dgen
-   evidence：空间智能数据生成系统
-10. [Self-Improving 4D Perception via Self-Distillation](/202604/12/2604.08532v1-self-improving-4d-perception-via-self-distillation)  
-   标签：评分：6.0/10、query:3dgen
-   evidence：动态场景的4D感知与重建
+   evidence：重建动态4D场景并建模不确定性
 
 
 <div class="dpr-home-promo-card">
