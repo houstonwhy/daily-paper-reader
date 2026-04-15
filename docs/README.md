@@ -6,74 +6,70 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-14
-- 运行时间：2026-04-14 19:01:12 UTC
+- 最新运行日期：2026-04-15
+- 运行时间：2026-04-15 19:29:53 UTC
 - 运行状态：成功
-- 本次总论文数：18
-- 精读区：7
+- 本次总论文数：16
+- 精读区：5
 - 速读区：11
 
 ### 今日简报（AI）
-今日聚焦 3D 场景生成新突破，深度解析物理一致性优化与全景视频扩散等 18 篇前
-- 详情：[/202604/14/README](/202604/14/README)
+今日聚焦 3D 场景生成新突破，深度解读利用全景视频扩散模型构建可探索虚拟世界的两项满分研究。
+Rein3D 与 Lyra 2.0 标志着生成式 3D 空间在保真度与交互性上取得跨越，让大规模室内场景的自动化构建成为可能。
+建议关注 3D 资产的动态化与无缝合成技术，探索 AI 生成内容在游戏开发与元宇宙构建中的落地潜力。
+- 详情：[/202604/15/README](/202604/15/README)
 
 ### 精读区论文标签
-1. [PhyMix: Towards Physically Consistent Single-Image 3D Indoor Scene Generation with Implicit--Explicit Optimization](/202604/14/2604.10125v1-phymix-towards-physically-consistent-single-image-3d-indoor-scene-generation-with-implicit--explicit-optimization)  
+1. [Rein3D: Reinforced 3D Indoor Scene Generation with Panoramic Video Diffusion Models](/202604/15/2604.10578v2-rein3d-reinforced-3d-indoor-scene-generation-with-panoramic-video-diffusion-models)  
    标签：评分：10.0/10、query:3dgen
-   evidence：物理一致的单图3D室内场景生成
-2. [Rein3D: Reinforced 3D Indoor Scene Generation with Panoramic Video Diffusion Models](/202604/14/2604.10578v1-rein3d-reinforced-3d-indoor-scene-generation-with-panoramic-video-diffusion-models)  
+   evidence：利用全景扩散模型生成3D室内场景
+2. [Lyra 2.0: Explorable Generative 3D Worlds](/202604/15/2604.13036v1-lyra-20-explorable-generative-3d-worlds)  
    标签：评分：10.0/10、query:3dgen
-   evidence：利用视频扩散和高斯泼溅生成3D室内场景
-3. [HOG-Layout: Hierarchical 3D Scene Generation, Optimization and Editing via Vision-Language Models](/202604/14/2604.10772v1-hog-layout-hierarchical-3d-scene-generation-optimization-and-editing-via-vision-language-models)  
-   标签：评分：10.0/10、query:3dgen
-   evidence：文本驱动的分层3D场景生成
-4. [Any 3D Scene is Worth 1K Tokens: 3D-Grounded Representation for Scene Generation at Scale](/202604/14/2604.11331v1-any-3d-scene-is-worth-1k-tokens-3d-grounded-representation-for-scene-generation-at-scale)  
-   标签：评分：10.0/10、query:3dgen
-   evidence：用于大规模场景生成的3D基础表示
-5. [Pair2Scene: Learning Local Object Relations for Procedural Scene Generation](/202604/14/2604.11808v1-pair2scene-learning-local-object-relations-for-procedural-scene-generation)  
-   标签：评分：10.0/10、query:3dgen
-   evidence：程序化3D室内场景生成框架
-6. [INSPATIO-WORLD: A Real-Time 4D World Simulator via Spatiotemporal Autoregressive Modeling](/202604/14/2604.07209v2-inspatio-world-a-real-time-4d-world-simulator-via-spatiotemporal-autoregressive-modeling)  
+   evidence：可探索的生成式3D世界与场景创建
+3. [SceneCritic: A Symbolic Evaluator for 3D Indoor Scene Synthesis](/202604/15/2604.13035v1-scenecritic-a-symbolic-evaluator-for-3d-indoor-scene-synthesis)  
    标签：评分：9.0/10、query:3dgen
-   evidence：生成高保真动态交互场景
-7. [ReplicateAnyScene: Zero-Shot Video-to-3D Composition via Textual-Visual-Spatial Alignment](/202604/14/2604.10789v1-replicateanyscene-zero-shot-video-to-3d-composition-via-textual-visual-spatial-alignment)  
-   标签：评分：9.0/10、query:3dgen
-   evidence：将视频零样本转换为结构化3D场景
+   evidence：3D室内场景合成的符号化评估器
+4. [ArtifactWorld: Scaling 3D Gaussian Splatting Artifact Restoration via Video Generation Models](/202604/15/2604.12251v1-artifactworld-scaling-3d-gaussian-splatting-artifact-restoration-via-video-generation-models)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：3D高斯泼溅伪影修复与场景合成
+5. [Towards Realistic and Consistent Orbital Video Generation via 3D Foundation Priors](/202604/15/2604.12309v1-towards-realistic-and-consistent-orbital-video-generation-via-3d-foundation-priors)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：用于生成视频和场景一致性的3D基础先验
 
 ### 速读区论文标签
-1. [FreeScale: Scaling 3D Scenes via Certainty-Aware Free-View Generation](/202604/14/2604.10512v1-freescale-scaling-3d-scenes-via-certainty-aware-free-view-generation)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：通过确定性感知自由视角生成扩展3D场景
-2. [HO-Flow: Generalizable Hand-Object Interaction Generation with Latent Flow Matching](/202604/14/2604.10836v1-ho-flow-generalizable-hand-object-interaction-generation-with-latent-flow-matching)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：基于文本的3D手-物交互生成
-3. [GS4City: Hierarchical Semantic Gaussian Splatting via City-Model Priors](/202604/14/2604.11401v1-gs4city-hierarchical-semantic-gaussian-splatting-via-city-model-priors)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：用于城市场景理解的语义高斯泼溅
-4. [SyncFix: Fixing 3D Reconstructions via Multi-View Synchronization](/202604/14/2604.11797v1-syncfix-fixing-3d-reconstructions-via-multi-view-synchronization)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：通过多视图同步修复3D重建
-5. [Incremental Semantics-Aided Meshing from LiDAR-Inertial Odometry and RGB Direct Label Transfer](/202604/14/2604.09478v1-incremental-semantics-aided-meshing-from-lidar-inertial-odometry-and-rgb-direct-label-transfer)  
+1. [AniGen: Unified $S^3$ Fields for Animatable 3D Asset Generation](/202604/15/2604.08746v2-anigen-unified-s3-fields-for-animatable-3d-asset-generation)  
    标签：评分：7.0/10、query:3dgen
-   evidence：室内扫描的增量语义辅助高质量网格生成
-6. [Text-Guided 6D Object Pose Rearrangement via Closed-Loop VLM Agents](/202604/14/2604.09781v1-text-guided-6d-object-pose-rearrangement-via-closed-loop-vlm-agents)  
+   evidence：从单张图像生成可动画化的3D资产
+2. [MeshOn: Intersection-Free Mesh-to-Mesh Composition](/202604/15/2604.08799v1-meshon-intersection-free-mesh-to-mesh-composition)  
    标签：评分：7.0/10、query:3dgen
-   evidence：文本引导的3D场景中物体位姿重排
-7. [DINO_4D: Semantic-Aware 4D Reconstruction](/202604/14/2604.09877v1-dino4d-semantic-aware-4d-reconstruction)  
+   evidence：用于3D场景合成的网格到网格组合
+3. [A Comparison of Multi-View Stereo Methods for Photogrammetric 3D Reconstruction: From Traditional to Learning-Based Approaches](/202604/15/2604.10246v1-a-comparison-of-multi-view-stereo-methods-for-photogrammetric-3d-reconstruction-from-traditional-to-learning-based-approaches)  
    标签：评分：7.0/10、query:3dgen
-   evidence：动态场景的4D重建与世界模型
-8. [PointSplat: Efficient Geometry-Driven Pruning and Transformer Refinement for 3D Gaussian Splatting](/202604/14/2604.09903v1-pointsplat-efficient-geometry-driven-pruning-and-transformer-refinement-for-3d-gaussian-splatting)  
+   evidence：基于学习的3D重建方法比较
+4. [Learning 3D Representations for Spatial Intelligence from Unposed Multi-View Images](/202604/15/2604.10573v1-learning-3d-representations-for-spatial-intelligence-from-unposed-multi-view-images)  
    标签：评分：7.0/10、query:3dgen
-   evidence：用于3D高斯泼溅场景表示的几何驱动框架
-9. [MAG-3D: Multi-Agent Grounded Reasoning for 3D Understanding](/202604/14/2604.09167v1-mag-3d-multi-agent-grounded-reasoning-for-3d-understanding)  
+   evidence：用于场景理解的3D表示学习
+5. [Ψ-Map: Panoptic Surface Integrated Mapping Enables Real2Sim Transfer](/202604/15/2604.10982v1--map-panoptic-surface-integrated-mapping-enables-real2sim-transfer)  
+   标签：评分：7.0/10、query:3dgen
+   evidence：大规模环境的全景表面集成映射
+6. [PDF-GS: Progressive Distractor Filtering for Robust 3D Gaussian Splatting](/202604/15/2604.12580v1-pdf-gs-progressive-distractor-filtering-for-robust-3d-gaussian-splatting)  
+   标签：评分：7.0/10、query:3dgen
+   evidence：用于场景渲染的鲁棒3D高斯泼溅
+7. [Habitat-GS: A High-Fidelity Navigation Simulator with Dynamic Gaussian Splatting](/202604/15/2604.12626v1-habitat-gs-a-high-fidelity-navigation-simulator-with-dynamic-gaussian-splatting)  
+   标签：评分：7.0/10、query:3dgen
+   evidence：基于3D高斯泼溅环境的导航模拟器
+8. [MV3DIS: Multi-View Mask Matching via 3D Guides for Zero-Shot 3D Instance Segmentation](/202604/15/2604.08916v1-mv3dis-multi-view-mask-matching-via-3d-guides-for-zero-shot-3d-instance-segmentation)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于3D场景定位推理的多智能体框架
-10. [GeRM: A Generative Rendering Model From Physically Realistic to Photorealistic](/202604/14/2604.09304v1-germ-a-generative-rendering-model-from-physically-realistic-to-photorealistic)  
+   evidence：场景中的零样本3D实例分割
+9. [EgoFun3D: Modeling Interactive Objects from Egocentric Videos using Function Templates](/202604/15/2604.11038v1-egofun3d-modeling-interactive-objects-from-egocentric-videos-using-function-templates)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于照片级真实感的生成式渲染模型
-11. [SynFlow: Scaling Up LiDAR Scene Flow Estimation with Synthetic Data](/202604/14/2604.09411v1-synflow-scaling-up-lidar-scene-flow-estimation-with-synthetic-data)  
+   evidence：为具身智能建模交互式3D物体
+10. [3DTV: A Feedforward Interpolation Network for Real-Time View Synthesis](/202604/15/2604.11211v1-3dtv-a-feedforward-interpolation-network-for-real-time-view-synthesis)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于3D场景流的合成数据生成
+   evidence：实时视图合成与场景几何
+11. [VVGT: Visual Volume-Grounded Transformer](/202604/15/2604.12217v1-vvgt-visual-volume-grounded-transformer)  
+   标签：评分：6.0/10、query:3dgen
+   evidence：将体积数据映射到3D高斯泼溅表示
 
 
 <div class="dpr-home-promo-card">
