@@ -6,64 +6,65 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-16
-- 运行时间：2026-04-16 19:52:42 UTC
+- 最新运行日期：2026-04-17
+- 运行时间：2026-04-17 19:44:08 UTC
 - 运行状态：成功
-- 本次总论文数：14
-- 精读区：3
+- 本次总论文数：15
+- 精读区：4
 - 速读区：11
 
 ### 今日简报（AI）
-今日深度探索 3D 生成前沿，重点攻克持续学习与高效图像转 3D 难题。
-推荐关注 ReConText3D 的重放机制及稀疏查询技术，它们显著提升了 3D 建模的连续性与生成效率。
-建议从物理属性还原与多视图同步修复入手，了解如何让 3D 重建结果更精准且符合物理规律。
-- 详情：[/202604/16/README](/202604/16/README)
+今日聚焦 3D 世界模型与场景生成，深度解析包括 HY-World 2.0 在内的 15
+- 详情：[/202604/17/README](/202604/17/README)
 
 ### 精读区论文标签
-1. [ReConText3D: Replay-based Continual Text-to-3D Generation](/202604/16/2604.13730v1-recontext3d-replay-based-continual-text-to-3d-generation)  
+1. [HY-World 2.0: A Multi-Modal World Model for Reconstructing, Generating, and Simulating 3D Worlds](/202604/17/2604.14268v1-hy-world-20-a-multi-modal-world-model-for-reconstructing-generating-and-simulating-3d-worlds)  
    标签：评分：10.0/10、query:3dgen
-   evidence：首个持续文本到3D生成的框架
-2. [Rethinking Image-to-3D Generation with Sparse Queries: Efficiency, Capacity, and Input-View Bias](/202604/16/2604.13905v1-rethinking-image-to-3d-generation-with-sparse-queries-efficiency-capacity-and-input-view-bias)  
+   evidence：文本到3D世界生成，合成可导航的3D高斯泼溅场景
+2. [Geometrically Consistent Multi-View Scene Generation from Freehand Sketches](/202604/17/2604.14302v1-geometrically-consistent-multi-view-scene-generation-from-freehand-sketches)  
    标签：评分：9.0/10、query:3dgen
-   evidence：高效的图像到3D场景生成框架
-3. [Feed-Forward 3D Scene Modeling: A Problem-Driven Perspective](/202604/16/2604.14025v1-feed-forward-3d-scene-modeling-a-problem-driven-perspective)  
+   evidence：从手绘草图生成多视图场景
+3. [Beyond Prompts: Unconditional 3D Inversion for Out-of-Distribution Shapes](/202604/17/2604.14914v1-beyond-prompts-unconditional-3d-inversion-for-out-of-distribution-shapes)  
    标签：评分：8.0/10、query:3dgen
-   evidence：前馈3D场景建模与重建综述
+   evidence：对文本到 3D 生成模型及反转的研究
+4. [TokenGS: Decoupling 3D Gaussian Prediction from Pixels with Learnable Tokens](/202604/17/2604.15239v1-tokengs-decoupling-3d-gaussian-prediction-from-pixels-with-learnable-tokens)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：使用可学习令牌的前馈3D高斯泼溅预测
 
 ### 速读区论文标签
-1. [ReconPhys: Reconstruct Appearance and Physical Attributes from Single Video](/202604/16/2604.07882v1-reconphys-reconstruct-appearance-and-physical-attributes-from-single-video)  
+1. [PDF-GS: Progressive Distractor Filtering for Robust 3D Gaussian Splatting](/202604/17/2604.12580v2-pdf-gs-progressive-distractor-filtering-for-robust-3d-gaussian-splatting)  
    标签：评分：7.0/10、query:3dgen
-   evidence：从视频中进行非刚性物体的3D重建
-2. [FF3R: Feedforward Feature 3D Reconstruction from Unconstrained views](/202604/16/2604.09862v1-ff3r-feedforward-feature-3d-reconstruction-from-unconstrained-views)  
+   evidence：用于场景渲染的鲁棒3D高斯泼溅
+2. [Beyond Voxel 3D Editing: Learning from 3D Masks and Self-Constructed Data](/202604/17/2604.13688v1-beyond-voxel-3d-editing-learning-from-3d-masks-and-self-constructed-data)  
    标签：评分：7.0/10、query:3dgen
-   evidence：统一了非约束多视图序列的几何和语义推理
-3. [SyncFix: Fixing 3D Reconstructions via Multi-View Synchronization](/202604/16/2604.11797v2-syncfix-fixing-3d-reconstructions-via-multi-view-synchronization)  
+   evidence：使用提示词对3D资产进行3D编辑和修改
+3. [ClipGStream: Clip-Stream Gaussian Splatting for Any Length and Any Motion Multi-View Dynamic Scene Reconstruction](/202604/17/2604.13746v1-clipgstream-clip-stream-gaussian-splatting-for-any-length-and-any-motion-multi-view-dynamic-scene-reconstruction)  
    标签：评分：7.0/10、query:3dgen
-   evidence：基于扩散的重建3D场景细化以保证一致性
-4. [GGD-SLAM: Monocular 3DGS SLAM Powered by Generalizable Motion Model for Dynamic Environments](/202604/16/2604.12837v1-ggd-slam-monocular-3dgs-slam-powered-by-generalizable-motion-model-for-dynamic-environments)  
+   evidence：动态3D场景重建与合成
+4. [Any3DAvatar: Fast and High-Quality Full-Head 3D Avatar Reconstruction from Single Portrait Image](/202604/17/2604.13856v1-any3davatar-fast-and-high-quality-full-head-3d-avatar-reconstruction-from-single-portrait-image)  
    标签：评分：7.0/10、query:3dgen
-   evidence：用于动态环境稠密建图的3D高斯泼溅技术
-5. [MSGS: Multispectral 3D Gaussian Splatting](/202604/16/2604.13340v1-msgs-multispectral-3d-gaussian-splatting)  
+   evidence：从单张图像生成3D高斯头部化身
+5. [Geometric Context Transformer for Streaming 3D Reconstruction](/202604/17/2604.14141v2-geometric-context-transformer-for-streaming-3d-reconstruction)  
    标签：评分：7.0/10、query:3dgen
-   evidence：用于视图合成的多光谱3D高斯泼溅扩展
-6. [DF3DV-1K: A Large-Scale Dataset and Benchmark for Distractor-Free Novel View Synthesis](/202604/16/2604.13416v1-df3dv-1k-a-large-scale-dataset-and-benchmark-for-distractor-free-novel-view-synthesis)  
+   evidence：用于从流数据重建场景的3D基础模型
+6. [Hybrid Latents -- Geometry-Appearance-Aware Surfel Splatting](/202604/17/2604.14928v1-hybrid-latents----geometry-appearance-aware-surfel-splatting)  
    标签：评分：7.0/10、query:3dgen
-   evidence：用于新视角合成和场景主题的大规模数据集
-7. [CT-1: Vision-Language-Camera Models Transfer Spatial Reasoning Knowledge to Camera-Controllable Video Generation](/202604/16/2604.09201v1-ct-1-vision-language-camera-models-transfer-spatial-reasoning-knowledge-to-camera-controllable-video-generation)  
+   evidence：用于3D场景重建的混合辐射场表示
+7. [GlobalSplat: Efficient Feed-Forward 3D Gaussian Splatting via Global Scene Tokens](/202604/17/2604.15284v1-globalsplat-efficient-feed-forward-3d-gaussian-splatting-via-global-scene-tokens)  
+   标签：评分：7.0/10、query:3dgen
+   evidence：用于场景表示的高效前馈3D高斯泼溅技术
+8. [Dehaze-then-Splat: Generative Dehazing with Physics-Informed 3D Gaussian Splatting for Smoke-Free Novel View Synthesis](/202604/17/2604.13589v1-dehaze-then-splat-generative-dehazing-with-physics-informed-3d-gaussian-splatting-for-smoke-free-novel-view-synthesis)  
    标签：评分：6.0/10、query:3dgen
-   evidence：将空间推理转移到相机可控的场景生成
-8. [LumiMotion: Improving Gaussian Relighting with Scene Dynamics](/202604/16/2604.10994v1-lumimotion-improving-gaussian-relighting-with-scene-dynamics)  
+   evidence：生成式新视角合成与3D高斯泼溅重建
+9. [SceneGlue: Scene-Aware Transformer for Feature Matching without Scene-Level Annotation](/202604/17/2604.13941v1-sceneglue-scene-aware-transformer-for-feature-matching-without-scene-level-annotation)  
    标签：评分：6.0/10、query:3dgen
-   evidence：3D重建中的高斯重光照与逆渲染
-9. [Unfolding 3D Gaussian Splatting via Iterative Gaussian Synopsis](/202604/16/2604.11685v1-unfolding-3d-gaussian-splatting-via-iterative-gaussian-synopsis)  
+   evidence：用于跨视图对应的场景感知特征匹配框架
+10. [SpatialEvo: Self-Evolving Spatial Intelligence via Deterministic Geometric Environments](/202604/17/2604.14144v1-spatialevo-self-evolving-spatial-intelligence-via-deterministic-geometric-environments)  
    标签：评分：6.0/10、query:3dgen
-   evidence：3D高斯泼溅的渐进式渲染与表示
-10. [Reconstruction of a 3D wireframe from a single line drawing via generative depth estimation](/202604/16/2604.13549v1-reconstruction-of-a-3d-wireframe-from-a-single-line-drawing-via-generative-depth-estimation)  
+   evidence：几何环境中的3D空间推理
+11. [One-shot Compositional 3D Head Avatars with Deformable Hair](/202604/17/2604.14782v1-one-shot-compositional-3d-head-avatars-with-deformable-hair)  
    标签：评分：6.0/10、query:3dgen
-   evidence：从2D草图重建3D模型的生成式方法
-11. [Geometric Context Transformer for Streaming 3D Reconstruction](/202604/16/2604.14141v1-geometric-context-transformer-for-streaming-3d-reconstruction)  
-   标签：评分：6.0/10、query:3dgen
-   evidence：场景的流式3D重建
+   evidence：组合式 3D 头部头像生成
 
 
 <div class="dpr-home-promo-card">

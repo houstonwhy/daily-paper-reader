@@ -1,0 +1,569 @@
+Title: SceneGlue: Scene-Aware Transformer for Feature Matching without Scene-Level Annotation
+
+URL Source: https://arxiv.org/pdf/2604.13941v1
+
+Published Time: Thu, 16 Apr 2026 01:04:44 GMT
+
+Number of Pages: 14
+
+Markdown Content:
+> IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS FOR VIDEO TECHNOLOGY 1
+
+# SceneGlue: Scene-Aware Transformer for Feature Matching without Scene-Level Annotation 
+
+Songlin Du, Xiaoyong Lu, Yaping Yan, Guobao Xiao, Xiaobo Lu, and Takeshi Ikenaga, Senior Member, IEEE 
+
+Abstract —Local feature matching plays a critical role in understanding the correspondence between cross-view images. However, traditional methods are constrained by the inherent local nature of feature descriptors, limiting their ability to capture non-local scene information that is essential for accurate cross-view correspondence. In this paper, we introduce SceneGlue, a scene-aware feature matching framework designed to overcome these limitations. SceneGlue leverages a hybridizable matching paradigm that integrates implicit parallel attention and explicit cross-view visibility estimation. The parallel attention mechanism simultaneously exchanges information among local descriptors within and across images, enhancing the scene’s global context. To further enrich the scene awareness, we propose the Visibility Transformer, which explicitly categorizes features into visible and invisible regions, providing an understanding of cross-view scene visibility. By combining explicit and implicit scene-level awareness, SceneGlue effectively compensates for the local descriptor constraints. Notably, SceneGlue is trained using only local feature matches, without requiring scene-level groundtruth annotations. This scene-aware approach not only improves accu-racy and robustness but also enhances interpretability compared to traditional methods. Extensive experiments on applications such as homography estimation, pose estimation, image matching, and visual localization validate SceneGlue’s superior perfor-mance. The source code is available at https://github.com/songlin-du/SceneGlue. 
+
+Index Terms —Feature matching, scene awareness, parallel attention, cross-view visibility estimation. 
+
+I. I NTRODUCTION 
+
+# FEATURE matching, which aims to find the correct corre-spondence between two sets of features, is a fundamental problem for many computer vision tasks, such as object recognition [1], structure from motion (SfM) [2], and simulta-neous localization and mapping (SLAM) [3]. Existing feature matching approaches mainly resort to local descriptors to rep-resent textures around the keypoints of neighboring regions of 
+
+This work was supported in part by the National Natural Science Foundation of China under grant 62201142, in part by the Frontier Technologies R&D Program of Jiangsu under Grant BF2024060, in part by the Shenzhen Science and Technology Program under grant JCYJ20240813161801002, and in part by the Guangdong Basic and Applied Basic Research Foundation under grants 2025A1515011943 and 2026A1515012748. (Corresponding author: Songlin Du.) 
+
+Songlin Du, Xiaoyong Lu and Xiaobo Lu are with the School of Automa-tion, Southeast University, Nanjing 210096, China, and also with the Shenzhen Research Institute of Southeast University, Shenzhen 518063, China (e-mail: sdu@seu.edu.cn; luxiaoyong@seu.edu.cn; xblu@seu.edu.cn). Yaping Yan is with the School of Computer Science and Engineering, Southeast University, Nanjing 210096, China (e-mail: yan@seu.edu.cn). Guobao Xiao is with the School of Computer Science and Technology, Tongji University, Shanghai 201804, China (e-mail: gbx@tongji.edu.cn). Takeshi Ikenaga is with the Graduate School of Information, Production and Systems, Waseda University, Kitakyushu 808-0135, Japan (e-mail: ike-naga@waseda.jp). 
+
+> Scene-level visibility Point-level correspondence
+
+Fig. 1. Graphical illustration of the intuition lying behind the proposed SceneGlue. The scene-level estimation of cross-view visibility would enable the local feature descriptors to overcome the limitation caused by their local nature. 
+
+interest [4]–[6]. Specifically, a general pipeline consists of four phases: 1) feature detection, 2) feature description, 3) feature matching, and 4) outlier filtering. In the feature detection part, keypoints that have distinguishable features to facilitate matching are detected. For feature description, descriptors are extracted based on keypoints and their neighborhoods. The keypoint positions and the corresponding descriptors are employed as features of the image. Then the feature-matching algorithm is applied to find the correct correspondence in two sets of extracted features. Finally, the outlier filtering algorithm is applied to identify and reject outlier matches based on the obtained matches [7]–[10]. Due to the local nature of feature descriptors, it is challeng-ing to find invariance and obtain robust local correspondences between cross-view images of large-scale scenes [11]. Benefit-ting from the rapid advancement of deep learning, the state-of-the-art feature matching approaches learn feature descriptors by convolutional neural networks (CNN) to achieve better representation capability [6], [12] rather than design hand-crafted feature representations. Dominant methods infer the correspondence relations among learned cross-view features by graph neural networks and attention mechanisms [13]–[15], because attention-based neural networks are able to enhance local features by perceiving global information and modeling contextual relationships based on local features. Recalling the behavior of humans making correspondence between cross-view images, we naturally follow the common manner of observing from global scene-level semantics to local point-level pixels. It is clear that the matching pipeline of existing  
+
+> arXiv:2604.13941v1 [cs.CV] 15 Apr 2026 IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS FOR VIDEO TECHNOLOGY 2
+
+methods conflicts with human style. Therefore, this work aims to extract scene-aware correspondence information and integrate it with local feature correspondence in an end-to-end learning framework that is more accordant to the biological habit from billions of years of evolution and is expected to achieve superior performance over existing approaches. Driven by above motivations, this paper proposes SceneGlue that innovates throughout the feature-matching framework. In particular, SceneGlue makes the following contributions:  
+
+> •
+
+SceneGlue builds local feature descriptors from an infor-mative feature representation strategy that introduces a wave position encoder to dynamically adjusts the relation-ship between descriptor and position by amplitude and phase. Compared to existing position encoding methods, the position is represented as a wave and is unfolded into real parts and imaginary parts to efficiently encode position information.  
+
+> •
+
+SceneGlue arranges self- and cross-attentions in paral-lel to implicitly understand scene-level correspondence. Compared to sequential self- and cross-attention, the parallel self- and cross-attention enables more sufficient interactions of features from inter- and intra-images. SceneGlue therefore achieves higher matching accuracy and higher efficiency simultaneously.  
+
+> •
+
+SceneGlue proposes a Visibility Transformer to predict cross-view visible regions with a classification manner, rather than selecting image tokens as group tokens to represent scene-level correspondence like existing works. The Visibility Transformer is more explicable and natural in understanding scene-level overlapping regions in cross-view images without additional scene-level groundtruth. These contributions make SceneGlue to achieve superior per-formance over existing feature matching methods on various applications, including image matching, homography estima-tion, outdoor pose estimation, and outdoor visual localization. The rest of this paper is organized as follows. Section II reviews related works. The proposed SceneGlue is presented in Section III. Experimental results and analysis are presented in Section IV. Limitations of the proposed SceneGlue and future works are discussed in Section V. Finally, the conclusion is drawn in Section VI. II. R ELATED WORKS 
+
+A. Local Feature Matching 
+
+Robust Feature Representation. Early local feature matching methods mainly rely on handcrafted keypoint detectors and descriptors [4], [16], which achieved remarkable success and have been widely applied in many 3D vision tasks. With the development of deep learning, learning-based detectors and descriptors have been proposed to improve robustness under illumination and viewpoint changes [5], [6], [17]. Benefiting from deep networks and large-scale data, learned features adapt well to diverse textures, lighting conditions, and view-points, often outperforming handcrafted ones. Despite these advances, two challenges remain: 1) Learning scale invariance from large-scale data to address scale inconsistency across views; and 2) Effectively encoding keypoint positions into descriptors so that geometric structure can be better exploited during matching. 
+
+Position Encoding. Position encoding aims to incorporate spatial information into feature representations so that descrip-tors become aware of relative or absolute positions. Early approaches [18] use fixed sinusoidal functions or learnable vectors added to the original features. While simple, these methods restrict model flexibility because the encoding length is fixed during training, limiting input size at inference. Relative position encoding [19] adjusts attention weights based on relative positions, but it is computationally expensive and requires interpolation for varying input lengths, which may degrade performance. Convolution-based encoders [20] introduce positional cues through convolution, but they are limited to Euclidean data such as feature maps and cannot handle sparse descriptors. To support arbitrary-length and non-Euclidean inputs, SuperGlue adopts an MLP-based encoder that maps coordinate vectors to the descriptor dimension. However, its encoding capacity remains limited. Inspired by Wave-MLP [21], we treat descriptors as amplitude and posi-tions as phase, and fuse them via the Euler formula to produce position-aware descriptors. 
+
+Matching. Recent feature matchers learn correspondences between two sets of local features using attention-based Graph Neural Networks (GNNs) [22], [23]. SuperGlue [13] is a pioneering work that introduces an attention-based matching network, where self-attention aggregates contextual informa-tion within each image and cross-attention identifies potential correspondences across images. LightGlue [15] extends this framework by incorporating confidence estimation and adap-tive computation. Through early-exit layers and pruning of unlikely matches, it improves speed and training efficiency while maintaining accuracy as a drop-in replacement for Su-perGlue. Compared with LightGlue, the proposed SceneGlue emphasizes scene-aware matching by integrating global vis-ibility estimation and parallel attention, improving robust-ness in challenging conditions. While LightGlue focuses on computational efficiency through adaptive depth and pruning, SceneGlue explicitly models scene-level relationships. Beyond sparse descriptors, LoFTR [14] applies self- and cross-attention directly on CNN feature maps and produces matches in a coarse-to-fine manner. To estimate dense cor-respondences, Truong et al. [24] model the predictive dis-tribution with a constrained mixture formulation to better capture accurate flow and outliers. MatchFormer [20] fur-ther removes the CNN backbone and adopts a pure atten-tion architecture that jointly performs feature extraction and matching, with interleaving attention that emphasizes self-attention early and cross-attention later. DeepMatcher [25] employs a lightweight Transformer to model long-range key-point relationships, while VD-Matcher [26] introduces weight recycling and a lightweight multi-scale keypoint detection module to control model size and computation. ASTR [27] proposes an adaptive spot-guided Transformer that addresses local consistency and scale variation through a unified coarse-to-fine architecture with spot-guided aggregation and depth-aware scaling. Most of these methods model relationships at the point level IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS FOR VIDEO TECHNOLOGY 3
+
+and do not explicitly leverage higher-level scene information, which can lead to degraded performance in challenging scenar-ios such as wide-baseline images [22]. To address this limita-tion, we introduce a Visibility Transformer that predicts cross-view visible regions and enables scene-level correspondence learning without additional scene annotations. In contrast to previous methods where self- and cross-attention are applied sequentially, our framework performs them in parallel. 
+
+B. Scene Awareness 
+
+Since local feature descriptors are extracted from a local block in the image, they are naturally lacking the perception ability on non-local scenes. Scene awareness is essential for matching local features extracted from cross-view images. However, this problem has not attracted widespread attention in this field. Existing approaches mainly try to improve the quality of feature descriptors for a more comprehensive representation of both local information and non-local con-text information. As a representative method, ContextDesc [28] achieves cross-modality context representation by a uni-fied learning framework that leverages and aggregates visual context from high-level image representation and geometric context from keypoint distribution. Some methods also try to enhance the context representation capability by fusing features of more modalities or more levels. ASLFeat [12] enables conventional local feature descriptors to be aware of the shape and achieves stronger geometric invariance by fusing shape features. Context Augmentation [29] employs the visual Transformer and a learnable gated map to adaptively embed global context and location information into local descriptors. Different from the above approaches that extend existing feature descriptors from various aspects, state-of-the-art feature matchers also pay attention to the visibility of cross views. OETR [23] applies a DETR-like model to detect the common view area of two images and scales the common view area to match at the same scale. OAMatcher [30] prioritizes overlapping regions in image pairs during descriptor enhance-ment, ensuring minimal disturbance from non-overlapping areas. AdaMatcher [31] overcomes the limitations of mutual nearest neighbor by utilizing an elaborate feature interaction module for feature correlation and co-visible area estimation. It performs adaptive assignment on patch-level matching, estimates image scales, and refines co-visible matches through scale alignment and sub-pixel regression. SAM [32] takes point-level descriptors as image tokens and introduces the concept of group tokens that represent a group of features shared by cross-view images. Although Transformer does have the ability to understand the relationship between local feature descriptors and scene-level features, straightforwardly grouping tokens is not the optimal way of understanding scene-level correspondence for local feature matching. Although existing researches studied both feature descrip-tors and matchers to incorporate the context of local features or implicitly exploit the relations among keypoints for a more intelligent perception of global scene information [33], a more explicit framework that bridges the gap between local features and the global scene is still highly desired. This paper highlights the significance of scene awareness in local feature matching, as most existing methods primarily enhance keypoints using deep neural networks. In particular, the proposed SceneGlue explicitly models scene awareness through learnable scene descriptors, which indicate scene-level visibility across the entire image, rather than being limited to keypoint-level local features. III. M ETHODOLOGY 
+
+Assume that two sets of features ds ∈ RM×C , dt ∈ RN ×C
+
+need to be matched which are descriptors extracted from two images. Subscripts s and t stand for the source image and target image, respectively. M , N are the number of descriptors, C is the channels of descriptors. The keypoint positions are denoted as ps ∈ RM×3, pt ∈ RN ×3. For each position p = [ pu, p v, p c], the [pu, p v] denotes coordinates of the keypoint in image, and pc denotes the confidence value of the keypoint detector. Our objective is to find the correct correspondence between the two images utilizing descriptors and position information. An overview of the network architecture is shown in Fig. 2. SceneGlue defines both learnable local descriptors and scene descriptors for each input image. Each multi-scale local descriptor is obtained by embedding the position of the corresponding keypoint into local image appearance features learned by an off-the-shelf descriptor through the proposed wave position encoding. The position-aware multi-scale local descriptors are concatenated with the learnable scene de-scriptors to perform parallel attention. The learnable scene descriptor is a set of learnable parameters with size 2 × C
+
+in the proposed framework. In training phase, the learnable scene descriptors first randomly initialized in the same way with other learnable parameters; In testing phase, they are fed to the proposed Visibility Transformer for cross-view visible area estimation. In the Parallel Attention module, the self-attention layer and cross-attention layer are applied for L times to utilize the global context to enhance the features, which are then re-split to go through the proposed Visibility Transformer that is able to estimate scene-level correspondence. The overall framework is supervised by keypoint-level groundtruth only and does not require scene-level annotation. 
+
+A. Informative Feature Representation 1) Multi-scale Local Descriptor: To enhance the robustness of our matcher in scale-varying scenarios, we design an additional lightweight multi-scale feature network based on the SuperPoint detector [6]. As shown in Fig. 3, in addition to keypoint sampling on 1/8 resolution feature maps as in SuperPoint, we also perform keypoint sampling on 1, 1/2, 1/4
+
+resolution feature maps and fuse features on 4 scales as de-scriptors using lightweight linear layers. With the introduction of a small number of parameters and computations, the multi-scale feature network improves the performance of the matcher significantly. 
+
+2) Wave Position Encoder: For the MLP-based position encoder (MLP-PE), the main drawback is the limited encoding capacity because the parameters of MLP-PE are less than 1 %IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS FOR VIDEO TECHNOLOGY 4
+
+> N×C
+> N×C
+> N×3
+> ×L
+> Wave-PE
+
+2×C Cross-View Visibility Estimation  
+
+> M×3
+> M×C
+> (N+2)×C
+> (M+2)×C
+> 2×C
+> (N+2)×C
+> (M+2)×C M×C
+> 2×C
+> Cross-View Visibility Estimation
+> N×2
+> M×2
+> Parallel Attention
+> Wave Position Encoder (Wave-PE)
+> Self-
+
+attention  
+
+> Cross-attention
+> Informative Feature Representation Scene-Aware Matching
+> Multi-scale local descriptor
+> Multi-scale local descriptor
+> Learnable scene descriptor
+> 2×C Learnable scene descriptor
+> Optimal partial assignment Wave-PE
+
+Position   
+
+> Position
+> Fig. 2. Graphical illustration of the proposed SceneGlue. The proposed scene-aware matching method consists of three parts, namely informative feature representation, parallel attention, and scene-aware matching. The informative feature representation first encodes the position by a Wave Position Encoder (Wave-PE) to obtain position-aware descriptors and then combines each local position-aware descriptor with a learnable scene descriptor. The feature descriptors are passed through the proposed parallel attention layers to implicitly achieve scene awareness. Finally, the leveraged features are utilized for scene-level cross-view visibility estimation and point-level feature matching simultaneously.
+
+of the whole network, yet the position information is important for feature matching. Therefore, a Wave Position Encoder (Wave-PE) is designed to dynamically adjust the relationship between descriptor and position by amplitude and phase to obtain better position encoding. In Wave-PE, position encoding is represented as a wave 
+
+˜w with both amplitude A and phase θ information, and the Euler formula is employed to unfold waves into real parts and imaginary parts to process waves efficiently, 
+
+˜wj = Aj ⊙ eiθ j
+
+= Aj ⊙ cos θj + iA j ⊙ sin θj , j = 1 , 2, ..., n. (1) As shown in Fig. 4, the amplitude and phase are estimated by two learnable networks via descriptors and position, respec-tively. Then a learnable network is applied to fuse the real and imaginary parts into position encoding, 
+
+Aj = MLP A(dj ),θj = MLP θ(pj ),x0 
+
+> j
+
+= dj + MLP F([ Aj ⊙ cos θj , A j ⊙ sin θj ]) .
+
+(2) 
+
+[·, ·] denotes concatenation. For three learnable networks in equation (2), two-layer MLP is chosen for simplicity. 
+
+B. Parallel Attention for Implicit Scene-Awareness 
+
+Proper integration of self-attention and cross-attention lever-ages the global learning ability and good parallelism, which is able to further highlight the critical information in the implicit scene-aware representations while suppressing the useless noise. Therefore, we propose to integrate self-attention and cross-attention in a parallel manner, which is the so-called 
+
+parallel attention in this paper. As illustrated in the right part of Fig. 4, to utilize self-attention and cross-attention to enhance the scene-level rep-resentation ability of the multi-scale local feature descriptors, the two sets of descriptors from two images are first linearly 
+
+> Keypoint Sampling
+
+Multi-scale Feature 11/2 1/4 1/8 
+
+Conv3×3 block 
+
+Conv1×1 block        
+
+> Fig. 3. Multi-scale Feature Detector. Features in 1,1/2,1/4,1/8resolution are sampled and fused by lightweight linear layers. The Multi-scale feature network allows feature matching to be more robust to large-scale variation scenarios.
+
+projected to query, key and value, i.e. , (Qs, K s, V s) and (Qt, K t, V t), respectively. Then self- and cross-attention are computed in a parallel manner. In the self-attention module, the standard attention computation softmax( QK ⊤/√d)V is employed, where Q, K, V come from the same input, i.e. ,(Qs, K s, V s) or ( Qt, K t, V t). In the cross-attention module, an attention weight-sharing strategy is proposed to improve model efficiency. Existing cross-attention approaches follow 
+
+{
+
+s → t : softmax( QtK⊤ 
+
+> s
+
+/√d)Vs
+
+t → s : softmax( QsK⊤ 
+
+> t
+
+/√d)Vt, (3) which are computationally costly, since the cross-attention has to be calculated twice. Unlike existing cross-attention, the proposed parallel attention suggests a novel paradigm 
+
+{
+
+s → t : softmax(( QsK⊤ 
+
+> t
+
+)⊤/√d)Vs
+
+t → s : softmax(( QsK⊤ 
+
+> t
+
+)/√d)Vt, (4) in which the input is ( Qs, V s, K t, V t). This paradigm is more efficient since it does not compute round-trip cross attention. IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS FOR VIDEO TECHNOLOGY 5    
+
+> Self attention
+> Concat & MLP
+> Cross attention
+> QKV project
+> Concat & MLP
+> QKV project
+> Self attention
+> MLP AMLP θ
+> Aθ
+> Acos θAsin θ
+> Concat & MLP F
+> Amplitude Phase
+> Real Part Imag. Part
+> (b) Parallel Attention (a) Wave Position Encoder
+
+d p
+
+x0
+
+xl yl
+
+xl+1 yl+1          
+
+> weight sharing
+> Fig. 4. Graphical illustration on the wave position encoder and the parallel attention . (a) The wave position encoder fuses the amplitude Aestimated with the descriptor dand the phase θestimated with the position pto generate position encoding. (b) Stacked parallel attention layers utilize self- and cross-attention to enhance the descriptors and find potential matches, where self- and cross-attention are adaptively integrated through a learnable network.
+
+Different from sequential manner and alternating manner, the self-attention and cross-attention are arranged in a par-allel manner, and fused by a two-layer MLP in this work. The unique parallel framework makes three key contributions compared with existing works: 1) Parallel attention enables local feature descriptors of intra- and inter-images to interact with each other si-multaneously. The simultaneous interaction mines more critical information in the implicit scene-aware represen-tations which are crucial to final performance. 2) Parallel attention saves redundant parameters and com-putations while boosting performance through a learn-able fusion. 3) Parallel attention can be used as a pluggable module since it updates two sets of descriptors simultaneously. We can simply stack L parallel attention layers to enhance representation ability and conveniently explore various architectures to design model variants. 
+
+C. Cross-View Visibility Estimation for Explicit Scene-Awareness 1) Cross-View Visibility Estimation: As shown in Fig. 5, to estimate the commonly visible area in images taken from different views, a variation of Transformer, entitled Visibility Transformer, is proposed in this section. The commonly-visible area estimation method takes the multi-scale local descriptor and learnable scene descriptor as input, and employs three modules, namely spatial MLP, channel MLP, and the proposed Visibility Transformer, to predict the values of the final learnable scene descriptor. Spatial MLP and channel MLP are introduced to enhance the capacity of the cross-view visibility estimation module. Denoted by W s 
+
+> 1
+
+, W c 
+
+> 1
+
+, W s 
+
+> 2
+
+, W c 
+
+> 2
+
+the learnable weight matrices, and σ is the Gaussian Error Linear Unit (GELU) function, the spatial MLP is defined by 
+
+O∗,i = I∗,i + W s 
+
+> 2
+
+σ(W s 
+
+> 1
+
+I∗,i ), (5) which transposes learnable scene descriptors and maps R2 7 →
+
+R2 to enable interaction between the learnable scene descrip-tors. The channel MLP is defined by 
+
+Oj, ∗ = Ij, ∗ + W c 
+
+> 2
+
+σ(W c 
+
+> 1
+
+Ij, ∗), (6) which maps RC 7 → RC to interact between channels. Unlike the standard Transformer that projects the same input to Q, K, V , the proposed Visibility Transformer establishes the relationship between informative local descriptors and learn-able scene descriptors by linearly projecting each learnable scene descriptor as query matrix Q, and each local descriptor as key matrix K and value matrix V . The three matrices derived from different inputs are then packed together by 
+
+bk = softmax( QK ⊤/√d)V. (7) The bk is then added to the original informative descriptor after a linear projection. The fused features are projected RN ×C 7 →
+
+RN ×2 by a group MLP to make preparation for learning the cross-view visible regions. In physical scenes, the cross-view visible regions and non-visible regions have clear boundaries in images. We therefore model the task of recognizing cross-view visible regions as a classification problem. Based on this motivation, a simple yet effective way is to make the last Softmax layer learns the values of the learnable scene descriptor through a binary cross-entropy loss. In particular, the input informative local descriptors are classified as commonly visible ones and in-visible ones through comparing the learned scene descriptors with groundtruth by 
+
+Lscene = 1
+
+N
+
+∑
+
+> k
+
+− [yk log bk + (1 − yk) log (1 − bk)] , (8) where N is the number of descriptors, bk is the kth learned floating-point vector indicating whether the kth keypoint is visible cross views or not, and yk is the corresponding groundtruth of bk. The Visibility Transformer forms a scene-aware supervision signal as it distinguishes the visible/non-visible regions in cross-view scenes, and therefore encourages IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS FOR VIDEO TECHNOLOGY 6       
+
+> N×2
+> N×C
+> Linear Linear Linear
+> QKV
+> MatMul
+> MatMul
+> Linear
+> Softmax
+> Group MLP
+> Spatial MLP
+> 2×C
+> Scene-aware loss
+> Channel MLP
+> Softmax
+> Fig. 5. Visibility Transformer. The Visibility Transformer is proposed for cross-view visible area estimation. It adopts a Transformer architecture to establish the relationship between multi-scale local descriptors and learnable scene descriptors before matching and assigns the multi-scale local descriptors to the commonly-visible area or commonly-invisible area through a Softmax
+> classifier.
+
+the corresponding keypoint in the visible regions to match with each other and avoids keypoint in the non-visible regions from being matched. With the hybrid loss function supervised by groundtruth matches, we successfully train the learnable scene descriptor to guide the matching without relying on scene-level supervision. 
+
+2) Optimal Partial Assignment: As illustrated in Fig. 2, the optimal partial assignment takes two kinds of features from each view, i.e. , the multi-scale local descriptors lever-aged by parallel attention and the learned scene descriptors. Specifically, the multi-scale local descriptors leveraged by parallel attention are for local feature matching; the learned scene descriptors are for calculating the scene-aware loss term 
+
+Lscene defined in (8). The feature-matching task is achieved by finding an optimal partial assignment between two sets of features. To this end, a point-level score matrix S ∈ RM×N
+
+is computed from the two sets of learned descriptors, i.e. ,
+
+Si,j =< f si , f tj >, (9) where < ·, · > denotes inner product. As opposed to learned visual descriptors, the matching descriptors are not normal-ized, and their magnitude can change per feature and during training to reflect the prediction confidence. For supervision, groundtruth set of matched keypoints Mgt ,groundtruth set of unmatched keypoints in source image Ds
+
+and groundtruth set of unmatched keypoints in target image Dt
+
+are computed from groundtruth homography or groundtruth camera pose. The parallel attention layers and the Visibility Transformer are optimized by the negative log-likelihood loss over the optimal partial assignment matrix P, which is denoted as 
+
+Lf eature = − ∑
+
+> (i,j )∈M gt
+
+log ¯Pi,j − ∑
+
+> i∈D s
+
+log ¯Pi,N +1 
+
+− ∑
+
+> j∈D t
+
+log ¯PM+1 ,j . (10) Unlike existing method only computing the dot product of two sets of local feature descriptors as a score matrix that ignores the scene awareness, the proposed method takes both descriptor similarity and scene awareness into consideration, resulting in a hybrid loss function L = Lf eature + αLscene 
+
+which is composed of the descriptor-similarity term Lf eature 
+
+defined in (10) and the scene-aware term Lscene defined in (8). 
+
+D. Discussions 
+
+SAM enhances feature matching by introducing group to-kens, which represent shared features across images and are modeled using a Transformer to assign corresponding points to the same group while distinguishing non-corresponding points. SceneGlue builds upon SAM [32] by fundamentally improving the modeling of scene-level correspondences for feature matching. While SAM introduces group tokens and a Transformer-based grouping mechanism to construct scene-aware features, SceneGlue enhances this framework through three key innovations: (1) a multi-resolution informative fea-ture representation with a wave position encoder to improve scale invariance; (2) a parallel self- and cross-attention struc-ture to implicitly capture scene-level relationships with higher accuracy and efficiency; and (3) a visibility Transformer that directly predicts overlapping regions across views, offering a more interpretable alternative to token grouping. These improvements are essentially different from existing scene-aware attempt [23], [30]–[32], enabling SceneGlue to achieve superior performance across multiple downstream tasks. IV. E XPERIMENTS 
+
+A. Implementation Details 
+
+Experimental studies on various applications based on fea-ture matching are presented in this section, including im-age matching, homography estimation, outdoor pose estima-tion, and outdoor visual localization. Following convention, SceneGlue is trained on the Oxford100k dataset [34] for homography estimation experiments and on the MegaDepth dataset [35] for pose estimation and image matching exper-iments. The model is implemented by programming with Python under the framework of PyTorch. SceneGlue involves 9 parallel-attention layers, and all intermediate features have the same dimension C = 256 . The matching threshold θ is set to 0.2. For the homography estimation experiment, the AdamW optimizer [36] is employed for 10 epochs using the cosine decay learning rate scheduler and 1 epoch of linear warm-up. A batch size of 8 and an initial learning rate of 0.0001 are used. For the outdoor pose estimation experiment, the AdamW IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS FOR VIDEO TECHNOLOGY 7                                                                                                                                                                                                                                                                                                                                                        
+
+> TABLE I
+> IMAGE MATCHING PERFORMANCE ON THE HP ATCHES DATASET .THE BEST RESULTS ARE HIGHLIGHTED IN BOLD .
+> Matcher Mean Matching Accuracy @1px @2px @3px @4px @5px @6px @7px @8px @9px @10px
+> Viewpoint change SIFT+CAPS 0.32 0.50 0.60 0.68 0.74 0.78 0.80 0.82 0.83 0.84 D2Net 0.06 0.19 0.34 0.47 0.57 0.64 0.69 0.72 0.74 0.76 SuperPoint 0.25 0.49 0.61 0.67 0.70 0.72 0.73 0.74 0.75 0.75 SuperPoint+CAPS 0.27 0.54 0.68 0.74 0.78 0.80 0.82 0.83 0.84 0.85 R2D2 0.29 0.59 0.71 0.76 0.79 0.80 0.81 0.81 0.82 0.82 Patch2Pix 0.29 0.59 0.73 0.80 0.84 0.86 0.87 0.88 0.89 0.90 NCNet 0.02 0.08 0.17 0.27 0.38 0.47 0.55 0.61 0.66 0.69 SuperGlue 0.38 0.72 0.86 0.92 0.94 0.96 0.96 0.97 0.97 0.97
+> LightGlue 0.34 0.68 0.82 0.89 0.92 0.94 0.95 0.95 0.95 0.96 SAM 0.37 0.69 0.82 0.87 0.90 0.92 0.93 0.93 0.93 0.94
+> SceneGlue 0.39 0.73 0.86 0.90 0.92 0.93 0.94 0.94 0.95 0.95
+> Illumination change SIFT+CAPS 0.42 0.59 0.69 0.78 0.84 0.88 0.91 0.93 0.94 0.95 D2Net 0.17 0.36 0.53 0.67 0.77 0.84 0.88 0.90 0.92 0.93 SuperPoint 0.42 0.58 0.68 0.74 0.78 0.80 0.81 0.82 0.83 0.83 SuperPoint+CAPS 0.42 0.60 0.73 0.80 0.85 0.88 0.90 0.92 0.93 0.94 R2D2 0.38 0.66 0.81 0.87 0.90 0.91 0.92 0.92 0.93 0.93 Patch2Pix 0.53 0.81 0.90 0.95 0.97 0.98 0.98 0.99 0.99 0.99 NCNet 0.78 0.78 0.78 0.78 0.79 0.79 0.79 0.85 0.90 0.93 SuperGlue 0.46 0.63 0.75 0.82 0.86 0.89 0.90 0.92 0.93 0.94 LightGlue 0.49 0.71 0.86 0.93 0.96 0.98 0.99 0.99 0.99 0.99 SAM 0.50 0.71 0.84 0.91 0.95 0.97 0.98 0.99 0.99 0.99
+> SceneGlue 0.55 0.77 0.89 0.94 0.97 0.98 0.99 0.99 1.00 1.00
+> Overall SIFT+CAPS 0.39 0.56 0.65 0.72 0.76 0.79 0.81 0.83 0.84 0.85 D2Net 0.11 0.27 0.43 0.56 0.67 0.73 0.78 0.81 0.83 0.84 SuperPoint 0.33 0.53 0.64 0.70 0.73 0.75 0.77 0.78 0.79 0.79 SuperPoint+CAPS 0.34 0.56 0.69 0.76 0.80 0.83 0.84 0.86 0.87 0.88 R2D2 0.33 0.62 0.76 0.81 0.84 0.85 0.86 0.87 0.87 0.87 Patch2Pix 0.37 0.64 0.75 0.81 0.85 0.87 0.88 0.89 0.90 0.91 NCNet 0.38 0.42 0.46 0.52 0.57 0.63 0.67 0.73 0.78 0.81 SuperGlue 0.44 0.71 0.83 0.89 0.92 0.93 0.94 0.95 0.95 0.96 LightGlue 0.40 0.68 0.83 0.90 0.94 0.95 0.96 0.97 0.97 0.97
+> SAM 0.44 0.72 0.85 0.91 0.94 0.95 0.96 0.96 0.96 0.97
+> SceneGlue 0.45 0.73 0.86 0.91 0.95 0.96 0.96 0.97 0.97 0.97
+
+optimizer is utilized for 30 epochs using the same learning rate scheduler and linear warm-up. A batch size of 2 and an initial learning rate of 0.0001 are used. All experiments are conducted on a single NVIDIA GeForce RTX 2060 SUPER GPU, 16GB RAM, and Intel Core i7-10700K CPU. 
+
+B. Image Matching 
+
+Dataset. HPatches [37] is a widely used image-matching benchmark that consists of 116 sequences with various chal-lenges, including viewpoint changes and illumination changes. Following conventional works [5], eight unreliable scenes are excluded for fair comparison. Each scene is composed of 5 image pairs with groundtruth homography matrices. 
+
+Baselines. Various baseline methods are taken into comparison study. The SceneGlue is compared with hardcrafted feature descriptor SIFT [4], learned feature descriptors D2Net [5], SuperPoint [6] and R2D2 [17], and recently proposed ad-vanced matchers SuperGlue [13], SAM [32], LightGlue [15], Patch2Pix [38], NCNet [39], and CAPS [40]. 
+
+Metrics. Following existing works, the mean matching ac-curacy (MMA) is employed to evaluate the performance of the proposed approach on image matching. The MMA is defined as the average percentage of correct matches in image pairs under different matching error thresholds. To provide a comprehensive evaluation, the MMA is tested with multiple matching error thresholds in the interval between 1 pixel to 10 pixels. 
+
+Results. Experimental result on image matching is reported in Table I. In general, the MMA increases with the increase of the matching error thresholds and gradually approaches 1. In the experiments on overall dataset, SceneGlue achieves the highest MMA at all the thresholds, followed by LightGlue and SAM. In the experiments on large viewpoint change, SceneGlue achieves the highest MMA under small matching error thresholds (from 1px to 3px), and exhibits slightly infe-rior performance compared to SuperGlue under large matching error thresholds. In the experiments on illumination change, Patch2Pix and SceneGlue show superior performance com-pared to other methods. When the matching error threshold be-comes large, SceneGlue outperforms other methods, including SuperGlue and Patch2Pix. Although existing works also utilize deep graph neural networks and Transformers to implicitly enhance the interaction among point-level feature descriptors, they do not fully investigate scene-level correspondence. The leading performance of the proposed SceneGlue demonstrates that incorporating the learned scene description is helpful in point-level feature matching. IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS FOR VIDEO TECHNOLOGY 8                                         
+
+> TABLE II
+> HOMOGRAPHY ESTIMATION ON THE R1M DATASET .AUC @10 PIXELS IS REPORTED . T HE BEST METHOD IS HIGHLIGHTED IN BOLD .
+> Matcher AUC (%) Precision (%) Recall (%) F1-score (%)
+> NN 39.47 21.7 65.4 32.59 NN + mutual 42.45 43.8 56.5 49.35 NN + PointCN 43.02 76.2 64.2 69.69 NN + OANet 44.55 82.8 64.7 72.64 SuperGlue 51.94 86.2 98.0 91.72 LightGlue 51.75 88.7 98.1 93.16 SAM 53.80 89.5 98.1 93.64
+> SceneGlue 54.30 93.2 98.9 95.97
+
+C. Homography Estimation 
+
+Dataset. For the homography estimation experiment, SceneGlue is trained on the Oxford100k dataset and then evaluated on the R1M dataset [41]. Since the R1M dataset contains over a million images of Oxford and Paris, 500 images are randomly sampled from it for efficient evaluation. To perform self-supervised training, random groundtruth homographies are generated to get image pairs. We resize the images to 640 ×480 pixels and detect 512 keypoints in the image. When the detected keypoints are not enough, random keypoints are added for efficient batching. 
+
+Baselines. We employ the Nearest Neighbor (NN) matcher, NN matcher with outlier filtering methods [42], [43], and attention-based matcher SuperGlue [13], LightGlue [15] and SAM [32] as baseline matchers. All matchers in Table II utilize SuperPoint [6] as input descriptors for a fair comparison. The results of SuperGlue are from our implementation. 
+
+Metrics. The groundtruth matches are computed from the generated homography and the keypoint coordinates of the two images. We evaluate the precision and recall based on the groundtruth matches and further compute the F1-score. We calculate reprojection error with the estimated homography and report the area under the cumulative error curve (AUC) up to 10 pixels. 
+
+Results. Experimental results are reported in Table II, from which we can see that Transformer-based approaches show higher performance than the nearest neighbor matcher with outlier filtering algorithms. Although SuperGlue is also built on Transformer, its performances are −2.36% AUC below SceneGlue and -4.25 % F1-score below SceneGlue. SceneGlue outperforms SAM by a noticeable gap in homography esti-mation. Compared to state-of-the-art outlier filtering methods OANet, SceneGlue achieves +23 .33% improvement of F1-score. The results demonstrate that, despite the powerful mod-eling capability and global receptive field of the Transformer promoting the matching capacity, the way of organizing atten-tion and scene-level guidance are also important factors that significantly strengthen matches in homography estimation. In addition, visualization of feature matching and learned scene descriptors are shown in Fig. 6; visualization of the features aggregated by serial attention and parallel attention are presented in the supplementary files of this paper.       
+
+> TABLE III
+> OUTDOOR POSITION ESTIMATION ON THE MEGA DEPTH DATASET .
+> AUC S OF POSE ERRORS AT THE THRESHOLDS @5 ◦, @10 ◦, @20 ◦ARE REPORTED . T HE BEST METHOD IS HIGHLIGHTED IN BOLD .
+
+Feature Matcher Pose estimation AUC (%) 
+
+@5◦ @10 ◦ @20 ◦
+
+DINOv2 SuperGlue 31.5 40.8 45.3 
+
+SuperPoint SuperGlue 42.2 59.0 73.6 SGMNet 40.5 59.0 73.6 DenseGAP 41.2 56.9 70.2 ClusterGNN 44.2 58.5 70.3 LightGlue 41.8 60.0 74.4 SAM 40.9 58.4 72.3 
+
+SceneGlue 42.0 60.0 74.6 
+
+D. Outdoor Pose Estimation 
+
+Dataset. To evaluate the performance of the proposed method on outdoor pose estimation, the model is trained on the MegaDepth dataset [35] that consists of 1M internet images of 196 different outdoor scenes. For training, 200 pairs of images in each scene are randomly sampled for each epoch. The images are resized to 960 ×720 pixels and detect 1024 keypoints. We follow the LoFTR to evaluate using two scenes, “Sacre Coeur" and “St. Peter’s Square", which are excluded from the training set. The test set contains a total of 1500 im-age pairs. Besides the MegaDepth dataset, the trained model is also evaluated on the YFCC100M dataset [44]. For evaluation, the YFCC100M image pairs and groundtruth poses provided by SuperGlue are used. 
+
+Baselines. Various baseline methods are taken into compar-ison, including Transformer-based matchers SuperGlue [13], SAM [32], LightGlue [15], SGMNet [45], DenseGAP [46], and ClusterGNN [47], as well as NN matcher with outlier filtering [43]. Since the training source code of SuperGlue is unavailable, the results of SuperGlue are from our imple-mentation. In addition, as one of the most widely recognized vision foundation models, DINOv2 [48] is also taken into comparison. In our experiments, 1024 keypoints that use DINOv2 features are matched by the state-of-the-art matcher SuperGlue [13] which is the baseline of this work. 
+
+Metrics. The AUC of pose errors at the thresholds ( 5◦, 10 ◦,
+
+20 ◦) are reported. Both approximate AUC [43] and exact AUC [13] are evaluated on the YFCC100M dataset for a fair comparison. 
+
+Results. Experimental results on the MegaDepth dataset and the YFCC100M dataset are reported in Table III and Table IV, respectively. From Table III, we can see that although state-of-the-art approaches tend to utilize the global receptive field of the Transformer to leverage matching performance, SceneGlue shows competitive performance on outdoor pose estima-tion. Specifically, SceneGlue performs better than SGMNet, DenseGAP and SAM at three thresholds of (5 ◦, 10 ◦, 20 ◦).Although SuperGlue outperforms SceneGlue at the thresh-old of 5◦, it does not continuously perform well at the thresholds of 10 ◦ and 20 ◦. As strong competitive method, LightGlue achieves the same performance with the proposed IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS FOR VIDEO TECHNOLOGY 9
+
+(a) Homography Estimation (b) Pose Estimation      
+
+> Cross-View Visibility Estimation Feature Matching Cross-View Visibility Estimation Feature Matching
+> Fig. 6. Visualization of cross-view visibility estimation and feature matching results on (a) homography estimation and (b) outdoor pose estimation tasks. SceneGlue precisely estimates the visible regions in cross-view images and further results in more robust and accurate point-level matching for both homography estimation and outdoor pose estimation.
+
+SceneGlue at only one threshold 10 ◦, and is inferior at other two thresholds of 5◦ and 20 ◦. As another state-of-the-art approach, ClusterGNN achieves the highest AUC at threshold 
+
+5◦, but it falls behind with the increase of the threshold. The proposed SceneGlue does not outperform the ClusterGNN because of the ClusterGNN uses a progressive clustering module to adaptively divide keypoints into different subgraphs to reduce redundant connectivity. The progressive clustering mechanism is beneficial to perceiving small pose changes. The ClusterGNN is therefore effective at small thresholds such as 5◦. In particular, SceneGlue outperforms the state-of-the-art ClusterGNN by gaps of +1 .5% AUC and +4 .3% 
+
+AUC at thresholds of 10 ◦ and 20 ◦, respectively. When using the features of the vision foundation model DINOv2 [48], SuperGlue shows poorer performance. DINOv2 is a family of foundation models producing universal features suitable for various visual tasks, e.g. , image classification, instance retrieval, video understanding, depth estimation and semantic segmentation, that cover both image-level tasks and pixel-level tasks. Although it shows attractive performances on many tasks, it is not suitable for specific tasks like pose estimation that requires very precise recognition of feature correspondences. Furthermore, one can find in Table IV that SceneGlue achieves the best performance at all thresholds in approximate AUC and one threshold in exact AUC on the YFCC100M dataset, demonstrating the superior capacity of SceneGlue in outdoor pose estimation. LightGlue demonstrates supe-rior exact AUC performance at the 5◦ and 10 ◦ thresh-olds. This strength applies primarily to easy image pairs, whereas it underperforms compared to SceneGlue on chal-lenging pairs with significant scale variations. Compared to the attention-based matcher SuperGlue, SceneGlue achieves 
+
+(+3 .47% , +4 .23% , +3 .86%) improvement on exact AUC and 
+
+(+5 .55% , +4 .81% , +4 .29%) improvement on approximate AUC at three thresholds of (5 ◦, 10 ◦, 20 ◦), respectively. The matching results by SceneGlue, SAM, and the SuperGlue on homography estimation and outdoor pose estimation tasks are visualized in the supplementary files of this paper.                                               
+
+> TABLE IV
+> POSE ESTIMATION ON YFCC100M DATASET .THE PROPOSED METHOD OUTPERFORMS OTHER METHODS AT ALL THRESHOLDS .
+> Matcher Exact AUC (%) Approx. AUC (%)
+> @5 ◦@10 ◦@20 ◦@5 ◦@10 ◦@20 ◦
+> NN + mutual 16.94 30.39 45.72 35.00 43.12 54.25 NN + OANet 26.82 45.04 62.17 50.94 61.41 71.77 SuperGlue 28.45 48.6 67.19 55.67 66.83 74.58 LightGlue 32.34 52.98 70.85 60.58 71.20 78.37 SAM 31.45 52.27 70.31 60.65 70.95 78.03
+> SceneGlue 31.92 52.83 71.05 61.22 71.64 78.87
+
+E. Indoor Pose Estimation 
+
+Dataset. The indoor pose estimation experiments are con-ducted on ScanNet [49] and InLoc [50]. The ScanNet [49] is a large-scale indoor dataset that provides monocular image sequences along with ground-truth camera poses and depth maps. It offers clearly defined training, validation, and testing splits, each covering distinct scenes. Following SuperGlue [13] and SGMNet [45], 1500 test pairs are utilized for evaluation. The InLoc dataset [50] consists of RGB query images captured with a smartphone camera in indoor environments. The corresponding 6-DoF reference poses were manually verified for evaluations. Following DiffGlue [51], the images of two floors, DUC1 and DUC2, are used for testing. For each query image, 40 reference images are retrieved, and feature matching is performed using up to 4096 keypoints detected by SuperPoint [6]. The camera pose is then estimated using RANSAC and a PnP solver. 
+
+Baselines. Various baseline methods are taken into compar-ison, including handcrafted method AdaLAM [52], learned matchers SuperGlue [13], SAM [32], LightGlue [15], SGMNet [45], DiffGlue [51] and ResMatch [53], as well as NN matcher with outlier filtering [43]. Since the training source code of SuperGlue is unavailable, the results of SuperGlue are from our implementation. 
+
+Metrics. On the ScanNet dataset [49], the AUC of pose errors at the thresholds ( 5◦, 10 ◦, 20 ◦) are reported. On the InLoc dataset [50], we follow DiffGlue to report pose recall at multiple thresholds of distance and orientation: (0.25, 10 ◦)/ (0.5m, 10 ◦) / (1.0m, 10 ◦). IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS FOR VIDEO TECHNOLOGY 10    
+
+> TABLE V
+> INDOOR POSITION ESTIMATION ON THE SCAN NET DATASET .THE BEST METHOD IS HIGHLIGHTED IN BOLD .
+
+Matcher Pose estimation AUC (%) 
+
+@5◦ @10 ◦ @20 ◦
+
+AdaLAM 6.72 15.82 27.37 OANet 10.04 25.09 38.01 SGMNet 13.06 28.94 46.32 SuperGlue 13.95 29.48 46.07 LightGlue 14.00 29.75 46.77 
+
+SAM 13.95 28.50 44.32 
+
+SceneGlue 14.54 30.00 46.64 
+
+Results. From the results reported in Table V, we can find that SceneGlue attains the best results under rigorous evaluation conditions (pose errors at the thresholds of 5◦ and 10 ◦). When the experimental conditions are relatively relaxed, LightGlue slightly outperforms SceneGlue. From the results reported in Table VI, one can see that SuperGlue, DiffGlue and SceneGlue show better performance than other methods, as SceneGlue and SuperGlue respectively attain 3 best results, and DiffGlue attains 2 best results. The experimental results show that SceneGlue achieves more accurate indoor pose estimation under challenging conditions, indicating its higher precision. 
+
+F. Outdoor Visual Localization 
+
+Dataset. Outdoor visual localization is an important applica-tion of feature matching. This application is experimentally studied to further test the performance of the proposed method. In particular, we evaluate long-term visual localization on the large-scale Aachen Day-Night (v1.0 and v1.1) benchmarks [54] that provide various challenging conditions with images from the old inner city of Aachen. The key challenge lies in matching images with extreme day-night changes for 824 daytime and 98 nighttime queries. The HLoc toolbox [55] is utilized for mapping and localization and report the accuracy at multiple error thresholds. 
+
+Baselines. The baselines comprise simple matchers such as mutual Nearest Neighbor (MNN) matcher. Also, filtering-based methods, including OANet [43] and AdaLAM [52] are also included. The final part is Transformer-based matchers such as SuperGlue [13], SAM [32], LightGlue [15] and SGMNet [45]. 
+
+Metrics. The evaluation is conducted by using the Visual Localization Benchmark, which takes a pre-defined visual localization pipeline based on COMLAP. The successful local-ized images are counted within three error tolerances (0.25m, 2◦) / (0.5m, 5 ◦) / (5m, 10 ◦), representing the maximum position error in meters and degrees. 
+
+Results. Experimental results on outdoor visual localization are reported in Table VII, from which one can find the best results are not as concentrated as other experiments. Nevertheless, SceneGlue achieves the highest performance in day sequences at error thresholds (0 .25 m, 2◦) and (0 .5m, 5◦)
+
+on the v1.0 dataset, in night sequences at the error threshold 
+
+(5 m, 10 ◦) on the v1.0 dataset and at all the error thresholds on the v1.1 dataset. Overall, SceneGlue achieves 6 best results    
+
+> TABLE VI
+> INDOOR POSITION ESTIMATION ON THE INLOC DATASET .THE BEST METHOD IS HIGHLIGHTED IN BOLD .
+
+Matcher (0.25, 10 ◦ ) / (0.5m, 10 ◦ ) / (1.0m, 10 ◦ )
+
+DUC1 DUC2 
+
+SuperGlue 44.9 / 66.2 / 78.8 46.6 / 74.0 / 77.1 
+
+SGMNet 39.9 / 56.6 / 70.2 39.7 / 59.5 / 65.6 ResMatch 42.9 / 61.6 / 73.7 38.2 / 62.6 / 69.5 LightGlue 44.4 / 64.1 / 75.8 42.7 / 67.9 / 73.3 DiffGlue 46.5 / 67.2 / 78.3 49.6 / 71.8 / 76.3 
+
+SceneGlue 47.5 / 66.7 / 78.8 45.0 / 63.4 / 77.1                                                            
+
+> TABLE VII
+> RESULTS (%) OF OUTDOOR VISUAL LOCALIZATION ON AACHEN DATASET . T HE BEST RESULTS ARE HIGHLIGHTED IN BOLD .
+> Matcher Day Night
+> (0 .25 m, 2◦)/(0 .5m, 5◦)/(5 m, 10 ◦)
+> v1.0 MNN 85.4 / 93.3 / 97.2 75.5 / 86.7 / 92.9 OANet -77.6 / 86.7 / 98.0 AdaLAM -78.6 / 86.7 / 98.0 SuperGlue 88.0 / 94.9 / 98.4 82.7 / 92.9 /100.0
+> LightGlue 88.0 / 93.8 / 97.5 84.7 / 91.8 / 99.0 SGMNet 86.8 / 94.2 / 97.7 83.7 / 91.8 / 99.0 SAM 87.6 / 93.3 / 97.5 83.7 / 91.8 / 99.0
+> SceneGlue 88.8 /95.0 / 98.2 83.7 / 92.8 / 100.0
+> v1.1 MNN 87.9 / 93.6 / 96.8 70.2 / 84.8 / 93.7 AdaLAM -73.3 / 86.9 / 97.9 SuperGlue 89.8 / 95.9 / 99.2 75.4 / 89.5 / 99.0 LightGlue 89.6 / 95.8 / 99.2 72.8 / 88.0 / 99.0 SGMNet 88.7 / 96.2 / 98.9 75.9 / 89.0 / 99.0 SAM 82.8 / 93.7 / 98.4 73.3 / 90.1 / 97.9
+> SceneGlue 89.2 / 95.9 / 99.0 77.5 /91.1 /99.5
+
+(bold in Table VII) on the two datasets, followed by SuperGlue that achieves 5 best results and LightGlue that achieves 2 best results. 
+
+G. Ablation Study 
+
+To make deeper analyses of each contribution made by the proposed SceneGlue, comprehensive ablation experiments are conducted to test the validity of every proposal. In specific, the proposed informative feature representation, parallel attention, and cross-view visibility estimation modules presented in Section III are experimentally studied separately. As reported in Table VIII, the ablation studies are composed of five sets of experiments: i) The baseline framework SuperGlue that utilizes serial attention is first tested as a basic reference. ii) The MLP-PE is replaced to the Wave-PE that is presented in Section III-A2. iii) The serial attention is replaced to the parallel attention proposed in Section III-B. iv) The proposed informative feature representation is ap-plied to SceneGlue without cross-view visibility estima-tion, to show the effectiveness of the feature representa-tion method itself. v) To test the contribution of the proposed cross-view visi-bility estimation in Section III-C, it is finally applied to SceneGlue. IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS FOR VIDEO TECHNOLOGY 11                           
+
+> TABLE VIII
+> ABLATION STUDY ON EACH PROPOSAL OF SCENE GLUE USING THE
+> R1M DATASET .THE BEST RESULTS ARE HIGHLIGHTED IN BOLD .
+> Proposal Precision (%) Recall (%) F1-score (%)
+> (i) Serial attention 86.2 98.0 91.72 (ii) Wave-PE 86.8 98.9 92.46 (iii) Parallel attention 88.8 98.8 93.50 ( +1.78 )(iv) + Multi-scale feature network 91.0 99.0 94.89 ( +1.39 )
+> (v) + Visibility estimation (full) 93.2 (+2.20 )98.9 95.97 (+1.08 )
+
+Wave-PE. To test effectiveness of the Wave-PE, it is added to the baseline SuperGlue. As can be seen in Table VIII, both precision and recall are improved by the Wave-PE. The performance is leveraged by +0 .74% F1-score after replacing the MLP-PE with the proposed Wave-PE. One can therefore conclude that the Wave-PE incorporates more useful informa-tion to the descriptors than MLP-PE. 
+
+Parallel Attention. Despite the great successful attempts made by SuperGlue-like methods, they calculate self- and cross-attention in a serial manner that does not fully explore the potential of deep parallel computing. By comparing the results of experiments i) and iii) in Table VIII, one can find that both precision and recall are improved by the parallel attention because self- and cross-attentions are arranged in a parallel manner which achieves a win-win performance in terms of accuracy and efficiency. 
+
+Multi-Scale Feature Network. In theory, the proposed infor-mative feature representation enhances existing matchers in two aspects: a) the designed lightweight multi-scale feature representation makes descriptor more robust to scale-varying scenarios; b) benefiting from the proposed wave position encoding, the relationship between descriptor and position can be dynamically adjusted by amplitude and phase, which leads to better fusion of position information. By comparing the results of experiments i), ii) and iv) in Table VIII, one can find that the F1-score is significantly increased by +1 .39% 
+
+improvement after adding the multi-scale feature network. The results prove theoretical analyses. 
+
+Cross-View Visibility Estimation. As a key contribution in obtaining scene-level information for matching point-level features, the commonly visible area in images taken from different views is estimated in Section III-C. We can see from Table VIII that the matching performance measured by F1-score is inspiringly leveraged by +1 .08% improvement when introducing the cross-view visibility estimation module. Benefiting from the delicate design that assigns the multi-scale local descriptors to the commonly-visible area or commonly-invisible area through a Softmax classifier based on the Transformer architecture, the learned scene descriptors provide rich information about the commonly-visible area between different views. 
+
+Hyper-Parameter α. To test the effect of the importance of each loss term, the hyper-parameter α defined in the loss function is experimentally studied. As reported in Table IX, one can find that the performance is improved with the increase of α, indicating that the scene-awareness term is important for the matching task. as the best performance is achieved when α = 8 , we set α to 8 in other experiments.                                                     
+
+> TABLE IX
+> ABLATION STUDY ON THE HYPER -PARAMETER αUSING THE R1M
+> DATASET .THE BEST RESULT IS HIGHLIGHTED IN BOLD .
+> α00.5 124810
+> Precision (%) 91.90 92.30 92.20 92.60 92.90 93.20 93.20 Recall (%) 98.40 98.70 98.80 98.90 98.90 98.90 98.90 F1-Score (%) 95.03 95.40 95.42 95.62 95.78 95.97 95.96
+> TABLE X
+> ABLATION STUDY ON THE NUMBER OF PARAMETERS OF THE WAVE -PE
+> USING THE R1M DATASET .THE BEST RESULT IS HIGHLIGHTED IN BOLD .
+> Method Precision (%) Recall (%) F1-score (%)
+> (i) MLP-PE (0.11M) 86.2 98.0 91.72 (ii) MLP-PE (1.42M) 86.6 98.5 92.17 (iii) Wave-PE (1.35M) 86.8 98.9 92.46
+
+Number of Parameters of the Wave-PE. To analysis the contribution of the Wave-PE, it is compared with the MLP-PE in Table X. One can see that the Wave-PE holds 1.35M parameters in our implementation. A simple MLP-PE can use very little parameters, but its performance is low. Even using a larger number of parameters, the MLP-PE does not achieve better performance. When Wave-PE and MLP-PE hold similar number of parameters (1.35M and 1.42M), the former method shows higher precision, recall and F1-score. 
+
+Number of Parameters of the Multi-Scale Feature Net-work. To analysis the effect of the number of parameters of the multi-scale feature network, an ablation study is performed by changing the number of parameters through changing layers but keeping neural network structure same. Experimental results reported in in Table XI show that the best performance is achieved when the number of parameters is around 222K. Therefore, we can draw the conclusion that too much or too little parameters in the multi-scale feature network do not yield better performance. 
+
+H. Efficiency Analysis 
+
+To analyze the efficiency of the proposed SceneGlue, its parameter number, floating point operations (FLOPs) and runtime are reported in Table XII. Other state-of-the-art feature matching approaches, including both sparse matchers Super-Glue [13], SAM [32], LightGlue [15], SGMNet [45] and dense matchers LoFTR [14] and ASpanFormer [56] are also cited for references. To make a fair comparison, all the sparse methods are evaluated using a typical input of 2048 keypoints. The dense methods are evaluated using a typical input resolution of 800 × 800 pixels. One can find in Table XII that SceneGlue involves the least parameters compared with other methods. Through com-paring SceneGlue and SAM, one can find that SceneGlue demonstrates significantly better performance than SAM while utilizing fewer parameters. Although the FLOPs of SceneGlue are slightly higher than those of SAM, the increments remain well within a reasonable and acceptable range. Other sparse matchers, including SuperGlue, LightGlue and SGMNet, uti-lize more learnable parameters and involves more FLOPs than SceneGlue. Sparse methods are much faster than dense ones IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS FOR VIDEO TECHNOLOGY 12 
+
+Fig. 7. Failure cases. TABLE XI 
+
+ABLATION STUDY ON THE NUMBER OF PARAMETERS OF THE MULTI -SCALE FEATURE NETWORK USING THE R1M DATASET . THE  
+
+> BEST RESULT IS HIGHLIGHTED IN BOLD
+
+.
+
+Parameters Precision (%) Recall (%) F1-score (%) 
+
+55K 93.0 98.7 95.76 111K 92.9 98.8 95.78 222K 93.2 98.9 95.97 
+
+444K 93.0 98.8 95.84 888K 92.9 98.9 95.83 
+
+in general, as LoFTR and ASpanFormer take 3 ∼ 5 times of runtime of SceneGlue. SuperGlue is a little faster than SceneGlue, but the gap is almost insignificant. In summary, considering both the efficiency and the superior performances of SceneGlue on various tasks, there’s a reasonable conclu-sion that SceneGlue achieves leading performance in feature matching. V. L IMITATION AND DISCUSSION 
+
+Since the objective of the proposed SceneGlue is to es-tablish pixel-level correspondences between cross-view im-ages, the model is trained without semantic annotation su-pervision. In our implementation, only keypoint matching groundtruth is used as supervision during the training stage. Although SceneGlue demonstrates strong performance in key-point matching, it lacks explicit semantic awareness, as its scene awareness is obtained by predicting overlapping regions between two images rather than learning semantic concepts. As illustrated by the failure cases in Fig. 7, mismatches may still occur when the illumination conditions or viewpoints be-tween two images differ significantly. While scene awareness is not equivalent to semantic understanding, it substantially improves feature matching performance. We believe that, if appropriate semantic supervision is incorporated in more complex applications, SceneGlue could learn to align seman-tic regions more effectively, which may further enhance its robustness under extreme illumination or viewpoint variations. VI. C ONCLUSION 
+
+In this paper, we propose SceneGlue, an attention-based local feature matching framework that introduces scene-level awareness into point-level correspondence estimation. The method improves feature representation by sampling key-points from multiple resolutions and fusing them through lightweight linear layers. In addition, SceneGlue performs self-attention and cross-attention in parallel, enabling simultaneous scene reasoning and more efficient computation. To further 
+
+TABLE XII 
+
+EFFICIENCY ANALYSIS .
+
+Methods #Params (M) FLOPs (G) Runtime (ms) 
+
+LoFTR 11.6 753.66 373.50 ASpanFormer 15.8 815.91 500.28 SuperGlue 12.0 22.51 104.37 LightGlue 11.9 34.89 87.4 SGMNet 31.1 30.10 92.1 SAM 14.8 17.61 111.42 
+
+SceneGlue 11.2 18.12 116.31 
+
+incorporate scene-level information, we design a Visibility Transformer that explicitly predicts cross-view visible regions, establishing scene-level correspondence between images. No-tably, this scene awareness is learned without requiring ad-ditional scene-level annotations. Experimental results demon-strate that the proposed design significantly improves local fea-ture matching performance across multiple tasks, highlighting the importance of integrating scene-level understanding into feature correspondence learning. ACKNOWLEDGMENTS 
+
+The authors would like to thank editors and anonymous reviewers for their insightful comments and suggestions. REFERENCES [1] S. Zhang, Z. Li, K. Zhang, Y. Lu, Y. Deng, L. Tang, X. Jiang, and J. Ma, “Deep learning reforms image matching: A survey and outlook,” 
+
+arXiv , 2025. [Online]. Available: https://arxiv.org/abs/2506.04619 [2] Z. Ye, C. Bao, X. Zhou, H. Liu, H. Bao, and G. Zhang, “EC-SfM: Efficient covisibility-based structure-from-motion for both sequential and unordered images,” IEEE Trans. Circuits Syst. Video Technol. ,vol. 34, no. 1, pp. 110–123, 2024. [3] X. Hu, Y. Wu, M. Zhao, L. Yang, X. Zhang, and X. Ji, “PAS-SLAM: A visual SLAM system for planar-ambiguous scenes,” IEEE Trans. Circuits Syst. Video Technol. , vol. 35, no. 3, pp. 2026–2044, 2025. [4] D. G. Lowe, “Distinctive image features from scale-invariant keypoints,” 
+
+Int. J. Comput. Vis. , vol. 60, no. 2, pp. 91–110, 2004. [5] M. Dusmanu, I. Rocco, T. Pajdla, M. Pollefeys, J. Sivic, A. Torii, and T. Sattler, “D2-Net: A trainable CNN for joint description and detection of local features,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR) , 2019, pp. 8092–8101. [6] D. DeTone, T. Malisiewicz, and A. Rabinovich, “SuperPoint: Self-supervised interest point detection and description,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. Workshops (CVPRW) , 2018, pp. 224–236. [7] Y. Wu, X. Li, H. Chen, C. Yang, L. Wei, and R. Chen, “MatchMamba: Correspondence pruning via selective state space model,” IEEE Trans. Circuits Syst. Video Technol. , 2025. [8] C. Yang, X. Li, J. Ma, F. Zhuang, L. Wei, R. Chen, and G. Chen, “CGR-Net: Consistency guided ResFormer for two-view correspondence learning,” IEEE Trans. Circuits Syst. Video Technol. , vol. 34, no. 12, pp. 12 450–12 465, 2024. IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS FOR VIDEO TECHNOLOGY 13 
+
+[9] F. Zhuang, Y. Liu, X. Li, J. Zhou, R. Chen, L. Wei, C. Yang, and J. Ma, “MGCNet: Multi-granularity consensus network for remote sensing image correspondence pruning,” ISPRS J. Photogramm. Remote Sens. ,vol. 219, pp. 38–51, 2025. [10] Z. Li, S. Zhang, and J. Ma, “U-Match: Exploring hierarchy-aware local context for two-view correspondence learning,” IEEE Trans. Pattern Anal. Mach. Intell. , vol. 46, no. 12, pp. 10 960–10 977, 2024. [11] J. Ren, X. Jiang, Z. Li, D. Liang, X. Zhou, and X. Bai, “MINIMA: Modality invariant image matching,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR) , 2025, pp. 23 059–23 068. [12] Z. Luo, L. Zhou, X. Bai, H. Chen, J. Zhang, Y. Yao, S. Li, T. Fang, and L. Quan, “ASLFeat: Learning local features of accurate shape and localization,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR) , 2020, pp. 6588–6597. [13] P. Sarlin, D. DeTone, T. Malisiewicz, and A. Rabinovich, “Super-Glue: Learning feature matching with graph neural networks,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR) , 2020, pp. 4937–4946. [14] J. Sun, Z. Shen, Y. Wang, H. Bao, and X. Zhou, “LoFTR: Detector-free local feature matching with transformers,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR) , 2021, pp. 8922–8931. [15] P. Lindenberger, P.-E. Sarlin, and M. Pollefeys, “LightGlue: Local feature matching at light speed,” in Proc. Int. Conf. Comput. Vis. (ICCV) ,2023, pp. 17 581–17 592. [16] E. Rublee, V. Rabaud, K. Konolige, and G. Bradski, “ORB: An efficient alternative to SIFT or SURF,” in Proc. Int. Conf. Comput. Vis. (ICCV) ,2011, pp. 2564–2571. [17] J. Revaud, C. De Souza, M. Humenberger, and P. Weinzaepfel, “R2D2: Reliable and repeatable detector and descriptor,” in Proc. Adv. Neural Inf. Process. Syst. (NeurIPS) , 2019, pp. 12 414–12 424. [18] A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A. N. Gomez, L. Kaiser, and I. Polosukhin, “Attention is all you need,” in Proc. Adv. Neural Inf. Process. Syst. (NeurIPS) , 2017, pp. 5998–6008. [19] Z. Liu, Y. Lin, Y. Cao, H. Hu, Y. Wei, Z. Zhang, S. Lin, and B. Guo, “Swin Transformer: Hierarchical vision Transformer using shifted win-dows,” in Proc. Int. Conf. Comput. Vis. (ICCV) , 2021, pp. 10 012–10 022. [20] Q. Wang, J. Zhang, K. Yang, K. Peng, and R. Stiefelhagen, “Match-Former: Interleaving attention in Transformers for feature matching,” in 
+
+Proc. Asia. Conf. Comput. Vis. (ACCV) , 2022, pp. 2746–2762. [21] Y. Tang, K. Han, J. Guo, C. Xu, Y. Li, C. Xu, and Y. Wang, “An image patch is a wave: Phase-aware vision MLP,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR) , 2022, pp. 10 925–10 934. [22] Z. Li and J. Ma, “Learning feature matching via matchable keypoint-assisted graph neural network,” IEEE Trans. Image Process. , vol. 34, pp. 154–169, 2025. [23] Y. Chen, D. Huang, S. Xu, J. Liu, and Y. Liu, “Guide local feature matching by overlap estimation,” in Proc. AAAI Conf. Artif. Intell. (AAAI) , 2022, pp. 365–373. [24] P. Truong, M. Danelljan, L. Van Gool, and R. Timofte, “Learning accurate dense correspondences and when to trust them,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR) , 2021, pp. 5710–5720. [25] T. Xie, K. Dai, K. Wang, R. Li, and L. Zhao, “DeepMatcher: Adeep transformer-based network for robust and accurate local feature matching,” Expert Syst. Appl. , vol. 237, p. 121361, 2024. [26] K. Dai, Z. Zhou, Z. Jiang, Q. Sun, T. Xie, H. Gao, T. An, R. Li, and L. Zhao, “VD-Matcher: A very deep local feature matcher with weight recycling and keypoint detection,” IEEE Trans. Circuits Syst. Video Technol. , 2025. [27] J. Yu, J. Chang, J. He, T. Zhang, J. Yu, and F. Wu, “Adaptive spot-guided Transformer for consistent local feature matching,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR) , 2023, pp. 21 898–21 908. [28] Z. Luo, T. Shen, L. Zhou, J. Zhang, Y. Yao, S. Li, T. Fang, and L. Quan, “ContextDesc: Local descriptor augmentation with cross-modality context,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR) , 2019, pp. 2522–2531. [29] C. Wang, R. Xu, K. Lu, S. Xu, W. Meng, Y. Zhang, B. Fan, and X. Zhang, “Attention weighted local descriptors,” IEEE Trans. Pattern Anal. Mach. Intell. , vol. 45, no. 9, pp. 10 632–10 649, 2023. [30] K. Dai, T. Xie, K. Wang, Z. Jiang, R. Li, and L. Zhao, “OAMatcher: An overlapping areas-based network with label credibility for robust and accurate feature matching,” Pattern Recognit. , vol. 147, pp. 110 094:1– 110 094:14, 2024. [31] D. Huang, Y. Chen, Y. Liu, J. Liu, S. Xu, W. Wu, Y. Ding, F. Tang, and C. Wang, “Adaptive assignment for geometry aware local feature matching,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR) , 2023, pp. 5425–5434. [32] X. Lu, Y. Yan, T. Wei, and S. Du, “Scene-aware feature matching,” in 
+
+Proc. Int. Conf. Comput. Vis. (ICCV) , 2023, pp. 3704–3710. [33] Z. Li, y. Lu, L. Tang, S. Zhang, and J. Ma, “CoMatch: Dynamic covisibility-aware transformer for bilateral subpixel-level semi-dense image matching,” in Proc. Int. Conf. Comput. Vis. (ICCV) , 2025, pp. 18 521–18 530. [34] J. Philbin, O. Chum, M. Isard, J. Sivic, and A. Zisserman, “Object retrieval with large vocabularies and fast spatial matching,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR) , 2007, pp. 1– 8. [35] Z. Li and N. Snavely, “MegaDepth: Learning single-view depth pre-diction from internet photos,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR) , 2018, pp. 2041–2050. [36] D. P. Kingma and J. Ba, “Adam: A method for stochastic optimization,” 
+
+arXiv preprint arXiv:1412.6980 , 2014. [37] V. Balntas, K. Lenc, A. Vedaldi, and K. Mikolajczyk, “HPatches: A benchmark and evaluation of handcrafted and learned local descriptors,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR) , 2017, pp. 5173–5182. [38] Q. Zhou, T. Sattler, and L. Leal-Taixe, “Patch2Pix: Epipolar-guided pixel-level correspondences,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR) , 2021, pp. 4669–4678. [39] I. Rocco, M. Cimpoi, R. Arandjelovi´ c, A. Torii, T. Pajdla, and J. Sivic, “NCNet: Neighbourhood consensus networks for estimating image cor-respondences,” IEEE Trans. Pattern Anal. Mach. Intell. , vol. 44, no. 2, pp. 1020–1034, 2022. [40] Q. Wang, X. Zhou, B. Hariharan, and N. Snavely, “Learning feature descriptors using camera pose supervision,” in Proc. Eur. Conf. Comput. Vis. (ECCV) , 2020, pp. 757–774. [41] F. Radenovi´ c, A. Iscen, G. Tolias, Y. Avrithis, and O. Chum, “Revisiting Oxford and Paris: Large-scale image retrieval benchmarking,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR) , 2018, pp. 5706–5715. [42] K. M. Yi, E. Trulls, Y. Ono, V. Lepetit, M. Salzmann, and P. Fua, “Learning to Find Good Correspondences,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR) , 2018, pp. 2666–2674. [43] J. Zhang, D. Sun, Z. Luo, A. Yao, H. Chen, L. Zhou, T. Shen, Y. Chen, L. Quan, and H. Liao, “OANet: Learning two-view correspondences and geometry using order-aware network,” IEEE Trans. Pattern Anal. Mach. Intell. , vol. 44, no. 6, pp. 3110–3122, 2022. [44] B. Thomee, B. Elizalde, D. A. Shamma, K. Ni, G. Friedland, D. Poland, D. Borth, and L. J. Li, “YFCC100M: The new data in multimedia research,” Commun. ACM , pp. 64–73, 2016. [45] H. Chen, Z. Luo, J. Zhang, L. Zhou, X. Bai, Z. Hu, C.-L. Tai, and L. Quan, “Learning to match features with seeded graph matching network,” in Proc. Int. Conf. Comput. Vis. (ICCV) , 2021, pp. 6301– 6310. [46] Z. Kuang, J. Li, M. He, T. Wang, and Y. Zhao, “DenseGAP: Graph-structured dense correspondence learning with anchor points,” in Proc. Int. Conf. Pattern Recognit. (ICPR) , 2022, pp. 542–549. [47] Y. Shi, J.-X. Cai, Y. Shavit, T.-J. Mu, W. Feng, and K. Zhang, “ClusterGNN: Cluster-based coarse-to-fine graph neural network for efficient feature matching,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR) , 2022, pp. 12 507–12 516. [48] M. Oquab, T. Darcet, T. Moutakanni, H. V. Vo, M. Szafraniec, V. Khalidov, P. Fernandez, D. Haziza, F. Massa, A. El-Nouby, R. Howes, P.-Y. Huang, H. Xu, V. Sharma, S.-W. Li, W. Galuba, M. Rabbat, M. Assran, N. Ballas, G. Synnaeve, I. Misra, H. Jegou, J. Mairal, P. Labatut, A. Joulin, and P. Bojanowski, “DINOv2: Learning robust visual features without supervision,” arXiv , 2023. [Online]. Available: https://arxiv.org/abs/2304.07193 [49] A. Dai, A. X. Chang, M. Savva, M. Halber, T. Funkhouser, and M. Nießner, “ScanNet: Richly-annotated 3D reconstructions of indoor scenes,” in Proc. IEEE Conf. Comput. Vis. Pattern Recognit. (CVPR) ,2017, pp. 5828–5839. [50] H. Taira, M. Okutomi, T. Sattler, M. Cimpoi, M. Pollefeys, J. Sivic, T. Pajdla, and A. Torii, “InLoc: Indoor visual localization with dense matching and view synthesis,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR) , 2018, pp. 7199–7209. [51] S. Zhang and J. Ma, “DiffGlue: Diffusion-aided image feature match-ing,” in Proc. ACM Int. Conf. Multimedia , 2024, pp. 8451–8460. [52] L. Cavalli, V. Larsson, M. R. Oswald, T. Sattler, and M. Pollefeys, “Handcrafted outlier detection revisited,” in Proc. Eur. Conf. Comput. Vis. (ECCV) , 2020, pp. 770–787. [53] Y. Deng, K. Zhang, S. Zhang, Y. Li, and J. Ma, “ResMatch: Residual attention learning for feature matching,” in Proc. AAAI Conf. Artif. Intell. (AAAI) , 2024, pp. 1501–1509. IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS FOR VIDEO TECHNOLOGY 14 
+
+[54] T. Sattler, W. Maddern, C. Toft, A. Torii, L. Hammarstrand, E. Stenborg, D. Safari, M. Okutomi, M. Pollefeys, J. Sivic, F. Kahl, and T. Pajdla, “Benchmarking 6DOF outdoor visual localization in changing condi-tions,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR) ,2018, pp. 8601–8610. [55] P.-E. Sarlin, C. Cadena, R. Siegwart, and M. Dymczyk, “From coarse to fine: Robust hierarchical localization at large scale,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR) , 2019, pp. 12 708–12 717. [56] H. Chen, Z. Luo, L. Zhou, Y. Tian, M. Zhen, T. Fang, D. McKinnon, Y. Tsin, and L. Quan, “ASpanFormer: Detector-free image matching with adaptive span Transformer,” in Proc. Eur. Conf. Comput. Vis. (ECCV) ,2022, pp. 20–36. 
+
+Songlin Du received the Ph.D. degree in Physics from Lanzhou University, Lanzhou, China, and the second Ph.D. degree in Engineering from Waseda University, Tokyo, Japan, in 2019. He is currently an Associate Professor with the School of Automation, Southeast University, Nanjing, China. He was arecipient of the Best Paper Award from the IEEE International Symposium on Intelligent Signal Pro-cessing and Communication Systems (ISPACS) in 2017, the Best Presentation Award from the Interna-tional Conference on Intelligent Systems and Image Processing (ICISIP) in 2018, the Excellent Paper Award from the International Collaboration Symposium on Information, Production and System (ISIPS) in 2018, and the Best Presentation Award from the Computer Vision Session of the International Conference on Artificial Intelligence and Virtual Reality (AIVR) in 2019. He is an author of the book Human Pose Analysis: Deep Learning Meets Human Kinematics in Video (Singapore: Springer Nature, 2024). His research interests include computer vision and its applications. 
+
+Xiaoyong Lu received the B.E. degree in automation from Nanjing University of Science and Technology, Nanjing, China, in 2021. He is currently pursuing the doctoral degree in control science and engineering at Southeast University, Nanjing, China. His research interests include computer vision and machine learn-ing. 
+
+Yaping Yan received the B.E. degree from Zhejiang University, Hangzhou, China, in 2010, the M.E. degree from Lanzhou University, Lanzhou, China, in 2016, and the Ph.D. degree from Hokkaido Univer-sity, Sapporo, Japan, in 2020. She is currently with the School of Computer Science and Engineering, Southeast University, Nanjing, China. Her research focuses on computer vision and machine learning. 
+
+Guobao Xiao (Senior Member, IEEE) received the Ph.D. degree in Computer Science and Technol-ogy from Xiamen University, Xiamen, China, in 2016. He is currently a Professor at Tongji Uni-versity, Shanghai, China. He has published over 50 papers in journals and conferences including IEEE TPAMI/TIP, IJCV, ICCV, and ECCV. He was awarded the Best Ph.D. Thesis Award by China So-ciety of Image and Graphics (a total of ten awardees in China). He also served on the program committee (PC) of CVPR, ICCV, ECCV, etc. His research interests include machine learning, computer vision and pattern recognition. 
+
+Xiaobo Lu received the B.S. degree from Shanghai Jiao Tong University, Shanghai, China, the M.S. degree from Southeast University, Nanjing, China, and the Ph.D. degree from Nanjing University of Aeronautics and Astronautics, Nanjing, China. He did his postdoctoral research with the Chien-Shiung Wu Laboratory, Southeast University, from 1998 to 2000. He is currently a Professor with the School of Automation and the Deputy Director of the De-tection Technology and Automation Research In-stitute, Southeast University. He is a co-author of the book An Introduction to the Intelligent Transportation Systems (China Communications Press, Beijing, 2008). His research interests include image processing, signal processing, pattern recognition, and computer vision. He was the recipient of the first prize of the Natural Science Award from the Ministry of Education of China and the second prize of the Jiangsu Provincial Science and Technology Award. 
+
+Takeshi Ikenaga (Senior Member, IEEE) received his B.E. and M.E. degrees in electrical engineering and Ph.D degree in information computer science from Waseda University, Tokyo, Japan, in 1988, 1990, and 2002, respectively. He joined LSI Labora-tories, Nippon Telegraph and Telephone Corporation (NTT) in 1990, where he had been undertaking research on the design and test methodologies for high performance ASICs, a real-time MPEG2 en-coder chip set, and a highly parallel LSI system design for image understanding processing. He is presently a professor in the system integration field of the Graduate School of Information, Production and Systems, Waseda University. His current interests are image and video processing systems, which covers video compression (e.g. H.265/HEVC, SHVC, SCC), video filter (e.g. super resolution, noise reduction, high-dynamic range imaging), and video recognition (e.g. sports analysis, feature point detection, object tracking) and video communication (e.g. UWB, LDPC, public key encryption). He is a senior member of the Institute of Electrical and Electronics Engineers (IEEE), a member of the Institute of Electronics, Information and Communication Engineers of Japan (IEICE) and the Information Processing Society of Japan (IPSJ).

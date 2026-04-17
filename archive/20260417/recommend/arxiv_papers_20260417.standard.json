@@ -1,0 +1,656 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-17T19:42:13.904427+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 11,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2604.14268v1",
+      "title": "HY-World 2.0: A Multi-Modal World Model for Reconstructing, Generating, and Simulating 3D Worlds",
+      "abstract": "We introduce HY-World 2.0, a multi-modal world model framework that advances our prior project HY-World 1.0. HY-World 2.0 accommodates diverse input modalities, including text prompts, single-view images, multi-view images, and videos, and produces 3D world representations. With text or single-view image inputs, the model performs world generation, synthesizing high-fidelity, navigable 3D Gaussian Splatting (3DGS) scenes. This is achieved through a four-stage method: a) Panorama Generation with HY-Pano 2.0, b) Trajectory Planning with WorldNav, c) World Expansion with WorldStereo 2.0, and d) World Composition with WorldMirror 2.0. Specifically, we introduce key innovations to enhance panorama fidelity, enable 3D scene understanding and planning, and upgrade WorldStereo, our keyframe-based view generation model with consistent memory. We also upgrade WorldMirror, a feed-forward model for universal 3D prediction, by refining model architecture and learning strategy, enabling world reconstruction from multi-view images or videos. Also, we introduce WorldLens, a high-performance 3DGS rendering platform featuring a flexible engine-agnostic architecture, automatic IBL lighting, efficient collision detection, and training-rendering co-design, enabling interactive exploration of 3D worlds with character support. Extensive experiments demonstrate that HY-World 2.0 achieves state-of-the-art performance on several benchmarks among open-source approaches, delivering results comparable to the closed-source model Marble. We release all model weights, code, and technical details to facilitate reproducibility and support further research on 3D world models.",
+      "authors": [
+        "Team HY-World",
+        "Chenjie Cao",
+        "Xuhui Zuo",
+        "Zhenwei Wang",
+        "Yisu Zhang",
+        "Junta Wu",
+        "Zhenyang Liu",
+        "Yuning Gong",
+        "Yang Liu",
+        "Bo Yuan",
+        "Chao Zhang",
+        "Coopers Li",
+        "Dongyuan Guo",
+        "Fan Yang",
+        "Haiyu Zhang",
+        "Hang Cao",
+        "Jianchen Zhu",
+        "Jiaxin Lin",
+        "Jie Xiao",
+        "Jihong Zhang",
+        "Junlin Yu",
+        "Lei Wang",
+        "Lifu Wang",
+        "Lilin Wang",
+        "Linus",
+        "Minghui Chen",
+        "Peng He",
+        "Penghao Zhao",
+        "Qi Chen",
+        "Rui Chen",
+        "Rui Shao",
+        "Sicong Liu",
+        "Wangchen Qin",
+        "Xiaochuan Niu",
+        "Xiang Yuan",
+        "Yi Sun",
+        "Yifei Tang",
+        "Yifu Sun",
+        "Yihang Lian",
+        "Yonghao Tan",
+        "Yuhong Liu",
+        "Yuyang Yin",
+        "Zhiyuan Min",
+        "Tengfei Wang",
+        "Chunchao Guo"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-15T17:59:17+00:00",
+      "link": "https://arxiv.org/pdf/2604.14268v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "text-to-3D world generation synthesizing navigable 3D Gaussian Splatting scenes",
+      "llm_evidence_cn": "文本到3D世界生成，合成可导航的3D高斯泼溅场景",
+      "llm_evidence": "文本到3D世界生成，合成可导航的3D高斯泼溅场景",
+      "canonical_evidence": "文本到3D世界生成，合成可导航的3D高斯泼溅场景",
+      "llm_tldr_en": "A multi-modal world model for generating high-fidelity, navigable 3D scenes from text or image inputs.",
+      "llm_tldr_cn": "一种多模态世界模型，可根据文本或图像输入生成高保真、可导航的3D场景。",
+      "llm_tldr": "一种多模态世界模型，可根据文本或图像输入生成高保真、可导航的3D场景。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "text-to-3D scene generation frameworks",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.14302v1",
+      "title": "Geometrically Consistent Multi-View Scene Generation from Freehand Sketches",
+      "abstract": "We tackle a new problem: generating geometrically consistent multi-view scenes from a single freehand sketch. Freehand sketches are the most geometrically impoverished input one could offer a multi-view generator. They convey scene intent through abstract strokes while introducing spatial distortions that actively conflict with any consistent 3D interpretation. No prior method attempts this; existing multi-view approaches require photographs or text, while sketch-to-3D methods need multiple views or costly per-scene optimisation.   We address three compounding challenges; absent training data, the need for geometric reasoning from distorted 2D input, and cross-view consistency, through three mutually reinforcing contributions: (i) a curated dataset of $\\sim$9k sketch-to-multiview samples, constructed via an automated generation and filtering pipeline; (ii) Parallel Camera-Aware Attention Adapters (CA3) that inject geometric inductive biases into the video transformer; and (iii) a Sparse Correspondence Supervision Loss (CSL) derived from Structure-from-Motion reconstructions.   Our framework synthesizes all views in a single denoising process without requiring reference images, iterative refinement, or per-scene optimization. Our approach significantly outperforms state-of-the-art two-stage baselines, improving realism (FID) by over 60% and geometric consistency (Corr-Acc) by 23%, while providing up to a 3.7$\\times$ inference speedup.",
+      "authors": [
+        "Ahmed Bourouis",
+        "Savas Ozkan",
+        "Andrea Maracani",
+        "Yi-Zhe Song",
+        "Mete Ozay"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-15T18:00:45+00:00",
+      "link": "https://arxiv.org/pdf/2604.14302v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Generating multi-view scenes from freehand sketches",
+      "llm_evidence_cn": "从手绘草图生成多视图场景",
+      "llm_evidence": "从手绘草图生成多视图场景",
+      "canonical_evidence": "从手绘草图生成多视图场景",
+      "llm_tldr_en": "This paper introduces a method to generate geometrically consistent 3D scenes from a single freehand sketch.",
+      "llm_tldr_cn": "本文提出了一种从单张手绘草图生成几何一致的3D场景的方法。",
+      "llm_tldr": "本文提出了一种从单张手绘草图生成几何一致的3D场景的方法。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.14914v1",
+      "title": "Beyond Prompts: Unconditional 3D Inversion for Out-of-Distribution Shapes",
+      "abstract": "Text-driven inversion of generative models is a core paradigm for manipulating 2D or 3D content, unlocking numerous applications such as text-based editing, style transfer, or inverse problems. However, it relies on the assumption that generative models remain sensitive to natural language prompts. We demonstrate that for state-of-the-art native text-to-3D generative models, this assumption often collapses. We identify a critical failure mode where generation trajectories are drawn into latent ``sink traps'': regions where the model becomes insensitive to prompt modifications. In these regimes, changes to the input text fail to alter internal representations in a way that alters the output geometry. Crucially, we observe that this is not a limitation of the model's \\textit{geometric} expressivity; the same generative models possess the ability to produce a vast diversity of shapes but, as we demonstrate, become insensitive to out-of-distribution \\textit{text} guidance. We investigate this behavior by analyzing the sampling trajectories of the generative model, and find that complex geometries can still be represented and produced by leveraging the model's unconditional generative prior. This leads to a more robust framework for text-based 3D shape editing that bypasses latent sinks by decoupling a model's geometric representation power from its linguistic sensitivity. Our approach addresses the limitations of current 3D pipelines and enables high-fidelity semantic manipulation of out-of-distribution 3D shapes. Project webpage: https://daidedou.sorpi.fr/publication/beyondprompts",
+      "authors": [
+        "Victoria Yue Chen",
+        "Emery Pierson",
+        "Léopold Maillard",
+        "Maks Ovsjanikov"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-16T11:55:29+00:00",
+      "link": "https://arxiv.org/pdf/2604.14914v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "analysis of text-to-3D generative models and inversion",
+      "llm_evidence_cn": "对文本到 3D 生成模型及反转的研究",
+      "llm_evidence": "对文本到 3D 生成模型及反转的研究",
+      "canonical_evidence": "对文本到 3D 生成模型及反转的研究",
+      "llm_tldr_en": "Investigates failure modes in text-to-3D generative models to improve 3D content manipulation.",
+      "llm_tldr_cn": "研究文本到 3D 生成模型的失效模式，以改进 3D 内容的操作。",
+      "llm_tldr": "研究文本到 3D 生成模型的失效模式，以改进 3D 内容的操作。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "text-to-3D scene generation frameworks",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.15239v1",
+      "title": "TokenGS: Decoupling 3D Gaussian Prediction from Pixels with Learnable Tokens",
+      "abstract": "In this work, we revisit several key design choices of modern Transformer-based approaches for feed-forward 3D Gaussian Splatting (3DGS) prediction. We argue that the common practice of regressing Gaussian means as depths along camera rays is suboptimal, and instead propose to directly regress 3D mean coordinates using only a self-supervised rendering loss. This formulation allows us to move from the standard encoder-only design to an encoder-decoder architecture with learnable Gaussian tokens, thereby unbinding the number of predicted primitives from input image resolution and number of views. Our resulting method, TokenGS, demonstrates improved robustness to pose noise and multiview inconsistencies, while naturally supporting efficient test-time optimization in token space without degrading learned priors. TokenGS achieves state-of-the-art feed-forward reconstruction performance on both static and dynamic scenes, producing more regularized geometry and more balanced 3DGS distribution, while seamlessly recovering emergent scene attributes such as static-dynamic decomposition and scene flow.",
+      "authors": [
+        "Jiawei Ren",
+        "Michal Jan Tyszkiewicz",
+        "Jiahui Huang",
+        "Zan Gojcic"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-16T17:12:37+00:00",
+      "link": "https://arxiv.org/pdf/2604.15239v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "feed-forward 3D Gaussian Splatting prediction with learnable tokens",
+      "llm_evidence_cn": "使用可学习令牌的前馈3D高斯泼溅预测",
+      "llm_evidence": "使用可学习令牌的前馈3D高斯泼溅预测",
+      "canonical_evidence": "使用可学习令牌的前馈3D高斯泼溅预测",
+      "llm_tldr_en": "TokenGS improves 3D Gaussian Splatting prediction using an encoder-decoder architecture with learnable tokens.",
+      "llm_tldr_cn": "TokenGS 通过使用带有可学习令牌的编码器-解码器架构改进了 3D 高斯泼溅预测。",
+      "llm_tldr": "TokenGS 通过使用带有可学习令牌的编码器-解码器架构改进了 3D 高斯泼溅预测。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "state of the art methods in 3D scene generation",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.12580v2",
+      "title": "PDF-GS: Progressive Distractor Filtering for Robust 3D Gaussian Splatting",
+      "abstract": "Recent advances in 3D Gaussian Splatting (3DGS) have enabled impressive real-time photorealistic rendering. However, conventional training pipelines inherently assume full multi-view consistency among input images, which makes them sensitive to distractors that violate this assumption and cause visual artifacts. In this work, we revisit an underexplored aspect of 3DGS: its inherent ability to suppress inconsistent signals. Building on this insight, we propose PDF-GS (Progressive Distractor Filtering for Robust 3D Gaussian Splatting), a framework that amplifies this self-filtering property through a progressive multi-phase optimization. The progressive filtering phases gradually remove distractors by exploiting discrepancy cues, while the following reconstruction phase restores fine-grained, view-consistent details from the purified Gaussian representation. Through this iterative refinement, PDF-GS achieves robust, high-fidelity, and distractor-free reconstructions, consistently outperforming baselines across diverse datasets and challenging real-world conditions. Moreover, our approach is lightweight and easily adaptable to existing 3DGS frameworks, requiring no architectural changes or additional inference overhead, leading to a new state-of-the-art performance. The code is publicly available at https://github.com/kangrnin/PDF-GS.",
+      "authors": [
+        "Kangmin Seo",
+        "MinKyu Lee",
+        "Tae-Young Kim",
+        "ByeongCheol Lee",
+        "JoonSeoung An",
+        "Jae-Pil Heo"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-14T11:03:55+00:00",
+      "link": "https://arxiv.org/pdf/2604.12580v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Robust 3D Gaussian Splatting for scene rendering",
+      "llm_evidence_cn": "用于场景渲染的鲁棒3D高斯泼溅",
+      "llm_evidence": "用于场景渲染的鲁棒3D高斯泼溅",
+      "canonical_evidence": "用于场景渲染的鲁棒3D高斯泼溅",
+      "llm_tldr_en": "Proposes PDF-GS to filter distractors and improve the robustness of 3D scene reconstruction.",
+      "llm_tldr_cn": "提出PDF-GS框架，通过过滤干扰物提高3D场景重建的鲁棒性。",
+      "llm_tldr": "提出PDF-GS框架，通过过滤干扰物提高3D场景重建的鲁棒性。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.13589v1",
+      "title": "Dehaze-then-Splat: Generative Dehazing with Physics-Informed 3D Gaussian Splatting for Smoke-Free Novel View Synthesis",
+      "abstract": "We present Dehaze-then-Splat, a two-stage pipeline for multi-view smoke removal and novel view synthesis developed for Track~2 of the NTIRE 2026 3D Restoration and Reconstruction Challenge. In the first stage, we produce pseudo-clean training images via per-frame generative dehazing using Nano Banana Pro, followed by brightness normalization. In the second stage, we train 3D Gaussian Splatting (3DGS) with physics-informed auxiliary losses -- depth supervision via Pearson correlation with pseudo-depth, dark channel prior regularization, and dual-source gradient matching -- that compensate for cross-view inconsistencies inherent in frame-wise generative processing. We identify a fundamental tension in dehaze-then-reconstruct pipelines: per-image restoration quality does not guarantee multi-view consistency, and such inconsistency manifests as blurred renders and structural instability in downstream 3D reconstruction.Our analysis shows that MCMC-based densification with early stopping, combined with depth and haze-suppression priors, effectively mitigates these artifacts. On the Akikaze validation scene, our pipeline achieves 20.98\\,dB PSNR and 0.683 SSIM for novel view synthesis, a +1.50\\,dB improvement over the unregularized baseline.",
+      "authors": [
+        "Yuchao Chen",
+        "Hanqing Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-15T07:52:53+00:00",
+      "link": "https://arxiv.org/pdf/2604.13589v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "generative novel view synthesis and 3D Gaussian Splatting reconstruction",
+      "llm_evidence_cn": "生成式新视角合成与3D高斯泼溅重建",
+      "llm_evidence": "生成式新视角合成与3D高斯泼溅重建",
+      "canonical_evidence": "生成式新视角合成与3D高斯泼溅重建",
+      "llm_tldr_en": "A pipeline for smoke removal and novel view synthesis using generative dehazing and 3D Gaussian Splatting.",
+      "llm_tldr_cn": "一种利用生成式去雾和3D高斯泼溅进行烟雾去除和新视角合成的流水线。",
+      "llm_tldr": "一种利用生成式去雾和3D高斯泼溅进行烟雾去除和新视角合成的流水线。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.13688v1",
+      "title": "Beyond Voxel 3D Editing: Learning from 3D Masks and Self-Constructed Data",
+      "abstract": "3D editing refers to the ability to apply local or global modifications to 3D assets. Effective 3D editing requires maintaining semantic consistency by performing localized changes according to prompts, while also preserving local invariance so that unchanged regions remain consistent with the original. However, existing approaches have significant limitations: multi-view editing methods incur losses when projecting back to 3D, while voxel-based editing is constrained in both the regions that can be modified and the scale of modifications. Moreover, the lack of sufficiently large editing datasets for training and evaluation remains a challenge. To address these challenges, we propose a Beyond Voxel 3D Editing (BVE) framework with a self-constructed large-scale dataset specifically tailored for 3D editing. Building upon this dataset, our model enhances a foundational image-to-3D generative architecture with lightweight, trainable modules, enabling efficient injection of textual semantics without the need for expensive full-model retraining. Furthermore, we introduce an annotation-free 3D masking strategy to preserve local invariance, maintaining the integrity of unchanged regions during editing. Extensive experiments demonstrate that BVE achieves superior performance in generating high-quality, text-aligned 3D assets, while faithfully retaining the visual characteristics of the original input.",
+      "authors": [
+        "Yizhao Xu",
+        "Hongyuan Zhu",
+        "Caiyun Liu",
+        "Tianfu Wang",
+        "Keyu Chen",
+        "Sicheng Xu",
+        "Jiaolong Yang",
+        "Nicholas Jing Yuan",
+        "Qi Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-04-15T10:10:27+00:00",
+      "link": "https://arxiv.org/pdf/2604.13688v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D editing and modification of 3D assets using prompts",
+      "llm_evidence_cn": "使用提示词对3D资产进行3D编辑和修改",
+      "llm_evidence": "使用提示词对3D资产进行3D编辑和修改",
+      "canonical_evidence": "使用提示词对3D资产进行3D编辑和修改",
+      "llm_tldr_en": "Proposes a framework for local and global 3D asset editing using 3D masks and self-constructed data.",
+      "llm_tldr_cn": "提出了一种利用3D掩码和自构建数据进行局部和全局3D资产编辑的框架。",
+      "llm_tldr": "提出了一种利用3D掩码和自构建数据进行局部和全局3D资产编辑的框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.13941v1",
+      "title": "SceneGlue: Scene-Aware Transformer for Feature Matching without Scene-Level Annotation",
+      "abstract": "Local feature matching plays a critical role in understanding the correspondence between cross-view images. However, traditional methods are constrained by the inherent local nature of feature descriptors, limiting their ability to capture non-local scene information that is essential for accurate cross-view correspondence. In this paper, we introduce SceneGlue, a scene-aware feature matching framework designed to overcome these limitations. SceneGlue leverages a hybridizable matching paradigm that integrates implicit parallel attention and explicit cross-view visibility estimation. The parallel attention mechanism simultaneously exchanges information among local descriptors within and across images, enhancing the scene's global context. To further enrich the scene awareness, we propose the Visibility Transformer, which explicitly categorizes features into visible and invisible regions, providing an understanding of cross-view scene visibility. By combining explicit and implicit scene-level awareness, SceneGlue effectively compensates for the local descriptor constraints. Notably, SceneGlue is trained using only local feature matches, without requiring scene-level groundtruth annotations. This scene-aware approach not only improves accuracy and robustness but also enhances interpretability compared to traditional methods. Extensive experiments on applications such as homography estimation, pose estimation, image matching, and visual localization validate SceneGlue's superior performance. The source code is available at https://github.com/songlin-du/SceneGlue.",
+      "authors": [
+        "Songlin Du",
+        "Xiaoyong Lu",
+        "Yaping Yan",
+        "Guobao Xiao",
+        "Xiaobo Lu",
+        "Takeshi Ikenaga"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-15T14:52:10+00:00",
+      "link": "https://arxiv.org/pdf/2604.13941v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "scene-aware feature matching framework for cross-view correspondence",
+      "llm_evidence_cn": "用于跨视图对应的场景感知特征匹配框架",
+      "llm_evidence": "用于跨视图对应的场景感知特征匹配框架",
+      "canonical_evidence": "用于跨视图对应的场景感知特征匹配框架",
+      "llm_tldr_en": "SceneGlue uses a scene-aware transformer to improve local feature matching for 3D scene understanding.",
+      "llm_tldr_cn": "SceneGlue使用场景感知Transformer改进了用于3D场景理解的局部特征匹配。",
+      "llm_tldr": "SceneGlue使用场景感知Transformer改进了用于3D场景理解的局部特征匹配。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.13746v1",
+      "title": "ClipGStream: Clip-Stream Gaussian Splatting for Any Length and Any Motion Multi-View Dynamic Scene Reconstruction",
+      "abstract": "Dynamic 3D scene reconstruction is essential for immersive media such as VR, MR, and XR, yet remains challenging for long multi-view sequences with large-scale motion. Existing dynamic Gaussian approaches are either Frame-Stream, offering scalability but poor temporal stability, or Clip, achieving local consistency at the cost of high memory and limited sequence length. We propose ClipGStream, a hybrid reconstruction framework that performs stream optimization at the clip level rather than the frame level. The sequence is divided into short clips, where dynamic motion is modeled using clip-independent spatio-temporal fields and residual anchor compensation to capture local variations efficiently, while inter-clip inherited anchors and decoders maintain structural consistency across clips. This Clip-Stream design enables scalable, flicker-free reconstruction of long dynamic videos with high temporal coherence and reduced memory overhead. Extensive experiments demonstrate that ClipGStream achieves state-of-the-art reconstruction quality and efficiency. The project page is available at: https://liangjie1999.github.io/ClipGStreamWeb/",
+      "authors": [
+        "Jie Liang",
+        "Jiahao Wu",
+        "Chao Wang",
+        "Jiayu Yang",
+        "Xiaoyun Zheng",
+        "Kaiqiang Xiong",
+        "Zhanke Wang",
+        "Jinbo Yan",
+        "Feng Gao",
+        "Ronggang Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-15T11:30:23+00:00",
+      "link": "https://arxiv.org/pdf/2604.13746v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "dynamic 3D scene reconstruction and synthesis",
+      "llm_evidence_cn": "动态3D场景重建与合成",
+      "llm_evidence": "动态3D场景重建与合成",
+      "canonical_evidence": "动态3D场景重建与合成",
+      "llm_tldr_en": "ClipGStream enables long-duration dynamic 3D scene reconstruction using a clip-level hybrid framework.",
+      "llm_tldr_cn": "ClipGStream利用剪辑级混合框架实现了长时动态3D场景重建。",
+      "llm_tldr": "ClipGStream利用剪辑级混合框架实现了长时动态3D场景重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.14144v1",
+      "title": "SpatialEvo: Self-Evolving Spatial Intelligence via Deterministic Geometric Environments",
+      "abstract": "Spatial reasoning over three-dimensional scenes is a core capability for embodied intelligence, yet continuous model improvement remains bottlenecked by the cost of geometric annotation. The self-evolving paradigm offers a promising path, but its reliance on model consensus to construct pseudo-labels causes training to reinforce rather than correct the model's own geometric errors. We identify a property unique to 3D spatial reasoning that circumvents this limitation: ground truth is a deterministic consequence of the underlying geometry, computable exactly from point clouds and camera poses without any model involvement. Building on this insight, we present SpatialEvo, a self-evolving framework for 3D spatial reasoning, centered on the Deterministic Geometric Environment (DGE). The DGE formalizes 16 spatial reasoning task categories under explicit geometric validation rules and converts unannotated 3D scenes into zero-noise interactive oracles, replacing model consensus with objective physical feedback. A single shared-parameter policy co-evolves across questioner and solver roles under DGE constraints: the questioner generates physically valid spatial questions grounded in scene observations, while the solver derives precise answers against DGE-verified ground truth. A task-adaptive scheduler endogenously concentrates training on the model's weakest categories, producing a dynamic curriculum without manual design. Experiments across nine benchmarks demonstrate that SpatialEvo achieves the highest average score at both 3B and 7B scales, with consistent gains on spatial reasoning benchmarks and no degradation on general visual understanding.",
+      "authors": [
+        "Dinging Li",
+        "Yingxiu Zhao",
+        "Xinrui Cheng",
+        "Kangheng Lin",
+        "Hongbo Peng",
+        "Hongxing Li",
+        "Zixuan Wang",
+        "Yuhong Dai",
+        "Haodong Li",
+        "Jia Wang",
+        "Yukang Shi",
+        "Liang Zhao",
+        "Jianjian Sun",
+        "Zheng Ge",
+        "Xiangyu Zhang",
+        "Weiming Lu",
+        "Jun Xiao",
+        "Yueting Zhuang",
+        "Yongliang Shen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.CL"
+      ],
+      "published": "2026-04-15T17:59:12+00:00",
+      "link": "https://arxiv.org/pdf/2604.14144v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D spatial reasoning in geometric environments",
+      "llm_evidence_cn": "几何环境中的3D空间推理",
+      "llm_evidence": "几何环境中的3D空间推理",
+      "canonical_evidence": "几何环境中的3D空间推理",
+      "llm_tldr_en": "Presents SpatialEvo, a self-evolving framework for 3D spatial reasoning using geometric ground truth.",
+      "llm_tldr_cn": "提出SpatialEvo，一个利用几何真值进行3D空间推理的自进化框架。",
+      "llm_tldr": "提出SpatialEvo，一个利用几何真值进行3D空间推理的自进化框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.13856v1",
+      "title": "Any3DAvatar: Fast and High-Quality Full-Head 3D Avatar Reconstruction from Single Portrait Image",
+      "abstract": "Reconstructing a complete 3D head from a single portrait remains challenging because existing methods still face a sharp quality-speed trade-off: high-fidelity pipelines often rely on multi-stage processing and per-subject optimization, while fast feed-forward models struggle with complete geometry and fine appearance details. To bridge this gap, we propose Any3DAvatar, a fast and high-quality method for single-image 3D Gaussian head avatar generation, whose fastest setting reconstructs a full head in under one second while preserving high-fidelity geometry and texture. First, we build AnyHead, a unified data suite that combines identity diversity, dense multi-view supervision, and realistic accessories, filling the main gaps of existing head data in coverage, full-head geometry, and complex appearance. Second, rather than sampling unstructured noise, we initialize from a Plücker-aware structured 3D Gaussian scaffold and perform one-step conditional denoising, formulating full-head reconstruction into a single forward pass while retaining high fidelity. Third, we introduce auxiliary view-conditioned appearance supervision on the same latent tokens alongside 3D Gaussian reconstruction, improving novel-view texture details at zero extra inference cost. Experiments show that Any3DAvatar outperforms prior single-image full-head reconstruction methods in rendering fidelity while remaining substantially faster.",
+      "authors": [
+        "Yujie Gao",
+        "Yao Xiao",
+        "Xiangnan Zhu",
+        "Ya Li",
+        "Yiyi Zhang",
+        "Liqing Zhang",
+        "Jianfu Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-15T13:24:47+00:00",
+      "link": "https://arxiv.org/pdf/2604.13856v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D Gaussian head avatar generation from single image",
+      "llm_evidence_cn": "从单张图像生成3D高斯头部化身",
+      "llm_evidence": "从单张图像生成3D高斯头部化身",
+      "canonical_evidence": "从单张图像生成3D高斯头部化身",
+      "llm_tldr_en": "Any3DAvatar enables fast, high-quality 3D head reconstruction from a single portrait using Gaussian Splatting.",
+      "llm_tldr_cn": "Any3DAvatar 实现了从单张肖像中快速、高质量地进行 3D 头部重建。",
+      "llm_tldr": "Any3DAvatar 实现了从单张肖像中快速、高质量地进行 3D 头部重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.14782v1",
+      "title": "One-shot Compositional 3D Head Avatars with Deformable Hair",
+      "abstract": "We propose a compositional method for constructing a complete 3D head avatar from a single image. Prior one-shot holistic approaches frequently fail to produce realistic hair dynamics during animation, largely due to inadequate decoupling of hair from the facial region, resulting in entangled geometry and unnatural deformations. Our method explicitly decouples hair from the face, modeling these components using distinct deformation paradigms while integrating them into a unified rendering pipeline. Furthermore, by leveraging image-to-3D lifting techniques, we preserve fine-grained textures from the input image to the greatest extent possible, effectively mitigating the common issue of high-frequency information loss in generalized models. Specifically, given a frontal portrait image, we first perform hair removal to obtain a bald image. Both the original image and the bald image are then lifted to dense, detail-rich 3D Gaussian Splatting (3DGS) representations. For the bald 3DGS, we rig it to a FLAME mesh via non-rigid registration with a prior model, enabling natural deformation that follows the mesh triangles during animation. For the hair component, we employ semantic label supervision combined with a boundary-aware reassignment strategy to extract a clean and isolated set of hair Gaussians. To control hair deformation, we introduce a cage structure that supports Position-Based Dynamics (PBD) simulation, allowing realistic and physically plausible transformations of the hair Gaussian primitives under head motion, gravity, and inertial effects. Striking qualitative results, including dynamic animations under diverse head motions, gravity effects, and expressions, showcase substantially more realistic hair behavior alongside faithfully preserved facial details, outperforming state-of-the-art one-shot methods in perceptual realism.",
+      "authors": [
+        "Yuan Sun",
+        "Xuan Wang",
+        "WeiLi Zhang",
+        "Wenxuan Zhang",
+        "Yu Guo",
+        "Fei Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-16T08:39:37+00:00",
+      "link": "https://arxiv.org/pdf/2604.14782v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "compositional 3D head avatar generation",
+      "llm_evidence_cn": "组合式 3D 头部头像生成",
+      "llm_evidence": "组合式 3D 头部头像生成",
+      "canonical_evidence": "组合式 3D 头部头像生成",
+      "llm_tldr_en": "A method for constructing complete 3D head avatars with decoupled hair dynamics from a single image.",
+      "llm_tldr_cn": "一种从单张图像构建具有解耦头发动态的完整 3D 头部头像的方法。",
+      "llm_tldr": "一种从单张图像构建具有解耦头发动态的完整 3D 头部头像的方法。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.14141v2",
+      "title": "Geometric Context Transformer for Streaming 3D Reconstruction",
+      "abstract": "Streaming 3D reconstruction aims to recover 3D information, such as camera poses and point clouds, from a video stream, which necessitates geometric accuracy, temporal consistency, and computational efficiency. Motivated by the principles of Simultaneous Localization and Mapping (SLAM), we introduce LingBot-Map, a feed-forward 3D foundation model for reconstructing scenes from streaming data, built upon a geometric context transformer (GCT) architecture. A defining aspect of LingBot-Map lies in its carefully designed attention mechanism, which integrates an anchor context, a pose-reference window, and a trajectory memory to address coordinate grounding, dense geometric cues, and long-range drift correction, respectively. This design keeps the streaming state compact while retaining rich geometric context, enabling stable efficient inference at around 20 FPS on 518 x 378 resolution inputs over long sequences exceeding 10,000 frames. Extensive evaluations across a variety of benchmarks demonstrate that our approach achieves superior performance compared to both existing streaming and iterative optimization-based approaches.",
+      "authors": [
+        "Lin-Zhuo Chen",
+        "Jian Gao",
+        "Yihang Chen",
+        "Ka Leong Cheng",
+        "Yipengjing Sun",
+        "Liangxiao Hu",
+        "Nan Xue",
+        "Xing Zhu",
+        "Yujun Shen",
+        "Yao Yao",
+        "Yinghao Xu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-15T17:58:13+00:00",
+      "link": "https://arxiv.org/pdf/2604.14141v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D foundation model for reconstructing scenes from streaming data",
+      "llm_evidence_cn": "用于从流数据重建场景的3D基础模型",
+      "llm_evidence": "用于从流数据重建场景的3D基础模型",
+      "canonical_evidence": "用于从流数据重建场景的3D基础模型",
+      "llm_tldr_en": "LingBot-Map is a transformer-based foundation model for efficient streaming 3D scene reconstruction.",
+      "llm_tldr_cn": "LingBot-Map是一个基于Transformer的基础模型，用于高效的流式3D场景重建。",
+      "llm_tldr": "LingBot-Map是一个基于Transformer的基础模型，用于高效的流式3D场景重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.14928v1",
+      "title": "Hybrid Latents -- Geometry-Appearance-Aware Surfel Splatting",
+      "abstract": "We introduce a hybrid Gaussian-hash-grid radiance representation for reconstructing 2D Gaussian scene models from multi-view images. Similar to NeST splatting, our approach reduces the entanglement between geometry and appearance common in NeRF-based models, but adds per-Gaussian latent features alongside hash-grid features to bias the optimizer toward a separation of low- and high-frequency scene components. This explicit frequency-based decomposition reduces the tendency of high-frequency texture to compensate for geometric errors. Encouraging Gaussians with hard opacity falloffs further strengthens the separation between geometry and appearance, improving both geometry reconstruction and rendering efficiency. Finally, probabilistic pruning combined with a sparsity-inducing BCE opacity loss allows redundant Gaussians to be turned off, yielding a minimal set of Gaussians sufficient to represent the scene. Using both synthetic and real-world datasets, we compare against the state of the art in Gaussian-based novel-view synthesis and demonstrate superior reconstruction fidelity with an order of magnitude fewer primitives.",
+      "authors": [
+        "Neel Kelkar",
+        "Simon Niedermayr",
+        "Klaus Engel",
+        "Rüdiger Westermann"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-04-16T12:13:09+00:00",
+      "link": "https://arxiv.org/pdf/2604.14928v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Hybrid radiance representation for 3D scene reconstruction",
+      "llm_evidence_cn": "用于3D场景重建的混合辐射场表示",
+      "llm_evidence": "用于3D场景重建的混合辐射场表示",
+      "canonical_evidence": "用于3D场景重建的混合辐射场表示",
+      "llm_tldr_en": "Introduces a hybrid Gaussian-hash-grid representation to improve geometry and appearance in 3D scene modeling.",
+      "llm_tldr_cn": "引入了一种混合高斯-哈希网格表示，以改进3D场景建模中的几何和外观表现。",
+      "llm_tldr": "引入了一种混合高斯-哈希网格表示，以改进3D场景建模中的几何和外观表现。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.15284v1",
+      "title": "GlobalSplat: Efficient Feed-Forward 3D Gaussian Splatting via Global Scene Tokens",
+      "abstract": "The efficient spatial allocation of primitives serves as the foundation of 3D Gaussian Splatting, as it directly dictates the synergy between representation compactness, reconstruction speed, and rendering fidelity. Previous solutions, whether based on iterative optimization or feed-forward inference, suffer from significant trade-offs between these goals, mainly due to the reliance on local, heuristic-driven allocation strategies that lack global scene awareness. Specifically, current feed-forward methods are largely pixel-aligned or voxel-aligned. By unprojecting pixels into dense, view-aligned primitives, they bake redundancy into the 3D asset. As more input views are added, the representation size increases and global consistency becomes fragile. To this end, we introduce GlobalSplat, a framework built on the principle of align first, decode later. Our approach learns a compact, global, latent scene representation that encodes multi-view input and resolves cross-view correspondences before decoding any explicit 3D geometry. Crucially, this formulation enables compact, globally consistent reconstructions without relying on pretrained pixel-prediction backbones or reusing latent features from dense baselines. Utilizing a coarse-to-fine training curriculum that gradually increases decoded capacity, GlobalSplat natively prevents representation bloat. On RealEstate10K and ACID, our model achieves competitive novel-view synthesis performance while utilizing as few as 16K Gaussians, significantly less than required by dense pipelines, obtaining a light 4MB footprint. Further, GlobalSplat enables significantly faster inference than the baselines, operating under 78 milliseconds in a single forward pass. Project page is available at https://r-itk.github.io/globalsplat/",
+      "authors": [
+        "Roni Itkin",
+        "Noam Issachar",
+        "Yehonatan Keypur",
+        "Yehonatan Keypur",
+        "Anpei Chen",
+        "Sagie Benaim"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-16T17:52:06+00:00",
+      "link": "https://arxiv.org/pdf/2604.15284v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Efficient feed-forward 3D Gaussian Splatting for scene representation",
+      "llm_evidence_cn": "用于场景表示的高效前馈3D高斯泼溅技术",
+      "llm_evidence": "用于场景表示的高效前馈3D高斯泼溅技术",
+      "canonical_evidence": "用于场景表示的高效前馈3D高斯泼溅技术",
+      "llm_tldr_en": "GlobalSplat uses global scene tokens to improve the efficiency and consistency of 3D Gaussian Splatting.",
+      "llm_tldr_cn": "GlobalSplat通过全局场景标记提高了3D高斯泼溅的效率和一致性。",
+      "llm_tldr": "GlobalSplat通过全局场景标记提高了3D高斯泼溅的效率和一致性。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
