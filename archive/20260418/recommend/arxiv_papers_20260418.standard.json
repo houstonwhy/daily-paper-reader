@@ -1,0 +1,321 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-18T19:36:31.049879+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 6,
+    "quick_skim_target": 11,
+    "quick_selected": 6
+  },
+  "deep_dive": [
+    {
+      "id": "2604.10675v1",
+      "title": "HiddenObjects: Scalable Diffusion-Distilled Spatial Priors for Object Placement",
+      "abstract": "We propose a method to learn explicit, class-conditioned spatial priors for object placement in natural scenes by distilling the implicit placement knowledge encoded in text-conditioned diffusion models. Prior work relies either on manually annotated data, which is inherently limited in scale, or on inpainting-based object-removal pipelines, whose artifacts promote shortcut learning. To address these limitations, we introduce a fully automated and scalable framework that evaluates dense object placements on high-quality real backgrounds using a diffusion-based inpainting pipeline. With this pipeline, we construct HiddenObjects, a large-scale dataset comprising 27M placement annotations, evaluated across 27k distinct scenes, with ranked bounding box insertions for different images and object categories. Experimental results show that our spatial priors outperform sparse human annotations on a downstream image editing task (3.90 vs. 2.68 VLM-Judge), and significantly surpass existing placement baselines and zero-shot Vision-Language Models for object placement. Furthermore, we distill these priors into a lightweight model for fast practical inference (230,000x faster).",
+      "authors": [
+        "Marco Schouten",
+        "Ioannis Siglidis",
+        "Serge Belongie",
+        "Dim P. Papadopoulos"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-12T14:59:52+00:00",
+      "link": "https://arxiv.org/pdf/2604.10675v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Spatial priors for object placement in natural scenes",
+      "llm_evidence_cn": "自然场景中物体放置的空间先验",
+      "llm_evidence": "自然场景中物体放置的空间先验",
+      "canonical_evidence": "自然场景中物体放置的空间先验",
+      "llm_tldr_en": "Learns spatial priors for object placement by distilling knowledge from text-conditioned diffusion models.",
+      "llm_tldr_cn": "通过蒸馏文本扩散模型中的知识，学习自然场景中物体放置的显式空间先验。",
+      "llm_tldr": "通过蒸馏文本扩散模型中的知识，学习自然场景中物体放置的显式空间先验。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.14062v1",
+      "title": "OneHOI: Unifying Human-Object Interaction Generation and Editing",
+      "abstract": "Human-Object Interaction (HOI) modelling captures how humans act upon and relate to objects, typically expressed as <person, action, object> triplets. Existing approaches split into two disjoint families: HOI generation synthesises scenes from structured triplets and layout, but fails to integrate mixed conditions like HOI and object-only entities; and HOI editing modifies interactions via text, yet struggles to decouple pose from physical contact and scale to multiple interactions. We introduce OneHOI, a unified diffusion transformer framework that consolidates HOI generation and editing into a single conditional denoising process driven by shared structured interaction representations. At its core, the Relational Diffusion Transformer (R-DiT) models verb-mediated relations through role- and instance-aware HOI tokens, layout-based spatial Action Grounding, a Structured HOI Attention to enforce interaction topology, and HOI RoPE to disentangle multi-HOI scenes. Trained jointly with modality dropout on our HOI-Edit-44K, along with HOI and object-centric datasets, OneHOI supports layout-guided, layout-free, arbitrary-mask, and mixed-condition control, achieving state-of-the-art results across both HOI generation and editing. Code is available at https://jiuntian.github.io/OneHOI/.",
+      "authors": [
+        "Jiun Tian Hoe",
+        "Weipeng Hu",
+        "Xudong Jiang",
+        "Yap-Peng Tan",
+        "Chee Seng Chan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.MM"
+      ],
+      "published": "2026-04-15T16:37:36+00:00",
+      "link": "https://arxiv.org/pdf/2604.14062v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Unified framework for human-object interaction scene generation from structured triplets",
+      "llm_evidence_cn": "基于结构化三元组的人机交互场景生成统一框架",
+      "llm_evidence": "基于结构化三元组的人机交互场景生成统一框架",
+      "canonical_evidence": "基于结构化三元组的人机交互场景生成统一框架",
+      "llm_tldr_en": "Introduces OneHOI, a diffusion transformer for generating and editing human-object interaction scenes.",
+      "llm_tldr_cn": "引入了OneHOI，一个用于生成和编辑人机交互场景的扩散Transformer框架。",
+      "llm_tldr": "引入了OneHOI，一个用于生成和编辑人机交互场景的扩散Transformer框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.11006v1",
+      "title": "Towards Realistic 3D Emission Materials: Dataset, Baseline, and Evaluation for Emission Texture Generation",
+      "abstract": "3D texture generation is receiving increasing attention, as it enables the creation of realistic and aesthetic texture materials for untextured 3D meshes. However, existing 3D texture generation methods are limited to producing only a few types of non-emissive PBR materials (e.g., albedo, metallic maps and roughness maps), making them difficult to replicate highly popular styles, such as cyberpunk, failing to achieve effects like realistic LED emissions. To address this limitation, we propose a novel task, emission texture generation, which enables the synthesized 3D objects to faithfully reproduce the emission materials from input reference images. Our key contributions include: first, We construct the Objaverse-Emission dataset, the first dataset that contains 40k 3D assets with high-quality emission materials. Second, we propose EmissionGen, a novel baseline for the emission texture generation task. Third, we define detailed evaluation metrics for the emission texture generation task. Our results demonstrate significant potential for future industrial applications. Dataset will be available at https://github.com/yx345kw/EmissionGen.",
+      "authors": [
+        "Zhiyuan Zhang",
+        "Zijian Zhou",
+        "Linjun Li",
+        "Long Chen",
+        "Hao Tang",
+        "Yichen Gong"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-13T05:14:29+00:00",
+      "link": "https://arxiv.org/pdf/2604.11006v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D texture generation for realistic materials",
+      "llm_evidence_cn": "用于逼真材质的 3D 纹理生成",
+      "llm_evidence": "用于逼真材质的 3D 纹理生成",
+      "canonical_evidence": "用于逼真材质的 3D 纹理生成",
+      "llm_tldr_en": "Proposes a task and dataset for generating emission textures for 3D meshes to enhance realism.",
+      "llm_tldr_cn": "提出了 3D 网格自发光纹理生成的任务和数据集，以增强 3D 对象的真实感。",
+      "llm_tldr": "提出了 3D 网格自发光纹理生成的任务和数据集，以增强 3D 对象的真实感。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.11302v1",
+      "title": "3D-Anchored Lookahead Planning for Persistent Robotic Scene Memory via World-Model-Based MCTS",
+      "abstract": "We present 3D-Anchored Lookahead Planning (3D-ALP), a System 2 reasoning engine for robotic manipulation that combines Monte Carlo Tree Search (MCTS) with a 3D-consistent world model as the rollout oracle. Unlike reactive policies that evaluate actions from the current camera frame only, 3D-ALP maintains a persistent camera-to-world (c2w) anchor that survives occlusion, enabling accurate replanning to object positions that are no longer directly observable. On a 5-step sequential reach task requiring spatial memory (Experiment E3), 3D-ALP achieves 0.650 0.109 success rate on memory-required steps versus 0.006 0.008 for a greedy reactive baseline (Δ=+0.645), while step 5 success reaches 0.822 against 0.000 for greedy. An ablation study (30 episodes, 3 seeds) isolates tree search spatial memory as the primary driver (+0.533, 82% of gain) with additional benefit from deeper lookahead (+0.111, 17%). We also identify and resolve four structural failure modes in applying UCT-MCTS (Upper Confidence Bounds applied to Trees [10]) to continuous robotic manipulation.",
+      "authors": [
+        "Bronislav Sidik",
+        "Dror Mizrahi"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI"
+      ],
+      "published": "2026-04-13T11:01:30+00:00",
+      "link": "https://arxiv.org/pdf/2604.11302v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D-consistent world model for scene memory",
+      "llm_evidence_cn": "用于场景记忆的3D一致性世界模型",
+      "llm_evidence": "用于场景记忆的3D一致性世界模型",
+      "canonical_evidence": "用于场景记忆的3D一致性世界模型",
+      "llm_tldr_en": "3D-ALP uses a 3D-consistent world model to enable robotic spatial memory and lookahead planning in 3D scenes.",
+      "llm_tldr_cn": "3D-ALP利用3D一致性世界模型，实现了机器人在3D场景中的空间记忆和前瞻规划。",
+      "llm_tldr": "3D-ALP利用3D一致性世界模型，实现了机器人在3D场景中的空间记忆和前瞻规划。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.15058v1",
+      "title": "\"From remembering to shaping\": Narrating Shared Experiences by Co-Designing Cultural Heritage Artifacts in Collaborative VR",
+      "abstract": "The ways people remember and recall places reveal an invisible aspect of cultural heritage (CH), reflecting how individuals and communities relate to these places. Heritage is communal, emerging through collaboratively constructed narratives rather than individual records. To probe how people may share collective memories, we designed an immersive two-person workflow for collaboratively co-designing 3D artifacts and environments in virtual heritage locations, using Generative AI (GenAI) to instantiate these intangible memories. Observations of the co-creation process revealed that participants merged prompts and model placements when negotiating different perspectives. They used spatial operations to compose scenes, and also to express personal and embodied experiences of CH. When GenAI failed to meet their needs, participants engaged in creative appropriation, re-purposing unsatisfactory generated objects as sources of design inspiration to further shared narratives. While GenAI may have a homogenizing effect on CH expression, this work shows how people may overcome limitations in immersive collaborative workflows.",
+      "authors": [
+        "Yushang Yang",
+        "Fanxu Meng",
+        "Fiona Fui-Hoon Nah",
+        "RAY LC"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC"
+      ],
+      "published": "2026-04-16T14:25:01+00:00",
+      "link": "https://arxiv.org/pdf/2604.15058v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Using Generative AI to instantiate 3D artifacts and environments in VR",
+      "llm_evidence_cn": "在虚拟现实中使用生成式AI实例化3D人工制品和环境",
+      "llm_evidence": "在虚拟现实中使用生成式AI实例化3D人工制品和环境",
+      "canonical_evidence": "在虚拟现实中使用生成式AI实例化3D人工制品和环境",
+      "llm_tldr_en": "Explores collaborative co-design of 3D environments in VR using generative AI tools.",
+      "llm_tldr_cn": "探索了在VR中使用生成式AI工具协作设计3D环境的方法。",
+      "llm_tldr": "探索了在VR中使用生成式AI工具协作设计3D环境的方法。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.11707v1",
+      "title": "Representations Before Pixels: Semantics-Guided Hierarchical Video Prediction",
+      "abstract": "Accurate future video prediction requires both high visual fidelity and consistent scene semantics, particularly in complex dynamic environments such as autonomous driving. We present Re2Pix, a hierarchical video prediction framework that decomposes forecasting into two stages: semantic representation prediction and representation-guided visual synthesis. Instead of directly predicting future RGB frames, our approach first forecasts future scene structure in the feature space of a frozen vision foundation model, and then conditions a latent diffusion model on these predicted representations to render photorealistic frames. This decomposition enables the model to focus first on scene dynamics and then on appearance generation. A key challenge arises from the train-test mismatch between ground-truth representations available during training and predicted ones used at inference. To address this, we introduce two conditioning strategies, nested dropout and mixed supervision, that improve robustness to imperfect autoregressive predictions. Experiments on challenging driving benchmarks demonstrate that the proposed semantics-first design significantly improves temporal semantic consistency, perceptual quality, and training efficiency compared to strong diffusion baselines. We provide the implementation code at https://github.com/Sta8is/Re2Pix",
+      "authors": [
+        "Efstathios Karypidis",
+        "Spyros Gidaris",
+        "Nikos Komodakis"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-13T16:42:46+00:00",
+      "link": "https://arxiv.org/pdf/2604.11707v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "forecasting future scene structure and appearance generation",
+      "llm_evidence_cn": "预测未来场景结构与外观生成",
+      "llm_evidence": "预测未来场景结构与外观生成",
+      "canonical_evidence": "预测未来场景结构与外观生成",
+      "llm_tldr_en": "Re2Pix predicts future scene semantics and structure to guide photorealistic video synthesis.",
+      "llm_tldr_cn": "Re2Pix预测未来场景语义和结构，以引导逼真的视频合成。",
+      "llm_tldr": "Re2Pix预测未来场景语义和结构，以引导逼真的视频合成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.14556v1",
+      "title": "Controllable Video Object Insertion via Multiview Priors",
+      "abstract": "Video object insertion is a critical task for dynamically inserting new objects into existing environments. Previous video generation methods focus primarily on synthesizing entire scenes while struggling with ensuring consistent object appearance, spatial alignment, and temporal coherence when inserting objects into existing videos. In this paper, we propose a novel solution for Video Object Insertion, which integrates multi-view object priors to address the common challenges of appearance inconsistency and occlusion handling in dynamic environments. By lifting 2D reference images into multi-view representations and leveraging a dual-path view-consistent conditioning mechanism, our framework ensures stable identity guidance and robust integration across diverse viewpoints. A quality-aware weighting mechanism is also employed to adaptively handle noisy or imperfect inputs. Additionally, we introduce an Integration-Aware Consistency Module that guarantees spatial realism, effectively resolving occlusion and boundary artifacts while maintaining temporal continuity across frames. Experimental results show that our solution significantly improves the quality of video object insertion, providing stable and realistic integration.",
+      "authors": [
+        "Xia Qi",
+        "Peishan Cong",
+        "Yichen Yao",
+        "Ziyi Wang",
+        "Yaoqin Ye",
+        "Yuexin Ma"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-04-16T02:39:15+00:00",
+      "link": "https://arxiv.org/pdf/2604.14556v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "video object insertion into existing environments",
+      "llm_evidence_cn": "将视频对象插入现有环境",
+      "llm_evidence": "将视频对象插入现有环境",
+      "canonical_evidence": "将视频对象插入现有环境",
+      "llm_tldr_en": "Integrates multi-view priors for controllable and consistent object insertion into video scenes.",
+      "llm_tldr_cn": "集成多视图先验，实现可控且一致的对象插入视频场景。",
+      "llm_tldr": "集成多视图先验，实现可控且一致的对象插入视频场景。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.14648v1",
+      "title": "Seen-to-Scene: Keep the Seen, Generate the Unseen for Video Outpainting",
+      "abstract": "Video outpainting aims to expand the visible content of a video beyond the original frame boundaries while preserving spatial fidelity and temporal coherence across frames. Existing methods primarily rely on large-scale generative models, such as diffusion models. However, generationbased approaches suffer from implicit temporal modeling and limited spatial context. These limitations lead to intraframe and inter-frame inconsistencies, which become particularly pronounced in dynamic scenes and large outpainting scenarios. To overcome these challenges, we propose Seen-to-Scene, a novel framework that unifies propagationbased and generation-based paradigms for video outpainting. Specifically, Seen-to-Scene leverages flow-based propagation with a flow completion network pre-trained for video inpainting, which is fine-tuned in an end-to-end manner to bridge the domain gap and reconstruct coherent motion fields. To further improve the efficiency and reliability of propagation, we introduce a reference-guided latent propagation that effectively propagates source content across frames. Extensive experiments demonstrate that our method achieves superior temporal coherence and visual realism with efficient inference, surpassing even prior state-of-the-art methods that require input-specific adaptation.",
+      "authors": [
+        "Inseok Jeon",
+        "Minhyeok Lee",
+        "Seunghoon Lee",
+        "Minseok Kang",
+        "Suhwan Cho",
+        "Sangyoun Lee"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-04-16T05:55:11+00:00",
+      "link": "https://arxiv.org/pdf/2604.14648v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "generative models for expanding scene content",
+      "llm_evidence_cn": "用于扩展场景内容的生成模型",
+      "llm_evidence": "用于扩展场景内容的生成模型",
+      "canonical_evidence": "用于扩展场景内容的生成模型",
+      "llm_tldr_en": "Seen-to-Scene unifies propagation and generation for consistent video outpainting in dynamic scenes.",
+      "llm_tldr_cn": "Seen-to-Scene结合了传播和生成范式，实现了动态场景下一致的视频外扩生成。",
+      "llm_tldr": "Seen-to-Scene结合了传播和生成范式，实现了动态场景下一致的视频外扩生成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
