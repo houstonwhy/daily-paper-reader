@@ -1,0 +1,328 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-19T19:02:20.245524+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 6,
+    "quick_skim_target": 11,
+    "quick_selected": 6
+  },
+  "deep_dive": [
+    {
+      "id": "2604.10383v1",
+      "title": "Agentic Video Generation: From Text to Executable Event Graphs via Tool-Constrained LLM Planning",
+      "abstract": "Existing multi-agent video generation systems use LLM agents to orchestrate neural video generators, producing visually impressive but semantically unreliable outputs with no ground truth annotations. We present an agentic system that inverts this paradigm: instead of generating pixels, the LLM constructs a formal Graph of Events in Space and Time (GEST) -- a structured specification of actors, actions, objects, and temporal constraints -- which is then executed deterministically in a 3D game engine. A staged LLM refinement pipeline fails entirely at this task (0 of 50 attempts produce an executable specification), motivating a fundamentally different architecture based on a separation of concerns: the LLM handles narrative planning through natural language reasoning, while a programmatic state backend enforces all simulator constraints through validated tool calls, guaranteeing that every generated specification is executable by construction. The system uses a hierarchical two-agent architecture -- a Director that plans the story and a Scene Builder that constructs individual scenes through a round-based state machine -- with dedicated Relation Subagents that populate the logical and semantic edge types of the GEST formalism that procedural generation leaves empty, making this the first approach to exercise the full expressive capacity of the representation. We evaluate in two stages: autonomous generation against procedural baselines via a 3-model LLM jury, where agentic narratives win 79% of text and 74% of video comparisons; and seeded generation where the same text is given to our system, VEO 3.1, and WAN 2.2, with human annotations showing engine-generated videos substantially outperform neural generators on physical validity (58% vs 25% and 20%) and semantic alignment (3.75/5 vs 2.33 and 1.50).",
+      "authors": [
+        "Nicolae Cudlenco",
+        "Mihai Masala",
+        "Marius Leordeanu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-11T23:51:13+00:00",
+      "link": "https://arxiv.org/pdf/2604.10383v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "LLM constructs structured specification executed in a 3D engine",
+      "llm_evidence_cn": "LLM构建结构化规范并在3D引擎中执行",
+      "llm_evidence": "LLM构建结构化规范并在3D引擎中执行",
+      "canonical_evidence": "LLM构建结构化规范并在3D引擎中执行",
+      "llm_tldr_en": "Generates executable 3D event graphs from text for semantically reliable video and scene synthesis.",
+      "llm_tldr_cn": "通过LLM将文本转换为可在3D引擎中执行的事件图，实现语义可靠的视频和场景生成。",
+      "llm_tldr": "通过LLM将文本转换为可在3D引擎中执行的事件图，实现语义可靠的视频和场景生成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "text-to-3D scene generation frameworks",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.11789v1",
+      "title": "LMMs Meet Object-Centric Vision: Understanding, Segmentation, Editing and Generation",
+      "abstract": "Large Multimodal Models (LMMs) have achieved remarkable progress in general-purpose vision--language understanding, yet they remain limited in tasks requiring precise object-level grounding, fine-grained spatial reasoning, and controllable visual manipulation. In particular, existing systems often struggle to identify the correct instance, preserve object identity across interactions, and localize or modify designated regions with high precision. Object-centric vision provides a principled framework for addressing these challenges by promoting explicit representations and operations over visual entities, thereby extending multimodal systems from global scene understanding to object-level understanding, segmentation, editing, and generation. This paper presents a comprehensive review of recent advances at the convergence of LMMs and object-centric vision. We organize the literature into four major themes: object-centric visual understanding, object-centric referring segmentation, object-centric visual editing, and object-centric visual generation. We further summarize the key modeling paradigms, learning strategies, and evaluation protocols that support these capabilities. Finally, we discuss open challenges and future directions, including robust instance permanence, fine-grained spatial control, consistent multi-step interaction, unified cross-task modeling, and reliable benchmarking under distribution shift. We hope this paper provides a structured perspective on the development of scalable, precise, and trustworthy object-centric multimodal systems.",
+      "authors": [
+        "Yuqian Yuan",
+        "Wenqiao Zhang",
+        "Juekai Lin",
+        "Yu Zhong",
+        "Mingjian Gao",
+        "Binhe Yu",
+        "Yunqi Cao",
+        "Wentong Li",
+        "Yueting Zhuang",
+        "Beng Chin Ooi"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-13T17:55:02+00:00",
+      "link": "https://arxiv.org/pdf/2604.11789v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "LMMs for object-level 3D scene generation and editing",
+      "llm_evidence_cn": "用于物体级3D场景生成和编辑的多模态大模型",
+      "llm_evidence": "用于物体级3D场景生成和编辑的多模态大模型",
+      "canonical_evidence": "用于物体级3D场景生成和编辑的多模态大模型",
+      "llm_tldr_en": "Explores object-centric LMMs for precise scene understanding, editing, and generation.",
+      "llm_tldr_cn": "探索以物体为中心的多模态大模型，用于精确的场景理解、编辑和生成。",
+      "llm_tldr": "探索以物体为中心的多模态大模型，用于精确的场景理解、编辑和生成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.11142v1",
+      "title": "Naka-GS: A Bionics-inspired Dual-Branch Naka Correction and Progressive Point Pruning for Low-Light 3DGS",
+      "abstract": "Low-light conditions severely hinder 3D restoration and reconstruction by degrading image visibility, introducing color distortions, and contaminating geometric priors for downstream optimization. We present NAKA-GS, a bionics-inspired framework for low-light 3D Gaussian Splatting that jointly improves photometric restoration and geometric initialization. Our method starts with a Naka-guided chroma-correction network, which combines physics-prior low-light enhancement, dual-branch input modeling, frequency-decoupled correction, and mask-guided optimization to suppress bright-region chromatic artifacts and edge-structure errors. The enhanced images are then fed into a feed-forward multi-view reconstruction model to produce dense scene priors. To further improve Gaussian initialization, we introduce a lightweight Point Preprocessing Module (PPM) that performs coordinate alignment, voxel pooling, and distance-adaptive progressive pruning to remove noisy and redundant points while preserving representative structures. Without introducing heavy inference overhead, NAKA-GS improves restoration quality, training stability, and optimization efficiency for low-light 3D reconstruction. The proposed method was presented in the NTIRE 3D Restoration and Reconstruction (3DRR) Challenge, and outperformed the baseline methods by a large margin. The code is available at https://github.com/RunyuZhu/Naka-GS",
+      "authors": [
+        "Runyu Zhu",
+        "SiXun Dong",
+        "Zhiqiang Zhang",
+        "Qingxia Ye",
+        "Zhihua Xu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-13T07:58:58+00:00",
+      "link": "https://arxiv.org/pdf/2604.11142v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Low-light 3D reconstruction and restoration using Gaussian Splatting",
+      "llm_evidence_cn": "使用高斯泼溅进行低光照3D重建与修复",
+      "llm_evidence": "使用高斯泼溅进行低光照3D重建与修复",
+      "canonical_evidence": "使用高斯泼溅进行低光照3D重建与修复",
+      "llm_tldr_en": "Naka-GS improves 3D Gaussian Splatting in low-light via bionics-inspired correction and point pruning.",
+      "llm_tldr_cn": "Naka-GS结合仿生学修正和点云剪枝，提升了低光照环境下的3D场景重建与修复质量。",
+      "llm_tldr": "Naka-GS结合仿生学修正和点云剪枝，提升了低光照环境下的3D场景重建与修复质量。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.11737v1",
+      "title": "Learning Long-term Motion Embeddings for Efficient Kinematics Generation",
+      "abstract": "Understanding and predicting motion is a fundamental component of visual intelligence. Although modern video models exhibit strong comprehension of scene dynamics, exploring multiple possible futures through full video synthesis remains prohibitively inefficient. We model scene dynamics orders of magnitude more efficiently by directly operating on a long-term motion embedding that is learned from large-scale trajectories obtained from tracker models. This enables efficient generation of long, realistic motions that fulfill goals specified via text prompts or spatial pokes. To achieve this, we first learn a highly compressed motion embedding with a temporal compression factor of 64x. In this space, we train a conditional flow-matching model to generate motion latents conditioned on task descriptions. The resulting motion distributions outperform those of both state-of-the-art video models and specialized task-specific approaches.",
+      "authors": [
+        "Nick Stracke",
+        "Kolja Bauer",
+        "Stefan Andreas Baumann",
+        "Miguel Angel Bautista",
+        "Josh Susskind",
+        "Björn Ommer"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-13T17:14:47+00:00",
+      "link": "https://arxiv.org/pdf/2604.11737v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Generative models for scene dynamics",
+      "llm_evidence_cn": "场景动态的生成模型",
+      "llm_evidence": "场景动态的生成模型",
+      "canonical_evidence": "场景动态的生成模型",
+      "llm_tldr_en": "This paper enables efficient generation of long-term motions in 3D scenes via motion embeddings.",
+      "llm_tldr_cn": "该论文通过运动嵌入实现了3D场景中长期运动的高效生成。",
+      "llm_tldr": "该论文通过运动嵌入实现了3D场景中长期运动的高效生成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.12592v1",
+      "title": "ELoG-GS: Dual-Branch Gaussian Splatting with Luminance-Guided Enhancement for Extreme Low-light 3D Reconstruction",
+      "abstract": "This paper presents our approach to the NTIRE 2026 3D Restoration and Reconstruction Challenge (Track 1), which focuses on reconstructing high-quality 3D representations from degraded multi-view inputs. The challenge involves recovering geometrically consistent and photorealistic 3D scenes in extreme low-light environments. To address this task, we propose Extreme Low-light Optimized Gaussian Splatting (ELoG-GS), a robust low-light 3D reconstruction pipeline that integrates learning-based point cloud initialization and luminance-guided color enhancement for stable and photorealistic Gaussian Splatting. Our method incorporates both geometry-aware initialization and photometric adaptation strategies to improve reconstruction fidelity under challenging conditions. Extensive experiments on the NTIRE Track 1 benchmark demonstrate that our approach significantly improves reconstruction quality over the baselines, achieving superior visual fidelity and geometric consistency. The proposed method provides a practical solution for robust 3D reconstruction in real-world degraded scenarios. In the final testing phase, our method achieved a PSNR of 18.6626 and an SSIM of 0.6855 on the official platform leaderboard. Code is available at https://github.com/lyh120/FSGS_EAPGS.",
+      "authors": [
+        "Yuhao Liu",
+        "Dingju Wang",
+        "Ziyang Zheng"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-14T11:17:29+00:00",
+      "link": "https://arxiv.org/pdf/2604.12592v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D reconstruction of photorealistic scenes in low-light",
+      "llm_evidence_cn": "低光照下的高逼真3D场景重建",
+      "llm_evidence": "低光照下的高逼真3D场景重建",
+      "canonical_evidence": "低光照下的高逼真3D场景重建",
+      "llm_tldr_en": "A robust 3D reconstruction pipeline optimized for extreme low-light environments using Gaussian Splatting.",
+      "llm_tldr_cn": "一种针对极端低光环境优化的鲁棒3D高斯泼溅重建流水线。",
+      "llm_tldr": "一种针对极端低光环境优化的鲁棒3D高斯泼溅重建流水线。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.13452v1",
+      "title": "CANVAS: Continuity-Aware Narratives via Visual Agentic Storyboarding",
+      "abstract": "Long-form visual storytelling requires maintaining continuity across shots, including consistent characters, stable environments, and smooth scene transitions. While existing generative models can produce strong individual frames, they fail to preserve such continuity, leading to appearance changes, inconsistent backgrounds, and abrupt scene shifts. We introduce CANVAS (Continuity-Aware Narratives via Visual Agentic Storyboarding), a multi-agent framework that explicitly plans visual continuity in multi-shot narratives. CANVAS enforces coherence through character continuity, persistent background anchors, and location-aware scene planning for smooth transitions within the same setting We evaluate CANVAS on two storyboard generation benchmarks ST-BENCH and ViStoryBench and introduce a new challenging benchmark HardContinuityBench for long-range narrative consistency. CANVAS consistently outperforms the best-performing baseline, improving background continuity by 21.6%, character consistency by 9.6% and props consistency by 7.6%.",
+      "authors": [
+        "Ishani Mondal",
+        "Yiwen Song",
+        "Mihir Parmar",
+        "Palash Goyal",
+        "Jordan Boyd-Graber",
+        "Tomas Pfister",
+        "Yale Song"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-04-15T04:03:47+00:00",
+      "link": "https://arxiv.org/pdf/2604.13452v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Generative model for stable environments and scene transitions in storytelling",
+      "llm_evidence_cn": "用于故事讲述中稳定环境和场景转换的生成模型",
+      "llm_evidence": "用于故事讲述中稳定环境和场景转换的生成模型",
+      "canonical_evidence": "用于故事讲述中稳定环境和场景转换的生成模型",
+      "llm_tldr_en": "CANVAS ensures visual continuity and stable environments across multi-shot generative narratives.",
+      "llm_tldr_cn": "CANVAS是一个多智能体框架，旨在确保长篇视觉叙事中的角色、背景和场景转换的连贯性。",
+      "llm_tldr": "CANVAS是一个多智能体框架，旨在确保长篇视觉叙事中的角色、背景和场景转换的连贯性。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.14706v1",
+      "title": "NG-GS: NeRF-Guided 3D Gaussian Splatting Segmentation",
+      "abstract": "Recent advances in 3D Gaussian Splatting (3DGS) have enabled highly efficient and photorealistic novel view synthesis. However, segmenting objects accurately in 3DGS remains challenging due to the discrete nature of Gaussian representations, which often leads to aliasing and artifacts at object boundaries. In this paper, we introduce NG-GS, a novel framework for high-quality object segmentation in 3DGS that explicitly addresses boundary discretization. Our approach begins by automatically identifying ambiguous Gaussians at object boundaries using mask variance analysis. We then apply radial basis function (RBF) interpolation to construct a spatially continuous feature field, enhanced by multi-resolution hash encoding for efficient multi-scale representation. A joint optimization strategy aligns 3DGS with a lightweight NeRF module through alignment and spatial continuity losses, ensuring smooth and consistent segmentation boundaries. Extensive experiments on NVOS, LERF-OVS, and ScanNet benchmarks demonstrate that our method achieves state-of-the-art performance, with significant gains in boundary mIoU. Code is available at https://github.com/BJTU-KD3D/NG-GS.",
+      "authors": [
+        "Yi He",
+        "Tao Wang",
+        "Yi Jin",
+        "Congyan Lang",
+        "Yidong Li",
+        "Haibin Ling"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-16T07:14:07+00:00",
+      "link": "https://arxiv.org/pdf/2604.14706v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "object segmentation in 3D Gaussian Splatting representations",
+      "llm_evidence_cn": "3D高斯泼溅表示中的物体分割",
+      "llm_evidence": "3D高斯泼溅表示中的物体分割",
+      "canonical_evidence": "3D高斯泼溅表示中的物体分割",
+      "llm_tldr_en": "A framework for high-quality object segmentation in 3DGS by addressing boundary discretization.",
+      "llm_tldr_cn": "一种通过解决边界离散化问题实现3DGS高质量物体分割的框架。",
+      "llm_tldr": "一种通过解决边界离散化问题实现3DGS高质量物体分割的框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.15237v1",
+      "title": "StreamCacheVGGT: Streaming Visual Geometry Transformers with Robust Scoring and Hybrid Cache Compression",
+      "abstract": "Reconstructing dense 3D geometry from continuous video streams requires stable inference under a constant memory budget. Existing $O(1)$ frameworks primarily rely on a ``pure eviction'' paradigm, which suffers from significant information destruction due to binary token deletion and evaluation noise from localized, single-layer scoring. To address these bottlenecks, we propose StreamCacheVGGT, a training-free framework that reimagines cache management through two synergistic modules: Cross-Layer Consistency-Enhanced Scoring (CLCES) and Hybrid Cache Compression (HCC). CLCES mitigates activation noise by tracking token importance trajectories across the Transformer hierarchy, employing order-statistical analysis to identify sustained geometric salience. Leveraging these robust scores, HCC transcends simple eviction by introducing a three-tier triage strategy that merges moderately important tokens into retained anchors via nearest-neighbor assignment on the key-vector manifold. This approach preserves essential geometric context that would otherwise be lost. Extensive evaluations on five benchmarks (7-Scenes, NRGBD, ETH3D, Bonn, and KITTI) demonstrate that StreamCacheVGGT sets a new state-of-the-art, delivering superior reconstruction accuracy and long-term stability while strictly adhering to constant-cost constraints.",
+      "authors": [
+        "Xuanyi Liu",
+        "Deyi Ji",
+        "Chunan Yu",
+        "Qi Zhu",
+        "Xuanfu Li",
+        "Jin Ma",
+        "Tianrun Chen",
+        "Lanyun Zhu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-16T17:12:10+00:00",
+      "link": "https://arxiv.org/pdf/2604.15237v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "reconstructing dense 3D geometry from continuous video streams",
+      "llm_evidence_cn": "从连续视频流中重建稠密3D几何",
+      "llm_evidence": "从连续视频流中重建稠密3D几何",
+      "canonical_evidence": "从连续视频流中重建稠密3D几何",
+      "llm_tldr_en": "A streaming visual geometry transformer framework for efficient and stable 3D reconstruction.",
+      "llm_tldr_cn": "一种用于高效稳定3D重建的流式视觉几何Transformer框架。",
+      "llm_tldr": "一种用于高效稳定3D重建的流式视觉几何Transformer框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

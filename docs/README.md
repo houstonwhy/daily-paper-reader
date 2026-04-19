@@ -6,46 +6,46 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-18
-- 运行时间：2026-04-18 19:37:45 UTC
+- 最新运行日期：2026-04-19
+- 运行时间：2026-04-19 19:03:33 UTC
 - 运行状态：成功
 - 本次总论文数：8
 - 精读区：2
 - 速读区：6
 
 ### 今日简报（AI）
-今日聚焦空间智能与交互生成，深度解析了物体放置先验、人机交互统一框架等 8 项前沿成果。
-重点关注扩散模型在空间布局中的蒸馏应用，以及 OneHOI 框架对人机交互生成与编辑的革命性统一。
-建议关注 AI 如何从理解静态物体转向构建动态交互场景
-- 详情：[/202604/18/README](/202604/18/README)
+今日聚焦 Agent 驱动的视频生成与物体中心化视觉大模型，深度解析 8 篇 AI 前沿进展。
+重点推荐 LLM 规划下的可执行视频事件图，以及集理解、分割与编辑于一体的物体级多模态视觉方案。
+建议关注 3DGS 在极暗光重建领域的最新突破，探索复杂光影下的三维数字化可能。
+- 详情：[/202604/19/README](/202604/19/README)
 
 ### 精读区论文标签
-1. [HiddenObjects: Scalable Diffusion-Distilled Spatial Priors for Object Placement](/202604/18/2604.10675v1-hiddenobjects-scalable-diffusion-distilled-spatial-priors-for-object-placement)  
+1. [Agentic Video Generation: From Text to Executable Event Graphs via Tool-Constrained LLM Planning](/202604/19/2604.10383v1-agentic-video-generation-from-text-to-executable-event-graphs-via-tool-constrained-llm-planning)  
    标签：评分：8.0/10、query:3dgen
-   evidence：自然场景中物体放置的空间先验
-2. [OneHOI: Unifying Human-Object Interaction Generation and Editing](/202604/18/2604.14062v1-onehoi-unifying-human-object-interaction-generation-and-editing)  
+   evidence：LLM构建结构化规范并在3D引擎中执行
+2. [LMMs Meet Object-Centric Vision: Understanding, Segmentation, Editing and Generation](/202604/19/2604.11789v1-lmms-meet-object-centric-vision-understanding-segmentation-editing-and-generation)  
    标签：评分：8.0/10、query:3dgen
-   evidence：基于结构化三元组的人机交互场景生成统一框架
+   evidence：用于物体级3D场景生成和编辑的多模态大模型
 
 ### 速读区论文标签
-1. [Towards Realistic 3D Emission Materials: Dataset, Baseline, and Evaluation for Emission Texture Generation](/202604/18/2604.11006v1-towards-realistic-3d-emission-materials-dataset-baseline-and-evaluation-for-emission-texture-generation)  
+1. [Naka-GS: A Bionics-inspired Dual-Branch Naka Correction and Progressive Point Pruning for Low-Light 3DGS](/202604/19/2604.11142v1-naka-gs-a-bionics-inspired-dual-branch-naka-correction-and-progressive-point-pruning-for-low-light-3dgs)  
    标签：评分：7.0/10、query:3dgen
-   evidence：用于逼真材质的 3D 纹理生成
-2. ["From remembering to shaping": Narrating Shared Experiences by Co-Designing Cultural Heritage Artifacts in Collaborative VR](/202604/18/2604.15058v1-from-remembering-to-shaping-narrating-shared-experiences-by-co-designing-cultural-heritage-artifacts-in-collaborative-vr)  
+   evidence：使用高斯泼溅进行低光照3D重建与修复
+2. [ELoG-GS: Dual-Branch Gaussian Splatting with Luminance-Guided Enhancement for Extreme Low-light 3D Reconstruction](/202604/19/2604.12592v1-elog-gs-dual-branch-gaussian-splatting-with-luminance-guided-enhancement-for-extreme-low-light-3d-reconstruction)  
    标签：评分：7.0/10、query:3dgen
-   evidence：在虚拟现实中使用生成式AI实例化3D人工制品和环境
-3. [3D-Anchored Lookahead Planning for Persistent Robotic Scene Memory via World-Model-Based MCTS](/202604/18/2604.11302v1-3d-anchored-lookahead-planning-for-persistent-robotic-scene-memory-via-world-model-based-mcts)  
+   evidence：低光照下的高逼真3D场景重建
+3. [Learning Long-term Motion Embeddings for Efficient Kinematics Generation](/202604/19/2604.11737v1-learning-long-term-motion-embeddings-for-efficient-kinematics-generation)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于场景记忆的3D一致性世界模型
-4. [Representations Before Pixels: Semantics-Guided Hierarchical Video Prediction](/202604/18/2604.11707v1-representations-before-pixels-semantics-guided-hierarchical-video-prediction)  
+   evidence：场景动态的生成模型
+4. [CANVAS: Continuity-Aware Narratives via Visual Agentic Storyboarding](/202604/19/2604.13452v1-canvas-continuity-aware-narratives-via-visual-agentic-storyboarding)  
    标签：评分：6.0/10、query:3dgen
-   evidence：预测未来场景结构与外观生成
-5. [Controllable Video Object Insertion via Multiview Priors](/202604/18/2604.14556v1-controllable-video-object-insertion-via-multiview-priors)  
+   evidence：用于故事讲述中稳定环境和场景转换的生成模型
+5. [NG-GS: NeRF-Guided 3D Gaussian Splatting Segmentation](/202604/19/2604.14706v1-ng-gs-nerf-guided-3d-gaussian-splatting-segmentation)  
    标签：评分：6.0/10、query:3dgen
-   evidence：将视频对象插入现有环境
-6. [Seen-to-Scene: Keep the Seen, Generate the Unseen for Video Outpainting](/202604/18/2604.14648v1-seen-to-scene-keep-the-seen-generate-the-unseen-for-video-outpainting)  
+   evidence：3D高斯泼溅表示中的物体分割
+6. [StreamCacheVGGT: Streaming Visual Geometry Transformers with Robust Scoring and Hybrid Cache Compression](/202604/19/2604.15237v1-streamcachevggt-streaming-visual-geometry-transformers-with-robust-scoring-and-hybrid-cache-compression)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于扩展场景内容的生成模型
+   evidence：从连续视频流中重建稠密3D几何
 
 
 <div class="dpr-home-promo-card">
