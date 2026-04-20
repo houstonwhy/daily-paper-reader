@@ -1,0 +1,404 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-20T18:54:46.583156+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 8,
+    "quick_skim_target": 11,
+    "quick_selected": 8
+  },
+  "deep_dive": [
+    {
+      "id": "2604.15805v1",
+      "title": "From Seeing to Simulating: Generative High-Fidelity Simulation with Digital Cousins for Generalizable Robot Learning and Evaluation",
+      "abstract": "Learning robust robot policies in real-world environments requires diverse data augmentation, yet scaling real-world data collection is costly due to the need for acquiring physical assets and reconfiguring environments. Therefore, augmenting real-world scenes into simulation has become a practical augmentation for efficient learning and evaluation. We present a generative framework that establishes a generative real-to-sim mapping from real-world panoramas to high-fidelity simulation scenes, and further synthesize diverse cousin scenes via semantic and geometric editing. Combined with high-quality physics engines and realistic assets, the generated scenes support interactive manipulation tasks. Additionally, we incorporate multi-room stitching to construct consistent large-scale environments for long-horizon navigation across complex layouts. Experiments demonstrate a strong sim-to-real correlation validating our platform's fidelity, and show that extensively scaling up data generation leads to significantly better generalization to unseen scene and object variations, demonstrating the effectiveness of Digital Cousins for generalizable robot learning and evaluation.",
+      "authors": [
+        "Jasper Lu",
+        "Zhenhao Shen",
+        "Yuanfei Wang",
+        "Shugao Liu",
+        "Shengqiang Xu",
+        "Shawn Xie",
+        "Jingkai Xu",
+        "Feng Jiang",
+        "Jade Yang",
+        "Chen Xie",
+        "Ruihai Wu"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI"
+      ],
+      "published": "2026-04-17T08:06:26+00:00",
+      "link": "https://arxiv.org/pdf/2604.15805v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "generative framework from real-world panoramas to high-fidelity simulation scenes",
+      "llm_evidence_cn": "从真实全景图到高保真模拟场景的生成框架",
+      "llm_evidence": "从真实全景图到高保真模拟场景的生成框架",
+      "canonical_evidence": "从真实全景图到高保真模拟场景的生成框架",
+      "llm_tldr_en": "Maps real-world panoramas to interactive 3D simulation scenes for robot learning and evaluation.",
+      "llm_tldr_cn": "将真实世界全景图映射为可交互的3D模拟场景，用于机器人学习和评估。",
+      "llm_tldr": "将真实世界全景图映射为可交互的3D模拟场景，用于机器人学习和评估。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.16299v1",
+      "title": "Repurposing 3D Generative Model for Autoregressive Layout Generation",
+      "abstract": "We introduce LaviGen, a framework that repurposes 3D generative models for 3D layout generation. Unlike previous methods that infer object layouts from textual descriptions, LaviGen operates directly in the native 3D space, formulating layout generation as an autoregressive process that explicitly models geometric relations and physical constraints among objects, producing coherent and physically plausible 3D scenes. To further enhance this process, we propose an adapted 3D diffusion model that integrates scene, object, and instruction information and employs a dual-guidance self-rollout distillation mechanism to improve efficiency and spatial accuracy. Extensive experiments on the LayoutVLM benchmark show LaviGen achieves superior 3D layout generation performance, with 19% higher physical plausibility than the state of the art and 65% faster computation. Our code is publicly available at https://github.com/fenghora/LaviGen.",
+      "authors": [
+        "Haoran Feng",
+        "Yifan Niu",
+        "Zehuan Huang",
+        "Yang-Tian Sun",
+        "Chunchao Guo",
+        "Yuxin Peng",
+        "Lu Sheng"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-17T17:59:50+00:00",
+      "link": "https://arxiv.org/pdf/2604.16299v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "3D layout generation for physically plausible 3D scenes",
+      "llm_evidence_cn": "用于生成物理上合理的3D场景的3D布局生成",
+      "llm_evidence": "用于生成物理上合理的3D场景的3D布局生成",
+      "canonical_evidence": "用于生成物理上合理的3D场景的3D布局生成",
+      "llm_tldr_en": "LaviGen repurposes 3D generative models for autoregressive 3D layout and scene generation.",
+      "llm_tldr_cn": "LaviGen将3D生成模型重新用于自回归3D布局和场景生成。",
+      "llm_tldr": "LaviGen将3D生成模型重新用于自回归3D布局和场景生成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.12551v1",
+      "title": "Cross-Attentive Multiview Fusion of Vision-Language Embeddings",
+      "abstract": "Vision-language models have been key to the development of open-vocabulary 2D semantic segmentation. Lifting these models from 2D images to 3D scenes, however, remains a challenging problem. Existing approaches typically back-project and average 2D descriptors across views, or heuristically select a single representative one, often resulting in suboptimal 3D representations. In this work, we introduce a novel multiview transformer architecture that cross-attends across vision-language descriptors from multiple viewpoints and fuses them into a unified per-3D-instance embedding. As a second contribution, we leverage multiview consistency as a self-supervision signal for this fusion, which significantly improves performance when added to a standard supervised target-class loss. Our Cross-Attentive Multiview Fusion, which we denote with its acronym CAMFusion, not only consistently outperforms naive averaging or single-view descriptor selection, but also achieves state-of-the-art results on 3D semantic and instance classification benchmarks, including zero-shot evaluations on out-of-domain datasets.",
+      "authors": [
+        "Tomas Berriel Martins",
+        "Martin R. Oswald",
+        "Javier Civera"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-14T10:25:32+00:00",
+      "link": "https://arxiv.org/pdf/2604.12551v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Lifting vision-language models to 3D scenes",
+      "llm_evidence_cn": "将视觉语言模型提升至3D场景",
+      "llm_evidence": "将视觉语言模型提升至3D场景",
+      "canonical_evidence": "将视觉语言模型提升至3D场景",
+      "llm_tldr_en": "This paper proposes a multiview transformer to fuse vision-language embeddings into unified 3D representations.",
+      "llm_tldr_cn": "本文提出了一种多视图Transformer，将视觉语言嵌入融合为统一的3D表示。",
+      "llm_tldr": "本文提出了一种多视图Transformer，将视觉语言嵌入融合为统一的3D表示。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.11138v1",
+      "title": "ViserDex: Visual Sim-to-Real for Robust Dexterous In-hand Reorientation",
+      "abstract": "In-hand object reorientation requires precise estimation of the object pose to handle complex task dynamics. While RGB sensing offers rich semantic cues for pose tracking, existing solutions rely on multi-camera setups or costly ray tracing. We present a sim-to-real framework for monocular RGB in-hand reorientation that integrates 3D Gaussian Splatting (3DGS) to bridge the visual sim-to-real gap. Our key insight is performing domain randomization in the Gaussian representation space: by applying physically consistent, pre-rendering augmentations to 3D Gaussians, we generate photorealistic, randomized visual data for object pose estimation. The manipulation policy is trained using curriculum-based reinforcement learning with teacher-student distillation, enabling efficient learning of complex behaviors. Importantly, both perception and control models can be trained independently on consumer-grade hardware, eliminating the need for large compute clusters. Experiments show that the pose estimator trained with 3DGS data outperforms those trained using conventional rendering data in challenging visual environments. We validate the system on a physical multi-fingered hand equipped with an RGB camera, demonstrating robust reorientation of five diverse objects even under challenging lighting conditions. Our results highlight Gaussian splatting as a practical path for RGB-only dexterous manipulation. For videos of the hardware deployments and additional supplementary materials, please refer to the project website: https://rffr.leggedrobotics.com/works/viserdex/",
+      "authors": [
+        "Arjun Bhardwaj",
+        "Maximum Wilder-Smith",
+        "Mayank Mittal",
+        "Vaishakh Patil",
+        "Marco Hutter"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.CV"
+      ],
+      "published": "2026-04-13T07:50:41+00:00",
+      "link": "https://arxiv.org/pdf/2604.11138v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D Gaussian Splatting for visual data generation in robotics",
+      "llm_evidence_cn": "用于机器人视觉数据生成的3D高斯泼溅",
+      "llm_evidence": "用于机器人视觉数据生成的3D高斯泼溅",
+      "canonical_evidence": "用于机器人视觉数据生成的3D高斯泼溅",
+      "llm_tldr_en": "ViserDex uses 3D Gaussian Splatting for domain randomization to bridge the sim-to-real gap in robotics.",
+      "llm_tldr_cn": "ViserDex利用3D高斯泼溅进行领域随机化，以弥合机器人技术中的虚实差异。",
+      "llm_tldr": "ViserDex利用3D高斯泼溅进行领域随机化，以弥合机器人技术中的虚实差异。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.14928v2",
+      "title": "Hybrid Latents: Geometry-Appearance-Aware Surfel Splatting",
+      "abstract": "We introduce a hybrid Gaussian-hash-grid radiance representation for reconstructing 2D Gaussian scene models from multi-view images. Similar to NeST splatting, our approach reduces the entanglement between geometry and appearance common in NeRF-based models, but adds per-Gaussian latent features alongside hash-grid features to bias the optimizer toward a separation of low- and high-frequency scene components. This explicit frequency-based decomposition reduces the tendency of high-frequency texture to compensate for geometric errors. Encouraging Gaussians with hard opacity falloffs further strengthens the separation between geometry and appearance, improving both geometry reconstruction and rendering efficiency. Finally, probabilistic pruning combined with a sparsity-inducing BCE opacity loss allows redundant Gaussians to be turned off, yielding a minimal set of Gaussians sufficient to represent the scene. Using both synthetic and real-world datasets, we compare against the state of the art in Gaussian-based novel-view synthesis and demonstrate superior reconstruction fidelity with an order of magnitude fewer primitives.",
+      "authors": [
+        "Neel Kelkar",
+        "Simon Niedermayr",
+        "Klaus Engel",
+        "Rüdiger Westermann"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-04-16T12:13:09+00:00",
+      "link": "https://arxiv.org/pdf/2604.14928v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "reconstructing 2D Gaussian scene models from multi-view images",
+      "llm_evidence_cn": "从多视图图像重建2D高斯场景模型",
+      "llm_evidence": "从多视图图像重建2D高斯场景模型",
+      "canonical_evidence": "从多视图图像重建2D高斯场景模型",
+      "llm_tldr_en": "Introduces a hybrid Gaussian-hash-grid representation to improve geometry and appearance separation in scene models.",
+      "llm_tldr_cn": "引入混合高斯哈希网格表示，以改善场景模型中几何与外观的分离。",
+      "llm_tldr": "引入混合高斯哈希网格表示，以改善场景模型中几何与外观的分离。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.14048v1",
+      "title": "Free Geometry: Refining 3D Reconstruction from Longer Versions of Itself",
+      "abstract": "Feed-forward 3D reconstruction models are efficient but rigid: once trained, they perform inference in a zero-shot manner and cannot adapt to the test scene. As a result, visually plausible reconstructions often contain errors, particularly under occlusions, specularities, and ambiguous cues. To address this, we introduce Free Geometry, a framework that enables feed-forward 3D reconstruction models to self-evolve at test time without any 3D ground truth. Our key insight is that, when the model receives more views, it produces more reliable and view-consistent reconstructions. Leveraging this property, given a testing sequence, we mask a subset of frames to construct a self-supervised task. Free Geometry enforces cross-view feature consistency between representations from full and partial observations, while maintaining the pairwise relations implied by the held-out frames. This self-supervision allows for fast recalibration via lightweight LoRA updates, taking less than 2 minutes per dataset on a single GPU. Our approach consistently improves state-of-the-art foundation models, including Depth Anything 3 and VGGT, across 4 benchmark datasets, yielding an average improvement of 3.73% in camera pose accuracy and 2.88% in point map prediction. Code is available at https://github.com/hiteacherIamhumble/Free-Geometry .",
+      "authors": [
+        "Yuhang Dai",
+        "Xingyi Yang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-15T16:24:03+00:00",
+      "link": "https://arxiv.org/pdf/2604.14048v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Refining 3D reconstruction for better scene synthesis",
+      "llm_evidence_cn": "改进3D重建以实现更好的场景综合",
+      "llm_evidence": "改进3D重建以实现更好的场景综合",
+      "canonical_evidence": "改进3D重建以实现更好的场景综合",
+      "llm_tldr_en": "A self-evolving framework that improves feed-forward 3D reconstruction models at test time using more views.",
+      "llm_tldr_cn": "一种自进化框架，通过更多视角在测试时改进前馈3D重建模型。",
+      "llm_tldr": "一种自进化框架，通过更多视角在测试时改进前馈3D重建模型。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.15284v2",
+      "title": "GlobalSplat: Efficient Feed-Forward 3D Gaussian Splatting via Global Scene Tokens",
+      "abstract": "The efficient spatial allocation of primitives serves as the foundation of 3D Gaussian Splatting, as it directly dictates the synergy between representation compactness, reconstruction speed, and rendering fidelity. Previous solutions, whether based on iterative optimization or feed-forward inference, suffer from significant trade-offs between these goals, mainly due to the reliance on local, heuristic-driven allocation strategies that lack global scene awareness. Specifically, current feed-forward methods are largely pixel-aligned or voxel-aligned. By unprojecting pixels into dense, view-aligned primitives, they bake redundancy into the 3D asset. As more input views are added, the representation size increases and global consistency becomes fragile. To this end, we introduce GlobalSplat, a framework built on the principle of align first, decode later. Our approach learns a compact, global, latent scene representation that encodes multi-view input and resolves cross-view correspondences before decoding any explicit 3D geometry. Crucially, this formulation enables compact, globally consistent reconstructions without relying on pretrained pixel-prediction backbones or reusing latent features from dense baselines. Utilizing a coarse-to-fine training curriculum that gradually increases decoded capacity, GlobalSplat natively prevents representation bloat. On RealEstate10K and ACID, our model achieves competitive novel-view synthesis performance while utilizing as few as 16K Gaussians, significantly less than required by dense pipelines, obtaining a light 4MB footprint. Further, GlobalSplat enables significantly faster inference than the baselines, operating under 78 milliseconds in a single forward pass. Project page is available at https://r-itk.github.io/globalsplat/",
+      "authors": [
+        "Roni Itkin",
+        "Noam Issachar",
+        "Yehonatan Keypur",
+        "Xingyu Chen",
+        "Anpei Chen",
+        "Sagie Benaim"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-16T17:52:06+00:00",
+      "link": "https://arxiv.org/pdf/2604.15284v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Efficient feed-forward 3D Gaussian Splatting for scene representation",
+      "llm_evidence_cn": "用于场景表示的高效前馈3D高斯泼溅技术",
+      "llm_evidence": "用于场景表示的高效前馈3D高斯泼溅技术",
+      "canonical_evidence": "用于场景表示的高效前馈3D高斯泼溅技术",
+      "llm_tldr_en": "GlobalSplat uses global scene tokens to improve the efficiency and consistency of 3D Gaussian Splatting.",
+      "llm_tldr_cn": "GlobalSplat通过全局场景Token提升了3D高斯泼溅的效率和一致性。",
+      "llm_tldr": "GlobalSplat通过全局场景Token提升了3D高斯泼溅的效率和一致性。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.15237v2",
+      "title": "StreamCacheVGGT: Streaming Visual Geometry Transformers with Robust Scoring and Hybrid Cache Compression",
+      "abstract": "Reconstructing dense 3D geometry from continuous video streams requires stable inference under a constant memory budget. Existing $O(1)$ frameworks primarily rely on a ``pure eviction'' paradigm, which suffers from significant information destruction due to binary token deletion and evaluation noise from localized, single-layer scoring. To address these bottlenecks, we propose StreamCacheVGGT, a training-free framework that reimagines cache management through two synergistic modules: Cross-Layer Consistency-Enhanced Scoring (CLCES) and Hybrid Cache Compression (HCC). CLCES mitigates activation noise by tracking token importance trajectories across the Transformer hierarchy, employing order-statistical analysis to identify sustained geometric salience. Leveraging these robust scores, HCC transcends simple eviction by introducing a three-tier triage strategy that merges moderately important tokens into retained anchors via nearest-neighbor assignment on the key-vector manifold. This approach preserves essential geometric context that would otherwise be lost. Extensive evaluations on five benchmarks (7-Scenes, NRGBD, ETH3D, Bonn, and KITTI) demonstrate that StreamCacheVGGT sets a new state-of-the-art, delivering superior reconstruction accuracy and long-term stability while strictly adhering to constant-cost constraints.",
+      "authors": [
+        "Xuanyi Liu",
+        "Chunan Yu",
+        "Deyi Ji",
+        "Qi Zhu",
+        "Lingyun Sun",
+        "Xuanfu Li",
+        "Jin Ma",
+        "Tianrun Chen",
+        "Lanyun Zhu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-16T17:12:10+00:00",
+      "link": "https://arxiv.org/pdf/2604.15237v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "reconstructing dense 3D geometry from video streams",
+      "llm_evidence_cn": "从视频流中重建稠密3D几何",
+      "llm_evidence": "从视频流中重建稠密3D几何",
+      "canonical_evidence": "从视频流中重建稠密3D几何",
+      "llm_tldr_en": "StreamCacheVGGT optimizes memory for streaming 3D geometry reconstruction using visual transformers.",
+      "llm_tldr_cn": "StreamCacheVGGT利用视觉Transformer优化了流式3D几何重建的内存管理。",
+      "llm_tldr": "StreamCacheVGGT利用视觉Transformer优化了流式3D几何重建的内存管理。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.15770v1",
+      "title": "PLAF: Pixel-wise Language-Aligned Feature Extraction for Efficient 3D Scene Understanding",
+      "abstract": "Accurate open-vocabulary 3D scene understanding requires semantic representations that are both language-aligned and spatially precise at the pixel level, while remaining scalable when lifted to 3D space. However, existing representations struggle to jointly satisfy these requirements, and densely propagating pixel-wise semantics to 3D often results in substantial redundancy, leading to inefficient storage and querying in large-scale scenes. To address these challenges, we present \\emph{PLAF}, a Pixel-wise Language-Aligned Feature extraction framework that enables dense and accurate semantic alignment in 2D without sacrificing open-vocabulary expressiveness. Building upon this representation, we further design an efficient semantic storage and querying scheme that significantly reduces redundancy across both 2D and 3D domains. Experimental results show that \\emph{PLAF} provides a strong semantic foundation for accurate and efficient open-vocabulary 3D scene understanding. The codes are publicly available at https://github.com/RockWenJJ/PLAF.",
+      "authors": [
+        "Junjie Wen",
+        "Junlin He",
+        "Fei Ma",
+        "Jinqiang Cui"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.RO"
+      ],
+      "published": "2026-04-17T07:24:14+00:00",
+      "link": "https://arxiv.org/pdf/2604.15770v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Language-aligned feature extraction for 3D scene understanding",
+      "llm_evidence_cn": "用于3D场景理解的语言对齐特征提取",
+      "llm_evidence": "用于3D场景理解的语言对齐特征提取",
+      "canonical_evidence": "用于3D场景理解的语言对齐特征提取",
+      "llm_tldr_en": "PLAF provides pixel-wise language-aligned features to enhance open-vocabulary 3D scene understanding.",
+      "llm_tldr_cn": "PLAF提供像素级语言对齐特征，以增强开放词汇的3D场景理解。",
+      "llm_tldr": "PLAF提供像素级语言对齐特征，以增强开放词汇的3D场景理解。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.15941v1",
+      "title": "Neural Gabor Splatting: Enhanced Gaussian Splatting with Neural Gabor for High-frequency Surface Reconstruction",
+      "abstract": "Recent years have witnessed the rapid emergence of 3D Gaussian splatting (3DGS) as a powerful approach for 3D reconstruction and novel view synthesis. Its explicit representation with Gaussian primitives enables fast training, real-time rendering, and convenient post-processing such as editing and surface reconstruction. However, 3DGS suffers from a critical drawback: the number of primitives grows drastically for scenes with high-frequency appearance details, since each primitive can represent only a single color, requiring multiple primitives for every sharp color transition. To overcome this limitation, we propose neural Gabor splatting, which augments each Gaussian primitive with a lightweight multi-layer perceptron that models a wide range of color variations within a single primitive. To further control primitive numbers, we introduce a frequency-aware densification strategy that selects mismatch primitives for pruning and cloning based on frequency energy. Our method achieves accurate reconstruction of challenging high-frequency surfaces. We demonstrate its effectiveness through extensive experiments on both standard benchmarks, such as Mip-NeRF360 and High-Frequency datasets (e.g., checkered patterns), supported by comprehensive ablation studies.",
+      "authors": [
+        "Haato Watanabe",
+        "Nobuyuki Umetani"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-04-17T11:00:19+00:00",
+      "link": "https://arxiv.org/pdf/2604.15941v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "enhanced 3D scene reconstruction with Neural Gabor Splatting",
+      "llm_evidence_cn": "通过神经加伯泼溅增强3D场景重建",
+      "llm_evidence": "通过神经加伯泼溅增强3D场景重建",
+      "canonical_evidence": "通过神经加伯泼溅增强3D场景重建",
+      "llm_tldr_en": "Augments 3D Gaussian Splatting with Neural Gabor filters for better high-frequency scene reconstruction.",
+      "llm_tldr_cn": "通过神经加伯滤波器增强3D高斯泼溅，以实现更好的高频场景重建。",
+      "llm_tldr": "通过神经加伯滤波器增强3D高斯泼溅，以实现更好的高频场景重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

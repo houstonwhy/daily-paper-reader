@@ -6,46 +6,52 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-19
-- 运行时间：2026-04-19 19:03:33 UTC
+- 最新运行日期：2026-04-20
+- 运行时间：2026-04-20 18:56:02 UTC
 - 运行状态：成功
-- 本次总论文数：8
+- 本次总论文数：10
 - 精读区：2
-- 速读区：6
+- 速读区：8
 
 ### 今日简报（AI）
-今日聚焦 Agent 驱动的视频生成与物体中心化视觉大模型，深度解析 8 篇 AI 前沿进展。
-重点推荐 LLM 规划下的可执行视频事件图，以及集理解、分割与编辑于一体的物体级多模态视觉方案。
-建议关注 3DGS 在极暗光重建领域的最新突破，探索复杂光影下的三维数字化可能。
-- 详情：[/202604/19/README](/202604/19/README)
+今日深度解析 10 篇前沿成果，重点聚焦高保真机器人仿真与 3D 场景布局生成两大核心领域。
+核心突破在于利用“数字孪生兄弟”提升机器人泛化学习能力，并成功将 3D 生成模型复用于自回归布局生成。
+建议关注 3D 高斯泼溅与具身智能的融合趋势，了解虚拟仿真如何精准赋能现实机器人训练。
+- 详情：[/202604/20/README](/202604/20/README)
 
 ### 精读区论文标签
-1. [Agentic Video Generation: From Text to Executable Event Graphs via Tool-Constrained LLM Planning](/202604/19/2604.10383v1-agentic-video-generation-from-text-to-executable-event-graphs-via-tool-constrained-llm-planning)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：LLM构建结构化规范并在3D引擎中执行
-2. [LMMs Meet Object-Centric Vision: Understanding, Segmentation, Editing and Generation](/202604/19/2604.11789v1-lmms-meet-object-centric-vision-understanding-segmentation-editing-and-generation)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：用于物体级3D场景生成和编辑的多模态大模型
+1. [From Seeing to Simulating: Generative High-Fidelity Simulation with Digital Cousins for Generalizable Robot Learning and Evaluation](/202604/20/2604.15805v1-from-seeing-to-simulating-generative-high-fidelity-simulation-with-digital-cousins-for-generalizable-robot-learning-and-evaluation)  
+   标签：评分：9.0/10、query:3dgen
+   evidence：从真实全景图到高保真模拟场景的生成框架
+2. [Repurposing 3D Generative Model for Autoregressive Layout Generation](/202604/20/2604.16299v1-repurposing-3d-generative-model-for-autoregressive-layout-generation)  
+   标签：评分：9.0/10、query:3dgen
+   evidence：用于生成物理上合理的3D场景的3D布局生成
 
 ### 速读区论文标签
-1. [Naka-GS: A Bionics-inspired Dual-Branch Naka Correction and Progressive Point Pruning for Low-Light 3DGS](/202604/19/2604.11142v1-naka-gs-a-bionics-inspired-dual-branch-naka-correction-and-progressive-point-pruning-for-low-light-3dgs)  
+1. [Cross-Attentive Multiview Fusion of Vision-Language Embeddings](/202604/20/2604.12551v1-cross-attentive-multiview-fusion-of-vision-language-embeddings)  
    标签：评分：7.0/10、query:3dgen
-   evidence：使用高斯泼溅进行低光照3D重建与修复
-2. [ELoG-GS: Dual-Branch Gaussian Splatting with Luminance-Guided Enhancement for Extreme Low-light 3D Reconstruction](/202604/19/2604.12592v1-elog-gs-dual-branch-gaussian-splatting-with-luminance-guided-enhancement-for-extreme-low-light-3d-reconstruction)  
+   evidence：将视觉语言模型提升至3D场景
+2. [Hybrid Latents: Geometry-Appearance-Aware Surfel Splatting](/202604/20/2604.14928v2-hybrid-latents-geometry-appearance-aware-surfel-splatting)  
    标签：评分：7.0/10、query:3dgen
-   evidence：低光照下的高逼真3D场景重建
-3. [Learning Long-term Motion Embeddings for Efficient Kinematics Generation](/202604/19/2604.11737v1-learning-long-term-motion-embeddings-for-efficient-kinematics-generation)  
+   evidence：从多视图图像重建2D高斯场景模型
+3. [GlobalSplat: Efficient Feed-Forward 3D Gaussian Splatting via Global Scene Tokens](/202604/20/2604.15284v2-globalsplat-efficient-feed-forward-3d-gaussian-splatting-via-global-scene-tokens)  
+   标签：评分：7.0/10、query:3dgen
+   evidence：用于场景表示的高效前馈3D高斯泼溅技术
+4. [ViserDex: Visual Sim-to-Real for Robust Dexterous In-hand Reorientation](/202604/20/2604.11138v1-viserdex-visual-sim-to-real-for-robust-dexterous-in-hand-reorientation)  
    标签：评分：6.0/10、query:3dgen
-   evidence：场景动态的生成模型
-4. [CANVAS: Continuity-Aware Narratives via Visual Agentic Storyboarding](/202604/19/2604.13452v1-canvas-continuity-aware-narratives-via-visual-agentic-storyboarding)  
+   evidence：用于机器人视觉数据生成的3D高斯泼溅
+5. [Free Geometry: Refining 3D Reconstruction from Longer Versions of Itself](/202604/20/2604.14048v1-free-geometry-refining-3d-reconstruction-from-longer-versions-of-itself)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于故事讲述中稳定环境和场景转换的生成模型
-5. [NG-GS: NeRF-Guided 3D Gaussian Splatting Segmentation](/202604/19/2604.14706v1-ng-gs-nerf-guided-3d-gaussian-splatting-segmentation)  
+   evidence：改进3D重建以实现更好的场景综合
+6. [StreamCacheVGGT: Streaming Visual Geometry Transformers with Robust Scoring and Hybrid Cache Compression](/202604/20/2604.15237v2-streamcachevggt-streaming-visual-geometry-transformers-with-robust-scoring-and-hybrid-cache-compression)  
    标签：评分：6.0/10、query:3dgen
-   evidence：3D高斯泼溅表示中的物体分割
-6. [StreamCacheVGGT: Streaming Visual Geometry Transformers with Robust Scoring and Hybrid Cache Compression](/202604/19/2604.15237v1-streamcachevggt-streaming-visual-geometry-transformers-with-robust-scoring-and-hybrid-cache-compression)  
+   evidence：从视频流中重建稠密3D几何
+7. [PLAF: Pixel-wise Language-Aligned Feature Extraction for Efficient 3D Scene Understanding](/202604/20/2604.15770v1-plaf-pixel-wise-language-aligned-feature-extraction-for-efficient-3d-scene-understanding)  
    标签：评分：6.0/10、query:3dgen
-   evidence：从连续视频流中重建稠密3D几何
+   evidence：用于3D场景理解的语言对齐特征提取
+8. [Neural Gabor Splatting: Enhanced Gaussian Splatting with Neural Gabor for High-frequency Surface Reconstruction](/202604/20/2604.15941v1-neural-gabor-splatting-enhanced-gaussian-splatting-with-neural-gabor-for-high-frequency-surface-reconstruction)  
+   标签：评分：6.0/10、query:3dgen
+   evidence：通过神经加伯泼溅增强3D场景重建
 
 
 <div class="dpr-home-promo-card">

@@ -1,0 +1,218 @@
+Title: PLAF: Pixel-wise Language-Aligned Feature Extraction for Efficient 3D Scene Understanding
+
+URL Source: https://arxiv.org/pdf/2604.15770v1
+
+Published Time: Mon, 20 Apr 2026 00:33:25 GMT
+
+Number of Pages: 6
+
+Markdown Content:
+> 1
+
+# PLAF : Pixel-wise Language-Aligned Feature Extraction for Efficient 3D Scene Understanding 
+
+Junjie Wen 1, Junlin He 1,2, Fei Ma 1,3,4, Jinqiang Cui 1
+
+Abstract —Accurate open-vocabulary 3D scene understanding requires semantic representations that are both language-aligned and spatially precise at the pixel level, while remaining scal-able when lifted to 3D space. However, existing representations struggle to jointly satisfy these requirements, and densely prop-agating pixel-wise semantics to 3D often results in substantial redundancy, leading to inefficient storage and querying in large-scale scenes. To address these challenges, we present PLAF , a Pixel-wise Language-Aligned Feature extraction framework that enables dense and accurate semantic alignment in 2D without sacrificing open-vocabulary expressiveness. Building upon this representation, we further design an efficient semantic storage and querying scheme that significantly reduces redundancy across both 2D and 3D domains. Experimental results show that 
+
+PLAF provides a strong semantic foundation for accurate and efficient open-vocabulary 3D scene understanding. The codes are publicly available at https://github.com/RockWenJJ/PLAF. 
+
+Index Terms —Semantic Representation, Vision-Language Models, 3D Scene Understanding 
+
+I. I NTRODUCTION 
+
+Open-vocabulary 3D scene understanding seeks to recog-nize, localize, and reason about arbitrary concepts in real-world environments, rather than being restricted to a fixed label set [1][2]. Vision–language models (VLMs) are a natural fit for this setting because they align visual signals and natural language in a shared embedding space, enabling flexible zero-shot recognition [3]. Despite this promise, lifting language-aligned semantics from 2D images to 3D scenes remains non-trivial, particularly when both rich semantics and precise geometric correspondence are required [4][5]. One key reason is that commonly used vision–language fea-tures are not sufficiently fine-grained for accurate 3D semantic association. CLIP [3], for example, provides strong image-level vision–language alignment, but such global semantics are often too coarse for 3D scene understanding. Several recent works [4][5] therefore attempt to map CLIP embeddings into 3D reconstructions; however, the mapped semantics can still be noisy and inconsistent in practice [6]. Meanwhile, patch-level alignment methods [7] improve spatial localization compared with image-level features, but their granularity re-mains limited, making them still coarse for precise 3D spatial semantic understanding. Consequently, pixel-level semantic 
+
+> 1
+
+Peng Cheng Laboratory, Shenzhen, Guangdong, China. 
+
+> 2
+
+The School of Intelligent Engineering, Sun Yat-Sen University-ShenzhenCampus, Shenzhen, Guangdong, China 
+
+> 3
+
+State Key Laboratory of Multimodal Artificial Intelligence Sys-tems,Institute of Automation, Chinese Academy of Sciences, Beijing, China. 
+
+> 4
+
+School of Artificial Intelligence, University of Chinese Academy of Sciences, Beijing, China. 
+
+alignment becomes essential for associating language-aware semantics with 3D geometry in a precise and reliable manner. Motivated by this observation, pixel-wise language-aligned features provide a direct way to achieve such precision, offer-ing dense semantics with fine-grained spatial correspondence at the pixel level. However, existing pixel-wise solutions face two practical challenges. First, most approaches build upon CLIP-based VLMs, yet obtaining reliable pixel-level language alignment from such models is non-trivial and often requires careful and costly feature extraction or adaptation [4][5][8]. Second, even with pixel-level alignment, lifting dense features into 3D introduces substantial storage overhead: a language-aligned embedding is typically high-dimensional [3], and stor-ing it for every pixel across multi-view observations quickly becomes prohibitive. These limitations call for a method that can provide accurate pixel-wise semantics while enabling efficient storage and querying at scale. To address these challenges, we present PLAF , a Pixel-wise 
+
+Language-Aligned Feature extraction framework for efficient open-vocabulary 3D scene understanding. To this end, we first extract dense features with a visual foundation model and aggregate them with masks from a class-agnostic mask extractor to obtain pixel-wise language-aligned features that preserve open-vocabulary expressiveness while providing fine-grained spatial correspondence in 2D. Building upon these pixel-aligned semantics, we further propose a mask-based fea-ture storage scheme that stores compact mask-level representa-tions instead of dense per-pixel embeddings, enabling efficient lifting to 3D as well as scalable semantic querying. Overall, this framework substantially reduces redundancy across both 2D and 3D domains, making large-scale open-vocabulary 3D semantic mapping practical. In summary, our contributions are three-fold:  
+
+> •
+
+We propose PLAF , a pixel-wise language-aligned feature extraction framework that enables dense and accurate 2D semantic alignment while preserving open-vocabulary expressiveness.  
+
+> •
+
+We introduce an efficient semantic storage and query-ing scheme that substantially reduces redundancy when propagating dense pixel-wise semantics across multi-view images and into 3D space.  
+
+> •
+
+We conduct extensive experiments showing that PLAF 
+
+provides a strong semantic foundation for accurate and efficient open-vocabulary 3D scene understanding.  
+
+> arXiv:2604.15770v1 [cs.CV] 17 Apr 2026 2
+> Fig. 1. PLAF converts dense language-aligned pixel features into a compact mask-indexed semantic memory in 2D and extends this index-and-reference design to 3D, enabling scalable open-vocabulary 3D semantic mapping with significantly reduced redundancy.
+
+II. R ELATED WORK 
+
+A. 2D Foundation Models 
+
+Recent progress in 2D foundation models has provided strong priors for open-vocabulary understanding. Vision– language models such as CLIP [3] align images and text in a shared embedding space, while self-supervised back-bones such as DINOv2 [9] improve local feature quality and dense transferability. More recent distilled models, e.g., RA-DIOv2.5 [10], further improve robustness and reduce semantic noise [6]. For precise 2D-to-3D transfer, however, image-level semantics are often too coarse, motivating methods at finer granularities, including patch-level representations [7], region-level grouping [8], and mask-level priors such as SAM [11]. Among them, mask-guided representations offer a practical balance between semantic expressiveness and spatial precision, which motivates our compact mask-level design for scalable 3D mapping. 
+
+B. Open-Vocabulary 3D Scene Understanding 
+
+Open-vocabulary 3D scene understanding transfers vision– language semantics from 2D images to 3D geometry for open-set segmentation and querying [1][2][4][5][12]. Representative methods such as OpenScene [1], ConceptFusion [4], CLIP-FO3D [12], OpenMask3D [5], and ConceptGraphs [2] have shown that language-aligned 2D features can support flexible 3D understanding and interaction. However, existing methods still suffer from noisy local semantics, cross-view inconsis-tency, and high memory overhead when dense descriptors are attached to pixels or points. These limitations are especially severe in large indoor scenes. Our method addresses this gap by strengthening pixel-wise language alignment before 2D-to-3D lifting and improving semantic coherence in the reconstructed scene. 
+
+C. Efficient 3D Spatial Semantic Representation 
+
+Building semantic 3D maps that are both accurate and scalable requires reducing redundancy in multi-view observa-tions while supporting fast querying. Existing open-vocabulary mapping systems often store dense per-pixel or per-point embeddings [1][4][12], which is memory-intensive because high-dimensional descriptors are repeatedly observed across views. To improve efficiency, prior work has explored neural compression [13], sparsity-aware storage [14], quantization, and higher-level abstractions such as metric-semantic maps and scene graphs [2][15]. However, directly applying these strategies to open-vocabulary settings remains difficult, since compact representations must still preserve semantic dis-criminability and text-aligned geometric correspondence. Our method addresses this challenge with an index-and-reference design that is compact by construction in both 2D and 3D, substantially reducing memory usage while retaining querya-bility. III. P ROPOSED METHOD 
+
+A. Overall Framework 
+
+The overall pipeline of PLAF is illustrated in Fig. 1. Our goal is to construct a language-grounded yet scalable 3D semantic representation from multi-view RGB observations. To this end, PLAF decomposes the problem into two tightly coupled components: (i) mask-guided pixel-wise alignment in 2D, which turns generic visual features into spatially grounded semantics aligned with the language space, and (ii) efficient lifting and indexing in 3D, which transforms dense 2D semantics into a compact, queryable 3D representation. In the first stage, we extract dense features with a visual foundation model and leverage masks from a class-agnostic mask extractor to aggregate features into region-consistent de-scriptors, improving spatial coherence while preserving open-vocabulary expressiveness. In the second stage, we replace per-pixel feature storage with a mask-indexed representation and lift these compact units into 3D, enabling efficient fusion across views and scalable semantic querying. 3
+
+B. Mask-guided Pixel-wise Feature Alignment 
+
+We obtain mask-guided pixel-wise features aligned with the language space from a single RGB image by combining a strong visual foundation model with robust mask priors. Although dense language-aligned feature extraction has pro-gressed rapidly, existing solutions often (i) rely on limited task-specific supervision and thus generalize poorly, (ii) require multi-model and multi-stage pipelines that increase complex-ity, or (iii) improve efficiency at the cost of degraded spa-tial quality. To balance generalization, efficiency, and spatial fidelity, we adopt a frozen visual foundation backbone that provides stable dense representations and transfers well to open-vocabulary settings, mitigating semantic noise during 3D lifting [6]. In addition, we employ a class-agnostic mask extractor to produce high-quality masks that capture object extents and fine structures without requiring category labels. These masks provide reliable spatial support for aggregating dense features into region-consistent representations, which helps suppress pixel-level noise and improves spatial coher-ence. Moreover, the mask partition naturally enables compact, mask-level storage and later facilitates efficient lifting and querying in 3D. 
+
+a) Dense feature extraction: Given an input image I ∈
+
+RH×W ×3, the visual foundation backbone produces a feature map F ∈ Rh×w×C , where (h, w ) is determined by the input resolution and the backbone’s patch size. Since subsequent steps require pixel-wise correspondence, we upsample F to the original image resolution using bilinear interpolation: 
+
+eF = Interp( F; H, W ), eF ∈ RH×W ×C , (1) where eF(u, v ) ∈ RC denotes the feature vector at pixel (u, v ).
+
+b) Mask-guided feature aggregation: Let {Mk}Kk=1 be the set of binary masks predicted by the mask extractor for I,where Mk ∈ { 0, 1}H×W . For each mask Mk, we compute a mask-level feature by averaging pixel features inside the mask: 
+
+fk = 1
+
+|Ωk|
+
+X
+
+> (u,v )∈Ωk
+
+eF(u, v ),
+
+Ωk = {(u, v ) | Mk(u, v ) = 1 },
+
+(2) where |Ωk| is the number of foreground pixels. In practice, this mask-guided representation reduces intra-region redundancy, improves spatial consistency, and prepares the features for efficient 2D-to-3D lifting. 
+
+C. Efficient 2D-to-3D Feature Lifting 
+
+Given the 2D feature map and the set of masks {Mk}Kk=1 ,we represent each 2D observation with compact mask-level features and then lift them into 3D. Concretely, for any pixel 
+
+(u, v ), we associate it with a mask index π(u, v ) and use the corresponding mask feature as its semantic descriptor: 
+
+g(u, v ) = fπ(u,v ), π(u, v ) = arg max  
+
+> k
+
+Mk(u, v ), (3) where fk is defined in Eq. (2). This formulation allows us to lift semantics to 3D using mask-level representations rather than storing high-dimensional features for every pixel. input image                  
+
+> indexed mask
+> 1
+> 23
+> 4
+> 56
+> 7
+> 8
+> 9
+> 10
+> 11 12
+> 13
+> 14
+> 15
+> 16
+> 17
+> aggregated features
+> 12310 467985
+> Fig. 2. Mask-indexed 2D semantic memory in PLAF . Each image is stored as an indexed mask map (npy, H×W) and a mask feature table (pt, K×C), replacing dense per-pixel feature tensors.
+
+a) Mask-indexed semantic memory in 2D: Directly lift-ing dense per-pixel embeddings is wasteful because language-aligned features are high-dimensional and highly redundant within each mask region. We therefore store each image as a compact semantic memory consisting of: (i) an indexed mask map Iid ∈ NH×W that records the mask ID at each pixel, and (ii) a mask feature table T ∈ RK×C that stores exactly one feature vector per mask. This decoupling turns dense pixel features into an indexing problem : pixels only carry lightweight indices, while semantic content is stored once per region. As illustrated in Fig. 2, this representation replaces dense per-pixel tensors with a compact index map plus a small feature table. Assume the feature dimension is C, each floating-point element takes bf bytes (e.g., 4 for FP32), and each mask index takes bi bytes (e.g., 2 for uint16). Traditional dense storage keeps one C-dimensional feature for every pixel, whose cost is: 
+
+S2D dense = HW · C · bf . (4) In contrast, our proposed mask-indexed storage keeps (i) an indexed mask map (one integer ID per pixel) and (ii) a mask feature table (one C-dimensional feature per mask). Let K
+
+denote the number of masks in this image. The total cost is: 
+
+S2D mask = HW · bi + K · C · bf , (5) The corresponding reduction ratio is 
+
+ρ = Smask 
+
+Sdense 
+
+= bi
+
+Cb f
+
++ KHW . (6) Since typically K ≪ HW and C is large, the first term is small and the second term decreases with image resolution. For a concrete example, consider an image of H × W =480 × 640 with C = 1024 , stored in FP32 ( bf = 4 ) and uint16 indices ( bi = 2 ). Traditional dense storage costs 480 ·
+
+640 · 1024 · 4 ≈ 1.26 GB per image, whereas with K = 200 
+
+masks, our proposed mask-indexed storage costs 480 · 640 ·
+
+2 + 200 · 1024 · 4 ≈ 1.43 MB, which is about 0.11% of dense storage. 4Input ConceptFusion OpenMask3D RayFront s PLAF(Ours)         
+
+> Fig. 3. Qualitative comparison of 2D text-query results on ScanNet. The leftmost column shows input RGB images; from left to right, the remaining columns show ConceptFusion, OpenMask3D, RayFronts [7], and PLAF (ours). From top to bottom, each row corresponds to the text queries chair ,book ,mouse , and
+> dustbin . Although ConceptFusion and OpenMask3D produce reasonable segmentation maps, they often mis-localize queried semantics. RayFronts captures coarse semantic regions but remains spatially imprecise due to patch-wise semantics. In contrast, PLAF yields more accurate and sharper localization for open-vocabulary objects.
+
+b) Efficient lifting and fusion in 3D: Building upon the 2D semantic memory, we lift semantics to 3D by back-projecting pixels to 3D and attaching the corresponding mask-level descriptor fπ(u,v ) (Eq. (3)) to each observation. We then fuse observations across views by aggregating mask-level descriptors into a compact set of 3D point clouds that reference a small pool of semantic descriptors. Compared with storing a language-aligned feature for every 3D point, this index-and-reference design reduces redundancy across both multi-view images and the reconstructed 3D map, while supporting scalable semantic querying. Consider a point-cloud map with N 3D points and semantic feature dimension C. The storage cost of the naive per-point storage scheme, which stores one feature per point, is 
+
+S3Ddense = N · C · bf . (7) In our index-and-reference design, we maintain (i) a compact feature pool of size M (i.e., M unique semantic descriptors after fusion) and (ii) an integer reference for each 3D point that points to an entry in the pool. Let br denote the reference size in bytes (e.g., 2 or 4). The resulting storage cost is 
+
+S3Dindex = N · br + M · C · bf , (8) which yields the ratio 
+
+ρ3D = S3Dindex 
+
+S3Ddense 
+
+= br
+
+Cb f
+
++ MN . (9) When M ≪ N , this provides substantial memory reduction while retaining queryability. As an illustrative example, let N = 10 7 points, C = 1024 ,FP32 features ( bf = 4 ), and uint16 references ( br = 2 ). Tradi-tional dense per-point storage costs 10 7 · 1024 · 4 ≈ 40 .96 GB for semantics alone, which is typically impractical for real-world large-scale mapping (especially when multiple scenes or time steps must be retained). With a feature pool of size 
+
+M = 10 4, our storage costs 10 7 ·2+10 4 ·1024 ·4 ≈ 60 .96 MB, which is about 0.14% of dense storage and makes large-scale deployment feasible. IV. E XPERIMENTS 
+
+A. Experimental Setup 
+
+We evaluate PLAF on ScanNet [16]. All methods are evalu-ated in a zero-shot setting: no additional task-specific training is performed, and semantic predictions are produced directly from frozen feature backbones and their lifted representations. In our implementation, we instantiate the feature extractor with RADIOv2.5 [10] and the mask extractor with SAM [11]. For a fair comparison, the baselines (ConceptFusion [4] and Open-Mask3D [5]) are also used in their zero-shot configurations, and all methods are evaluated on the same ScanNet test scenes with identical text prompts. 
+
+B. 2D Text Query on ScanNet 
+
+Fig. 3 compares 2D text-query results under four open-vocabulary queries ( chair , book , mouse , and dustbin ) across two ScanNet scenes. ConceptFusion [4] and OpenMask3D [5] 5Input Ground Trut h ConceptFusion RayFronts PLAF(Ours)     
+
+> Fig. 4. Qualitative linear-probe segmentation results on ADE20K. From left to right: input image, ground truth, ConceptFusion, RayFronts, and PLAF
+> (ours). Compared with ConceptFusion and RayFronts, PLAF produces masks that are better aligned with object/region boundaries and shows fewer semantic confusions in complex scenes.
+
+generally provide plausible segmentation maps, but their semantic localization is often inaccurate, especially when queried objects are small, partially occluded, or close to visually similar regions. RayFronts [7] can roughly indicate relevant semantic regions, yet its patch-wise representation leads to coarse responses and imprecise object boundaries. By contrast, PLAF provides tighter object alignment and cleaner boundaries, and it suppresses off-target activations in nearby distractor regions. These qualitative results indicate that pixel-wise language-aligned features are more reliable for fine-grained open-vocabulary localization in cluttered indoor scenes. 
+
+C. Semantic Segmentation on ADE20K with Linear Probe 
+
+To further validate the representation quality of our ex-tracted features, we conduct a linear-probe semantic segmen-tation experiment on ADE20K [17]. This setting isolates the intrinsic expressiveness of frozen features by training only a lightweight linear classifier, so better performance indicates stronger semantic separability and transferability. As shown in Fig. 4, the predictions from ConceptFusion and RayFronts contain more boundary leakage and misclassified regions in both indoor and outdoor scenes. In contrast, PLAF 
+
+yields cleaner boundaries and more stable class assignments. These qualitative observations are consistent with Table I, where PLAF achieves the best mIoU of 41.1%, outperforming RayFronts (39.5%) by 1.6 points and ConceptFusion (27.1%) by 14.0 points. 
+
+D. 3D Text Query on ScanNet 
+
+We conduct a qualitative comparison for open-vocabulary 3D text queries on ScanNet, focusing on ConceptFusion [4],          
+
+> TABLE I LINEAR -PROBE SEMANTIC SEGMENTATION ON ADE20K ( MIOU, HIGHER IS BETTER ). Method ConceptFusion RayFronts PLAF (Ours) mIoU ( ↑)27.1% 39.5% 41.1%
+
+OpenMask3D [5], and our PLAF . For each method, text embeddings are matched with lifted 3D semantic descriptors, and the query responses are visualized in the same scene. As shown in Fig. 5, the three queries (from top to bottom) are chair , pillow , and picture , and the compared results (from left to right) are the input RGB point cloud, ConceptFusion, OpenMask3D, and PLAF . ConceptFusion and OpenMask3D tend to produce diffuse activations and ambiguous localization around the targets. In contrast, PLAF consistently concentrates responses on the queried objects and yields clearer boundaries, demonstrating more accurate and reliable 3D open-vocabulary localization. V. C ONCLUSION 
+
+In this paper, we presented PLAF , a pixel-wise language-aligned feature extraction framework for efficient open-vocabulary 3D scene understanding. By combining dense foundation-model features with class-agnostic mask priors and an index-and-reference storage design, PLAF improves fine-grained semantic localization in both 2D and 3D while dras-tically reducing representation redundancy. Across ScanNet qualitative text-query results and ADE20K linear-probe eval-uation, our method demonstrates stronger localization quality and semantic separability than representative baselines, while 6Input ConceptFusion OpenMask3D PLAF(Ours) 
+
+Fig. 5. Qualitative comparison of 3D text-query results on ScanNet. From top to bottom, the text queries are chair , pillow , and picture . From left to right, columns show the input RGB point cloud, ConceptFusion [4], OpenMask3D [5], and PLAF (ours). Compared with ConceptFusion and OpenMask3D, PLAF 
+
+provides more accurate and clearer localization of queried objects, with sharper boundaries and fewer off-target responses. 
+
+reducing semantic storage by over 99% relative to dense per-pixel/per-point schemes, indicating strong potential for scalable real-world 3D open-vocabulary mapping. REFERENCES [1] S. Peng, K. Genova, C. Jiang, A. Tagliasacchi, M. Pollefeys, and T. Funkhouser, “Openscene: 3d scene understanding with open vocabu-laries,” in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , 2023, pp. 815–824. [2] Q. Gu, A. Kuwajerwala, S. Morin, K. M. Jatavallabhula, B. Sen, A. Agarwal, C. Rivera, W. Paul, K. Ellis, R. Chellappa et al. , “Concept-graphs: Open-vocabulary 3d scene graphs for perception and planning,” in 2024 IEEE International Conference on Robotics and Automation (ICRA) . IEEE, 2024, pp. 5021–5028. [3] A. Radford, J. W. Kim, C. Hallacy, A. Ramesh, G. Goh, S. Agarwal, G. Sastry, A. Askell, P. Mishkin, J. Clark et al. , “Learning transferable visual models from natural language supervision,” in International conference on machine learning . PMLR, 2021, pp. 8748–8763. [4] K. M. Jatavallabhula, A. Kuwajerwala, Q. Gu, M. Omama, T. Chen, A. Maalouf, S. Li, G. Iyer, S. Saryazdi, N. Keetha et al. , “Concept-fusion: Open-set multimodal 3d mapping,” in 2023 IEEE International Conference on Robotics and Automation (ICRA) . IEEE, 2023, pp. 11 508–11 514. [5] A. Takmaz, E. Fedele, R. Sumner, M. Pollefeys, F. Tombari, and F. Engelmann, “Openmask3d: Open-vocabulary 3d instance segmenta-tion,” Advances in Neural Information Processing Systems , vol. 36, pp. 68 367–68 390, 2023. [6] M. Ranzinger, G. Heinrich, J. Kautz, and P. Molchanov, “Am-radio: Agglomerative vision foundation model reduce all domains into one,” in Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , 2024, pp. 12 490–12 500. [7] O. Alama, A. Bhattacharya, H. He, S. Kim, Y. Qiu, W. Wang, C. Ho, N. Keetha, and S. Scherer, “Rayfronts: Open-set semantic ray fron-tiers for online scene understanding and exploration,” arXiv preprint arXiv:2504.06994 , 2025. [8] H. Yu, W. Li, S. Wang, J. Chen, and J. Zhu, “Inst3d-lmm: Instance-aware 3d scene understanding with multi-modal instruction tuning,” in 
+
+Proceedings of the Computer Vision and Pattern Recognition Confer-ence , 2025, pp. 14 147–14 157. [9] M. Oquab, T. Darcet, T. Moutakanni, H. V. Vo, M. Szafraniec, V. Khali-dov, P. Fernandez, D. HAZIZA, F. Massa, A. El-Nouby et al. , “Dinov2: Learning robust visual features without supervision,” Transactions on Machine Learning Research , 2023. [10] G. Heinrich, M. Ranzinger, H. Yin, Y. Lu, J. Kautz, A. Tao, B. Catan-zaro, and P. Molchanov, “Radiov2. 5: Improved baselines for agglomer-ative vision foundation models,” in Proceedings of the Computer Vision and Pattern Recognition Conference , 2025, pp. 22 487–22 497. [11] A. Kirillov, E. Mintun, N. Ravi, H. Mao, C. Rolland, L. Gustafson, T. Xiao, S. Whitehead, A. C. Berg, W.-Y. Lo et al. , “Segment anything,” in Proceedings of the IEEE/CVF international conference on computer vision , 2023, pp. 4015–4026. [12] J. Zhang, R. Dong, and K. Ma, “Clip-fo3d: Learning free open-world 3d scene representations from 2d dense clip,” in Proceedings of the IEEE/CVF International Conference on Computer Vision , 2023, pp. 17 288–17 299. [13] C. Huang, J. Li, B. Li, D. Liu, and Y. Lu, “Neural compression-based feature learning for video restoration,” in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , 2022, pp. 5872–5881. [14] H. Liu, Y. Chen, H. Wang, Z. Yang, T. Li, J. Zeng, L. Chen, H. Li, and L. Wang, “Fully sparse 3d occupancy prediction,” in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition ,2024, pp. 17 500–17 510. [15] A. Rosinol, M. Abate, Y. Chang, and L. Carlone, “Kimera: an open-source library for real-time metric-semantic localization and mapping,” in 2020 IEEE International Conference on Robotics and Automation (ICRA) . IEEE, 2020, pp. 1689–1696. [16] A. Dai, A. X. Chang, M. Savva, M. Halber, T. Funkhouser, and M. Nießner, “Scannet: Richly-annotated 3d reconstructions of indoor scenes,” in Proc. Computer Vision and Pattern Recognition (CVPR), IEEE , 2017. [17] B. Zhou, H. Zhao, X. Puig, S. Fidler, A. Barriuso, and A. Torralba, “Scene parsing through ade20k dataset,” in Proceedings of the IEEE conference on computer vision and pattern recognition , 2017, pp. 633– 641.
