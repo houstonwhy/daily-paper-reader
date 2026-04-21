@@ -6,52 +6,64 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-20
-- 运行时间：2026-04-20 18:56:02 UTC
+- 最新运行日期：2026-04-21
+- 运行时间：2026-04-21 19:34:26 UTC
 - 运行状态：成功
-- 本次总论文数：10
-- 精读区：2
+- 本次总论文数：14
+- 精读区：6
 - 速读区：8
 
 ### 今日简报（AI）
-今日深度解析 10 篇前沿成果，重点聚焦高保真机器人仿真与 3D 场景布局生成两大核心领域。
-核心突破在于利用“数字孪生兄弟”提升机器人泛化学习能力，并成功将 3D 生成模型复用于自回归布局生成。
-建议关注 3D 高斯泼溅与具身智能的融合趋势，了解虚拟仿真如何精准赋能现实机器人训练。
-- 详情：[/202604/20/README](/202604/20/README)
+今日深度复盘 14 篇前沿论文，重点攻克了文本驱动的 3D 布局协同生成与视觉语言可控的矢量化场景建模技术。
+满分论文揭示了自回归 3D 扩散模型在形状生成上的巨大潜力，并展示了如何通过潜空间控制实现精准的自动驾驶场景仿真。
+建议关注从驾驶日志中自动化提取 3D 资产及高斯泼溅实时着色方案，以提升复杂环境下的三维重建
+- 详情：[/202604/21/README](/202604/21/README)
 
 ### 精读区论文标签
-1. [From Seeing to Simulating: Generative High-Fidelity Simulation with Digital Cousins for Generalizable Robot Learning and Evaluation](/202604/20/2604.15805v1-from-seeing-to-simulating-generative-high-fidelity-simulation-with-digital-cousins-for-generalizable-robot-learning-and-evaluation)  
+1. [Co-generation of Layout and Shape from Text via Autoregressive 3D Diffusion](/202604/21/2604.16552v1-co-generation-of-layout-and-shape-from-text-via-autoregressive-3d-diffusion)  
+   标签：评分：10.0/10、query:3dgen
+   evidence：通过扩散模型实现文本到场景的布局与形状生成
+2. [ScenarioControl: Vision-Language Controllable Vectorized Latent Scenario Generation](/202604/21/2604.17147v1-scenariocontrol-vision-language-controllable-vectorized-latent-scenario-generation)  
+   标签：评分：10.0/10、query:3dgen
+   evidence：视觉语言可控的3D场景生成
+3. [UniMesh: Unifying 3D Mesh Understanding and Generation](/202604/21/2604.17472v1-unimesh-unifying-3d-mesh-understanding-and-generation)  
    标签：评分：9.0/10、query:3dgen
-   evidence：从真实全景图到高保真模拟场景的生成框架
-2. [Repurposing 3D Generative Model for Autoregressive Layout Generation](/202604/20/2604.16299v1-repurposing-3d-generative-model-for-autoregressive-layout-generation)  
-   标签：评分：9.0/10、query:3dgen
-   evidence：用于生成物理上合理的3D场景的3D布局生成
+   evidence：统一3D网格理解与生成
+4. [D-Prism: Differentiable Primitives for Structured Dynamic Modeling](/202604/21/2604.17082v1-d-prism-differentiable-primitives-for-structured-dynamic-modeling)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：结构化动态3D场景建模
+5. [View-Consistent 3D Scene Editing via Dual-Path Structural Correspondense and Semantic Continuity](/202604/21/2604.17801v1-view-consistent-3d-scene-editing-via-dual-path-structural-correspondense-and-semantic-continuity)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：文本驱动的3D场景编辑
+6. [HolmeSketcher: Generative 3D Sketch Mapping for Spatial Reconstruction in Crime Scene Investigation](/202604/21/2604.18039v1-holmesketcher-generative-3d-sketch-mapping-for-spatial-reconstruction-in-crime-scene-investigation)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：用于场景重建的生成式3D草图映射
 
 ### 速读区论文标签
-1. [Cross-Attentive Multiview Fusion of Vision-Language Embeddings](/202604/20/2604.12551v1-cross-attentive-multiview-fusion-of-vision-language-embeddings)  
+1. [Asset Harvester: Extracting 3D Assets from Autonomous Driving Logs for Simulation](/202604/21/2604.18468v1-asset-harvester-extracting-3d-assets-from-autonomous-driving-logs-for-simulation)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：自动驾驶3D场景合成
+2. [Instant Colorization of Gaussian Splats](/202604/21/2604.17155v1-instant-colorization-of-gaussian-splats)  
    标签：评分：7.0/10、query:3dgen
-   evidence：将视觉语言模型提升至3D场景
-2. [Hybrid Latents: Geometry-Appearance-Aware Surfel Splatting](/202604/20/2604.14928v2-hybrid-latents-geometry-appearance-aware-surfel-splatting)  
+   evidence：将信息映射到3D高斯泼溅场景
+3. [MU-GeNeRF: Multi-view Uncertainty-guided Generalizable Neural Radiance Fields for Distractor-aware Scene](/202604/21/2604.17965v1-mu-generf-multi-view-uncertainty-guided-generalizable-neural-radiance-fields-for-distractor-aware-scene)  
    标签：评分：7.0/10、query:3dgen
-   evidence：从多视图图像重建2D高斯场景模型
-3. [GlobalSplat: Efficient Feed-Forward 3D Gaussian Splatting via Global Scene Tokens](/202604/20/2604.15284v2-globalsplat-efficient-feed-forward-3d-gaussian-splatting-via-global-scene-tokens)  
+   evidence：用于干扰物感知场景重建的可泛化NeRF
+4. [A Comparative Evaluation of Geometric Accuracy in NeRF and Gaussian Splatting](/202604/21/2604.18205v1-a-comparative-evaluation-of-geometric-accuracy-in-nerf-and-gaussian-splatting)  
    标签：评分：7.0/10、query:3dgen
-   evidence：用于场景表示的高效前馈3D高斯泼溅技术
-4. [ViserDex: Visual Sim-to-Real for Robust Dexterous In-hand Reorientation](/202604/20/2604.11138v1-viserdex-visual-sim-to-real-for-robust-dexterous-in-hand-reorientation)  
+   evidence：3D场景表示的评估
+5. [C-GenReg: Training-Free 3D Point Cloud Registration by Multi-View-Consistent Geometry-to-Image Generation with Probabilistic Modalities Fusion](/202604/21/2604.16680v1-c-genreg-training-free-3d-point-cloud-registration-by-multi-view-consistent-geometry-to-image-generation-with-probabilistic-modalities-fusion)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于机器人视觉数据生成的3D高斯泼溅
-5. [Free Geometry: Refining 3D Reconstruction from Longer Versions of Itself](/202604/20/2604.14048v1-free-geometry-refining-3d-reconstruction-from-longer-versions-of-itself)  
+   evidence：用于3D场景配准的生成式先验
+6. [HSG: Hyperbolic Scene Graph](/202604/21/2604.17454v1-hsg-hyperbolic-scene-graph)  
    标签：评分：6.0/10、query:3dgen
-   evidence：改进3D重建以实现更好的场景综合
-6. [StreamCacheVGGT: Streaming Visual Geometry Transformers with Robust Scoring and Hybrid Cache Compression](/202604/20/2604.15237v2-streamcachevggt-streaming-visual-geometry-transformers-with-robust-scoring-and-hybrid-cache-compression)  
+   evidence：3D场景推理与表示
+7. [PCM-NeRF: Probabilistic Camera Modeling for Neural Radiance Fields under Pose Uncertainty](/202604/21/2604.17831v1-pcm-nerf-probabilistic-camera-modeling-for-neural-radiance-fields-under-pose-uncertainty)  
    标签：评分：6.0/10、query:3dgen
-   evidence：从视频流中重建稠密3D几何
-7. [PLAF: Pixel-wise Language-Aligned Feature Extraction for Efficient 3D Scene Understanding](/202604/20/2604.15770v1-plaf-pixel-wise-language-aligned-feature-extraction-for-efficient-3d-scene-understanding)  
+   evidence：具有每相机可学习不确定性的神经表面重建
+8. [E3VS-Bench: A Benchmark for Viewpoint-Dependent Active Perception in 3D Gaussian Splatting Scenes](/202604/21/2604.17969v1-e3vs-bench-a-benchmark-for-viewpoint-dependent-active-perception-in-3d-gaussian-splatting-scenes)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于3D场景理解的语言对齐特征提取
-8. [Neural Gabor Splatting: Enhanced Gaussian Splatting with Neural Gabor for High-frequency Surface Reconstruction](/202604/20/2604.15941v1-neural-gabor-splatting-enhanced-gaussian-splatting-with-neural-gabor-for-high-frequency-surface-reconstruction)  
-   标签：评分：6.0/10、query:3dgen
-   evidence：通过神经加伯泼溅增强3D场景重建
+   evidence：3D高斯泼溅场景的基准测试
 
 
 <div class="dpr-home-promo-card">
