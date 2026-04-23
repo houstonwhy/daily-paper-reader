@@ -1,0 +1,475 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-23T19:13:57.361850+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 8,
+    "quick_skim_target": 11,
+    "quick_selected": 8
+  },
+  "deep_dive": [
+    {
+      "id": "2604.19907v1",
+      "title": "SceneOrchestra: Efficient Agentic 3D Scene Synthesis via Full Tool-Call Trajectory Generation",
+      "abstract": "Recent agentic frameworks for 3D scene synthesis have advanced realism and diversity by integrating heterogeneous generation and editing tools. These tools are organized into workflows orchestrated by an off-the-shelf LLM. Current approaches typically adopt an execute-review-reflect loop: at each step, the orchestrator executes a tool, renders intermediate results for review, and then decides on the tool and its parameters for the next step. However, this design has two key limitations. First, next-step tool selection and parameter configuration are driven by heuristic rules, which can lead to suboptimal execution flows, unnecessary tool invocations, degraded output quality, and increased runtime. Second, rendering and reviewing intermediate results after each step introduces additional latency. To address these issues, we propose SceneOrchestra, a trainable orchestration framework that optimizes the tool-call execution flow and eliminates the step-by-step review loop, improving both efficiency and output quality. SceneOrchestra consists of an orchestrator and a discriminator, which we fine-tune with a two-phase training strategy. In the first phase, the orchestrator learns context-aware tool selection and complete tool-call trajectory generation, while the discriminator is trained to assess the quality of full trajectories, enabling it to select the best trajectory from multiple candidates. In the second phase, we perform interleaved training, where the discriminator adapts to the orchestrator's evolving trajectory distribution and distills its discriminative capability back into the orchestrator. At inference, we only use the orchestrator to generate and execute full tool-call trajectories from instructions, without requiring the discriminator. Extensive experiments show that our method achieves state-of-the-art scene quality while reducing runtime compared to previous work.",
+      "authors": [
+        "Yun He",
+        "Kelin Yu",
+        "Matthias Zwicker"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-21T18:33:15+00:00",
+      "link": "https://arxiv.org/pdf/2604.19907v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Agentic 3D scene synthesis via tool-call trajectory generation",
+      "llm_evidence_cn": "通过工具调用轨迹生成的智能体3D场景合成",
+      "llm_evidence": "通过工具调用轨迹生成的智能体3D场景合成",
+      "canonical_evidence": "通过工具调用轨迹生成的智能体3D场景合成",
+      "llm_tldr_en": "Optimizes 3D scene synthesis by generating full tool-call trajectories using an agentic framework.",
+      "llm_tldr_cn": "通过智能体框架生成完整的工具调用轨迹，优化3D场景合成效率。",
+      "llm_tldr": "通过智能体框架生成完整的工具调用轨迹，优化3D场景合成效率。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.20155v1",
+      "title": "GSCompleter: A Distillation-Free Plugin for Metric-Aware 3D Gaussian Splatting Completion in Seconds",
+      "abstract": "While 3D Gaussian Splatting (3DGS) has revolutionized real-time rendering, its performance degrades significantly under sparse-view extrapolation, manifesting as severe geometric voids and artifacts. Existing solutions primarily rely on an iterative \"Repair-then-Distill\" paradigm, which is inherently unstable and prone to overfitting. In this work, we propose GSCompleter, a distillation-free plugin that shifts scene completion to a stable \"Generate-then-Register\" workflow. Our approach first synthesizes plausible 2D reference images and explicitly lifts them into metric-scale 3D primitives via a robust Stereo-Anchor mechanism. These primitives are then seamlessly integrated into the global context through a novel Ray-Constrained Registration strategy. This shift to a rapid registration paradigm delivers superior 3DGS completion performance across three distinct benchmarks, enhancing the quality and efficiency of various baselines and achieving new SOTA results.",
+      "authors": [
+        "Ao Gao",
+        "Jingyu Gong",
+        "Xin Tan",
+        "Zhizhong Zhang",
+        "Yuan Xie"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-22T03:47:25+00:00",
+      "link": "https://arxiv.org/pdf/2604.20155v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "3D Gaussian Splatting completion and scene synthesis",
+      "llm_evidence_cn": "3D高斯泼溅补全与场景合成",
+      "llm_evidence": "3D高斯泼溅补全与场景合成",
+      "canonical_evidence": "3D高斯泼溅补全与场景合成",
+      "llm_tldr_en": "Proposes GSCompleter for fast, distillation-free 3D scene completion under sparse-view conditions.",
+      "llm_tldr_cn": "提出GSCompleter，用于在稀疏视图条件下进行快速、无蒸馏的3D场景补全。",
+      "llm_tldr": "提出GSCompleter，用于在稀疏视图条件下进行快速、无蒸馏的3D场景补全。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.20038v1",
+      "title": "FluSplat: Sparse-View 3D Editing without Test-Time Optimization",
+      "abstract": "Recent advances in text-guided image editing and 3D Gaussian Splatting (3DGS) have enabled high-quality 3D scene manipulation. However, existing pipelines rely on iterative edit-and-fit optimization at test time, alternating between 2D diffusion editing and 3D reconstruction. This process is computationally expensive, scene-specific, and prone to cross-view inconsistencies.   We propose a feed-forward framework for cross-view consistent 3D scene editing from sparse views. Instead of enforcing consistency through iterative 3D refinement, we introduce a cross-view regularization scheme in the image domain during training. By jointly supervising multi-view edits with geometric alignment constraints, our model produces view-consistent results without per-scene optimization at inference. The edited views are then lifted into 3D via a feedforward 3DGS model, yielding a coherent 3DGS representation in a single forward pass.   Experiments demonstrate competitive editing fidelity and substantially improved cross-view consistency compared to optimization-based methods, while reducing inference time by orders of magnitude.",
+      "authors": [
+        "Haitao Huang",
+        "Shin-Fang Chng",
+        "Huangying Zhan",
+        "Qingan Yan",
+        "Yi Xu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-21T22:45:20+00:00",
+      "link": "https://arxiv.org/pdf/2604.20038v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Feed-forward framework for 3D scene editing",
+      "llm_evidence_cn": "前馈3D场景编辑框架",
+      "llm_evidence": "前馈3D场景编辑框架",
+      "canonical_evidence": "前馈3D场景编辑框架",
+      "llm_tldr_en": "A feed-forward framework for consistent 3D scene editing from sparse views without test-time optimization.",
+      "llm_tldr_cn": "一种无需测试时优化的前馈框架，用于从稀疏视图进行一致的3D场景编辑。",
+      "llm_tldr": "一种无需测试时优化的前馈框架，用于从稀疏视图进行一致的3D场景编辑。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.20784v1",
+      "title": "GeoRect4D: Geometry-Compatible Generative Rectification for Dynamic Sparse-View 3D Reconstruction",
+      "abstract": "Reconstructing dynamic 3D scenes from sparse multi-view videos is highly ill-posed, often leading to geometric collapse, trajectory drift, and floating artifacts. Recent attempts introduce generative priors to hallucinate missing content, yet naive integration frequently causes structural drift and temporal inconsistency due to the mismatch between stochastic 2D generation and deterministic 3D geometry. In this paper, we propose GeoRect4D, a novel unified framework for sparse-view dynamic reconstruction that couples explicit 3D consistency with generative refinement via a closed-loop optimization process. Specifically, GeoRect4D introduces a degradation-aware feedback mechanism that incorporates a robust anchor-based dynamic 3DGS substrate with a single-step diffusion rectifier to hallucinate high-fidelity details. This rectifier utilizes a structural locking mechanism and spatiotemporal coordinated attention, effectively preserving physical plausibility while restoring missing content. Furthermore, we present a progressive optimization strategy that employs stochastic geometric purification to eliminate floaters and generative distillation to infuse texture details into the explicit representation. Extensive experiments demonstrate that GeoRect4D achieves state-of-the-art performance in reconstruction fidelity, perceptual quality, and spatiotemporal consistency across multiple datasets.",
+      "authors": [
+        "Zhenlong Wu",
+        "Zihan Zheng",
+        "Xuanxuan Wang",
+        "Qianhe Wang",
+        "Hua Yang",
+        "Xiaoyun Zhang",
+        "Qiang Hu",
+        "Wenjun Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-22T17:12:02+00:00",
+      "link": "https://arxiv.org/pdf/2604.20784v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "generative refinement for dynamic 3D scene reconstruction",
+      "llm_evidence_cn": "动态3D场景重建的生成式细化",
+      "llm_evidence": "动态3D场景重建的生成式细化",
+      "canonical_evidence": "动态3D场景重建的生成式细化",
+      "llm_tldr_en": "GeoRect4D couples 3D consistency with generative refinement for sparse-view dynamic reconstruction.",
+      "llm_tldr_cn": "GeoRect4D将3D一致性与生成式细化相结合，用于稀疏视图动态重建。",
+      "llm_tldr": "GeoRect4D将3D一致性与生成式细化相结合，用于稀疏视图动态重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.18215v2",
+      "title": "Memorize When Needed: Decoupled Memory Control for Spatially Consistent Long-Horizon Video Generation",
+      "abstract": "Spatially consistent long-horizon video generation aims to maintain temporal and spatial consistency along predefined camera trajectories. Existing methods mostly entangle memory modeling with video generation, leading to inconsistent content during scene revisits and diminished generative capacity when exploring novel regions, even trained on extensive annotated data. To address these limitations, we propose a decoupled framework that separates memory conditioning from generation. Our approach significantly reduces training costs while simultaneously enhancing spatial consistency and preserving the generative capacity for novel scene exploration. Specifically, we employ a lightweight, independent memory branch to learn precise spatial consistency from historical observation. We first introduce a hybrid memory representation to capture complementary temporal and spatial cues from generated frames, then leverage a per-frame cross-attention mechanism to ensure each frame is conditioned exclusively on the most spatially relevant historical information, which is injected into the generative model to ensure spatial consistency. When generating new scenes, a camera-aware gating mechanism is proposed to mediate the interaction between memory and generation modules, enabling memory conditioning only when meaningful historical references exist. Compared with the existing method, our method is highly data-efficient, yet the experiments demonstrate that our approach achieves state-of-the-art performance in terms of both visual quality and spatial consistency.",
+      "authors": [
+        "Yanjun Guo",
+        "Zhengqiang Zhang",
+        "Pengfei Wang",
+        "Xinyue Liang",
+        "Zhiyuan Ma",
+        "Lei Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-20T13:00:17+00:00",
+      "link": "https://arxiv.org/pdf/2604.18215v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "spatially consistent long-horizon video generation for scene exploration",
+      "llm_evidence_cn": "用于场景探索的空间一致长时视频生成",
+      "llm_evidence": "用于场景探索的空间一致长时视频生成",
+      "canonical_evidence": "用于场景探索的空间一致长时视频生成",
+      "llm_tldr_en": "A decoupled memory framework for generating spatially consistent videos during long-horizon scene exploration.",
+      "llm_tldr_cn": "一种解耦内存框架，用于在长时场景探索中生成空间一致的视频。",
+      "llm_tldr": "一种解耦内存框架，用于在长时场景探索中生成空间一致的视频。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.19609v1",
+      "title": "Volume Transformer: Revisiting Vanilla Transformers for 3D Scene Understanding",
+      "abstract": "Transformers have become a common foundation across deep learning, yet 3D scene understanding still relies on specialized backbones with strong domain priors. This keeps the field isolated from the broader Transformer ecosystem, limiting the transfer of new advances as well as the benefits of increasingly optimized software and hardware stacks. To bridge this gap, we adapt the vanilla Transformer encoder to 3D scenes with minimal modifications. Given an input 3D scene, we partition it into volumetric patch tokens, process them with full global self-attention, and inject positional information via a 3D extension of rotary positional embeddings. We call the resulting model the Volume Transformer (Volt) and apply it to 3D semantic segmentation. Naively training Volt on standard 3D benchmarks leads to shortcut learning, highlighting the limited scale of current 3D supervision. To overcome this, we introduce a data-efficient training recipe based on strong 3D augmentations, regularization, and distillation from a convolutional teacher, making Volt competitive with state-of-the-art methods. We then scale supervision through joint training on multiple datasets and show that Volt benefits more from increased scale than domain-specific 3D backbones, achieving state-of-the-art results across indoor and outdoor datasets. Finally, when used as a drop-in backbone in a standard 3D instance segmentation pipeline, Volt again sets a new state of the art, highlighting its potential as a simple, scalable, general-purpose backbone for 3D scene understanding.",
+      "authors": [
+        "Kadir Yilmaz",
+        "Adrian Kruse",
+        "Tristan Höfer",
+        "Daan de Geus",
+        "Bastian Leibe"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-21T15:56:26+00:00",
+      "link": "https://arxiv.org/pdf/2604.19609v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D scene understanding and semantic segmentation",
+      "llm_evidence_cn": "3D场景理解与语义分割",
+      "llm_evidence": "3D场景理解与语义分割",
+      "canonical_evidence": "3D场景理解与语义分割",
+      "llm_tldr_en": "Volume Transformer adapts vanilla Transformers for 3D scene understanding and semantic segmentation.",
+      "llm_tldr_cn": "Volume Transformer将原生Transformer适配于3D场景理解和语义分割。",
+      "llm_tldr": "Volume Transformer将原生Transformer适配于3D场景理解和语义分割。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.19624v1",
+      "title": "GRAFT: Geometric Refinement and Fitting Transformer for Human Scene Reconstruction",
+      "abstract": "Reconstructing physically plausible 3D human-scene interactions (HSI) from a single image currently presents a trade-off: optimization based methods offer accurate contact but are slow (~20s), while feed-forward approaches are fast yet lack explicit interaction reasoning, producing floating and interpenetration artifacts.   Our key insight is that geometry-based human--scene fitting can be amortized into fast feed-forward inference. We present GRAFT (Geometric Refinement And Fitting Transformer), a learned HSI prior that predicts Interaction Gradients: corrective parameter updates that iteratively refine human meshes by reasoning about their 3D relationship to the surrounding scene.   GRAFT encodes the interaction state into compact body-anchored tokens, each grounded in the scene geometry via Geometric Probes that capture spatial relationships with nearby surfaces.   A lightweight transformer recurrently updates human meshes and re-probes the scene, ensuring the final pose aligns with both learned priors and observed geometry.   GRAFT operates either as an end-to-end reconstructor using image features, or with geometry alone as a transferable plug-and-play HSI prior that improves feed-forward methods without retraining.   Experiments show GRAFT improves interaction quality by up to 113% over state-of-the-art feed-forward methods and matches optimization-based interaction quality at ${\\sim}50{\\times}$ lower runtime, while generalizing seamlessly to in-the-wild multi-person scenes and being preferred in 64.8% of three-way user study. Project page: https://pradyumnaym.github.io/graft .",
+      "authors": [
+        "Pradyumna YM",
+        "Yuxuan Xue",
+        "Yue Chen",
+        "Nikita Kister",
+        "István Sárándi",
+        "Gerard Pons-Moll"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-21T16:13:15+00:00",
+      "link": "https://arxiv.org/pdf/2604.19624v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "reconstructing 3D human-scene interactions from images",
+      "llm_evidence_cn": "从图像中重建3D人景交互",
+      "llm_evidence": "从图像中重建3D人景交互",
+      "canonical_evidence": "从图像中重建3D人景交互",
+      "llm_tldr_en": "GRAFT is a transformer-based prior for fast and physically plausible 3D human-scene reconstruction.",
+      "llm_tldr_cn": "GRAFT是一种基于Transformer的先验，用于快速且物理合理的3D人景重建。",
+      "llm_tldr": "GRAFT是一种基于Transformer的先验，用于快速且物理合理的3D人景重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.19631v1",
+      "title": "MOSA: Motion-Guided Semantic Alignment for Dynamic Scene Graph Generation",
+      "abstract": "Dynamic Scene Graph Generation (DSGG) aims to structurally model objects and their dynamic interactions in video sequences for high-level semantic understanding. However, existing methods struggle with fine-grained relationship modeling, semantic representation utilization, and the ability to model tail relationships. To address these issues, this paper proposes a motion-guided semantic alignment method for DSGG (MoSA). First, a Motion Feature Extractor (MFE) encodes object-pair motion attributes such as distance, velocity, motion persistence, and directional consistency. Then, these motion attributes are fused with spatial relationship features through the Motion-guided Interaction Module (MIM) to generate motion-aware relationship representations. To further enhance semantic discrimination capabilities, the cross-modal Action Semantic Matching (ASM) mechanism aligns visual relationship features with text embeddings of relationship categories. Finally, a category-weighted loss strategy is introduced to emphasize learning of tail relationships. Extensive and rigorous testing shows that MoSA performs optimally on the Action Genome dataset.",
+      "authors": [
+        "Xuejiao Wang",
+        "Bohao Zhang",
+        "Changbo Wang",
+        "Gaoqi He"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-21T16:18:26+00:00",
+      "link": "https://arxiv.org/pdf/2604.19631v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Dynamic scene graph generation for semantic understanding",
+      "llm_evidence_cn": "用于语义理解的动态场景图生成",
+      "llm_evidence": "用于语义理解的动态场景图生成",
+      "canonical_evidence": "用于语义理解的动态场景图生成",
+      "llm_tldr_en": "Proposes MoSA for dynamic scene graph generation to model object interactions in video sequences.",
+      "llm_tldr_cn": "提出MoSA方法，通过运动引导的语义对齐生成动态场景图，建模视频中的物体交互。",
+      "llm_tldr": "提出MoSA方法，通过运动引导的语义对齐生成动态场景图，建模视频中的物体交互。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.20046v1",
+      "title": "Gaussians on a Diet: High-Quality Memory-Bounded 3D Gaussian Splatting Training",
+      "abstract": "3D Gaussian Splatting (3DGS) has revolutionized novel view synthesis with high-quality rendering through continuous aggregations of millions of 3D Gaussian primitives. However, it suffers from a substantial memory footprint, particularly during training due to uncontrolled densification, posing a critical bottleneck for deployment on memory-constrained edge devices. While existing methods prune redundant Gaussians post-training, they fail to address the peak memory spikes caused by the abrupt growth of Gaussians early in the training process. To solve the training memory consumption problem, we propose a systematic memory-bounded training framework that dynamically optimizes Gaussians through iterative growth and pruning. In other words, the proposed framework alternates between incremental pruning of low-impact Gaussians and strategic growing of new primitives with an adaptive Gaussian compensation, maintaining a near-constant low memory usage while progressively refining rendering fidelity. We comprehensively evaluate the proposed training framework on various real-world datasets under strict memory constraints, showing significant improvements over existing state-of-the-art methods. Particularly, our proposed method practically enables memory-efficient 3DGS training on NVIDIA Jetson AGX Xavier, achieving similar visual quality with up to 80% lower peak training memory consumption than the original 3DGS.",
+      "authors": [
+        "Yangming Zhang",
+        "Jian Xu",
+        "Kunxiong Zhu",
+        "Wei Niu",
+        "Miao Yin"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-21T23:04:03+00:00",
+      "link": "https://arxiv.org/pdf/2604.20046v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D Gaussian Splatting training for high-quality rendering",
+      "llm_evidence_cn": "用于高质量渲染的3D高斯泼溅训练",
+      "llm_evidence": "用于高质量渲染的3D高斯泼溅训练",
+      "canonical_evidence": "用于高质量渲染的3D高斯泼溅训练",
+      "llm_tldr_en": "A memory-bounded training framework for 3D Gaussian Splatting to reduce memory footprint.",
+      "llm_tldr_cn": "一种用于3D高斯泼溅的有界内存训练框架，旨在减少内存占用。",
+      "llm_tldr": "一种用于3D高斯泼溅的有界内存训练框架，旨在减少内存占用。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.19954v1",
+      "title": "Camera Control for Text-to-Image Generation via Learning Viewpoint Tokens",
+      "abstract": "Current text-to-image models struggle to provide precise camera control using natural language alone. In this work, we present a framework for precise camera control with global scene understanding in text-to-image generation by learning parametric camera tokens. We fine-tune image generation models for viewpoint-conditioned text-to-image generation on a curated dataset that combines 3D-rendered images for geometric supervision and photorealistic augmentations for appearance and background diversity. Qualitative and quantitative experiments demonstrate that our method achieves state-of-the-art accuracy while preserving image quality and prompt fidelity. Unlike prior methods that overfit to object-specific appearance correlations, our viewpoint tokens learn factorized geometric representations that transfer to unseen object categories. Our work shows that text-vision latent spaces can be endowed with explicit 3D camera structure, offering a pathway toward geometrically-aware prompts for text-to-image generation. Project page: https://randdl.github.io/viewtoken_control/",
+      "authors": [
+        "Xinxuan Lu",
+        "Charless Fowlkes",
+        "Alexander C. Berg"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-21T20:01:38+00:00",
+      "link": "https://arxiv.org/pdf/2604.19954v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Text-to-image generation with global scene understanding and camera control",
+      "llm_evidence_cn": "具有全局场景理解和相机控制的文本到图像生成",
+      "llm_evidence": "具有全局场景理解和相机控制的文本到图像生成",
+      "canonical_evidence": "具有全局场景理解和相机控制的文本到图像生成",
+      "llm_tldr_en": "Introduces a framework for precise camera control in text-to-image generation using parametric viewpoint tokens.",
+      "llm_tldr_cn": "引入了一种通过参数化视角令牌在文本到图像生成中实现精确相机控制的框架。",
+      "llm_tldr": "引入了一种通过参数化视角令牌在文本到图像生成中实现精确相机控制的框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "text-to-3D scene generation frameworks",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.20093v1",
+      "title": "FurnSet: Exploiting Repeats for 3D Scene Reconstruction",
+      "abstract": "Single-view 3D scene reconstruction involves inferring both object geometry and spatial layout. Existing methods typically reconstruct objects independently or rely on implicit scene context, failing to exploit the repeated instances commonly present in realworld scenes. We propose FurnSet, a framework that explicitly identifies and leverages repeated object instances to improve reconstruction. Our method introduces per-object CLS tokens and a set-aware self-attention mechanism that groups identical instances and aggregates complementary observations across them, enabling joint reconstruction. We further combine scene-level and object-level conditioning to guide object reconstruction, followed by layout optimization using object point clouds with 3D and 2D projection losses for scene alignment. Experiments on 3D-Future and 3D-Front demonstrate improved scene reconstruction quality, highlighting the effectiveness of exploiting repetition for robust 3D scene reconstruction.",
+      "authors": [
+        "Paul Dobre",
+        "Xin Wang",
+        "Hongzhou Yang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-22T01:27:13+00:00",
+      "link": "https://arxiv.org/pdf/2604.20093v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "inferring object geometry and spatial layout for 3D scenes",
+      "llm_evidence_cn": "推断3D场景的对象几何和空间布局",
+      "llm_evidence": "推断3D场景的对象几何和空间布局",
+      "canonical_evidence": "推断3D场景的对象几何和空间布局",
+      "llm_tldr_en": "FurnSet improves 3D scene reconstruction by leveraging repeated object instances and layout optimization.",
+      "llm_tldr_cn": "FurnSet通过利用重复的对象实例和布局优化来改进3D场景重建。",
+      "llm_tldr": "FurnSet通过利用重复的对象实例和布局优化来改进3D场景重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.20570v1",
+      "title": "Exploring Spatial Intelligence from a Generative Perspective",
+      "abstract": "Spatial intelligence is essential for multimodal large language models, yet current benchmarks largely assess it only from an understanding perspective. We ask whether modern generative or unified multimodal models also possess generative spatial intelligence (GSI), the ability to respect and manipulate 3D spatial constraints during image generation, and whether such capability can be measured or improved. We introduce GSI-Bench, the first benchmark designed to quantify GSI through spatially grounded image editing. It consists of two complementary components: GSI-Real, a high-quality real-world dataset built via a 3D-prior-guided generation and filtering pipeline, and GSI-Syn, a large-scale synthetic benchmark with controllable spatial operations and fully automated labeling. Together with a unified evaluation protocol, GSI-Bench enables scalable, model-agnostic assessment of spatial compliance and editing fidelity. Experiments show that fine-tuning unified multimodal models on GSI-Syn yields substantial gains on both synthetic and real tasks and, strikingly, also improves downstream spatial understanding. This provides the first clear evidence that generative training can tangibly strengthen spatial reasoning, establishing a new pathway for advancing spatial intelligence in multimodal models.",
+      "authors": [
+        "Muzhi Zhu",
+        "Shunyao Jiang",
+        "Huanyi Zheng",
+        "Zekai Luo",
+        "Hao Zhong",
+        "Anzhou Li",
+        "Kaijun Wang",
+        "Jintao Rong",
+        "Yang Liu",
+        "Hao Chen",
+        "Tao Lin",
+        "Chunhua Shen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-22T13:50:00+00:00",
+      "link": "https://arxiv.org/pdf/2604.20570v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Generative spatial intelligence for 3D spatial constraints",
+      "llm_evidence_cn": "针对3D空间约束的生成式空间智能",
+      "llm_evidence": "针对3D空间约束的生成式空间智能",
+      "canonical_evidence": "针对3D空间约束的生成式空间智能",
+      "llm_tldr_en": "Introduces a benchmark to evaluate generative spatial intelligence in multimodal models via 3D-prior-guided editing.",
+      "llm_tldr_cn": "引入GSI-Bench基准，通过3D先验引导的图像编辑评估多模态模型的生成式空间智能。",
+      "llm_tldr": "引入GSI-Bench基准，通过3D先验引导的图像编辑评估多模态模型的生成式空间智能。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

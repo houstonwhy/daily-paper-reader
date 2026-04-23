@@ -6,64 +6,56 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-22
-- 运行时间：2026-04-22 19:41:33 UTC
+- 最新运行日期：2026-04-23
+- 运行时间：2026-04-23 19:15:21 UTC
 - 运行状态：成功
-- 本次总论文数：14
-- 精读区：6
+- 本次总论文数：12
+- 精读区：4
 - 速读区：8
 
 ### 今日简报（AI）
-今日深度解析 14 篇论文，聚焦空间感知视频生成与 3D 场景重建的前沿突破。
-重点关注评分 9.0 的 CityRAG 城市级视频生成技术，以及应用于刑侦现场的 HolmeSketcher 3D 建模方案。
-建议优先研读 CityRAG，了解如何通过空间锚点实现更具真实感的长
-- 详情：[/202604/22/README](/202604/22/README)
+今日精选 12 篇前沿成果，重点突破了 3D 场景智能合成的效率瓶颈与高斯泼
+- 详情：[/202604/23/README](/202604/23/README)
 
 ### 精读区论文标签
-1. [CityRAG: Stepping Into a City via Spatially-Grounded Video Generation](/202604/22/2604.19741v1-cityrag-stepping-into-a-city-via-spatially-grounded-video-generation)  
+1. [SceneOrchestra: Efficient Agentic 3D Scene Synthesis via Full Tool-Call Trajectory Generation](/202604/23/2604.19907v1-sceneorchestra-efficient-agentic-3d-scene-synthesis-via-full-tool-call-trajectory-generation)  
+   标签：评分：10.0/10、query:3dgen
+   evidence：通过工具调用轨迹生成的智能体3D场景合成
+2. [GSCompleter: A Distillation-Free Plugin for Metric-Aware 3D Gaussian Splatting Completion in Seconds](/202604/23/2604.20155v1-gscompleter-a-distillation-free-plugin-for-metric-aware-3d-gaussian-splatting-completion-in-seconds)  
    标签：评分：9.0/10、query:3dgen
-   evidence：生成3D一致的可导航环境
-2. [HolmeSketcher: Generative 3D Sketch Mapping for Spatial Reconstruction in Crime Scene Investigation](/202604/22/2604.18039v2-holmesketcher-generative-3d-sketch-mapping-for-spatial-reconstruction-in-crime-scene-investigation)  
+   evidence：3D高斯泼溅补全与场景合成
+3. [FluSplat: Sparse-View 3D Editing without Test-Time Optimization](/202604/23/2604.20038v1-flusplat-sparse-view-3d-editing-without-test-time-optimization)  
    标签：评分：8.0/10、query:3dgen
-   evidence：基于草图的生成式3D场景重建
-3. [RoomRecon: High-Quality Textured Room Layout Reconstruction on Mobile Devices](/202604/22/2604.19025v1-roomrecon-high-quality-textured-room-layout-reconstruction-on-mobile-devices)  
+   evidence：前馈3D场景编辑框架
+4. [GeoRect4D: Geometry-Compatible Generative Rectification for Dynamic Sparse-View 3D Reconstruction](/202604/23/2604.20784v1-georect4d-geometry-compatible-generative-rectification-for-dynamic-sparse-view-3d-reconstruction)  
    标签：评分：8.0/10、query:3dgen
-   evidence：3D房间布局重建与纹理化
-4. [SketchFaceGS: Real-Time Sketch-Driven Face Editing and Generation with Gaussian Splatting](/202604/22/2604.19202v1-sketchfacegs-real-time-sketch-driven-face-editing-and-generation-with-gaussian-splatting)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：基于高斯泼溅的草图驱动3D生成
-5. [InHabit: Leveraging Image Foundation Models for Scalable 3D Human Placement](/202604/22/2604.19673v1-inhabit-leveraging-image-foundation-models-for-scalable-3d-human-placement)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：用于填充3D场景的数据生成器
-6. [AnyRecon: Arbitrary-View 3D Reconstruction with Video Diffusion Model](/202604/22/2604.19747v1-anyrecon-arbitrary-view-3d-reconstruction-with-video-diffusion-model)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：利用视频扩散模型进行3D重建
+   evidence：动态3D场景重建的生成式细化
 
 ### 速读区论文标签
-1. [Dehaze-then-Splat: Generative Dehazing with Physics-Informed 3D Gaussian Splatting for Smoke-Free Novel View Synthesis](/202604/22/2604.13589v2-dehaze-then-splat-generative-dehazing-with-physics-informed-3d-gaussian-splatting-for-smoke-free-novel-view-synthesis)  
+1. [Memorize When Needed: Decoupled Memory Control for Spatially Consistent Long-Horizon Video Generation](/202604/23/2604.18215v2-memorize-when-needed-decoupled-memory-control-for-spatially-consistent-long-horizon-video-generation)  
    标签：评分：7.0/10、query:3dgen
-   evidence：用于3D场景重建的生成式去雾
-2. [Memorize When Needed: Decoupled Memory Control for Spatially Consistent Long-Horizon Video Generation](/202604/22/2604.18215v1-memorize-when-needed-decoupled-memory-control-for-spatially-consistent-long-horizon-video-generation)  
+   evidence：用于场景探索的空间一致长时视频生成
+2. [GRAFT: Geometric Refinement and Fitting Transformer for Human Scene Reconstruction](/202604/23/2604.19624v1-graft-geometric-refinement-and-fitting-transformer-for-human-scene-reconstruction)  
    标签：评分：7.0/10、query:3dgen
-   evidence：空间一致的长视频与场景生成
-3. [Unposed-to-3D: Learning Simulation-Ready Vehicles from Real-World Images](/202604/22/2604.19257v1-unposed-to-3d-learning-simulation-ready-vehicles-from-real-world-images)  
+   evidence：从图像中重建3D人景交互
+3. [Gaussians on a Diet: High-Quality Memory-Bounded 3D Gaussian Splatting Training](/202604/23/2604.20046v1-gaussians-on-a-diet-high-quality-memory-bounded-3d-gaussian-splatting-training)  
    标签：评分：7.0/10、query:3dgen
-   evidence：用于虚拟环境构建的3D车辆生成
-4. [TransSplat: Unbalanced Semantic Transport for Language-Driven 3DGS Editing](/202604/22/2604.19571v1-transsplat-unbalanced-semantic-transport-for-language-driven-3dgs-editing)  
+   evidence：用于高质量渲染的3D高斯泼溅训练
+4. [FurnSet: Exploiting Repeats for 3D Scene Reconstruction](/202604/23/2604.20093v1-furnset-exploiting-repeats-for-3d-scene-reconstruction)  
    标签：评分：7.0/10、query:3dgen
-   evidence：针对复杂场景的语言驱动3D高斯泼溅编辑
-5. [UniGeo: Unifying Geometric Guidance for Camera-Controllable Image Editing via Video Models](/202604/22/2604.17565v1-unigeo-unifying-geometric-guidance-for-camera-controllable-image-editing-via-video-models)  
+   evidence：推断3D场景的对象几何和空间布局
+5. [Volume Transformer: Revisiting Vanilla Transformers for 3D Scene Understanding](/202604/23/2604.19609v1-volume-transformer-revisiting-vanilla-transformers-for-3d-scene-understanding)  
    标签：评分：6.0/10、query:3dgen
-   evidence：在保持几何一致性的情况下合成给定场景的新视图
-6. [Geometry-Guided 3D Visual Token Pruning for Video-Language Models](/202604/22/2604.18260v1-geometry-guided-3d-visual-token-pruning-for-video-language-models)  
+   evidence：3D场景理解与语义分割
+6. [MOSA: Motion-Guided Semantic Alignment for Dynamic Scene Graph Generation](/202604/23/2604.19631v1-mosa-motion-guided-semantic-alignment-for-dynamic-scene-graph-generation)  
    标签：评分：6.0/10、query:3dgen
-   evidence：3D场景理解与空间视频表示
-7. [AdaGScale: Viewpoint-Adaptive Gaussian Scaling in 3D Gaussian Splatting to Reduce Gaussian-Tile Pairs](/202604/22/2604.18980v1-adagscale-viewpoint-adaptive-gaussian-scaling-in-3d-gaussian-splatting-to-reduce-gaussian-tile-pairs)  
+   evidence：用于语义理解的动态场景图生成
+7. [Camera Control for Text-to-Image Generation via Learning Viewpoint Tokens](/202604/23/2604.19954v1-camera-control-for-text-to-image-generation-via-learning-viewpoint-tokens)  
    标签：评分：6.0/10、query:3dgen
-   evidence：优化3D高斯泼溅的场景渲染速度
-8. [OT-UVGS: Revisiting UV Mapping for Gaussian Splatting as a Capacity Allocation Problem](/202604/22/2604.19127v1-ot-uvgs-revisiting-uv-mapping-for-gaussian-splatting-as-a-capacity-allocation-problem)  
+   evidence：具有全局场景理解和相机控制的文本到图像生成
+8. [Exploring Spatial Intelligence from a Generative Perspective](/202604/23/2604.20570v1-exploring-spatial-intelligence-from-a-generative-perspective)  
    标签：评分：6.0/10、query:3dgen
-   evidence：3D高斯泼溅的表示方法
+   evidence：针对3D空间约束的生成式空间智能
 
 
 <div class="dpr-home-promo-card">
