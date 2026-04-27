@@ -1,0 +1,480 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-27T19:17:23.290028+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 11,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2604.17801v2",
+      "title": "View-Consistent 3D Scene Editing via Dual-Path Structural Correspondense and Semantic Continuity",
+      "abstract": "Text-driven 3D scene editing has recently attracted increasing attention. Most existing methods follow a render-edit-optimize pipeline, where multi-view images are rendered from a 3D scene, edited with 2D image editors, and then used to optimize the underlying 3D representation. However, cross-view inconsistency remains a major bottleneck. Although recent methods introduce geometric cues, cross-view interactions, or video priors to mitigate this issue, they still largely rely on inference-time synchronization and thus remain limited in robustness and generalization.In this work, we recast multi-view consistent 3D editing from a distributional perspective: 3D scene editing essentially requires a joint distribution modeling across viewpoints.Based on this insight, we propose a view-consistent 3D editing framework that explicitly introduces cross-view dependencies into the editing process. Furthermore, motivated by the observation that structural correspondence and semantic continuity rely on different cross-view cues, we introduce a dual-path consistency mechanism consisting of projection-guided structural guidance and patch-level semantic propagation for effective cross-view editing. Further, we construct a paired multi-view editing dataset that provides reliable supervision for learning cross-view consistency in edited scenes. Extensive experiments demonstrate that our method achieves superior editing performance with precise and consistent views for complex scenes.",
+      "authors": [
+        "Pufan Li",
+        "Bi'an Du",
+        "Shenghe Zheng",
+        "Junyi Yao",
+        "Wei Hu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-20T04:47:15+00:00",
+      "link": "https://arxiv.org/pdf/2604.17801v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "text-driven 3D scene editing and multi-view consistency",
+      "llm_evidence_cn": "文本驱动的3D场景编辑与多视角一致性",
+      "llm_evidence": "文本驱动的3D场景编辑与多视角一致性",
+      "canonical_evidence": "文本驱动的3D场景编辑与多视角一致性",
+      "llm_tldr_en": "Recasts 3D scene editing as a joint distribution modeling problem to ensure multi-view consistency.",
+      "llm_tldr_cn": "将3D场景编辑重塑为联合分布建模问题，以确保编辑过程中的多视角一致性。",
+      "llm_tldr": "将3D场景编辑重塑为联合分布建模问题，以确保编辑过程中的多视角一致性。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "text-to-3D scene generation frameworks",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.19556v1",
+      "title": "Paparazzo: Active Mapping of Moving 3D Objects",
+      "abstract": "Current 3D mapping pipelines generally assume static environments, which limits their ability to accurately capture and reconstruct moving objects. To address this limitation, we introduce the novel task of active mapping of moving objects, in which a mapping agent must plan its trajectory while compensating for the object's motion. Our approach, Paparazzo, provides a learning-free solution that robustly predicts the target's trajectory and identifies the most informative viewpoints from which to observe it, to plan its own path. We also contribute a comprehensive benchmark designed for this new task. Through extensive experiments, we show that Paparazzo significantly improves 3D reconstruction completeness and accuracy compared to several strong baselines, marking an important step toward dynamic scene understanding. Project page: https://davidea97.github.io/paparazzo-page/",
+      "authors": [
+        "Davide Allegro",
+        "Shiyao Li",
+        "Stefano Ghidoni",
+        "Vincent Lepetit"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-21T15:09:10+00:00",
+      "link": "https://arxiv.org/pdf/2604.19556v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Active mapping and reconstruction of 3D objects",
+      "llm_evidence_cn": "3D物体的主动建图与重建",
+      "llm_evidence": "3D物体的主动建图与重建",
+      "canonical_evidence": "3D物体的主动建图与重建",
+      "llm_tldr_en": "Paparazzo enables active 3D mapping of moving objects by predicting trajectories and informative viewpoints.",
+      "llm_tldr_cn": "Paparazzo通过预测轨迹和信息视点实现对移动物体的动态3D建图。",
+      "llm_tldr": "Paparazzo通过预测轨迹和信息视点实现对移动物体的动态3D建图。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.19411v1",
+      "title": "GOLD-BEV: GrOund and aeriaL Data for Dense Semantic BEV Mapping of Dynamic Scenes",
+      "abstract": "Understanding road scenes in a geometrically consistent, scene-centric representation is crucial for planning and mapping. We present GOLD-BEV, a framework that learns dense bird's-eye-view (BEV) semantic environment maps-including dynamic agents-from ego-centric sensors, using time-synchronized aerial imagery as supervision only during training. BEV-aligned aerial crops provide an intuitive target space, enabling dense semantic annotation with minimal manual effort and avoiding the ambiguity of ego-only BEV labeling. Crucially, strict aerial-ground synchronization allows overhead observations to supervise moving traffic participants and mitigates the temporal inconsistencies inherent to non-synchronized overhead sources. To obtain scalable dense targets, we generate BEV pseudo-labels using domain-adapted aerial teachers, and jointly train BEV segmentation with optional pseudo-aerial BEV reconstruction for interpretability. Finally, we extend beyond aerial coverage by learning to synthesize pseudo-aerial BEV images from ego sensors, which support lightweight human annotation and uncertainty-aware pseudo-labeling on unlabeled drives.",
+      "authors": [
+        "Joshua Niemeijer",
+        "Alaa Eddine Ben Zekri",
+        "Reza Bahmanyar",
+        "Philipp M. Schmälzle",
+        "Houda Chaabouni-Chouayakh",
+        "Franz Kurz"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-04-21T12:39:41+00:00",
+      "link": "https://arxiv.org/pdf/2604.19411v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "semantic environment mapping of dynamic scenes",
+      "llm_evidence_cn": "动态场景的语义环境映射",
+      "llm_evidence": "动态场景的语义环境映射",
+      "canonical_evidence": "动态场景的语义环境映射",
+      "llm_tldr_en": "GOLD-BEV uses aerial imagery to supervise the creation of dense semantic BEV maps for dynamic road scenes.",
+      "llm_tldr_cn": "GOLD-BEV利用航空图像监督学习，为动态道路场景生成稠密的语义鸟瞰图映射。",
+      "llm_tldr": "GOLD-BEV利用航空图像监督学习，为动态道路场景生成稠密的语义鸟瞰图映射。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.21400v2",
+      "title": "You Only Gaussian Once: Controllable 3D Gaussian Splatting for Ultra-Densely Sampled Scenes",
+      "abstract": "3D Gaussian Splatting (3DGS) has revolutionized neural rendering, yet existing methods remain predominantly research prototypes ill-suited for production-level deployment. We identify a critical \"Industry-Academia Gap\" hindering real-world application: unpredictable resource consumption from heuristic Gaussian growth, the \"sparsity shield\" of current benchmarks that rewards hallucination over physical fidelity, and severe multi-sensor data pollution. To bridge this gap, we propose YOGO (You Only Gaussian Once), a system-level framework that reformulates the stochastic growth process into a deterministic, budget-aware equilibrium. YOGO integrates a novel budget controller for hardware-constrained resource allocation and an availability-registration protocol for robust multi-sensor fusion. To push the boundaries of reconstruction fidelity, we introduce Immersion v1.0, the first ultra-dense indoor dataset specifically designed to break the \"sparsity shield.\" By providing saturated viewpoint coverage, Immersion v1.0 forces algorithms to focus on extreme physical fidelity rather than viewpoint interpolation, and enables the community to focus on the upper limits of high-fidelity reconstruction. Extensive experiments demonstrate that YOGO achieves state-of-the-art visual quality while maintaining a strictly deterministic profile, establishing a new standard for production-grade 3DGS. To facilitate reproducibility, part scenes of Immersion v1.0 dataset and source code of YOGO has been publicly released. The project link is https://jjrcn.github.io/yogo-project-home/",
+      "authors": [
+        "Jinrang Jia",
+        "Zhenjia Li",
+        "Yifeng Shi"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-23T08:07:42+00:00",
+      "link": "https://arxiv.org/pdf/2604.21400v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "controllable 3D Gaussian Splatting for dense scene representation",
+      "llm_evidence_cn": "用于密集场景表示的可控3D高斯泼溅",
+      "llm_evidence": "用于密集场景表示的可控3D高斯泼溅",
+      "canonical_evidence": "用于密集场景表示的可控3D高斯泼溅",
+      "llm_tldr_en": "Proposes YOGO, a framework for deterministic and budget-aware 3D Gaussian Splatting in large-scale scenes.",
+      "llm_tldr_cn": "提出YOGO框架，在大型场景中实现确定性且预算可控的3D高斯泼溅表示。",
+      "llm_tldr": "提出YOGO框架，在大型场景中实现确定性且预算可控的3D高斯泼溅表示。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "state of the art methods in 3D scene generation",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.20715v1",
+      "title": "GeoRelight: Learning Joint Geometrical Relighting and Reconstruction with Flexible Multi-Modal Diffusion Transformers",
+      "abstract": "Relighting a person from a single photo is an attractive but ill-posed task, as a 2D image ambiguously entangles 3D geometry, intrinsic appearance, and illumination. Current methods either use sequential pipelines that suffer from error accumulation, or they do not explicitly leverage 3D geometry during relighting, which limits physical consistency. Since relighting and estimation of 3D geometry are mutually beneficial tasks, we propose a unified Multi-Modal Diffusion Transformer (DiT) that jointly solves for both: GeoRelight. We make this possible through two key technical contributions: isotropic NDC-Orthographic Depth (iNOD), a distortion-free 3D representation compatible with latent diffusion models; and a strategic mixed-data training method that combines synthetic and auto-labeled real data. By solving geometry and relighting jointly, GeoRelight achieves better performance than both sequential models and previous systems that ignored geometry.",
+      "authors": [
+        "Yuxuan Xue",
+        "Ruofan Liang",
+        "Egor Zakharov",
+        "Timur Bagautdinov",
+        "Chen Cao",
+        "Giljoo Nam",
+        "Shunsuke Saito",
+        "Gerard Pons-Moll",
+        "Javier Romero"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-22T16:01:04+00:00",
+      "link": "https://arxiv.org/pdf/2604.20715v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "joint 3D geometry reconstruction and relighting",
+      "llm_evidence_cn": "联合3D几何重建与重光照",
+      "llm_evidence": "联合3D几何重建与重光照",
+      "canonical_evidence": "联合3D几何重建与重光照",
+      "llm_tldr_en": "GeoRelight uses a Multi-Modal Diffusion Transformer for joint 3D reconstruction and physical relighting.",
+      "llm_tldr_cn": "GeoRelight使用多模态扩散Transformer联合进行3D重建和物理重光照。",
+      "llm_tldr": "GeoRelight使用多模态扩散Transformer联合进行3D重建和物理重光照。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.22160v1",
+      "title": "GenMatter: Perceiving Physical Objects with Generative Matter Models",
+      "abstract": "Human visual perception offers valuable insights for understanding computational principles of motion-based scene interpretation. Humans robustly detect and segment moving entities that constitute independently moveable chunks of matter, whether observing sparse moving dots, textured surfaces, or naturalistic scenes. In contrast, existing computer vision systems lack a unified approach that works across these diverse settings. Inspired by principles of human perception, we propose a generative model that hierarchically groups low-level motion cues and high-level appearance features into particles (small Gaussians representing local matter), and groups particles into clusters capturing coherently and independently moveable physical entities. We develop a hardware-accelerated inference algorithm based on parallelized block Gibbs sampling to recover stable particle motion and groupings. Our model operates on different kinds of inputs (random dots, stylized textures, or naturalistic RGB video), enabling it to work across settings where biological vision succeeds but existing computer vision approaches do not. We validate this unified framework across three domains: on 2D random dot kinematograms, our approach captures human object perception including graded uncertainty across ambiguous conditions; on a Gestalt-inspired dataset of camouflaged rotating objects, our approach recovers correct 3D structure from motion and thereby accurate 2D object segmentation; and on naturalistic RGB videos, our model tracks the moving 3D matter that makes up deforming objects, enabling robust object-level scene understanding. This work thus establishes a general framework for motion-based perception grounded in principles of human vision.",
+      "authors": [
+        "Eric Li",
+        "Arijit Dasgupta",
+        "Yoni Friedman",
+        "Mathieu Huot",
+        "Vikash Mansinghka",
+        "Thomas O'Connell",
+        "William T. Freeman",
+        "Joshua B. Tenenbaum"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-04-24T02:18:18+00:00",
+      "link": "https://arxiv.org/pdf/2604.22160v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "generative model for motion-based scene interpretation",
+      "llm_evidence_cn": "基于运动的场景解释生成模型",
+      "llm_evidence": "基于运动的场景解释生成模型",
+      "canonical_evidence": "基于运动的场景解释生成模型",
+      "llm_tldr_en": "GenMatter is a generative model that groups motion and appearance into particles to perceive physical objects.",
+      "llm_tldr_cn": "GenMatter是一种生成模型，通过将运动和外观特征分组为粒子来感知物理对象。",
+      "llm_tldr": "GenMatter是一种生成模型，通过将运动和外观特征分组为粒子来感知物理对象。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.21776v2",
+      "title": "Reshoot-Anything: A Self-Supervised Model for In-the-Wild Video Reshooting",
+      "abstract": "Precise camera control for reshooting dynamic videos is bottlenecked by the severe scarcity of paired multi-view data for non-rigid scenes. We overcome this limitation with a highly scalable self-supervised framework capable of leveraging internet-scale monocular videos. Our core contribution is the generation of pseudo multi-view training triplets, consisting of a source video, a geometric anchor, and a target video. We achieve this by extracting distinct smooth random-walk crop trajectories from a single input video to serve as the source and target views. The anchor is synthetically generated by forward-warping the first frame of the source with a dense tracking field, which effectively simulates the distorted point-cloud inputs expected at inference. Because our independent cropping strategy introduces spatial misalignment and artificial occlusions, the model cannot simply copy information from the current source frame. Instead, it is forced to implicitly learn 4D spatiotemporal structures by actively routing and re-projecting missing high-fidelity textures across distinct times and viewpoints from the source video to reconstruct the target. At inference, our minimally adapted diffusion transformer utilizes a 4D point-cloud derived anchor to achieve state-of-the-art temporal consistency, robust camera control, and high-fidelity novel view synthesis on complex dynamic scenes.",
+      "authors": [
+        "Avinash Paliwal",
+        "Adithya Iyer",
+        "Shivin Yadav",
+        "Muhammad Ali Afridi",
+        "Midhun Harikumar"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-23T15:32:56+00:00",
+      "link": "https://arxiv.org/pdf/2604.21776v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "self-supervised framework for dynamic scene reshooting",
+      "llm_evidence_cn": "动态场景重拍的自监督框架",
+      "llm_evidence": "动态场景重拍的自监督框架",
+      "canonical_evidence": "动态场景重拍的自监督框架",
+      "llm_tldr_en": "Reshoot-Anything enables precise camera control for dynamic video reshooting using monocular internet videos.",
+      "llm_tldr_cn": "Reshoot-Anything利用单目网络视频实现了动态视频重拍的精确相机控制。",
+      "llm_tldr": "Reshoot-Anything利用单目网络视频实现了动态视频重拍的精确相机控制。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.22339v1",
+      "title": "Flow4DGS-SLAM: Optical Flow-Guided 4D Gaussian Splatting SLAM",
+      "abstract": "Handling the dynamic environments is a significant research challenge in Visual Simultaneous Localization and Mapping (SLAM). Recent research combines 3D Gaussian Splatting (3DGS) with SLAM to achieve both robust camera pose estimation and photorealistic renderings. However, using SLAM to efficiently reconstruct both static and dynamic regions remains challenging. In this work, we propose an efficient framework for dynamic 3DGS SLAM guided by optical flow. Using the input depth and prior optical flow, we first propose a category-agnostic motion mask generation strategy by fitting a camera ego-motion model to decompose the optical flow. This module separates dynamic and static Gaussians and simultaneously provides flow-guided camera pose initialization. We boost the training speed of dynamic 3DGS by explicitly modeling their temporal centers at keyframes. These centers are propagated using 3D scene flow priors and are dynamically initialized with an adaptive insertion strategy. Alongside this, we model the temporal opacity and rotation using a Gaussian Mixture Model (GMM) to adaptively learn the complex dynamics. The empirical results demonstrate our state-of-the-art performance in tracking, dynamic reconstruction, and training efficiency.",
+      "authors": [
+        "Yunsong Wang",
+        "Gim Hee Lee"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-24T08:13:01+00:00",
+      "link": "https://arxiv.org/pdf/2604.22339v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "4D Gaussian Splatting for dynamic scene reconstruction and SLAM",
+      "llm_evidence_cn": "用于动态场景重建和SLAM的4D高斯泼溅",
+      "llm_evidence": "用于动态场景重建和SLAM的4D高斯泼溅",
+      "canonical_evidence": "用于动态场景重建和SLAM的4D高斯泼溅",
+      "llm_tldr_en": "Flow4DGS-SLAM uses optical flow to guide 4D Gaussian Splatting for dynamic environment reconstruction.",
+      "llm_tldr_cn": "Flow4DGS-SLAM利用光流引导4D高斯泼溅，实现动态环境的重建与定位。",
+      "llm_tldr": "Flow4DGS-SLAM利用光流引导4D高斯泼溅，实现动态环境的重建与定位。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.22129v1",
+      "title": "PAGaS: Pixel-Aligned 1DoF Gaussian Splatting for Depth Refinement",
+      "abstract": "Gaussian Splatting (GS) has emerged as an efficient approach for high-quality novel view synthesis. While early GS variants struggled to accurately model the scene's geometry, recent advancements constraining the Gaussians' spread and shapes, such as 2D Gaussian Splatting, have significantly improved geometric fidelity. In this paper, we present Pixel-Aligned 1DoF Gaussian Splatting (PAGaS) that adapts the GS representation from novel view synthesis to the multi-view stereo depth task. Our key contribution is modeling a pixel's depth using one-degree-of-freedom (1DoF) Gaussians that remain tightly constrained during optimization. Unlike existing approaches, our Gaussians' positions and sizes are restricted by the back-projected pixel volumes, leaving depth as the sole degree of freedom to optimize. PAGaS produces highly detailed depths, as illustrated in Figure 1. We quantitatively validate these improvements on top of reference geometric and learning-based multi-view stereo baselines on challenging 3D reconstruction benchmarks. Code: davidrecasens.github.io/pagas",
+      "authors": [
+        "David Recasens",
+        "Robert Maier",
+        "Aljaz Bozic",
+        "Stephane Grabli",
+        "Javier Civera",
+        "Tony Tung",
+        "Edmond Boyer"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.RO"
+      ],
+      "published": "2026-04-24T00:29:17+00:00",
+      "link": "https://arxiv.org/pdf/2604.22129v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Gaussian Splatting representation for scene geometry modeling",
+      "llm_evidence_cn": "用于场景几何建模的高斯泼溅表示法",
+      "llm_evidence": "用于场景几何建模的高斯泼溅表示法",
+      "canonical_evidence": "用于场景几何建模的高斯泼溅表示法",
+      "llm_tldr_en": "PAGaS adapts Gaussian Splatting for multi-view stereo depth tasks to improve geometric fidelity.",
+      "llm_tldr_cn": "PAGaS将高斯泼溅应用于多视图立体深度任务，提高了几何保真度。",
+      "llm_tldr": "PAGaS将高斯泼溅应用于多视图立体深度任务，提高了几何保真度。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.22439v1",
+      "title": "NRGS: Neural Regularization for Robust 3D Semantic Gaussian Splatting",
+      "abstract": "We propose a neural regularization method that refines the noisy 3D semantic field produced by lifting multi-view inconsistent 2D features, in order to obtain an accurate and robust 3D semantic Gaussian Splatting. The 2D features extracted from vision foundation models suffer from multi-view inconsistency due to a lack of cross-view constraints. Lifting these inconsistent features directly into 3D Gaussians results in a noisy semantic field, which degrades the performance of downstream tasks. Previous methods either focus on obtaining consistent multi-view features in the preprocessing stage or aim to mitigate noise through improved optimization strategies, often at the cost of increased preprocessing time or expensive computational overhead. In contrast, we introduce a variance-aware conditional MLP that operates directly on the 3D Gaussians, leveraging their geometric and appearance attributes to correct semantic errors in 3D space. Experiments on different datasets show that our method enhances the accuracy of lifted semantics, providing an efficient and effective approach to robust 3D semantic Gaussian Splatting.",
+      "authors": [
+        "Zaiyan Yang",
+        "Xinpeng Liu",
+        "Heng Guo",
+        "Jinglei Shi",
+        "Zhanyu Ma",
+        "Fumio Okura"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-24T10:57:05+00:00",
+      "link": "https://arxiv.org/pdf/2604.22439v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D semantic field refinement for Gaussian Splatting",
+      "llm_evidence_cn": "高斯泼溅的3D语义场细化",
+      "llm_evidence": "高斯泼溅的3D语义场细化",
+      "canonical_evidence": "高斯泼溅的3D语义场细化",
+      "llm_tldr_en": "NRGS proposes neural regularization to refine noisy 3D semantic fields in Gaussian Splatting.",
+      "llm_tldr_cn": "NRGS提出神经正则化方法，用于细化高斯泼溅中噪声较多的3D语义场。",
+      "llm_tldr": "NRGS提出神经正则化方法，用于细化高斯泼溅中噪声较多的3D语义场。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.22686v1",
+      "title": "SS3D: End2End Self-Supervised 3D from Web Videos",
+      "abstract": "We present SS3D, a web-scale SfM-based self-supervision pretraining pipeline for feed-forward 3D estimation from monocular video. Our model jointly predicts depth, ego-motion, and intrinsics in a single forward pass and is trained/evaluated as a coherent end-to-end 3D estimator. To stabilize joint learning, we use an intrinsics-first two-stage schedule and a unified single-checkpoint evaluation protocol. Scaling SfM self-supervision to unconstrained web video is challenging due to weak multi-view observability and strong corpus heterogeneity; we address these with a multi-view signal proxy (MVS) used for filtering and curriculum sampling, and with expert training distilled into a single student. Pretraining on YouTube-8M (~100M frames after filtering) yields strong cross-domain zero-shot transfer and improved fine-tuning performance over prior self-supervised baselines. We release the pretrained checkpoint and code.",
+      "authors": [
+        "Marwane Hariat",
+        "Gianni Franchi",
+        "David Filliat",
+        "Antoine Manzanera"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-24T16:12:44+00:00",
+      "link": "https://arxiv.org/pdf/2604.22686v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Self-supervised 3D estimation from monocular video",
+      "llm_evidence_cn": "单目视频的自监督3D估计",
+      "llm_evidence": "单目视频的自监督3D估计",
+      "canonical_evidence": "单目视频的自监督3D估计",
+      "llm_tldr_en": "SS3D is a self-supervised pipeline for end-to-end 3D estimation from web videos.",
+      "llm_tldr_cn": "SS3D是一个从网络视频中进行端到端3D估计的自监督流水线。",
+      "llm_tldr": "SS3D是一个从网络视频中进行端到端3D估计的自监督流水线。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.22714v1",
+      "title": "Long-tail Internet photo reconstruction",
+      "abstract": "Internet photo collections exhibit an extremely long-tailed distribution: a few famous landmarks are densely photographed and easily reconstructed in 3D, while most real-world sites are represented with sparse, noisy, uneven imagery beyond the capabilities of both classical and learned 3D methods. We believe that tackling this long-tail regime represents one of the next frontiers for 3D foundation models. Although reliable ground-truth 3D supervision from sparse scenes is challenging to acquire, we observe that it can be effectively simulated by sampling sparse subsets from well-reconstructed Internet landmarks. To this end, we introduce MegaDepth-X, a large dataset of 3D reconstructions with clean, dense depth, together with a strategy for sampling sets of training images that mimic camera distributions in long-tail scenes. Finetuning 3D foundation models with these components yields robust reconstructions under extreme sparsity, and also enables more reliable reconstruction in symmetric and repetitive scenes, while preserving generalization to standard, dense 3D benchmark datasets.",
+      "authors": [
+        "Yuan Li",
+        "Yuanbo Xiangli",
+        "Hadar Averbuch-Elor",
+        "Noah Snavely",
+        "Ruojin Cai"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-24T16:54:47+00:00",
+      "link": "https://arxiv.org/pdf/2604.22714v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D reconstruction of real-world sites and scenes",
+      "llm_evidence_cn": "真实世界遗址和场景的3D重建",
+      "llm_evidence": "真实世界遗址和场景的3D重建",
+      "canonical_evidence": "真实世界遗址和场景的3D重建",
+      "llm_tldr_en": "MegaDepth-X provides a large dataset and strategy for 3D reconstruction of sparse internet photo collections.",
+      "llm_tldr_cn": "MegaDepth-X为稀疏网络照片集的3D重建提供了大型数据集和采样策略。",
+      "llm_tldr": "MegaDepth-X为稀疏网络照片集的3D重建提供了大型数据集和采样策略。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
