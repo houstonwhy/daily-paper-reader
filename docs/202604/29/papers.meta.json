@@ -1,0 +1,79 @@
+{
+  "label": "2026-04-29",
+  "date": "2026-04-29",
+  "generated_at": "2026-04-29T19:20:30",
+  "count": 5,
+  "papers": [
+    {
+      "paper_id": "202604/29/2604.24053v1-light-em-up-enabling-few-shot-low-light-3d-gaussian-splatting-with-multi-scale-explicit-retinex-illumination-decoupling",
+      "section": "quick",
+      "title_en": "Light 'em Up: Enabling Few-Shot Low-Light 3D Gaussian Splatting with Multi-Scale Explicit Retinex Illumination Decoupling",
+      "authors": "YuHao Yin, Zongji Wang, Yuanben Zhang, Biqing Li, Jiesong Bai, Junyi Liu",
+      "date": "2026-04-27",
+      "pdf": "https://arxiv.org/pdf/2604.24053v1",
+      "score": "7.0",
+      "evidence": "使用高斯泼溅进行3D场景综合和新视角合成",
+      "tldr": "针对低光照环境下360°新视角合成中存在的噪声、光照不足及视角不一致问题，本文提出MERID-GS框架。该方法基于Retinex理论显式解耦光照与反射率，利用多尺度显式解耦和频率门控技术抑制噪声并增强暗部结构。结合3D高斯泼溅技术，实现了在少样本情况下的高质量、高一致性低光照场景重建，并在新构建的360°低光数据集上达到SOTA水平。",
+      "tags": "query:3dgen",
+      "abstract_en": "Full 360$^\\circ$ novel view synthesis under low-light conditions remains challenging. Insufficient illumination, noise amplification, and view-dependent photometric inconsistencies prevent existing methods from jointly preserving geometric consistency and photorealism. Unsupervised approaches often exhibit color drift under large viewpoint variations, while supervised low-light enhancement models, though effective for 2D tasks, struggle to generalize to new scenes and typically require retraining. To address this issue, we propose MERID-GS, a Multi-Scale Explicit Retinex Illumination-Decoupled Gaussian framework for low-light 360$^\\circ$ synthesis. Based on Retinex theory, the method explicitly separates illumination and reflectance, and suppresses noise propagation while enhancing dark-region structures via a learnable gain and Illumination-State-Guided Frequency Gating. Combined with lightweight Reflection Head and 3D Gaussian Splatting, MERID-GS adapts to new scenes with only a few shots and enables stable low-light novel view synthesis from sparse-view observations. In addition, we construct a low-light multi-view dataset covering full 360$^\\circ$ scenes for joint evaluation. Thorough experiments across multiple datasets in this area demonstrate that MERID-GS achieves SOTA performance, exhibiting superior cross-scene generalization and view consistency. The source code and pre-trained models are available at https://github.com/YhuoyuH/MERID-GS..",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/29/2604.24311v1-bimstruct3d-a-fully-automated-hybrid-learning-scan-to-bim-pipeline-with-integrated-topology-refinement",
+      "section": "quick",
+      "title_en": "BIMStruct3D: A Fully Automated Hybrid Learning Scan-to-BIM Pipeline with Integrated Topology Refinement",
+      "authors": "Mahdi Chamseddine, Fabian Kaufmann, Marius Schellen, Christian Glock, Didier Stricker, Jason Rambach",
+      "date": "2026-04-27",
+      "pdf": "https://arxiv.org/pdf/2604.24311v1",
+      "score": "7.0",
+      "evidence": "从点云自动生成3D建筑模型",
+      "tldr": "本研究针对建筑信息模型（BIM）自动生成的难题，提出了BIMStruct3D，一个全自动的混合学习Scan-to-BIM流水线。该方法结合了基于深度学习的语义分割与拓扑感知的几何重建，能够从3D点云生成符合IFC标准的BIM模型。此外，研究引入了vIoU评估指标和DeKH医院数据集。实验证明，该方法在准确性、鲁棒性和可扩展性方面显著优于传统RANSAC基准。",
+      "tags": "query:3dgen",
+      "abstract_en": "Automatic generation of Building Information Models (BIM) from building scans is a key challenge in architecture and construction. We present a modular pipeline for generating IFC-compliant BIM from 3D point clouds. The hybrid approach combines learning-based semantic segmentation with topology-aware geometric reconstruction to model structural elements accurately. We propose vIoU, adapting voxel-based overlap evaluation to Scan-to-BIM by enabling holistic, instance-matching-free comparison of reconstructed and ground-truth models. We release the German Hospital dataset (DeKH), including high-resolution point clouds, ground truth BIMs, and semantic annotations. Experiments on DeKH and CV4AEC datasets show significant improvements over a RANSAC-based baseline, demonstrating robustness and scalability.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/29/2604.24994v1-power-foam-unifying-real-time-differentiable-ray-tracing-and-rasterization",
+      "section": "quick",
+      "title_en": "Power Foam: Unifying Real-Time Differentiable Ray Tracing and Rasterization",
+      "authors": "Shrisudhan Govindarajan, Daniel Rebain, Dor Verbin, Kwang Moo Yi, Anish Prabhu, Andrea Tagliasacchi",
+      "date": "2026-04-27",
+      "pdf": "https://arxiv.org/pdf/2604.24994v1",
+      "score": "7.0",
+      "evidence": "用于场景建模和渲染的可微分3D表示法",
+      "tldr": "引入Power Foam，一种统一光线追踪与光栅化的可微分3D表示法，提升渲染效率。",
+      "tags": "query:3dgen",
+      "abstract_en": "We introduce a differentiable 3D representation that unifies the ray tracing capabilities of foam-based ray tracing with the efficiency of modern rasterization pipelines. While prior foam representations enable constant-time ray traversal through an explicit volumetric partition of space, their potentially unbounded cells hinder efficient tile-based rasterization. We address this limitation by generalizing Voronoi foams to bounded power diagrams with controllable cell extents, enabling spatially bounded primitives without requiring expensive Delaunay triangulations during training. We further introduce an oriented surface formulation that explicitly models interfaces between interior and exterior regions, and decouple geometry from appearance by embedding differentiable texture directly on these surfaces. Together, these contributions yield a representation that preserves state-of-the-art ray tracing efficiency while achieving rasterization performance competitive with current generation 3DGS, providing a practical path toward unified real-time differentiable rendering.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/29/2604.22658v1-pasr-pose-aware-3d-shape-retrieval-from-occluded-single-views",
+      "section": "quick",
+      "title_en": "PASR: Pose-Aware 3D Shape Retrieval from Occluded Single Views",
+      "authors": "Jiaxin Shi, Guofeng Zhang, Wufei Ma, Naifu Liang, Adam Kortylewski, Alan Vuile",
+      "date": "2026-04-24",
+      "pdf": "https://arxiv.org/pdf/2604.22658v1",
+      "score": "6.0",
+      "evidence": "3D形状检索与分析合成框架",
+      "tldr": "提出一种姿态感知的框架，用于从遮挡的单视图图像中进行3D形状检索。",
+      "tags": "query:3dgen",
+      "abstract_en": "Single-view 3D shape retrieval is a fundamental yet challenging task that is increasingly important with the growth of available 3D data. Existing approaches largely fall into two categories: those using contrastive learning to map point cloud features into existing vision-language spaces and those that learn a common embedding space for 2D images and 3D shapes. However, these feed-forward, holistic alignments are often difficult to interpret, which in turn limits their robustness and generalization to real-world applications. To address this problem, we propose Pose-Aware 3D Shape Retrieval (PASR), a framework that formulates retrieval as a feature-level analysis-by-synthesis problem by distilling knowledge from a 2D foundation model (DINOv3) into a 3D encoder. By aligning pose-conditioned 3D projections with 2D feature maps, our method bridges the gap between real-world images and synthetic meshes. During inference, PASR performs a test-time optimization via analysis-by-synthesis, jointly searching for the shape and pose that best reconstruct the patch-level feature map of the input image. This synthesis-based optimization is inherently robust to partial occlusion and sensitive to fine-grained geometric details. PASR substantially outperforms existing methods on both clean and occluded 3D shape retrieval datasets by a wide margin. Additionally, PASR demonstrates strong multi-task capabilities, achieving robust shape retrieval, competitive pose estimation, and accurate category classification within a single framework.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202604/29/2604.23774v1-prox-e-fine-grained-3d-shape-editing-via-primitive-based-abstractions",
+      "section": "quick",
+      "title_en": "Prox-E: Fine-Grained 3D Shape Editing via Primitive-Based Abstractions",
+      "authors": "Etai Sella, Hao Phung, Nitay Amiel, Or Litany, Or Patashnik, Hadar Averbuch-Elor",
+      "date": "2026-04-26",
+      "pdf": "https://arxiv.org/pdf/2604.23774v1",
+      "score": "6.0",
+      "evidence": "3D形状编辑与几何抽象",
+      "tldr": "针对现有基于2D图像模型的3D编辑方法在处理精细结构修改和保持物体身份方面的不足，本文提出了Prox-E框架。该框架无需训练，通过将3D形状抽象为几何原语，并利用预训练视觉语言模型（VLM）在原语层面进行编辑，最后引导3D生成模型实现局部精细修改。实验证明，该方法在保持物体特征、形状质量和指令遵循方面均优于现有方法。",
+      "tags": "query:3dgen",
+      "abstract_en": "Text-based 2D image editing models have recently reached an impressive level of maturity, motivating a growing body of work that heavily depends on these models to drive 3D edits. While effective for appearance-based modifications, such 2D-centric 3D editing pipelines often struggle with fine-grained 3D editing, where localized structural changes must be applied while strictly preserving an object's overall identity. To address this limitation, we propose Prox-E, a training-free framework that enables fine-grained 3D control through an explicit, primitive-based geometric abstraction. Our framework first abstracts an input 3D shape into a compact set of geometric primitives. A pretrained vision-language model (VLM) then edits this abstraction to specify primitive-level changes. These structural edits are subsequently used to guide a 3D generative model, enabling fine-grained, localized modifications while preserving unchanged regions of the original shape. Through extensive experiments, we demonstrate that our method consistently balances identity preservation, shape quality, and instruction fidelity more effectively than various existing approaches, including 2D-based 3D editors and training-based methods.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
