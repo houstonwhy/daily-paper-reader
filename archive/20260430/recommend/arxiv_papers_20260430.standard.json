@@ -1,0 +1,670 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-30T19:58:49.266000+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 5,
+    "deep_cap": 6,
+    "deep_selected": 5,
+    "quick_candidates": 11,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2604.22847v1",
+      "title": "Dream-Cubed: Controllable Generative Modeling in Minecraft by Training on Billions of Cubes",
+      "abstract": "We introduce Dream-Cubed, a large-scale dataset of Minecraft worlds at voxel resolution, and a family of models using cubes as powerful compositional units for efficient generation of interactive 3D environments. Dream-Cubed comprises tens of billions of tokens from a carefully curated mixture of procedural biome terrain and high-quality human-authored maps. We use this dataset to conduct the first large-scale study of 3D diffusion models for voxel generation, analyzing discrete and continuous diffusion formulations, data compositions, and architectural design choices. Our models operate directly in the space of blocks, enabling efficient and semantically grounded generation while supporting interactive user workflows such as inpainting and outpainting from user-authored blocks. To quantitatively evaluate our models, we adapt the FID metric to assess semantic differences between real and generated world renderings, and validate generation quality through a human preference study. We release the full dataset, code, and all our pretrained models, which we hope will provide a foundation for future research in efficient generative modeling for structured, interactive 3D environments.",
+      "authors": [
+        "Tim Merino",
+        "Sam Earle",
+        "Ryunosuke Iwai",
+        "Julian Togelius",
+        "Edoardo Cetin"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-22T00:46:12+00:00",
+      "link": "https://arxiv.org/pdf/2604.22847v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "generative modeling for interactive 3D environments",
+      "llm_evidence_cn": "交互式3D环境的生成式建模",
+      "llm_evidence": "交互式3D环境的生成式建模",
+      "canonical_evidence": "交互式3D环境的生成式建模",
+      "llm_tldr_en": "Dream-Cubed uses 3D diffusion models on a massive voxel dataset for efficient generation of interactive environments.",
+      "llm_tldr_cn": "Dream-Cubed在大规模体素数据集上使用3D扩散模型，高效生成交互式环境。",
+      "llm_tldr": "Dream-Cubed在大规模体素数据集上使用3D扩散模型，高效生成交互式环境。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.26509v1",
+      "title": "3D Generation for Embodied AI and Robotic Simulation: A Survey",
+      "abstract": "Embodied AI and robotic systems increasingly depend on scalable, diverse, and physically grounded 3D content for simulation-based training and real-world deployment. While 3D generative modeling has advanced rapidly, embodied applications impose requirements far beyond visual realism: generated objects must carry kinematic structure and material properties, scenes must support interaction and task execution, and the resulting content must bridge the gap between simulation and reality. This survey presents the first survey of 3D generation for embodied AI and organizes the literature around three roles that 3D generation plays in embodied systems. In \\emph{Data Generator}, 3D generation produces simulation-ready objects and assets, including articulated, physically grounded, and deformable content for downstream interaction; in \\emph{Simulation Environments}, it constructs interactive and task-oriented worlds, spanning structure-aware, controllable, and agentic scene generation; and in \\emph{Sim2Real Bridge}, it supports digital twin reconstruction, data augmentation, and synthetic demonstrations for downstream robot learning and real-world transfer. We also show that the field is shifting from visual realism toward interaction readiness, and we identify the main bottlenecks, including limited physical annotations, the gap between geometric quality and physical validity, fragmented evaluation, and the persistent sim-to-real divide, that must be addressed for 3D generation to become a dependable foundation for embodied intelligence. Our project page is at https://3dgen4robot.github.io.",
+      "authors": [
+        "Tianwei Ye",
+        "Yifan Mao",
+        "Minwen Liao",
+        "Jian Liu",
+        "Chunchao Guo",
+        "Dazhao Du",
+        "Quanxin Shou",
+        "Fangqi Zhu",
+        "Song Guo"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.CV"
+      ],
+      "published": "2026-04-29T10:17:55+00:00",
+      "link": "https://arxiv.org/pdf/2604.26509v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "survey of 3D generation methods and applications",
+      "llm_evidence_cn": "3D生成方法与应用的综述",
+      "llm_evidence": "3D生成方法与应用的综述",
+      "canonical_evidence": "3D生成方法与应用的综述",
+      "llm_tldr_en": "This survey explores 3D generation for embodied AI, covering object, scene, and interaction-ready content.",
+      "llm_tldr_cn": "该综述探讨了具身智能中的3D生成，涵盖了物体、场景及可交互内容的生成。",
+      "llm_tldr": "该综述探讨了具身智能中的3D生成，涵盖了物体、场景及可交互内容的生成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.22240v1",
+      "title": "OccDirector: Language-Guided Behavior and Interaction Generation in 4D Occupancy Space",
+      "abstract": "Generative world models increasingly rely on 4D occupancy for realistic autonomous driving simulation. However, existing generation frameworks depend on rigid geometric conditions (e.g., explicit trajectories) or simplistic attribute-level text, failing to orchestrate complex, sequential multi-agent interactions. To address this semantic-spatiotemporal gap, we propose OccDirector, a pioneering framework that generates 4D occupancy dynamics conditioned solely on natural language. Operating as a ``scenario director'', OccDirector maps natural language scripts into physically plausible voxel dynamics without requiring geometric priors. Technically, it employs a VLM-driven Spatio-Temporal MMDiT equipped with a history-prefix anchoring strategy to ensure long-horizon interaction consistency. Furthermore, we introduce OccInteract-85k, a novel dataset uniquely annotated with multi-level language instructions: ranging from static layouts to intricate multi-agent behaviors, alongside a novel VLM-based evaluation benchmark. Extensive experiments demonstrate that OccDirector achieves state-of-the-art generation quality and unprecedented instruction-following capabilities, successfully shifting the paradigm from appearance synthesis to language-driven behavior orchestration.",
+      "authors": [
+        "Zhuding Liang",
+        "Tianyi Yan",
+        "Dubing Chen",
+        "Jiasen Zheng",
+        "Huan Zheng",
+        "Cheng-zhong Xu",
+        "Yida Wang",
+        "Kun Zhan",
+        "Jianbing Shen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-24T05:30:35+00:00",
+      "link": "https://arxiv.org/pdf/2604.22240v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Language-guided 4D occupancy generation for driving simulation",
+      "llm_evidence_cn": "用于驾驶模拟的语言引导4D占据网格生成",
+      "llm_evidence": "用于驾驶模拟的语言引导4D占据网格生成",
+      "canonical_evidence": "用于驾驶模拟的语言引导4D占据网格生成",
+      "llm_tldr_en": "Proposes OccDirector to generate complex 4D spatiotemporal scene dynamics from natural language scripts.",
+      "llm_tldr_cn": "提出OccDirector，能够根据自然语言脚本生成复杂的4D时空场景动态。",
+      "llm_tldr": "提出OccDirector，能够根据自然语言脚本生成复杂的4D时空场景动态。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "text-to-3D scene generation frameworks",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.25318v1",
+      "title": "Cutscene Agent: An LLM Agent Framework for Automated 3D Cutscene Generation",
+      "abstract": "Cutscenes are carefully choreographed cinematic sequences embedded in video games and interactive media, serving as the primary vehicle for narrative delivery, character development, and emotional engagement. Producing cutscenes is inherently complex: it demands seamless coordination across screenwriting, cinematography, character animation, voice acting, and technical direction, often requiring days to weeks of collaborative effort from multidisciplinary teams to produce minutes of polished content. In this work, we present Cutscene Agent, an LLM agent framework for automated end-to-end cutscene generation. The framework makes three contributions: (1)~a Cutscene Toolkit built on the Model Context Protocol (MCP) that establishes \\emph{bidirectional} integration between LLM agents and the game engine -- agents not only invoke engine operations but continuously observe real-time scene state, enabling closed-loop generation of editable engine-native cinematic assets; (2)~a multi-agent system where a director agent orchestrates specialist subagents for animation, cinematography, and sound design, augmented by a visual reasoning feedback loop for perception-driven refinement; and (3)~CutsceneBench, a hierarchical evaluation benchmark for cutscene generation. Unlike typical tool-use benchmarks that evaluate short, isolated function calls, cutscene generation requires long-horizon, multi-step orchestration of dozens of interdependent tool invocations with strict ordering constraints -- a capability dimension that existing benchmarks do not cover. We evaluate a range of LLMs on CutsceneBench and analyze their performance across this challenging task.",
+      "authors": [
+        "Lanshan He",
+        "Haozhou Pang",
+        "Qi Gan",
+        "Xin Shen",
+        "Ziwei Zhang",
+        "Yibo Liu",
+        "Gang Fang",
+        "Bo Liu",
+        "Kai Sheng",
+        "Shengfeng Zeng",
+        "Chaofan Li",
+        "Zhen Hui",
+        "Keer Zhou",
+        "Lan Zhou",
+        "Shujun Dai"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-04-28T07:28:14+00:00",
+      "link": "https://arxiv.org/pdf/2604.25318v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Automated 3D cutscene generation framework using LLM agents",
+      "llm_evidence_cn": "使用LLM智能体的自动化3D过场动画生成框架",
+      "llm_evidence": "使用LLM智能体的自动化3D过场动画生成框架",
+      "canonical_evidence": "使用LLM智能体的自动化3D过场动画生成框架",
+      "llm_tldr_en": "An LLM agent framework for end-to-end automated 3D cinematic sequence generation.",
+      "llm_tldr_cn": "一种用于端到端自动化3D电影序列生成的LLM智能体框架。",
+      "llm_tldr": "一种用于端到端自动化3D电影序列生成的LLM智能体框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "text-to-3D scene generation frameworks",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.23580v1",
+      "title": "PhysCodeBench: Benchmarking Physics-Aware Symbolic Simulation of 3D Scenes via Self-Corrective Multi-Agent Refinement",
+      "abstract": "Physics-aware symbolic simulation of 3D scenes is critical for robotics, embodied AI, and scientific computing, requiring models to understand natural language descriptions of physical phenomena and translate them into executable simulation environments. While large language models (LLMs) excel at general code generation, they struggle with the semantic gap between physical descriptions and simulation implementation. We introduce PhysCodeBench, the first comprehensive benchmark for evaluating physics-aware symbolic simulation, comprising 700 manually-crafted diverse samples across mechanics, fluid dynamics, and soft-body physics with expert annotations. Our evaluation framework measures both code executability and physical accuracy through automated and visual assessment. Building on this, we propose a Self-Corrective Multi-Agent Refinement Framework (SMRF) with three specialized agents (simulation generator, error corrector, and simulation refiner) that collaborate iteratively with domain-specific validation to produce physically accurate simulations. SMRF achieves 67.7 points overall performance compared to 36.3 points for the best baseline among evaluated SOTA models, representing a 31.4-point improvement. Our analysis demonstrates that error correction is critical for accurate physics-aware symbolic simulation and that specialized multi-agent approaches significantly outperform single-agent methods across the tested physical domains.",
+      "authors": [
+        "Tianyidan Xie",
+        "Peiyu Wang",
+        "Yuyi Qian",
+        "Yuxuan Wang",
+        "Rui Ma",
+        "Ying Tai",
+        "Song Wu",
+        "Qian Wang",
+        "Lanjun Wang",
+        "Zili Yi"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI"
+      ],
+      "published": "2026-04-26T07:37:20+00:00",
+      "link": "https://arxiv.org/pdf/2604.23580v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "benchmarking symbolic simulation of 3D scenes",
+      "llm_evidence_cn": "3D场景符号模拟的基准测试",
+      "llm_evidence": "3D场景符号模拟的基准测试",
+      "canonical_evidence": "3D场景符号模拟的基准测试",
+      "llm_tldr_en": "Introduces a benchmark for evaluating physics-aware symbolic simulation of 3D scenes from language.",
+      "llm_tldr_cn": "引入PhysCodeBench，用于评估从自然语言描述生成3D场景物理模拟代码的能力。",
+      "llm_tldr": "引入PhysCodeBench，用于评估从自然语言描述生成3D场景物理模拟代码的能力。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.23264v1",
+      "title": "MotionHiFlow: Text-to-motion via hierarchical flow matching",
+      "abstract": "Text-to-motion generation aims to generate 3D human motions that are tightly aligned with the input text while remaining physically plausible and rich in fine-grained detail. Although recent approaches can produce complex and natural movements, they usually operate at only one temporal scale, which limits both semantic alignment and temporal coherence. Inspired by the fact that complex motions are conceptualized hierarchically rather than at a single temporal scale in the human cognitive system, we propose \\textit{MotionHiFlow}, a hierarchical flow matching framework to generate motion progressively by constructing flow path from low to high temporal scales. The flows at lower scales capture high-level semantics and coarse motion structures, while flows at higher scales refine temporal details. To link the flows across scales, we introduce a novel cross-scale transition process, ensuring continuity and preserving noise consistency. Furthermore, by integrating a Text-Motion Diffusion Transformer and a topology-aware Motion VAE, MotionHiFlow explicitly models structural dependencies among joints via joint-aware positional encoding and skeletal topology, enabling precise semantic alignment alongside fine-grained motion details. Extensive experiments on HumanML3D and KIT-ML benchmarks demonstrate state-of-the-art performance, with ablation studies confirming the effectiveness of the hierarchical design and key components. Code is available at https://github.com/ai-lh/MotionHiFlow.",
+      "authors": [
+        "Heng Li",
+        "Xiaotong Lin",
+        "Ling-An Zeng",
+        "Yulei Kang",
+        "Shuai Li",
+        "Jian-Fang Hu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-25T12:16:37+00:00",
+      "link": "https://arxiv.org/pdf/2604.23264v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "text-to-motion 3D generation",
+      "llm_evidence_cn": "文本到3D动作生成",
+      "llm_evidence": "文本到3D动作生成",
+      "canonical_evidence": "文本到3D动作生成",
+      "llm_tldr_en": "Generates 3D human motions from text using a hierarchical flow matching framework.",
+      "llm_tldr_cn": "利用分层流匹配框架根据文本生成3D人体动作。",
+      "llm_tldr": "利用分层流匹配框架根据文本生成3D人体动作。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.26341v1",
+      "title": "SpatialFusion: Endowing Unified Image Generation with Intrinsic 3D Geometric Awareness",
+      "abstract": "Recent unified image generation models have achieved remarkable success by employing MLLMs for semantic understanding and diffusion backbones for image generation. However, these models remain fundamentally limited in spatially-aware tasks due to a lack of intrinsic spatial understanding and the absence of explicit geometric guidance during generation. In this paper, we propose SpatialFusion, a novel framework that internalizes 3D geometric awareness into unified image generation models. Specifically, we first employ a Mixture-of-Transformers (MoT) architecture to augment the MLLM with a parallel spatial transformer to enhance 3D geometric modeling capability. By sharing self-attention with the MLLM, the spatial transformer learns to derive metric-depth maps of target images from rich semantic contexts. These explicit geometric scaffolds are then injected into the diffusion backbone through a specialized depth adapter, providing precise spatial constraints for spatially-coherent image generation. Through a progressive two-stage training strategy, SpatialFusion significantly enhances performance on spatially-aware benchmarks, notably outperforming leading models such as GPT-4o. Additionally, it achieves generalized performance gains across both text-to-image generation and image editing scenarios, all while maintaining negligible inference overhead.",
+      "authors": [
+        "Haiyi Qiu",
+        "Kaihang Pan",
+        "Jiacheng Li",
+        "Juncheng Li",
+        "Siliang Tang",
+        "Yueting Zhuang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-29T06:46:59+00:00",
+      "link": "https://arxiv.org/pdf/2604.26341v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "internalizing 3D geometric awareness into image generation",
+      "llm_evidence_cn": "将3D几何感知内化到图像生成中",
+      "llm_evidence": "将3D几何感知内化到图像生成中",
+      "canonical_evidence": "将3D几何感知内化到图像生成中",
+      "llm_tldr_en": "Proposes SpatialFusion to enhance 3D geometric modeling in unified image generation models.",
+      "llm_tldr_cn": "提出SpatialFusion框架，增强统一图像生成模型中的3D几何建模能力。",
+      "llm_tldr": "提出SpatialFusion框架，增强统一图像生成模型中的3D几何建模能力。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.23774v2",
+      "title": "Prox-E: Fine-Grained 3D Shape Editing via Primitive-Based Abstractions",
+      "abstract": "Text-based 2D image editing models have recently reached an impressive level of maturity, motivating a growing body of work that heavily depends on these models to drive 3D edits. While effective for appearance-based modifications, such 2D-centric 3D editing pipelines often struggle with fine-grained 3D editing, where localized structural changes must be applied while strictly preserving an object's overall identity. To address this limitation, we propose Prox-E, a training-free framework that enables fine-grained 3D control through an explicit, primitive-based geometric abstraction. Our framework first abstracts an input 3D shape into a compact set of geometric primitives. A pretrained vision-language model (VLM) then edits this abstraction to specify primitive-level changes. These structural edits are subsequently used to guide a 3D generative model, enabling fine-grained, localized modifications while preserving unchanged regions of the original shape. Through extensive experiments, we demonstrate that our method consistently balances identity preservation, shape quality, and instruction fidelity more effectively than various existing approaches, including 2D-based 3D editors and training-based methods.",
+      "authors": [
+        "Etai Sella",
+        "Hao Phung",
+        "Nitay Amiel",
+        "Or Litany",
+        "Or Patashnik",
+        "Hadar Averbuch-Elor"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR"
+      ],
+      "published": "2026-04-26T15:51:57+00:00",
+      "link": "https://arxiv.org/pdf/2604.23774v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "text-based 3D shape editing and control",
+      "llm_evidence_cn": "基于文本的3D形状编辑与控制",
+      "llm_evidence": "基于文本的3D形状编辑与控制",
+      "canonical_evidence": "基于文本的3D形状编辑与控制",
+      "llm_tldr_en": "Prox-E enables fine-grained 3D shape editing using primitive-based abstractions and vision-language models.",
+      "llm_tldr_cn": "Prox-E利用基于原语的几何抽象和视觉语言模型实现细粒度的3D形状编辑。",
+      "llm_tldr": "Prox-E利用基于原语的几何抽象和视觉语言模型实现细粒度的3D形状编辑。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.26488v1",
+      "title": "Featurising Pixels from Dynamic 3D Scenes with Linear In-Context Learners",
+      "abstract": "One of the most exciting applications of vision models involve pixel-level reasoning. Despite the abundance of vision foundation models, we still lack representations that effectively embed spatio-temporal properties of visual scenes at the pixel level. Existing frameworks either train on image-based pretext tasks, which do not account for dynamic elements, or on video sequences for action-level reasoning, which does not scale to dense pixel-level prediction. We present a framework that learns pixel-accurate feature descriptors from videos, LILA. The core element of our training framework is linear in-context learning. LILA leverages spatio-temporal cue maps -- depth and motion -- estimated with off-the-shelf networks. Despite the noisy nature of those cues, LILA trains effectively on uncurated video datasets, embedding semantic and geometric properties in a temporally consistent manner. We demonstrate compelling empirical benefits of the learned representation across a diverse suite of vision tasks: video object segmentation, surface normal estimation and semantic segmentation.",
+      "authors": [
+        "Nikita Araslanov",
+        "Martin Sundermeyer",
+        "Hidenobu Matsuki",
+        "David Joseph Tan",
+        "Federico Tombari"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-04-29T09:51:56+00:00",
+      "link": "https://arxiv.org/pdf/2604.26488v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "pixel-level reasoning for dynamic 3D scenes",
+      "llm_evidence_cn": "动态3D场景的像素级推理",
+      "llm_evidence": "动态3D场景的像素级推理",
+      "canonical_evidence": "动态3D场景的像素级推理",
+      "llm_tldr_en": "LILA learns pixel-accurate feature descriptors from videos to embed spatio-temporal properties of 3D scenes.",
+      "llm_tldr_cn": "LILA从视频中学习像素级特征描述符，以嵌入3D场景的时空属性。",
+      "llm_tldr": "LILA从视频中学习像素级特征描述符，以嵌入3D场景的时空属性。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.25330v1",
+      "title": "Generalizable 3D Gaussian Splatting enabled Semantic Coding for Real-Time Immersive Video Communications",
+      "abstract": "Real-time immersive video communications, particularly high-fidelity 3D telepresence, necessitates a synergistic balance between instantaneous dynamic scene reconstruction and high-efficiency data transmission. While recent advancements in feed-forward 3D Gaussian Splatting (3DGS) have enabled real-time rendering, performing multi-view video coding and 3D reconstruction in a decoupled manner leads to suboptimal compression efficiency and high computational complexity. To address this, we propose GS-SCNet, the first unified end-to-end framework that seamlessly integrates generalizable 3DGS reconstruction with a dedicated deep Semantic Coding pipeline. Our architecture is underpinned by two core technical contributions: (i) we introduce a Disparity-Guided Parallel Semantic Codec that exploits epipolar geometric priors to facilitate cross-view contextual interaction via disparity compensation and semantic fusion, thereby enabling real-time parallel processing of stereo streams while significantly enhancing rate-distortion performance, and (ii) we develop a Lightweight Gaussian Parameter Predictor which directly projects decoded semantic latents into 3DGS attributes, obviating the need for intermediate pixel-domain reconstruction. By coupling the codec with the task-specific predictor, our framework extracts geometric correlations only once, effectively eliminating the redundant computational bottleneck inherent in conventional decoupled paradigms. Extensive evaluations on both synthetic and real-world human datasets demonstrate that GS-SCNet achieves a superior trade-off across compression efficiency, rendering quality, and real-time performance. Notably, our framework exhibits strong cross-domain generalization and robustness against compression artifacts when applied to out-of-domain real-world data, significantly outperforming conventional decoupled transmission paradigms.",
+      "authors": [
+        "Dingxi Yang",
+        "Wenqi Guo",
+        "Yue Liu",
+        "Jungong Han",
+        "Zhijin Qin"
+      ],
+      "primary_category": "eess.IV",
+      "categories": [
+        "eess.IV"
+      ],
+      "published": "2026-04-28T07:46:50+00:00",
+      "link": "https://arxiv.org/pdf/2604.25330v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "dynamic scene reconstruction and coding",
+      "llm_evidence_cn": "动态场景重建与编码",
+      "llm_evidence": "动态场景重建与编码",
+      "canonical_evidence": "动态场景重建与编码",
+      "llm_tldr_en": "Integrates 3DGS reconstruction with semantic coding for immersive communications.",
+      "llm_tldr_cn": "将3DGS重建与语义编码集成，用于沉浸式通信。",
+      "llm_tldr": "将3DGS重建与语义编码集成，用于沉浸式通信。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.26799v1",
+      "title": "MesonGS++: Post-training Compression of 3D Gaussian Splatting with Hyperparameter Searching",
+      "abstract": "3D Gaussian Splatting (3DGS) achieves high-quality novel view synthesis with real-time rendering, but its storage cost remains prohibitive for practical deployment. Existing post-training compression methods still rely on many coupled hyperparameters across pruning, transformation, quantization, and entropy coding, making it difficult to control the final compressed size and fully exploit the rate-distortion trade-off. We propose MesonGS++, a size-aware post-training codec for 3D Gaussian compression. On the codec side, MesonGS++ combines joint importance-based pruning, octree geometry coding, attribute transformation, selective vector quantization for higher-degree spherical harmonics, and group-wise mixed-precision quantization with entropy coding. On the configuration side, it treats the reserve ratio and bit-width allocation as the dominant rate-distortion knobs and jointly optimizes them under a target storage budget via discrete sampling and 0--1 integer linear programming. We further propose a linear size estimator and a CUDA parallel quantization operator to accelerate the hyperparameter searching process. Extensive experiments show that MesonGS++ achieves over 34$\\times$ compression while preserving rendering fidelity, outperforming state-of-the-art post-training methods and accurately meeting target size budgets. Remarkably, without any training, MesonGS++ can even surpass the PSNR of vanilla 3DGS at a 20$\\times$ compression rate on the Stump scene. Our code is available at https://github.com/mmlab-sigs/mesongs_plus",
+      "authors": [
+        "Shuzhao Xie",
+        "Junchen Ge",
+        "Weixiang Zhang",
+        "Jiahang Liu",
+        "Chen Tang",
+        "Yunpeng Bai",
+        "Shijia Ge",
+        "Jingyan Jiang",
+        "Yuzhi Huang",
+        "Fengnian Yang",
+        "Cong Zhang",
+        "Xiaoyi Fan",
+        "Zhi Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR",
+        "cs.MM"
+      ],
+      "published": "2026-04-29T15:30:06+00:00",
+      "link": "https://arxiv.org/pdf/2604.26799v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Compression of 3D Gaussian Splatting scene representations",
+      "llm_evidence_cn": "3D高斯泼溅场景表示的压缩技术",
+      "llm_evidence": "3D高斯泼溅场景表示的压缩技术",
+      "canonical_evidence": "3D高斯泼溅场景表示的压缩技术",
+      "llm_tldr_en": "Introduces MesonGS++, a post-training compression codec to reduce the storage cost of 3D scene representations.",
+      "llm_tldr_cn": "引入MesonGS++，一种训练后压缩编解码器，旨在降低3D场景表示的存储成本。",
+      "llm_tldr": "引入MesonGS++，一种训练后压缩编解码器，旨在降低3D场景表示的存储成本。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.26262v1",
+      "title": "Semantic Foam: Unifying Spatial and Semantic Scene Decomposition",
+      "abstract": "Modern scene reconstruction methods, such as 3D Gaussian Splatting, enable photo-realistic novel view synthesis at real-time speeds. However, their adoption in interactive graphics applications remains limited due to the difficulty of interacting with these representations compared to traditional, human-authored 3D assets. While prior work has attempted to impose semantic decomposition on these models, significant challenges remain in segmentation quality and cross-view consistency.To address these limitations, we introduce Semantic Foam, which extends the recently proposed Radiant Foam representation to semantic decomposition tasks. Our approach leverages the inherent spatial structure of Radiant Foam's volumetric Voronoi mesh and augments it with an explicit semantic feature field defined at the cell level. This design enables direct spatial regularization, improving consistency across views and mitigating artifacts caused by occlusion and inconsistent supervision, which are common issues in point-based representations.Experimental results demonstrate that our method achieves superior object-level segmentation performance compared to state-of-the-art approaches such as Gaussian Grouping and SAGA.Project page: http://semanticfoam.github.io/",
+      "authors": [
+        "Amr Sharafeldin",
+        "Shrisudhan Govindarajan",
+        "Thomas Walker",
+        "Aryan Mikaeili",
+        "Daniel Rebain",
+        "Kwang Moo Yi",
+        "Andrea Tagliasacchi"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-29T03:40:13+00:00",
+      "link": "https://arxiv.org/pdf/2604.26262v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Semantic scene decomposition in 3D reconstruction",
+      "llm_evidence_cn": "3D重建中的语义场景分解",
+      "llm_evidence": "3D重建中的语义场景分解",
+      "canonical_evidence": "3D重建中的语义场景分解",
+      "llm_tldr_en": "Semantic Foam unifies spatial and semantic scene decomposition for interactive 3D representations.",
+      "llm_tldr_cn": "Semantic Foam统一了空间和语义场景分解，用于交互式3D表示。",
+      "llm_tldr": "Semantic Foam统一了空间和语义场景分解，用于交互式3D表示。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.26920v1",
+      "title": "Color-Encoded Illumination for High-Speed Volumetric Scene Reconstruction",
+      "abstract": "The task of capturing and rendering 3D dynamic scenes from 2D images has become increasingly popular in recent years. However, most conventional cameras are bandwidth-limited to 30-60 FPS, restricting these methods to static or slowly evolving scenes. While overcoming bandwidth limitations is difficult for general scenes, recent years have seen a flurry of computational imaging methods that yield high-speed videos using conventional cameras for specific applications (e.g., motion capture and particle image velocimetry). However, most of these methods require modifications to a camera's optics or the addition of mechanically moving components, limiting them to a single-view high-speed capture. Consequently, these methods cannot be readily used to capture a 3D representation of rapid scene motion. In this paper, we propose a novel method to capture and reconstruct a volumetric representation of a high-speed scene using only unaugmented low-speed cameras. Instead of modifying the hardware or optics of each individual camera, we encode high-speed scene dynamics by illuminating the scene with a rapid, sequential color-coded sequence. This results in simultaneous multi-view capture of the scene, where high-speed temporal information is encoded in the spatial intensity and color variations of the captured images. To construct a high-speed volumetric representation of the dynamic scene, we develop a novel dynamic Gaussian Splatting-based approach that decodes the temporal information from the images. We evaluate our approach on simulated scenes and real-world experiments using a multi-camera imaging setup, showing first-of-a-kind high-speed volumetric scene reconstructions.",
+      "authors": [
+        "David Novikov",
+        "Eilon Vaknin",
+        "Narek Tumanyan",
+        "Mark Sheinin"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-29T17:38:11+00:00",
+      "link": "https://arxiv.org/pdf/2604.26920v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "high-speed volumetric 3D scene reconstruction",
+      "llm_evidence_cn": "高速体素3D场景重建",
+      "llm_evidence": "高速体素3D场景重建",
+      "canonical_evidence": "高速体素3D场景重建",
+      "llm_tldr_en": "A method for high-speed 3D dynamic scene reconstruction using color-encoded illumination and conventional cameras.",
+      "llm_tldr_cn": "一种利用颜色编码照明和常规相机进行高速3D动态场景重建的方法。",
+      "llm_tldr": "一种利用颜色编码照明和常规相机进行高速3D动态场景重建的方法。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.26567v1",
+      "title": "AirZoo: A Unified Large-Scale Dataset for Grounding Aerial Geometric 3D Vision",
+      "abstract": "Despite the rapid progress in data-driven 3D vision, aerial geometric 3D vision remains a formidable challenge due to the severe scarcity of large-scale, high-fidelity training data. Existing benchmarks, predominantly biased toward ground-level or object-centric views, do not account for complex viewpoint transformations and diverse environmental conditions in UAV-based sensing. To bridge this critical gap, we propose AirZoo, a unified large-scale dataset and benchmark for grounding aerial geometric 3D vision. AirZoo possesses three appealing properties: 1) Scalable Generation Pipeline: Leveraging freely available, world-scale photogrammetric 3D meshes, it renders vast outdoor environments with customizable UAV flight trajectories and configurable weather/illumination. 2) Comprehensive Scene Diversity: It provides the most extensive coverage of region types to date (spanning 378 regions across 22 countries), systematically encompassing both highly structured urban landscapes and complex unstructured natural environments. 3) Rich Geometric Annotations: Each frame provides synchronized, pixel-level metric depth and precise 6-DoF geo-referenced poses, essential for geometry-aware learning. Through three rigorous evaluation tracks -- aerial image retrieval, cross-view matching, and multi-view 3D reconstruction -- we demonstrate that AirZoo serves as a powerful pre-training engine. Extensive experiments on both public and newly collected real-world benchmarks reveal that fine-tuning on AirZoo yields substantial performance gains for SoTA models (e.g., MegaLoc, RoMa, VGGT, and Depth Anything 3), establishing a new performance upper bound for aerial spatial intelligence.",
+      "authors": [
+        "Xiaoya Cheng",
+        "Rouwan Wu",
+        "Xinyi Liu",
+        "Zeyu Cui",
+        "Yan Liu",
+        "Na Zhao",
+        "Yu Liu",
+        "Maojun Zhang",
+        "Shen Yan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-29T11:52:13+00:00",
+      "link": "https://arxiv.org/pdf/2604.26567v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Scalable generation pipeline for vast outdoor 3D environments",
+      "llm_evidence_cn": "大规模室外3D环境的可扩展生成管线",
+      "llm_evidence": "大规模室外3D环境的可扩展生成管线",
+      "canonical_evidence": "大规模室外3D环境的可扩展生成管线",
+      "llm_tldr_en": "Presents AirZoo, a large-scale dataset and generation pipeline for aerial geometric 3D vision in outdoor scenes.",
+      "llm_tldr_cn": "提出AirZoo，一个用于室外场景航拍几何3D视觉的大规模数据集和自动化生成管线。",
+      "llm_tldr": "提出AirZoo，一个用于室外场景航拍几何3D视觉的大规模数据集和自动化生成管线。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.26917v1",
+      "title": "AnimateAnyMesh++: A Flexible 4D Foundation Model for High-Fidelity Text-Driven Mesh Animation",
+      "abstract": "Recent advances in 4D content generation have attracted increasing attention, yet creating high-quality animated 3D models remains challenging due to the complexity of modeling spatio-temporal distributions and the scarcity of 4D training data. We present AnimateAnyMesh++, a feed-forward framework for text-driven animation of arbitrary 3D meshes with substantial upgrades in data, architecture, and generative capability. First, we expand the DyMesh-XL dataset by mining dynamic content from Objaverse-XL, increasing the number of unique identities from 60K to 300K and substantially broadening category and motion diversity. Second, we redesign DyMeshVAE-Flex with power-law topology-aware attention and vertex-normal enhanced features, which significantly improves trajectory reconstruction, local geometry preservation, and mitigates trajectory-sticking artifacts. Third, we introduce architectural changes to both DyMeshVAE-Flex and the rectified-flow (RF) generator to support variable-length sequence training and generation, enabling longer animations while preserving reconstruction fidelity. Extensive experiments demonstrate that AnimateAnyMesh++ generates semantically accurate and temporally coherent mesh animations within seconds, surpassing prior approaches in quality and efficiency. The enlarged DyMesh-XL, the upgraded DyMeshVAE-Flex, and variable-length RF together deliver consistent gains across benchmarks and in-the-wild meshes. We will release code, models, and the expanded DyMesh-XL upon acceptance of this manuscript to facilitate research in 4D content creation.",
+      "authors": [
+        "Zijie Wu",
+        "Chaohui Yu",
+        "Fan Wang",
+        "Xiang Bai"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-29T17:27:40+00:00",
+      "link": "https://arxiv.org/pdf/2604.26917v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "text-driven 4D content generation and 3D mesh animation",
+      "llm_evidence_cn": "文本驱动的4D内容生成与3D网格动画",
+      "llm_evidence": "文本驱动的4D内容生成与3D网格动画",
+      "canonical_evidence": "文本驱动的4D内容生成与3D网格动画",
+      "llm_tldr_en": "A feed-forward framework for high-fidelity text-driven animation of arbitrary 3D meshes using a large-scale dataset.",
+      "llm_tldr_cn": "一种用于任意3D网格高保真文本驱动动画的前馈框架，利用大规模数据集提升生成能力。",
+      "llm_tldr": "一种用于任意3D网格高保真文本驱动动画的前馈框架，利用大规模数据集提升生成能力。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.26934v1",
+      "title": "World2VLM: Distilling World Model Imagination into VLMs for Dynamic Spatial Reasoning",
+      "abstract": "Vision-language models (VLMs) have shown strong performance on static visual understanding, yet they still struggle with dynamic spatial reasoning that requires imagining how scenes evolve under egocentric motion. Recent efforts address this limitation either by scaling spatial supervision with synthetic data or by coupling VLMs with world models at inference time. However, the former often lacks explicit modeling of motion-conditioned state transitions, while the latter incurs substantial computational overhead. In this work, we propose World2VLM, a training framework that distills spatial imagination from a generative world model into a vision-language model. Given an initial observation and a parameterized camera trajectory, we use a view-consistent world model to synthesize geometrically aligned future views and derive structured supervision for both forward (action-to-outcome) and inverse (outcome-to-action) spatial reasoning. We post-train the VLM with a two-stage recipe on a compact dataset generated by this pipeline and evaluate it on multiple spatial reasoning benchmarks. World2VLM delivers consistent improvements over the base model across diverse benchmarks, including SAT-Real, SAT-Synthesized, VSI-Bench, and MindCube. It also outperforms the test-time world-model-coupled methods while eliminating the need for expensive inference-time generation. Our results suggest that world models can serve not only as inference-time tools, but also as effective training-time teachers, enabling VLMs to internalize spatial imagination in a scalable and efficient manner.",
+      "authors": [
+        "Wanyue Zhang",
+        "Wenxiang Wu",
+        "Wang Xu",
+        "Jiaxin Luo",
+        "Helu Zhi",
+        "Yibin Huang",
+        "Shuo Ren",
+        "Zitao Liu",
+        "Jiajun Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-29T17:48:01+00:00",
+      "link": "https://arxiv.org/pdf/2604.26934v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "distilling spatial imagination from generative world models",
+      "llm_evidence_cn": "从生成式世界模型中提取空间想象力",
+      "llm_evidence": "从生成式世界模型中提取空间想象力",
+      "canonical_evidence": "从生成式世界模型中提取空间想象力",
+      "llm_tldr_en": "Distills dynamic spatial reasoning from generative world models into vision-language models.",
+      "llm_tldr_cn": "将生成式世界模型中的动态空间推理能力蒸馏到视觉语言模型中。",
+      "llm_tldr": "将生成式世界模型中的动态空间推理能力蒸馏到视觉语言模型中。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
