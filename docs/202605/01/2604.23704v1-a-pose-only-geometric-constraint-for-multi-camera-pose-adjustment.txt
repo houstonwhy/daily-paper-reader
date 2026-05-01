@@ -1,0 +1,1278 @@
+Title: A Pose-only Geometric Constraint for Multi-Camera Pose Adjustment
+
+URL Source: https://arxiv.org/pdf/2604.23704v1
+
+Published Time: Tue, 28 Apr 2026 01:04:15 GMT
+
+Number of Pages: 18
+
+Markdown Content:
+1
+
+# A Pose-only Geometric Constraint for Multi-Camera Pose Adjustment 
+
+Shunkun Liang, Banglei Guan, Bin Li, Qifeng Yu, and Yang Shang 
+
+✦
+
+Abstract —Multi-camera systems offer rich observation capabilities for visual navigation and 3D scene reconstruction; however, the resulting feature redundancy often compromises computational efficiency. This challenge is particularly pronounced during bundle adjustment, where the non-linear optimization of both system poses and scene points incurs substantial computational overhead. To address this challenge, this paper introduces a pose-only geometric constraint for multi-camera systems and proposes a corresponding pose adjustment algorithm. Specifically, we use generalized camera model to establish a unified representation of the multi-camera system. Building upon this model, we formulate the multi-camera pose-only constraint, which implicitly represents a 3D scene point using two base observations and their as-sociated poses, thereby achieving a pose-only representation of the pro-jection geometry. Subsequently, we introduce a multi-camera pose ad-justment algorithm that eliminates 3D points from the parameter space, thereby achieving efficient and focused pose optimization. Experimental results on both synthetic and real-world datasets demonstrate that the proposed algorithm outperforms baseline bundle adjustment methods in computational efficiency, while maintaining or even improving pose estimation accuracy. 
+
+Index Terms —Multi-camera system, Generalized camera model, Pose-only constraint, Pose adjustment. 
+
+1 INTRODUCTION 
+
+# RECOVERING the visual system poses and the scene structure from a set of images is a classic and funda-mental problem in 3D vision. Conventional monocular or stereo systems, limited by their narrow field of view, often suffer from fragility and low accuracy in ill-conditioned scenarios such as dynamic environments, low-texture re-gions, or occlusions. Multi-camera systems typically offer a broader field of view and richer observations, thus demon-strating greater robustness in these challenging scenarios. Their unique advantages have led to widespread attention in applications such as Visual Odometry (VO) [1, 2], 3D reconstruction [3, 4], and autonomous driving [5, 6]. Within these applications, the pose optimization of multi-camera systems is a critical technique that determines localization accuracy and 3D reconstruction quality. 
+
+• S. Liang, B. Guan, B. Li, Q. Yu and Y. Shang are with the College of Aerospace Science and Engineering, National University of Defense Tech-nology, Changsha 410000, China. E-mail: {liangshunkun, guanbanglei12, libin19a, yuqifeng, shangyang1977 }@nudt.edu.cn. 
+
+• Corresponding author: Banglei Guan. 
+
+• This work was supported by the National Natural Science Foundation of China under Grant 12372189 and the Science and Technology Innovation Program of Hunan Province under Grant 2025RC1045 ,l lR t,r rR t,i iR tlvlfrvrfW
+
+> X
+
+                            
+
+> ( , ) ( , ) ( , ) ( , ) ( , ) ,,,,1,() | W
+> l r iiiil r l r l r il r sfiN=+=XRtfvvfRtifiv1i+f1i+v
+
+Fig. 1: Schematic diagram of multi-camera pose-only con-straint. The multi-camera system is represented by the generalized camera model, where each image observation uniquely corresponds to a 6D vector (f , v). After determin-ing the left- and right-base observations for 3D point XW ,the remaining observations can be analytically expressed as functions of the base observations and their corresponding poses, together forming the pose-only constraint set S(l,r )
+
+XW .Bundle adjustment optimizes 3D scene points and cam-era poses by minimizing reprojection errors, serving as the gold standard for achieving final estimation accuracy. [7]. Many excellent methods and frameworks have been proposed for improving its computational efficiency and scalability [8, 9, 10, 11]. These methods can be directly extended and applied to multi-camera systems, primar-ily by introducing additional extrinsic constraints [12, 13]. However, the efficiency problem of pose optimization in multi-camera system has received relatively less attention. The abundant observational features also introduce data redundancy, causing the parameter space to grow rapidly and leading to computational bottlenecks. Therefore, how to effectively enhance the efficiency of pose optimization for multi-camera systems while ensuring accuracy has become a core issue that needs to be addressed for their practical application. Jointly optimizing camera poses and 3D points results in a high-dimensional parameter space significantly increases the computational cost per iteration. We note that in simulta-neous localization and mapping (SLAM) and structure from motion (SfM), 3D scene points are essentially determined by camera poses and observations, and can be reconstructed 
+
+> arXiv:2604.23704v1 [cs.CV] 26 Apr 2026 2
+
+via triangulation once accurate poses are available. This indicates that 3D points are not essential component in the pose optimization process. Eliminating them from the optimization variables can significantly reduce the parame-ter space. Recently, Cai et al. proposed a depth-pose-only (DPO) constraint for a single camera, which analytically expresses 3D scene point depths using only poses [14, 15]. Inspired by this work, we extend the pose-only formulation to multi-camera systems and propose a corresponding pose adjustment algorithm. Extending directly at the individual camera level re-quires addressing the issues of coordinate system drift and scale inconsistency among the camera subsystems. To avoid these challenges, we model the multi-camera system as a generalized camera [16]. The observation in multi-camera system is represented as a 6D-vector, which uniquely corre-sponds to an image point through the known extrinsic and each camera’s intrinsic. This modeling approach allows our algorithm to be applied to arbitrary multi-camera system configurations. Based on this representation, we propose a multi-camera pose-only constraint where 3D scene points are analytically expressed using two base observations and corresponding poses. The remaining observations can be represented as a function of the base observation pair and poses, without relying on explicit 3D scene points coor-dinates. Figure 1 illustrates the schematic diagram of our multi-camera pose-only constraint. The multi-camera pose-only constraint allows us to de-fine a cost function that depends solely on poses. Based on this formulation, we propose a multi-camera pose adjust-ment algorithm, in which 3D point variables are eliminated from the optimization process, thereby effectively avoiding a loss in computational efficiency. Accordingly, we use the term pose adjustment to distinguish it from conventional bundle adjustment and to emphasize our core innovation. Base observations selection is a critical step in the pose-only constraint, as it directly influences the final optimization accuracy. We therefore propose a base observations selection algorithm based on the uncertainty ellipsoid roundness. Following pose optimization, we propose a statistically opti-mal 3D reconstruction algorithm for the generalized camera model to complete the visual geometric pipeline. Our contributions are summarized as follows: 
+
+• We propose a multi-camera pose-only constraint 
+
+based on generalized camera model. The projection geometry is equivalently expressed as a function of two base observations and the corresponding poses. 
+
+• We develop a multi-camera pose adjustment algo-rithm that removes 3D points from the optimization variables and focuses on poses, avoiding the high-dimensional parameter space of bundle adjustment. 
+
+• We propose a key base observations selection algo-rithm for the multi-camera pose-only constraint. This algorithm uses the uncertainty ellipsoid roundness of reconstructed 3D points as the metric. 
+
+• Given the optimized poses, we propose a statistically optimal reconstruction algorithm to complete visual geometric computing. The paper is organized as follows. Section 2 reviews related works on multi-camera visual odometry and bun-dle adjustment. The multi-camera pose-only constraint is established in Section 3. In Section 4, we propose a complete multi-camera pose adjustment algorithm along with its aux-iliary algorithms. Section 5 demonstrates the performance of the proposed algorithms on both synthetic and real-world data. The paper is concluded in Section 6. 
+
+2 RELATED WORK 
+
+Since the proposed method is primarily aimed at addressing the pose optimization problem of multi-camera system, we review works on multi-camera visual odometry and bundle adjustment. 
+
+Multi-Camera Visual Odometry . Currently, there are numerous studies and open-source systems on visual odom-etry. These studies mainly focus on monocular [17, 18], stereo [19, 20], and fused visual-inertial odometry[21, 22]. Recently, multi-camera visual odometry is gradually gain-ing more attention due to its wider field of view and stronger robustness. MCPTAM [23] extends PTAM [24] to achieve real-time pose tracking and mapping for multi-ple non-overlapping field-of-view cameras. MultiCol-SLAM [25] expands on ORB-SLAM2 [19] to support rigidly con-nected multi-fisheye camera systems and introduces the multi-keyframes for pose optimization. SVO [2] directly extends its monocular work [18] to multi-camera systems. In addition, recent works extend monocular visual-inertial odometry to multi-camera systems to further enhance the robustness and accuracy of pose estimation [26, 27, 28]. These extended methods achieve significant performance improvements compared to monocular systems. In recent years, some literature has focused on address-ing the computational burden caused by redundant features in multi-camera systems. Zhang et al. [29] explore feature tracking methods for multi-camera visual odometry front-end and propose a selection mechanism for the optimal fea-ture subset, effectively reducing the back-end optimization time. Kuo et al. [30] redesign the front-end of multi-camera SLAM and introduce an entropy-based adaptive keyframe selection algorithm to enhance system efficiency. Liu et al. [1] propose a pose tracker and local mapper suitable for arbitrary multi-camera systems. The pose tracker optimizes the pose by minimizing the photometric error between the keyframe from multiple cameras and the current frame. Kaveti et al. [31] calculate and utilize the overlapping re-gions of multiple camera fields of view for cross-matching, thereby avoiding duplicate observations of features. These methods primarily focus on optimizing front-end perfor-mance. However, the pose optimization stage in the back-end still faces the issue of redundant observed features. 
+
+Bundle Adjustment. Bundle adjustment (BA) represents one of the core steps in 3D vision applications, primarily focusing on optimizing camera system parameters and 3D scene points by minimizing reprojection errors [7, 32] or photometric errors [33, 34]. This technique ensures the final accuracy of most vision , such as VO [19, 35], SfM [3, 36], and camera calibration [37, 38]. A detailed study on bundle adjustment can be found in the classical literature [7]. For several decades, researchers have been working to improve the computational efficiency and scalability of bundle ad-justment. Recent work has focused on achieving large-scale 3
+
+bundle adjustment through efficient solutions to the normal equations [8, 11, 39, 40]. Agarwal et al. [8] propose an efficient solver using the preconditioned conjugate gradient. Square root BA [39] marginalizes 3D points via QR de-composition to avoid explicitly forming the Hessian matrix, thereby reducing both memory footprint and computational cost. Power BA [11] approximates the inverse of the Schur complement using a power series expansion to avoid the high cost of explicitly inverting the Hessian matrix. In addi-tion, some studies have significantly improved the runtime through efficient parallelization and distributed computing techniques [41, 42]. In addition to accelerating the solving process of bundle adjustment itself, another approach is to eliminate the opti-mization of 3D scene points that consume significant com-putational resources. The pose graph optimization method [43] significantly improves computational speed by omitting the optimization of 3D scene points; however, it completely ignores image observation, resulting in accuracy that is entirely dependent on the quality of relative pose estimates. Lee et al. [44] extend the pure rotation constraints of the two-view geometry [45] and proposed a multi-view global rotation optimization method. This approach considers im-age observations as input, allowing for independent rotation optimization. Cai et al. [15] introduce a pair of pose-only constraints in the two-view geometry, analytically represent-ing scene depth through camera poses. These constraints are subsequently extended to multi-view situations [14], leading to the depth-pose-only (DPO) constraint. The DPO constraint has been applied in SLAM systems [46, 47], demonstrating significant computational advantages. Compared to monocular systems, research on multi-camera systems bundle adjustment is relatively limited. Schneider et al. [12] represent the observed and scene points as spherical normalized vectors, transforming the minimization of re-projection errors into the computation of the null space of direction vectors in each iteration. Urban et al. [13] represent each camera in the multi-camera system with a general camera model [48], and extend the standard collinearity equations. Based on this, a bundle adjustment method applicable to any multi-camera system is proposed. Recently, the open-source SfM pipeline COLMAP [36] has incorporated support for multi-camera systems and pro-vides an interface to jointly optimizes global rig pose and 3D scene points. Mathematically, its objective function is equivalent to that of [13], which minimizes the sum of reprojection errors across all constituent cameras. However, none of these methods address the computational efficiency issues arising from multi-camera systems. This paper intro-duces the concept of pose-only for the first time in the pose optimization of multi-camera systems, effectively address-ing the efficiency issues caused by redundant features. 
+
+3 MULTI -CAMERA POSE -ONLY CONSTRAINT 
+
+In this section, we model the multi-camera system as a gen-eralized camera model and derive its projection equation. Based on this, we further propose the pose-only geometry along with the corresponding constraint set. 
+
+3.1 Generalized Camera Model 
+
+Without loss of generality, we assume a multi-camera sys-tem composed of C cameras, where extrinsic parameters are known. Let us denote the projection function of the c-th camera as πc, whose intrinsic parameters are also known. The projection process of the c-th camera is expressed as: 
+
+s˜x = πc(Xc), (1) where s is a scale factor, ˜x = [ u, v, 1] T is the homogeneous form of 2D image pixel corresponding to the 3D scene point Xc observed by camera. Note that πc is not unique; it corresponds to different camera models, depending on the application scenario. For a classical perspective cam-era model, πc(X) is expressed as: πc(X) = KcX, where 
+
+Kc is the intrinsic matrix of c-th camera. For wide-field cameras, πc can be replaced by a fisheye model [49] or omnidirectional model [48]. The extrinsic parameters of c-th camera are denoted as (Rc, tc), where Rc ∈ SO (3) is the rotation matrix and tc ∈ R3 is the translation vector. Extrinsic parameters refer to the transformation from the c-th camera to the body coordinate system of multi-camera. Given a 3D scene point XW , which is observed by the c-th camera in the multi-camera system, the corresponding 2D image pixel is denoted as x. At this time, assuming the pose of multi-camera system is (R, t), the specific expression of the projection equation is: 
+
+s˜x = πc(RTc (RX W + t) − RTc tc). (2) Moving the parameters related to the multi-camera system to the left side of the equation, eq. (2) can be rewritten as: 
+
+sRcπ−1 
+
+> c
+
+(˜ x) + tc = RX W + t, (3) where π−1 
+
+> c
+
+is the back projection function of the c-th camera. We define f = Rcπ−1 
+
+> c
+
+(˜ x) and v = tc. Here, f and v are the normalized direction vector and vertex of the observation ray corresponding to the 2D pixel x, respectively. Finally, the projection equation can be expressed as: 
+
+sf + v = RX W + t. (4) The projection function eq. (4) allows us to treat the multi-camera system as a generalized camera model. Each 2D image pixel x of every camera uniquely corresponds to a 6D observation ray (f , v). This projection equation is univer-sal and applicable to complex multi-camera systems with arbitrary configurations and camera models. Additionally, the extrinsic calibration scale of the multi-camera system is directly incorporated into the projection equation, ensuring geometric global consistency. 
+
+3.2 Pose-only Constraint 
+
+Based on the generalized camera model, we hereby pro-pose the pose-only geometry constraint for multi-camera systems. Consider a 3D scene point XW that is observed by a multi-camera system from multiple poses, resulting in 
+
+N observations. We denote the l-th and r-th observations of XW as (fl, vl) and (fr , vr ), which correspond to poses 
+
+(Rl, tl) and (Rr , tr ), respectively. The projection equations for those two observations are expressed as: 
+
+sr fr + vr = Rr XW + tr , (5) 
+
+slfl + vl = RlXW + tl. (6) 4
+
+From eq. (6), the point XW can be represented by observa-tion (fl, vl) and pose (Rl, tl) as: 
+
+XW = RTl (slfl + vl − tl). (7) Substituting eq. (7) into eq. (5), we get: 
+
+sr fr + vr = Rlr (slfl + vl) + tlr , (8) where 
+
+Rlr = Rr RTl , tlr = tr − Rr RTl tl.
+
+By left multiplying the skew-symmetric matrix of fr on both sides of eq. (8), we obtain: 
+
+[fr ]×vr = [ fr ]×[Rlr (slfl + vl) + tlr ]= sl[fr ]×Rlr fl + [ fr ]×Rlr vl + [ fr ]×tlr . (9) Then, we can calculate the left scale factor sl as: 
+
+sl = || [fr ]×(vr − Rlr vl − tlr )|| || [fr ]×Rlr fl|| = λlr 
+
+θlr 
+
+, (10) where λlr = ∥[fr ]×(vr − Rlr vl − tlr )∥ and θlr =
+
+∥[fr ]×Rlr fl∥. Note that sl is a function of the observations 
+
+(l, r ) and their poses, and has nothing to do with the 3D point XW . Now, let us consider a new observation (fi, vi),which corresponds to the i-th observation of XW from the multi-camera system. The corresponding pose is denoted as (Ri, ti). Similarly, the observation pair (l, i ) can also be written in the form of eq. (8) as: 
+
+sifi +vi = Rli (slfl + vl) + tli (11) 
+
+Proposition 1. (Equal-depth Constraint) . Let s(l,r ) 
+
+> l
+
+and s(l,i )
+
+> l
+
+denote the scale factors of the left observation in pairs (l, r )
+
+and (l, i ) respectively. Then: s(l,r ) 
+
+> l
+
+= s(l,i ) 
+
+> l
+
+.
+
+Proof. Since both observation pairs (l, r ) and (l, i ) corre-spond to the same 3D point XW , the expression for XW in terms of the l-th observation must be unique. Substituting 
+
+s(l,r ) 
+
+> l
+
+and s(l,i ) 
+
+> l
+
+into eq. (7) yields: 
+
+XW = RTl (s(l,r ) 
+
+> l
+
+fl + vl − tl) = RTl (s(l,i ) 
+
+> l
+
+fl + vl − tl)=⇒ : s(l,r ) 
+
+> l
+
+fl = s(l,i ) 
+
+> l
+
+fl
+
+Since fl is a nonzero unit vector, the above equation holds only when s(l,r ) 
+
+> l
+
+= s(l,i ) 
+
+> l
+
+. □
+
+The equal-depth constraint arises from a fundamental fact: in the generalized camera model, each observation corresponds to a unique 3D point. Moreover, the scale factor of the same observation is unique and does not change with different pairings. We can see from eq. (11) that the new observation (fi, vi)
+
+can be fully represented by the observation pair (l, r ). It is solely dependent on the pose and observations and is completely independent of the 3D point XW .
+
+Proposition 2. (Geometric Equivalence) . Equation (11) is geometrically equivalent to the projection equation of ob-servation (fi, vi).
+
+Proof. According to the derivation of eq. (4) to eq. (11), the necessity is obviously established. Assuming that eq. (11) holds, we have: 
+
+sifi +vi = Rli (slfl + vl) + tli 
+
+= Rli (RlXW + tl) + tli 
+
+= RiRTl RlXW + RiRTl tl + ti − RiRTl tl
+
+= RiXW + ti
+
+Both sufficiency and necessity are established. □
+
+The equivalence between eq. (11) and the projection equation implies that our derivation process maintains the integrity of the geometric information without any loss. In summary, for all observations corresponding to XW , we can express them as a function of the observation pair (l, r ). For 
+
+XW , we can obtain a constraint set: 
+
+S(l,r ) 
+
+> XW
+
+=
+
+
+
+sifi +vi = Rli 
+
+ λlr 
+
+θlr 
+
+fl +vl
+
+
+
++tli |1 ≤ i ≤ N, i ̸ = l
+
+
+
+(12) Since this constraint set is only related to the poses, we call S(l,r ) 
+
+> XW
+
+the multi-camera pose-only constraint on XW .The l-th and r-th observations are defined as left-base and right-base observations of XW , respectively. The selection algorithm of base observations is detailed in section 4.3. For a multi-camera system with overlapping fields of view, a 3D point XW may be captured by multiple cameras at the same time. As a result, the corresponding base obser-vation pair (l, r ) for the XW may be generated at the same multi-camera pose, i.e. Rr = Rl and tr = tl. In this case, eq. (10) can be rewritten as: 
+
+sl = || [fr ]×(vr − vl)|| || [fr ]×fl|| = λlr 
+
+θlr 
+
+(13) Substituting eq. (13) into eq. (12), the multi-camera pose constraint is still valid. Compared to the projection equation, the multi-camera pose-only constraint effectively eliminates the dependence on explicit 3D points. In other words, the 3D points can be implicitly represented by the base observation pair and their poses. This formulation offers significant advantages. Dur-ing pose optimization, there is no need to treat numerous 3D points as optimization variables, which significantly reduces the dimensionality of the parameter space and improves the efficiency of the optimization. The following provides a detailed introduction to our pose adjustment algorithm. 
+
+4 MULTI -CAMERA POSE ADJUSTMENT 
+
+In this section, we introduce the pose adjustment algorithm based on the multi-camera pose-only constraint. Unlike bundle adjustment methods, our algorithm does not ex-plicitly rely on 3D points, which effectively reduces the dimensionality of the parameter space and avoids errors caused by inaccurate 3D points. 
+
+4.1 Pose-Only Residual 
+
+Visual SLAM and SFM systems [19, 36] typically recover 3D scene points through triangulation and use these points to associate registered frames and incoming frames. This asso-ciation is derived from the projection equations (e.g. eq. (2) or eq. (4)). The classic multi-camera bundle adjustment algorithms jointly optimize the 3D points and the poses of camera system by minimizing the reprojection error [12, 13]. However, the large number of 3D points leads to a dramatic increase in the parameter space, significantly raising com-putational costs. We introduce the multi-camera pose-only constraint and demonstrate its equivalence to the projection equations. The proposed constraint in eq. (12) demonstrates that each observation can be computed from the left-base 5
+
+and right-base observations. This approach replaces the step of reprojection of 3D points onto the images, eliminating the explicit dependence on 3D points. Let XWj represent the j-th 3D point in the world, which is observed by a calibrated multi-camera system within mul-tiple poses. The left-base and right-base observations of XWj
+
+are denoted as (fl, vl) and (fr , vr ), respectively. Then, we can obtain the constraint set S(l,r )
+
+> XWj
+
+for XWj . Representing the pose of the i-th observation as (Ri, ti), the i-th observation can be calculated as: 
+
+sij fij +vij = Rli ( λlr 
+
+θlr 
+
+fl + vl) + tli . (14) From eq. (3) and eq. (4), it can be seen that fij is a function of the 2D image pixel, and vij depends on the known multi-camera extrinsic parameters. Therefore, we move vij to the right side of the equation and multiply both sides by θlr .eq. (14) can be rewritten as: 
+
+sij θlr fij = λlr Rli fl + θlr (Rli vl + tli − vij ). (15) The residual in classical bundle adjustment is defined as the distance between the reprojection of 3D points and the actual 2D pixels. In our case, it is the distance between the normalized direction vectors of the reprojection and the actual observations. We define the residuals using nor-malized spherical error instead of normalized planar error. Prior work [10] demonstrates that normalized spherical error typically exhibits better convergence efficiency. Let 
+
+Yij = λlr Rli fl + θlr (Rli vl + tli − vij ), our residual function is defined as: 
+
+eij = Yij 
+
+∥Yij ∥ − ˆfij , (16) where ˆfij is the actual i-th observation corresponding to 
+
+XWj . Given M 3D scene points in space, which are observed by a multi-camera system from multiple poses, with each 3D point resulting in a total of N observations, our pose adjustment cost function is defined as: 
+
+T = arg min 
+
+> M
+
+X
+
+> j=1
+> N
+
+X
+
+> i=1
+
+∥eij ∥2, (17) where T = {Ri, ti}i=1 ...N is the pose set of multi-camera system. Note that due to the overlapping fields of view of the multi-camera system, different observations may corre-spond to the same pose. Therefore, the number of poses to be optimized is less than or equal to N .Here, we discuss another residual configuration in the multi-camera pose adjustment algorithm. In eq. (16), Yij 
+
+is derived from left- and right-base observations. These two base observations also exhibit a distinction between primary and secondary. In eq. (16), the left-base observation is treated as primary, which can be inferred from eq. (10). Equation (10) calculates the depth of left-base observation 
+
+sl, ultimately determining Yij . Similarly, we can also select the right-base observation as primary, which results in an additional residual component. Following the derivation in eqs. (5) to (10), the depth of right-base observation can be calculated as: 
+
+sr = ∥[fl]×(vl − Rrl vr − trl )∥∥[fl]×Rrl fr ∥ = λrl 
+
+θrl 
+
+, (18) where 
+
+Rrl = RlRTr , trl = tl − RlRTr tr .
+
+Then, we can obtain an additional set of pose-only con-straints on XW :
+
+S(r,l ) 
+
+> XW
+
+=
+
+
+
+sifi +vi = Rri 
+
+ λrl 
+
+θrl 
+
+fr +vr
+
+
+
++tri 1 ≤ i ≤ N, i ̸ = r
+
+
+
+.
+
+(19) Let elij and erij denote the residual functions using the left-and right-base observations as primary, respectively. elij is already calculated as eq. (16). We can calculate erij as: 
+
+erij = Zij 
+
+∥Zij ∥ − ˆfij , (20) where Zij = λrl Rri fr +θrl (Rri vr +tri −vij ). Furthermore, the cost function of our multi-camera pose adjustment opti-mization problem can be redefined as: 
+
+T = arg min 
+
+> M
+
+X
+
+> j=1
+> N
+
+X
+
+> i=1
+
+∥elij ∥2 + ∥erij ∥2. (21) Compared to eq. (17), the new cost function includes twice as many residual terms, offering additional constraints for optimization. This leads to more accurate pose adjustment but also increases computational complexity. Therefore, it is crucial to select an appropriate cost function for various applications to balance accuracy and efficiency. 
+
+4.2 Jacobian Calculation 
+
+A solution of eq. (17) can be obtained from an initial value 
+
+T0 using the Levenberg-Marquardt (LM) or Gauss-Newton (GN) iteration. The iterative increment ∆T is estimated by constructing and solving the normal equation, and the core step is to calculate the Jacobian matrix ∂eij /∂ T. In this section, we present the specific forms of the Jacobian matrix calculations and introduce several computational techniques to enhance efficiency. The Jacobian matrices for the pose of observation i, l and r are expressed as: 
+
+Jiij = ∂eij 
+
+∂Yij 
+
+ ∂Yij 
+
+∂φi
+
+, ∂Yij 
+
+∂ti
+
+
+
+,
+
+Jlij = ∂eij 
+
+∂Yij 
+
+ ∂Yij 
+
+∂φl
+
+, ∂Yij 
+
+∂tl
+
+
+
+,
+
+Jrij = ∂eij 
+
+∂Yij 
+
+ ∂Yij 
+
+∂φr
+
+, ∂Yij 
+
+∂tr
+
+
+
+,
+
+(22) where φ is the right perturbation of rotation. The first part of eq. (22) corresponds to the spherical normalization, which can be calculated as: 
+
+∂eij 
+
+∂Yij 
+
+= I3
+
+∥Yij ∥ − Yij YTij 
+
+∥Yij ∥3 (23) where I3 is the 3 × 3 identity matrix. The second part of eq. (22) corresponds to the partial derivative of the poses, with specific results provided in the following. Constructing the normal equations for the optimiza-tion problem is one of the most time-consuming steps. To facilitate the practical application of the pose adjustment in applications such as SLAM, we provide the analytical expression for the Jacobian matrix. For notational simplicity, we use the superscript ∧ to denote the skew-symmetric 6
+
+matrix of a vector. The partial derivative of Yij with respect to (φi, ti) is calculated as: 
+
+∂Yij 
+
+∂ti
+
+= θlr I3,∂Yij 
+
+∂φi
+
+= Ri
+
+h
+
+θlr (RTl tl)∧ − λlr (RTl fl)∧ − θlr (RTl vl)∧i
+
+.
+
+Let a = tlr + Rlr vl − vr , the partial derivative of Yij with respect to (φr , tr ) is calculated as: 
+
+∂Yij 
+
+∂tr
+
+= Rli fl
+
+ ∂λ lr 
+
+∂a
+
+T
+
+,∂Yij 
+
+∂φr
+
+= Rli fl
+
+ ∂λ lr 
+
+∂φr
+
+T
+
++ ( Rli vl + tli − vij )
+
+ ∂θ lr 
+
+∂φr
+
+T
+
+,
+
+where 
+
+∂λ lr 
+
+∂a = − 1
+
+λlr 
+
+f ∧ 
+
+> r
+
+f ∧ 
+
+> r
+
+(tlr + Rlr vl − vr ),∂λ lr 
+
+∂φr
+
+=
+
+h
+
+Rr (RTl tl)∧ − Rr (RTl vl)∧iT ∂λ lr 
+
+∂a ,∂θ lr 
+
+∂φr
+
+= 1
+
+θlr 
+
+h
+
+f Tr Rlr flf Tr Rr (RTl fl)∧iT
+
+.
+
+Based on the specific expressions of ∂Yij 
+
+> ∂φl
+
+and ∂Yij  
+
+> ∂tl
+
+, we eliminate redundant matrix operations. The following cal-culation techniques can be obtained: 
+
+∂Yij 
+
+∂φl
+
+= − ∂Yij 
+
+∂φl
+
+− ∂Yij 
+
+∂φi
+
+,∂Yij 
+
+∂tl
+
+= − ∂Yij 
+
+∂tr
+
+Rlr − θlr Rli .
+
+The original calculation of derivatives ∂Yij 
+
+> ∂φl
+
+and ∂Yij  
+
+> ∂tl
+
+is quite complex. We have found some calculation techniques to express their derivatives strictly as combinations of exist-ing matrices. Our calculation techniques reduce the number of matrix operations by half, which helps to improve the construction speed of the normal equation. 
+
+4.3 Selection of Base Observations 
+
+In the multi-camera pose-only constraint eq. (12), each 3D scene point is actually represented by a pair of base observa-tions. Thus, a new question arises: how to select the optimal base observation pair for the 3D scene points? Cai et al. [14] chose the two views with the maximum θ as base views, while Ge et al. [46] select two frames with the maximum disparity angle. Additionally, we note that there is also a step to choose the main and associate views (anchors) in ParallaxBA [50]. In contrast to these methods, our general-ized camera model discards the concept of views/frames and instead selects the base observations. Inspired by [51], we propose a selection algorithm based on the uncertainty ellipsoid roundness of the reconstructed 3D scene points. The observation pair with the maximum uncertainty el-lipsoid roundness is selected as the base observations. In the following, we introduce the method for calculating the uncertainty ellipsoid roundness. As shown in fig. 2, let (fi, vi) and (fj , vj ) be two ob-servations of the 3D scene point XW , with known poses for each observation. Denote the covariance matrices of the direction vectors fi and fj as Σfi and Σfj , respectively. The ivjvjfjxΣjxjfΣixΣixififΣW
+
+> XW
+> X
+
+Σ
+
+Fig. 2: Schematic diagram of the uncertainty ellipsoid for 3D reconstruction points. The uncertainty ellipsoid ΣXW for the 3D point XW is calculated from the observed rays (fi, vi)
+
+and (fj , vj ), along with their directional covariance Σfi and 
+
+Σfj . The roundness of the uncertainty ellipsoid can be a measure for evaluating the capability of the observed pair in representing the 3D point. 
+
+Algorithm 1 Base Observations Selection Algorithm 
+
+Input: 
+
+• Observation set of XW : {(fi, vi)};
+
+• Corresponding pose set of observations: {(Ri, ti)};
+
+• Covariance matrix set of observation directions: {Σfi };
+
+Output: 
+
+• Left- and right-base observations: (fl, vl) and (fr , vr );// Phase 1: Select left-base observation  
+
+> 1:
+
+if Set {Σfi } is available then  
+
+> 2:
+
+for i = 1 to N do  
+
+> 3:
+
+Compute average variance: ¯σ2 
+
+> fi
+
+← trace (Σfi )/3; 
+
+> 4:
+
+end for  
+
+> 5:
+
+l ← arg min i ¯σ2 
+
+> fi
+
+; // Select minimum ¯σ2 
+
+> fi
+> 6:
+
+else  
+
+> 7:
+
+Initialize covariance matrix set: {Σfi = I3}; 
+
+> 8:
+
+l ← 1; // Default to first observation  
+
+> 9:
+
+end if  
+
+> 10:
+
+Set left-base: (fl, vl);// Phase 2: Select right-base observation  
+
+> 11:
+
+Initialize: Rmax ← 0, r ← 1; 
+
+> 12:
+
+for i = 1 to N do  
+
+> 13:
+
+Calculate the covariance matrix of XW using obser-vation pair (l, i ) from eq. (26)-eq. (32);  
+
+> 14:
+
+Calculate roundness Rli using eq. (33);  
+
+> 15:
+
+if Rli > R max then  
+
+> 16:
+
+Rmax ← Rli , r ← i; 
+
+> 17:
+
+end if  
+
+> 18:
+
+end for  
+
+> 19:
+
+Set right-base: (fr , vr ); 
+
+> 20:
+
+return (fl, vl) and (fr , vr );covariance of the direction vector f can be obtained through 2D observation ˜x covariance propagation [32]. Assuming the covariance of 2D observations is Σ˜x, we obtain: 
+
+Σf = Rc(Jπ−1 
+
+> c
+
+Σ˜xJTπ−1
+
+> c
+
+)RTc , (24) where Jπ−1 
+
+> c
+
+is the Jacobian of the back projection function 
+
+π−1 
+
+> c
+
+. From the projection equation eq. (4), we obtain the 7
+
+following two equations : 
+
+sifi = Pi ˜XW , sj fj = Pj ˜XW , (25) where Pi = [ Ri, ti − vi], Pj = [ Rj , tj − vj ] and ˜XW
+
+is the homogeneous form of XW . For a given vector 
+
+v = [ v1, v 2, v 3]T , we define an operator K(v) that extracts the first two rows of the skew-symmetric matrix [v]×. From eq. (25), we obtain the following linear system: 
+
+K(fi)Pi
+
+K(fj )Pj
+
+
+
+˜XW = 0. (26) This system can be solved in a least-squares sense under the unit norm constraint ∥ ˜XW ∥ − 1 = 0 . Consequently, the Gauss–Helmert model [52, 53, 54] with constraint can be employed to estimate the covariance matrix of ˜XW .Following the notation in [54], we define the two constraint functions as: 
+
+g(l, ˜XW ) = 
+
+ K(fi)Pi
+
+K(fj )Pj .
+
+
+
+˜XW = 0, h( ˜XW ) = ∥ ˜XW ∥ − 1 = 0 ,
+
+(27) where l = [ f Ti , f Tj ]T denotes the observation vector with its associated covariance matrix: 
+
+Σl =
+
+Σfi 00 Σfj
+
+
+
+. (28) Specifically, g(l, ˜XW ) represents the implicit functional con-straints involving both unknown parameter and observa-tions, and h( ˜XW ) imposes constraints solely on the un-knowns. By performing a first-order Taylor expansion at 
+
+bXW , we linearize these functions as: 
+
+g(l, ˜XW ) = g(l, bXW ) + E∆ ˜XW + F∆l = 0,
+
+h( ˜XW ) = h( bXW ) + HT ∆ ˜XW = 0, (29) where 
+
+E = ∂g(l, ˜XW )
+
+∂ ˜XW bXW
+
+=
+
+K(fi)Pi
+
+K(fj )Pj
+
+
+
+,
+
+F = ∂g(l, ˜XW )
+
+∂l bXW
+
+=
+
+"
+
+K(Pi bXW ) 00 K(Pj bXW )
+
+#
+
+,
+
+H = ∂h( ˜XW )
+
+∂ ˜XW bXW
+
+= bXW .
+
+(30) Here, bXW is the estimated value obtained from eq. (26). Since the derivation of Gauss–Helmert solution is rela-tively lengthy, we omit the intermediate steps and refer to [54] for further technical details and proofs. Let N =
+
+ET (FΣ lFT )−1E, the resulting covariance matrix for ˜XW is given by: 
+
+Σ ˜XW = N−1 − N−1H(HT N−1H)−1HT N−1. (31) Since Σ ˜XW is singular, we need to convert the homogeneous vector ˜XW to XW . The covariance of XW is calculated as: 
+
+ΣXW = ∂ ˜XW
+
+∂XW Σ ˜XW
+
+∂ ˜XW
+
+∂XW
+
+!T
+
+, ∂ ˜XW
+
+∂XW = 1˜XW
+
+> 4
+
+[I3, −XW ]
+
+(32) where ˜XW 
+
+> 4
+
+is the fourth component of ˜XW . Thus, we have recovered the covariance matrix of the 3D scene point from the observations. The matrix ΣXW geometri-cally represents the spatial uncertainty of XW , reflecting the reconstruction quality from the observation pair (i, j ).The uncertainty ellipsoid can be approximately obtained from ΣXW . We further perform the eigendecomposition on ΣXW = Udiag (λ1, λ 2, λ 3)VT . The uncertainty ellipsoid roundness of XW reconstructed from observation pair (i, j )
+
+is calculated as: 
+
+Rij =
+
+q
+
+λ3/λ 1. (33) The roundness Rij ranges from 0 to 1 and exhibits scale invariance. In the following, we propose a base observa-tions selection algorithm based on the uncertainty ellipsoid roundness. Since exhaustively checking all observation pairs is computationally expensive, our algorithm adopts a two-stage approach. First, the observation with the minimum average variance is selected as the left-base observation. The average variance of observation f is calculated as: 
+
+¯σ2 
+
+> f
+
+= 13 trace (Σf ). (34) Then, we iterate through the remaining observations. The observation that, when combined with the left-base obser-vation, forms an uncertainty ellipsoid with the maximum roundness is selected as the right-base observation. Algo-rithm 1 summarizes the detailed steps for selecting base observations. 
+
+4.4 Statistical Optimal Reconstruction 
+
+The proposed algorithm focuses solely on pose optimization for multi-camera systems. However, 3D scene reconstruc-tion is also a necessary component of a complete 3D visual geometric computing and plays a crucial role in applications such as SLAM [25] and SFM [3]. In this section, we introduce a statistically optimal triangulation method based on the generalized camera model, aiming at 3D scene reconstruc-tion. Our algorithm accounts for the covariance matrix of the observations and incorporates it into the cost function. Let XW denote the 3D scene point to be reconstructed, which corresponds to the observation set {(fi, vi)|1 ≤ i ≤
+
+N } from the multi-camera system. The accurate pose of each observation is obtained using pose adjustment algorithm. Then, we can determine XW by minimizing the sum of its Euclidean distances to all observation rays: 
+
+XW = arg min 
+
+> N
+
+X
+
+> i=1
+
+∥(I3 − fif Ti )( RiXW + ti − vi)∥2. (35) However, this solution is geometrically optimal but not statistically optimal for the reconstruction problem. In our triangulation method, the uncertainty of the observation direction f is considered. The covariance matrix of fi is given by Σfi , which can be computed via eq. (24). However, the covariance matrix Σfi is inherently singular because the spherically normalized vector fi possesses only two degrees of freedom. Directly using Σfi to model the three residual components in eq. (35) would introduce a redundant dimen-sion, leading to theoretical inconsistency. To eliminate the redundancy in both the covariance information and the distance residuals, we introduce the 8
+
+null space of spherically normalized vector [55]. Specifically, the null space of fi is computed as: 
+
+Jfi = null (f Ti ) = r s . (36) where the function null (·) performs a singular value de-composition of vector and extracts the right singular vectors corresponding to the two zero eigenvalues, yielding an 3×2
+
+orthogonal matrix. This null space spans the tangent plane of the unit sphere at fi, i.e., the two-dimensional subspace consisting of all directions orthogonal to fi. Within this tangent space, the original 3D residual can be projected into a 2D residual: 
+
+ei = JT 
+
+> fi
+
+fi = JT 
+
+> fi
+
+(RiXW + ti − vi). (37) The covariance matrix is accordingly transformed to: 
+
+Σei = JT 
+
+> fi
+
+Σfi Jfi . (38) We then define an optimization problem that aims at determining the 3D point XW by minimizing the sum of Mahalanobis distances between the 3D point and all observation rays. The cost function is defined as: 
+
+XW = arg min 
+
+> N
+
+X
+
+> i=1
+
+∥ei∥2Σ−1
+
+> ei
+
+= arg min 
+
+> N
+
+X
+
+> i=1
+
+eTi Σ−1 
+
+> ei
+
+ei, (39) where ∥ · ∥ Σ denotes Mahalanobis distance with covariance 
+
+Σ. Substituting eq. (37) into eq. (39) and setting the deriva-tive of the cost function with respect to XW to 0, we have: 
+
+> N
+
+X
+
+> i=1
+
+ATi Σ−1 
+
+> fi
+
+(AiXW + Bi) = 0, (40) where Ai = JT 
+
+> fi
+
+Ri and Bi = JT 
+
+> fi
+
+(ti − vi). Let 
+
+A =
+
+> N
+
+X
+
+> i=1
+
+ATi Σ−1 
+
+> ei
+
+Ai, B =
+
+> N
+
+X
+
+> i=1
+
+ATi Σ−1 
+
+> ei
+
+Bi,
+
+the 3D point XW is determined as: 
+
+XW = −A−1B. (41) Our method provides a statistically optimal closed-form solution to the reconstruction problem for the generalized camera model. The geometric error, as defined by eq. (35), is equivalent to the residual of the midpoint method for gen-eralized camera models proposed in [56]. When covariance is ignored, our method achieves the same accuracy as the midpoint method. However, we avoid complex derivations and large-scale matrix operations. Incorporating the covari-ance of the observations into the cost function enables the proposed method to achieve statistical optimality. 
+
+5 EXPERIMENTS 
+
+In this section, we evaluate the proposed method on both synthetic data and real datasets. The experiments are per-formed on a laptop with an Intel Core i5-12500H @ 2.5GHz CPU and 16GB of memory. We compare the following pose optimization algorithms in our evaluation.  
+
+> •
+
+MultiCol [13] is the standard multi-camera bundle adjustment method, and its cost function is defined as the sum of reprojection errors on 2D images.  
+
+> •
+
+BACS [12] represents both the scene and image points as minimum homogeneous form, with its cost func-tion defined as the sum of distances between the spherical normalized vectors.  
+
+> •
+
+MCPA only uses the left-base observation as primary to construct the residual term, with its cost function explicitly defined in eq. (17).  
+
+> •
+
+MCPALR uses both left- and right-base observations as primary to construct residual term, with its cost function explicitly defined in eq. (21). 
+
+MCPA and MCPALR are both proposed methods in this paper, differing only in the residual term construction step. In the experiments, MultiCol employs the pinhole camera model instead of the omnidirectional model [48]. This change simplifies the calculation process while maintaining the reliability and validity of the evaluation results. For quantitative evaluation of pose optimization accu-racy, we use two standard metrics: average rotation error 
+
+¯εR and average translation error ¯εt. Given the ground truth of pose set {(Rgt i , tgt i )|1 ≤ i ≤ N } and the esti-mated pose set {(Ri, ti)|1 ≤ i ≤ N }, average rotation and translation errors are calculated separately as follows: 
+
+¯εR = 1
+
+> N
+
+PNi=1 arccos(( trace (Rgt i RTi ) − 1) /2) and ¯εt =
+
+> 1
+> N
+
+PNi=1 ∥(tgt i −ti)∥/∥tgt i ∥. The average reprojection error ¯εp
+
+is used as an indirect metric to evaluate the reconstruction quality. In synthetic data experiments, the reconstruction accuracy is quantified by the average spatial distance error 
+
+¯εX between the reconstructed points and the ground truth. 
+
+5.1 Results on Synthetic Data 
+
+In synthetic experiments, a virtual multi-camera system observing 3D scene points is simulated along predefined trajectories to generate observation data. 
+
+5.1.1 Data Generation 
+
+The virtual multi-camera system designed for the exper-iments consists of four cameras. For convenience, each camera is represented using the pinhole model, with a focal length set to 540 pixels and a resolution set to 1080×960 pixels. Two extrinsic configurations are designed, referred to as the forward and the omnidirectional . In the forward con-figuration, the four cameras are arranged side-by-side with their optical axes aligned in the same direction, as shown on the left of fig. 3. This configuration provides rich stereo vision details, which are beneficial for 3D reconstruction tasks. In the omnidirectional configuration, the four cameras are positioned at different locations, with their optical axes pointing in four different directions, as shown on the right of fig. 3. This configuration provides a broader field of view for autonomous driving scenarios, which helps to improve the robustness of localization. In the 3D space [−500 m, 500 m]3, scene points are ran-domly generated, and the multi-camera system moves along predefined trajectories to capture image observations. We defined two types of trajectories: linear and curve motion. Linear motion requires the multi-camera system to move along a straight-line trajectory, while curve motion man-dates movement along a circular trajectory. Based on these 9
+
+Fig. 3: Two types of extrinsic configurations for the multi-camera system used in the synthetic data experiments. Left 
+
+is the forward configuration, where all cameras observe the same direction. Right is the omnidirectional configuration, where four cameras observe four different directions. Multi -Camera System  3D Scene Point 
+
+Fig. 4: Multi-camera system motion trajectories and 3D scene points used in the synthetic data experiments. The combination of two multi-camera system configurations and two motion trajectories results in four synthetic datasets. From left to right, they are labeled Forward-Linear , Forward-Curve , Omni-Linear , and Omni-Curve respectively. two motion types and different multi-camera system con-figurations, we generated four synthetic datasets: Forward-Linear , Forward-Curve , Omni-Linear , and Omni-Curve . Fig-ure 4 illustrates the configurations of four synthetic datasets. Subsequently, the 3D scene points are projected onto the image according to the predefined multi-camera system parameters and motion trajectories. Considering practical conditions, we add zero-mean Gaussian noise with varying magnitude to the 2D image points. The noise standard devi-ation σ is randomly sampled from a uniform distribution 
+
+U(0 , σ max ), where σmax denotes the maximum standard deviation. Accordingly, the covariance matrix of the image point is diag( σ2, σ 2). Following [10], the initial poses are obtained by perturbing the ground truth with noise. We add a perturbation of 2◦ with an arbitrary direction to the rotation, and Gaussian noise of 0.5m to the translation. For fair comparison, the initial 3D scene points are obtained by multi-view triangulation [32] using the perturbed poses, rather than by directly adding noise. 
+
+5.1.2 Base Observations Selection Results 
+
+This experiment validates the advantages of our proposed base observations selection strategy and reveals the reasons why our pose adjustment achieves better accuracy than tra-ditional bundle adjustment. We compare four base observa-tion selections strategies. The Random-Selection strategy selects two observations randomly from all available ones as the base observations. The Maximum-Disparity strategy, adopted in PIPO-SLAM [46] and ParallaxBA [50], selects two observations with the largest disparity angle as base. The Maximum-Theta strategy, proposed in [14], selects two observations with the largest θlr as the bases, where θlr is Maximum-Roundness (Ours) Maximum-Theta      
+
+> Multi-Observation
+> Multi-Disparity Random-Selection 1246810
+> Maximum Noise Std (Pixels)
+> 10 -3
+> 10 -2
+> 10 -1
+> 10 0
+> 10 1
+> Triangulation Error (m)
+
+(a) Forward-Linear 1 2 4 6 8 10  
+
+> Maximum Noise Std (Pixels)
+> 10 -3
+> 10 -2
+> 10 -1
+> 10 0
+> 10 1
+> Triangulation Error (m)
+
+(b) Forward-Curve 
+
+Fig. 5: Comparison results of four base observation selection strategies on the (a) Forward-Linear and (b) Forward-Curve 
+
+datasets. Results show the median triangulation error over 1,000 independent trials, with the y-axis in logarithmic scale. Our method significantly outperforms the other three strate-gies and surpasses joint triangulation using all observations, providing experimental validation for pose-only constraint. calculated using eq. (10). The proposed strategy is named 
+
+Maximum-Roundness . Triangulation is performed using two base observations [56]. The average Euclidean distance between the triangulated 3D points and their ground truth is used to evaluate the performance of selection strate-gies quantitatively. Additionally, we compare the results of triangulating 3D points using all observations, called 
+
+Multi-Observation . This method corresponds to the case where 3D points are represented by using all obser-vations within bundle adjustment. We conduct validations on Forward-Linear and Forward-Curve synthetic datasets. The maximum standard deviation σmax of Gaussian noise added to the 2D image points varies from 1 to 10 pixels. For each maximum noise standard deviation, we perform 1000 independent trials and report the median results. The comparison results of the base observation selection experiments are presented in fig. 5. The overall trend in-dicates that the triangulation error increases progressively with the rise of the maximum noise standard deviation. Across all noise levels, the proposed strategy outperforms other strategies, maintaining triangulation errors at con-sistently low levels. Even under high noise levels, our method effectively identifies the best two base observations. Strategies Maximum-Disparity and Maximum-Theta sig-nificantly outperform Random-Selection , but their per-formance remains inferior to our proposed strategy. The comparison with Multi-Observation validates a non-intuitive fact that 3D points triangulated from two well-selected observations can achieve higher accuracy than those triangulated from multiple observations. Thus, it can be inferred that our base observation selection strategy provides experimental justification for the pose adjustment to achieve accuracy superior to bundle adjustment. 
+
+5.1.3 Reconstruction Results 
+
+This experiment aims to validate the accuracy advantages of the proposed statistically optimal reconstruction. We evaluate our proposed statistically optimal triangulation (SOT (Ours) ) against six mainstream and widely adopted 10 1 2 4 6 8 10 
+
+> Maximum Noise Std (Pixels)
+> 10 -3
+> 10 -2
+> 10 -1
+> 10 0
+> Triangulation Error (m)  MidPoint LinearLS DLT NonLin RANSAC IRMP SOT (Ours)
+
+(a) Forward-Linear 1 2 4 6 8 10  
+
+> Maximum Noise Std (Pixels)
+> 10 -3
+> 10 -2
+> 10 -1
+> 10 0
+> Triangulation Error (m)  MidPoint LinearLS DLT NonLin RANSAC IRMP SOT (Ours)
+
+(b) Forward-Curve 
+
+Fig. 6: Accuracy comparison of triangulation methods on the (a) Forward-Linear and (b) Forward-Curve datasets. Results show the median triangulation error over 1,000 independent trials, with the y-axis in logarithmic scale. The proposed method achieves the best accuracy across all noise levels. triangulation approaches on Forward-Linear and Forward-Curve synthetic datasets. The evaluated baselines include the MidPoint [56] as implemented in OpenSfM; the linear solver LinearLS used in COLMAP[36], originally pro-posed by Hartley et al.[57]; and the DLT method [32], com-monly adopted in systems such as ORB-SLAM2[19]. Ad-ditionally, we include the nonlinear optimization approach (NonLin ), the iteratively reweighted least-squares midpoint method ( IRMP )[58], and the RANSAC triangulation strategy commonly used for robust estimation. Gaussian noise with the maximum standard deviation ( σmax ) ranging from 1 to 10 pixels is added to the image points. For each noise level, we perform 1,000 independent Monte Carlo trials and report the median error. The comparison of reconstruction results is shown in fig. 6. Across both datasets, the proposed statistically op-timal reconstruction consistently achieves the lowest error across all noise levels, with its performance advantage be-coming increasingly pronounced as the noise intensifies. Under the high-noise condition ( σmax = 10 ), SOT (Ours) 
+
+yields an improvement in precision by an order of magni-tude compared to the second-best alternatives, NonLin and 
+
+IRMP . The performance gain stems from the core design of our algorithm. We explicitly incorporate the full covariance of 2D observations into the optimization objective via the Mahalanobis distance, which enables the reconstruction to adaptively suppress measurements with high uncertainty. 
+
+5.1.4 Pose Optimization Results 
+
+In this experiment, we compare the performance of four pose optimization algorithms on synthetic datasets under different image noise levels. In each dataset, the motion trajectory of multi-camera system consists of 50 sampling poses, resulting in 4 × 50 images. A total of 1,000 3D scene points are randomly and uniformly generated within the space. Gaussian noise with maximum standard deviations 
+
+σmax of [1 , 2, 4, 6, 8, 10] pixels is added to the 2D image points. For each noise level, 100 independent Monte Carlo trials are conducted, and the statistical results are reported. The pose optimization results are shown in fig. 7. The proposed methods, MCPA and MCPALR , consistently out-perform the baseline algorithms MultiCol and BACS in pose estimation accuracy across different noise levels. We attribute the advantage to two key aspects. On the one hand, MCPA and MCPALR effectively decouple multi-camera poses from 3D scene points using the pose-only constraint, allowing them to focus solely on pose optimization. This renders our algorithms entirely immune to noise originating from the 3D scene points. On the other hand, the proposed algorithms construct multi-camera pose-only constraint us-ing two base observations and their corresponding poses. Our base observation selection strategy optimally selects two observations to provide an analytical representation of the 3D points elegantly. As shown in fig. 7, under low-noise levels (σmax < 2) , the proposed algorithms achieve pose estimation accuracy comparable to traditional bundle adjustment methods MultiCol and BACS . However, as the noise level increases (σmax > 2) , the proposed methods demonstrate significantly enhanced robustness. This trend can be inferred from the results fig. 5. Compared to bun-dle adjustment methods, which rely on multiple observa-tions triangulation, the proposed base observations selection strategy consistently maintains higher accuracy, even in high noise levels. Among the two proposed methods, MCPALR slightly outperforms MCPA in pose optimization accuracy. This re-sult is mainly attributed to the former adopting a more comprehensive set of constraints, as defined in eq. (12) and eq. (19), which effectively strengthens the constraint force during the pose optimization process. Note that in the Forward-Curve dataset (see fig. 7b), MCPALR exhibits a more noticeable improvement in accuracy. This is mainly due to the continuous observation of the 3D scene by the multi-camera system. Each scene point corresponds to more image observations, which allows the algorithm to select the two base observations more elegantly. As shown in the third column of fig. 7, the lower reconstruction error confirms the advantage of our statistical optimal triangulation method proposed in this paper. 
+
+5.1.5 Runtime Results 
+
+This experiment evaluates the computational efficiency of the algorithms across optimization problems of varying scales. We compare the performance of MCPALR , MCPA , and 
+
+MultiCol algorithms with varying numbers of trajectory poses and 3D scene points. All three algorithms are imple-mented in the C++17 environment, while the open-source code for BACS , written in MATLAB, is not included in this experiment. Additionally, the experimental results in [13] have demonstrated that MultiCol is faster than BACS in terms of computation time. The iterative process employs the Levenberg-Marquardt (LM) algorithm, and the linear solver utilizes the Schur complement. All methods employ the L2 norm error and the same termination criteria. The maximum iteration number is set to 10. All algorithms share the same initial pose obtained by adding perturbations to the ground truth. For each problem size, we conducted 100 independent experiments and reported the median results. Following [46], we report the problem size (including the number of poses, 3D points, and observations), the total time for optimization, the memory size of Hessian matrix, and the optimized errors in table 1. The optimization time does not include the data reading and writing pro-cesses. Results show that our MCPA and MCPALR algorithms 11 1 2 4 6 8 10           
+
+> Maximum Noise Std (Pixel)
+> 00.1 0.2 0.3
+> Average Rotation Error (Degree) 1246810
+> Maximum Noise Std (Pixel)
+> 00.1 0.2 0.3 0.4
+> Average Translation Error (%) 1246810
+> Maximum Noise Std (Pixel)
+> 00.5 11.5 2
+> Reconstruction Error (m)
+
+(a) Algorithm accuracy comparison in Forward-Linear 1 2 4 6 8 10           
+
+> Maximum Noise Std (Pixel)
+> 00.02 0.04 0.06 0.08
+> Average Rotation Error (Degree) 1246810
+> Maximum Noise Std (Pixel)
+> 00.05 0.10 0.15 0.20 0.25
+> Average Translation Error (%) 1246810
+> Maximum Noise Std (Pixel)
+> 012345
+> Reconstruction Error (m)
+
+(b) Algorithm accuracy comparison in Forward-Curve 1 2 4 6 8 10           
+
+> Maximum Noise Std (Pixel)
+> 00.02 0.04 0.06 0.08 0.1
+> Average Rotation Error (Degree) 1246810
+> Maximum Noise Std (Pixel)
+> 00.1 0.2 0.3 0.4
+> Average Translation Error (%) 1246810
+> Maximum Noise Std (Pixel)
+> 0123456
+> Reconstruction Error (m)
+
+(c) Algorithm accuracy comparison in Omni-Linear 1 2 4 6 8 10           
+
+> Maximum Noise Std (Pixel)
+> 00.02 0.04 0.06 0.08 0.1
+> Average Rotation Error (Degree) 1246810
+> Maximum Noise Std (Pixel)
+> 00.1 0.2 0.3 0.4
+> Average Translation Error (%) 1246810
+> Maximum Noise Std (Pixel)
+> 0246810 12
+> Reconstruction Error (m)
+
+(d) Algorithm accuracy comparison in Omni-Curve 
+
+Fig. 7: Accuracy comparison of four pose optimization algorithms on four synthetic datasets. The charts show the average rotation error (first column), average translation error (second column), and reconstruction error (third column) over 50 poses in the trajectory under different noise levels. Results indicate that the proposed algorithms MCPALR and MCPA 
+
+consistently achieve lower errors than MultiCol and BACS across all noise levels. significantly outperform MultiCol in terms of runtime. With the same number of poses, the runtime of MultiCol 
+
+increases substantially with more scene points, while MCPA 
+
+and MCPALR are much more efficient, especially for large-scale data. On a dataset with 200 poses and 10,000 points, memory usage is reduced by 19 times and optimization speed is improved by 2.5 times. This advantage is mainly at-tributed to the introduction of multi-camera pose-only con-straint, which reduces the number of optimization variables and reduces the complexity of the Hessian matrix. MCPALR 
+
+slightly outperforms MCPA in accuracy, but incurs a modest increase in runtime due to its more complex cost function. Therefore, a trade-off in cost function design is necessary to balance speed and accuracy in practical applications. 
+
+5.2 Results on Real Dataset 
+
+We conducted a comprehensive evaluation of the proposed algorithms on two publicly available multi-camera system datasets: ETH3D [59] and KITTI Odometry Dataset [60]. 
+
+5.2.1 ETH3D Dataset 
+
+The ETH3D dataset [59] is a widely recognized 3D re-construction dataset consisting of ten common scenes that cover challenging environments such as indoor, outdoor, complex lighting, and low-texture areas, with a total of over 10,000 images. The multi-camera system in the dataset 12 
+
+TABLE 1: Performance comparison of MCPALR , MCPA and MultiCol algorithms.                                                                                                           
+
+> Poses Points Obs Runtime(s) Memory(MB) ¯εR(◦),¯εt(%) ,¯εX(m)
+> MCPALR MCPA MultiCol MCPALR MCPA MultiCol MCPALR MCPA MultiCol
+> 50 1000 52,921 0.36 0.25 0.37 0.43 0.43 3.67 0.0128, 0.0217, 0.0820 0.0181, 0.0229, 0.1182 0.0231, 0.0380, 0.1725 3000 161,884 1.02 0.70 1.16 0.44 0.44 11.19 0.0093, 0.0146, 0.0573 0.0127, 0.0179, 0.0674 0.0147, 0.0242, 0.1263 5000 270,165 1.51 1.12 1.86 0.45 0.45 18.66 0.0047, 0.0114, 0.0462 0.0061, 0.0110, 0.0599 0.0164, 0.0207, 0.1697 100 3000 167,861 1.26 0.89 1.38 1.01 1.01 11.70 0.0275, 0.0274, 0.2980 0.0350, 0.0301, 0.3931 0.0366, 0.0322, 0.4657 5000 279,387 1.59 1.39 2.27 1.02 1.02 19.46 0.0187, 0.0157, 0.0224 0.0226, 0.0225, 0.2610 0.0351, 0.0315, 0.4065 8000 446,521 2.99 2.08 4.39 1.03 1.03 31.06 0.0077, 0.0115, 0.0600 0.0134, 0.0155, 0.0725 0.0297, 0.0265, 0.3388 200 5000 669,417 4.41 3.29 7.27 4.85 4.85 46.27 0.0107, 0.0158, 0.2222 0.0129, 0.0142, 0.3685 0.0179, 0.0203, 0.4243 8000 1,061,646 7.77 5.57 13.31 4.93 4.93 73.38 0.0161, 0.0135, 0.4205 0.0191, 0.0148, 0.5156 0.0238, 0.0190, 0.6346 10000 1,376,647 9.84 7.11 17.94 4.99 4.99 95.13 0.0098, 0.0086, 0.2623 0.0122, 0.0104, 0.3019 0.0233, 0.0197, 0.6197
+> Bold values indicate the best results.
+
+TABLE 2: Problem Sizes for Each Scene in ETH3D Dataset and Runtime for Optimization Algorithms. 
+
+Runtime(s) Datasets Images Points Observations MCPALR MCPA MultiCol RigBA 
+
+Delivery 4 × 237 21,318 1,012,916 24.96 14.00 60.11 46.17 Electro 4 × 300 29,668 1,018,049 54.16 20.66 65.05 56.10 Lakeside 4 × 266 28,426 1,396,698 34.20 24.01 57.06 51.18 Forest 4 × 257 53,039 2,266,880 49.06 37.23 69.79 57.91 Playground 4 × 240 40,322 1,266,495 40.66 25.21 72.16 43.41 Terrains 4 × 165 32,059 1,127,498 17.94 9.51 56.85 26.38 Storage Room 4 × 199 38,768 977,012 37.75 25.15 39.22 26.41 Storage Room 2 4 × 208 14,776 603,844 19.25 7.28 25.32 30.23 Sand Box 4 × 278 175,120 3,790,419 97.58 61.48 158.99 111.48 Tunnel 4 × 352 182,544 5,665,514 281.73 187.54 341.31 1800.85  
+
+> Bold values indicate the shortest runtime, and underline values indicate the second shortest.
+
+TABLE 3: Accuracy Comparison of Five Multi-Camera Pose Optimization Algorithms on the ETH3D Dataset. 
+
+MCPALR MCPA MultiCol BACS RigBA 
+
+Datasets ¯εR(◦) ¯εt(%) ¯εp(px ) ¯εR(◦) ¯εt(%) ¯εp(px ) ¯εR(◦) ¯εt(%) ¯εp(px ) ¯εR(◦) ¯εt(%) ¯εp(px ) ¯εR(◦) ¯εt(%) ¯εp(px )
+
+Delivery 0.062 0.397 0.677 0.055 0.454 0.677 0.181 1.083 0.756 0.103 0.635 0.687 0.190 2.471 0.432 
+
+Electro 0.089 0.510 0.612 0.065 0.477 0.616 0.643 4.029 0.951 0.201 0.851 0.417 0.422 2.897 0.545 Lakeside 0.012 0.062 0.406 0.013 0.058 0.406 0.029 0.103 0.410 0.029 0.106 0.410 0.450 0.068 0.978 Forest 0.037 0.101 0.423 0.042 0.117 0.423 0.085 0.238 0.429 0.071 0.197 0.429 0.141 1.605 0.565 Playground 0.094 0.596 0.364 0.098 0.570 0.368 0.167 0.901 0.365 0.910 7.367 0.387 0.290 4.584 0.504 Terrains 0.171 0.300 0.649 0.184 0.273 0.660 0.252 0.616 0.730 0.318 0.522 0.654 0.977 2.237 0.310 
+
+Storage Room 0.032 0.333 0.456 0.048 0.424 0.496 0.061 0.576 0.461 0.119 0.841 0.500 0.200 3.164 0.556 Storage Room 2 0.051 0.785 0.508 0.056 0.836 0.510 0.165 3.272 0.593 0.081 1.216 0.504 0.154 2.884 0.514 Sand Box 0.030 0.113 0.342 0.026 0.111 0.349 0.048 0.196 0.348 0.051 0.215 0.349 0.500 4.515 0.644 Tunnel 0.051 0.246 0.349 0.046 0.260 0.340 0.202 0.938 0.399 0.073 0.458 0.352 0.076 0.397 0.329  
+
+> Bold values indicate the smallest error, and underline values indicate the second smallest.
+
+consists of four cameras, all observing the same direction, with a layout similar to the forward configuration shown in fig. 3. The dataset provides camera intrinsics but not extrin-sics. We select the leftmost camera as the body coordinate frame and compute each camera’s extrinsics as its average relative pose to this frame. Since the ground truth lacks absolute scale, the extrinsics are scale-free; however, pose optimization accuracy can still be evaluated under a consis-tent relative scale. To provide a comprehensive evaluation against modern state-of-the-art pipeline, we also incorpo-rate the rig_bundle_adjuster (denoted as RigBA ) from COLMAP [36] as a key baseline. The feature extraction and matching of the images are obtained from COLMAP, following the default settings. The feature covariance can be calculated using existing meth-ods [61, 62]. To facilitate the verification of the proposed algorithm, we simplify the covariance computation by back-propagating the reprojection error [32]. The initial poses input for the optimization algorithm, similar to [10], is obtained by adding Gaussian noise to the ground truth, resulting in an initial average reprojection error of approx-imately 10 pixels. For RigBA , we initialize its solver with the same perturbed poses and fixed extrinsic parameters to ensure a fair comparison. All five algorithms share the same termination criteria: either reaching a maximum number of 30 iterations or the cost change falling below the threshold. Table 2 reports the problem sizes and runtime for 10 scenes in the ETH3D dataset. The results indicate that the proposed two algorithms consistently outperform the 
+
+MultiCol and RigBA in terms of computation time. Specif-13 MCPALR MCPA MultiCol BACS Ground Truth Start End RigBA    
+
+> (a) Electro (b) Forest (c) Terrains (d) Playground
+
+Fig. 8: Comparison of optimized trajectories for representative scenes Electro, Forest, Terrains, and Playground from the ETH3D dataset. Top row displays example images of the four scenes, which encompass low-texture, outdoor, indoor, and extreme exposure conditions. Middle row shows the comparison of the optimized trajectories of four algorithms against the ground truth. Bottom row illustrates the performance of the absolute trajectory error in the XYZ components. ically, MCPA exhibits exceptional efficiency, achieving a max-imum of 5.98 times (Terrains) faster runtime and an aver-age of 2.29 times faster compared to MultiCol . Although 
+
+MCPALR has a slightly lower running speed than MCPA , it still achieves a maximum runtime reduction of 3.17 times (Terrains) and an average reduction of 1.44 times com-pared to MultiCol . This speedup primarily stems from the reduced number of optimization parameters and the simplified complexity of solving the normal equations. The optimization accuracy comparison results are presented in table 3. Results demonstrate that the proposed algorithms significantly outperform three baseline methods in terms of accuracy. Among them, MCPALR achieves the best accu-racy in most scenarios, followed by MCPA . In some scenes, 
+
+MultiCol , BACS and RigBA may exhibit the smallest or second smallest reprojection errors even when the pose ac-curacy is poor. This is mainly attributed to the fact that these algorithms primarily focus on minimizing the reprojection error. In contrast, the cost function we propose emphasizes pose optimization. We selected four representative scenes from the ETH3D dataset: Electro, Forest, Terrains, and Playground, which represent low-texture, outdoor, indoor, and extreme expo-sure conditions, respectively. Figure 8 presents example im-ages of these scenes (top row), comparison of the optimized multi-camera system trajectories (middle row), and the XYZ components of the absolute trajectory error (bottom row). The trajectory comparison results validate the advantages of the proposed MCPALR and MCPA algorithms, attributed to the focus on pose-specific optimization. Additionally, the combination of multi-camera pose-only constraint and base-observations selection strategy implicitly increases the weight of base observations while effectively reducing the impact of outliers. In contrast, bundle adjustment methods, 
+
+MulticCol , BACS and RigBA , treat all points as having equal contributions to accuracy and heavily rely on the initial values of the 3D points. RigBA shows significant trajectory oscillations. We attribute this behavior to the insufficient exploitation of extrinsic constraints in the op-timization, making fail to local optimum. 
+
+5.2.2 KITTI Odometry Dataset 
+
+The KITTI odometry dataset [60] is a widely used bench-mark for visual odometry in the field of autonomous driv-ing. It encompasses a variety of real-world driving sce-narios, including city, rural, and highway. In our experi-ments, we select 11 sequences from the odometry subset, specifically sequences 00-10, totaling over 46,000 images. The multi-camera system used in the KITTI is a stereo vision setup, where intrinsic and extrinsic parameters of each camera have been accurately calibrated. Additionally, the dataset provides a high-precision reference ground truth trajectory. Compared to ETH3D dataset, the KITTI odome-try dataset presents greater challenges in several aspects. 14 
+
+(a) Initial (b) MCPALR (c) MCPA 
+
+Fig. 9: Trajectory optimization and scene reconstruction results for Seq.01 (top row) and Seq.07 (bottom row) of the KITTI dataset. The first column shows the initial trajectories and point cloud structures, which exhibit noticeable blurriness and noise. The second and third columns display the trajectories and reconstructed point clouds after optimization with 
+
+MCPALR and MCPA , respectively, demonstrating significant improvements in clarity and completeness. 0 500 1000 1500 2000     
+
+> X (m)
+> -1500 -1000 -500 0500
+> Z (m)
+> -200 -150 -100 -50 0
+> X (m)
+> -100 -50 050 100
+> Z (m)
+
+(a) MCPALR 0 500 1000 1500 2000      
+
+> X (m)
+> -1500 -1000 -500 0500
+> Z (m)
+> -200 -150 -100 -50 0
+> X (m)
+> -100 -50 050 100
+> Z (m)
+
+(b) MCPA 0 500 1000 1500 2000      
+
+> X (m)
+> -1500 -1000 -500 0500
+> Z (m)
+> -200 -150 -100 -50 0
+> X (m)
+> -100 -50 050 100
+> Z (m)
+
+(c) MultiCol 0 500 1000 1500 2000      
+
+> X (m)
+> -1500 -1000 -500 0500
+> Z (m)
+> 0.00 2.46 4.92 7.38 9.84
+> -200 -150 -100 -50 0
+> X (m)
+> -100 -50 050 100
+> Z (m)
+> 0.00 0.21 0.41 0.62 0.83
+
+(d) BACS 
+
+Fig. 10: Comparison of trajectory optimization results for sequences Seq.01 (top row) and Seq.07 (bottom row) of the KITTI dataset under different algorithms. The trajectories are color-coded to represent the absolute trajectory errors, with dark red indicating larger errors and dark blue indicating smaller errors. 15 
+
+TABLE 4: Problem Sizes for Each Sequence in KITTI Odom-etry Dataset and Comparison of Runtime for Optimization Algorithms.                                                                                                
+
+> Runtime(s) Seq. Images Points Obs. MCPALR MCPA MultiCol
+> 00 2×4541 1,168,922 14,665,565 511.66 235.98 664.30 01 2×1101 233,978 2,358,701 125.15 95.49 184.75 02 2×4661 1,483,015 16,358,049 767.70 536.07 729.16 03 2×801 389,703 4,423,236 186.28 129.83 226.75 04 2×271 108,799 1,074,786 28.78 15.30 48.55 05 2×2761 1,146,276 11,794,689 441.48 269.01 613.56 06 2×1101 449,410 3,943,665 185.10 106.42 192.81 07 2×1101 432,890 4,772,387 102.15 61.44 230.30 08 2×4071 1,113,508 13,602,975 273.92 171.14 654.01 09 2×1591 708,950 5,975,625 250.51 145.67 239.97 10 2×1201 549,428 4,823,916 219.44 145.39 213.82
+> Bold values indicate the shortest runtime, and underline values indicate the second shortest.
+
+The KITTI dataset is significantly larger than the ETH3D dataset, with increased data volume and scene complexity. Furthermore, the multi-camera system in the KITTI exhibits forward linear motion in most scenarios, resulting in a small parallax angle, which introduces additional challenges for scene reconstruction. The feature extraction and matching of images are still performed using COLMAP [36]. In the matching process, we customized the match pairs following the temporal sequence. The image sequences are cross-matched among the 50 overlapping poses. Similar to the operation used in ETH3D, we added Gaussian noise to the ground truth poses to obtain initial values for iterative optimization. All algorithms share the same termination criteria for iteration, with a maximum iteration count set to 30. The open-source code of BACS fails in addressing large-scale optimization problems. Therefore, we re-implemented BACS with the objective function focused on minimizing the spherical nor-malized reprojection error. We report the size of the optimization problems for all sequences in the KITTI odometry dataset and the runtime of different algorithms in table 4. Compared to the ETH3D dataset, the KITTI dataset has a larger problem scale, with 11.49 times more 3D points and 8.43 times more poses. As shown in the comparison of runtime in table 4, the pro-posed MCPA algorithm demonstrates a significant speedup. Compared to MultiCol , the optimization speed improved by up to 3.82 times (Seq.08), with an average increase of approximately 2.09 times. In most scenes, MCPALR achieves notable speed improvements over MultiCol , with a maxi-mum increase of 2.39 times (Seq.08) and an average increase of 1.29 times. This result validates the effectiveness of the proposed algorithms in handling large-scale pose optimiza-tion problems. The qualitative results of pose optimization for Seq.01 and Seq.07 in the KITTI odometry dataset are shown in fig. 9. Figure 9a displays the initial trajectories of the multi-camera system and scene point clouds. The initial trajectories exhibit significant errors, characterized by drift and jitter, and the point cloud structures appear blurry. Figure 9b and Figure 9c show the results after pose optimization and reconstruction using the proposed 
+
+MCPALR and MCPA algorithms, respectively. After optimiza-tion, the trajectories become smoother and more stable, and the scene structures are clearer. Figure 10 shows the trajectories of the multi-camera system optimized by four different algorithms, with color coding used to represent the absolute trajectory errors along the trajectories visually. The comparison indicates that the trajectories optimized by our proposed MCPALR and MCPA algorithms (fig. 10a and fig. 10b) exhibit significantly smaller absolute trajectory errors. The quantitative comparison of the final optimization accuracy for the four algorithms is presented in table 5. In terms of accuracy, MCPA and MCPALR demonstrate the best optimization performance on most sequences. In summary, these experimental results demonstrate that our algorithm significantly outperforms existing baselines in terms of com-putational efficiency, and exhibits strong competitiveness in pose optimization accuracy. To comprehensively evaluate the proposed algorithm in realistic SfM or SLAM scenarios, we conducted compara-tive experiments using initial poses obtained from a real pose estimation pipeline. Unlike adding Gaussian noise to ground-truth poses, this pipeline more realistically captures the effects of accumulated drift and observation noise in-herent in practical systems. We evaluate our method on two loop-closing sequences Seq.07 and Seq.09. Specifically, we employ COLMAP for feature extraction and matching. The multi-camera system is modeled as a generalized cam-era using the given calibration parameters. Relative poses between adjacent frames are estimated using the 17-point algorithm [63] with RANSAC for outlier rejection, followed by nonlinear optimization. The pose estimation solvers are implemented using the OpenGV library [64]. These relative poses are then integrated to obtain global frame poses in a world coordinate system defined by the first frame. Owing to the generalized camera formulation, the estimated poses inherently include scale information. The 3D scene points required by MultiCol and BACS are obtained through triangulation using the estimated poses. All other experi-mental settings remain consistent. Qualitative results are presented in fig. 11. The ini-tial trajectory obtained from the pose estimation pipeline (gray dashed line) deviates significantly from the ground-truth trajectory (black solid line) due to error accumulation. After optimization by all methods, the trajectories (color-coded solid lines) show clear improvement. Among them, the proposed methods MCPALR and MCPA yield trajecto-ries that best align with the ground truth. In contrast, 
+
+MultiCol and BACS partially correct the initial errors and still show noticeable deviations in regions with complex mo-tion. Quantitative results are reported in table 6. The initial trajectories exhibit large errors, with average rotation errors exceeding 10 ◦ and translation errors surpassing 50%. After optimization, all methods significantly reduce these errors. Notably, MCPA achieves the best accuracy on two sequences. Compared to the baseline methods, MCPA reduces rotation error by 31.0% and translation error by 20.6%. These results strongly validate the effectiveness of multi-camera pose-only constraint and demonstrate the practical value of the proposed algorithm. 16 
+
+TABLE 5: Accuracy Comparison of Four Multi-Camera Pose Optimization Algorithms on the KITTI Odometry Dataset. 
+
+MCPALR MCPA MultiCol BACS 
+
+Seq. ¯εR(◦) ¯εt(%) ¯εp(px ) ¯εR(◦) ¯εt(%) ¯εp(px ) ¯εR(◦) ¯εt(%) ¯εp(px ) ¯εR(◦) ¯εt(%) ¯εp(px )
+
+00 0.0057 0.0140 0.4287 0.0082 0.0224 0.4339 0.0120 0.0144 0.4305 0.0057 0.0142 0.4304 01 0.0173 0.0090 0.6063 0.0166 0.0185 0.6081 0.1147 0.1460 2.9201 0.1253 0.2116 1.0827 02 0.1185 0.1464 0.8141 0.2380 0.2202 0.8021 0.1902 0.1858 2.221 0.2057 0.3149 0.8743 03 0.0156 0.0238 1.2369 0.0117 0.0184 1.2071 0.1805 0.2748 3.0899 0.0135 0.0163 1.2402 04 0.1621 0.3754 0.5507 0.1933 0.3584 0.5792 0.3946 0.6969 1.1203 0.2007 0.3998 0.5829 05 0.0410 0.0691 0.9040 0.0459 0.1082 0.9145 0.1116 0.1935 1.0871 0.0396 0.1077 0.9116 06 0.0344 0.2609 0.6087 0.0335 0.2967 0.6134 0.2141 0.3312 1.0263 0.0771 1.0251 0.6104 07 0.0127 0.1255 0.8143 0.0114 0.1078 0.8034 0.1640 0.2653 0.8336 0.0390 0.2909 0.8110 08 0.0102 0.0312 0.4941 0.0084 0.0546 0.4880 0.0101 0.0363 0.4900 0.0097 0.0315 0.4899 09 0.0321 0.1435 0.6318 0.0238 0.0274 0.6223 0.1336 0.1668 1.4857 0.0266 0.1779 0.6232 10 0.0649 0.0691 0.6096 0.1114 0.0856 0.6195 0.1698 0.2209 2.4011 0.0697 0.0724 0.6792  
+
+> Bold values indicate the smallest error, and underline values indicate the second smallest.
+
+(a) MCPALR  (b) MCPA  (c) MultiCol  (d) BACS 
+
+Fig. 11: Comparison of trajectory optimization results on KITTI sequences Seq.07 (top row) and Seq.09 (bottom row), initialized using a realistic pose estimation pipeline. Gray dashed lines indicate the initial trajectories, black solid lines represent the ground truth, and colorcoded solid lines show the optimized trajectories obtained by different methods. TABLE 6: Accuracy Comparison of Optimization Algo-rithms Initialized from the Pose Estimation Pipeline on KITTI Seq.07 and Seq.09.                                      
+
+> Seq. Metric Initial MCPALR MCPA MultiCol BACS 07
+> ¯εR(◦)10.669 1.007 0.947 1.550 1.373
+> ¯εt(%) 56.291 11.553 11.307 17.188 14.245
+> ¯εp(px )3.794 0.699 0.676 0.745 0.705 09
+> ¯εR(◦)12.024 0.699 0.681 2.312 1.385
+> ¯εt(%) 52.405 8.633 8.296 19.513 10.944
+> ¯εp(px )2.521 0.640 0.635 1.167 1.169
+> Bold values indicate the smallest error, and underline indicate the second smallest.
+
+6 CONCLUSION 
+
+This paper proposes a novel pose adjustment method for multi-camera systems. Based on the generalized camera model, we introduce a multi-camera pose constraint, which implicitly represents 3D points as functions of the base observations and corresponding poses. Furthermore, the multi-camera pose adjustment algorithm is developed to achieve pose optimization without relying on 3D points. By removing 3D points from the optimization variables, the al-gorithm significantly enhances the computational efficiency when handling a large number of redundant observations. We further propose a base observations selection algorithm based on uncertainty ellipsoid roundness. Additionally, we establish a statistically optimal generalized camera recon-struction algorithm, which provides a closed-form solu-tion for multi-observation intersection, thereby achieving efficient and accurate scene reconstruction. In experiments using synthetic data and real datasets, we validate the optimization accuracy and efficiency of our multi-camera pose adjustment algorithm. Compared to traditional bun-17 
+
+dle adjustment baseline methods, the proposed algorithm achieves a significant improvement in computational effi-ciency, while also demonstrating greater competitiveness in pose optimization accuracy. However, our method assumes the multi-camera system has already been fully calibrated. Future research could further incorporate the calibration parameters of the multi-camera system into the optimization variables to accommo-date more complex scenarios and application requirements. 
+
+REFERENCES 
+
+[1] P. Liu, M. Geppert, L. Heng, T. Sattler, A. Geiger, and M. Pollefeys, “Towards robust visual odometry with a multi-camera system,” in 
+
+IEEE International Conference on Intelligent Robots and Systems , 2018, pp. 1154–1161. [2] C. Forster, Z. Zhang, M. Gassner, M. Werlberger, and D. Scara-muzza, “Svo: Semidirect visual odometry for monocular and multicamera systems,” IEEE Transactions on Robotics , vol. 33, no. 2, pp. 249–265, 2017. [3] H. Cui, X. Gao, and S. Shen, “Mcsfm: Multi-camera-based incre-mental structure-from-motion,” IEEE Transactions on Image Process-ing , vol. 32, pp. 6441–6456, 2023. [4] A. Schmied, T. Fischer, M. Danelljan, M. Pollefeys, and F. Yu, “R3d3: Dense 3d reconstruction of dynamic scenes from multiple cameras,” in IEEE International Conference on Computer Vision , 2023, pp. 3193–3203. [5] T. Qin, T. Chen, Y. Chen, and Q. Su, “Avp-slam: Semantic visual mapping and localization for autonomous vehicles in the park-ing lot,” in IEEE International Conference on Intelligent Robots and Systems , 2020, pp. 5939–5945. [6] L. Heng, B. Choi, Z. Cui, M. Geppert, S. Hu, B. Kuan, P. Liu, R. Nguyen, Y. C. Yeo, A. Geiger, G. H. Lee, M. Pollefeys, and T. Sattler, “Project autovision: Localization and 3d scene percep-tion for an autonomous vehicle with a multi-camera system,” in 
+
+International Conference on Robotics and Automation , 2019, pp. 4695– 4702. [7] B. Triggs, P. F. McLauchlan, R. I. Hartley, and A. W. Fitzgibbon, “Bundle adjustment—a modern synthesis,” in Vision Algorithms: Theory and Practice: International Workshop on Vision Algorithms Corfu, Greece, September 21–22, 1999 Proceedings . Springer, 2000, pp. 298–372. [8] S. Agarwal, N. Snavely, S. M. Seitz, and R. Szeliski, “Bundle adjustment in the large,” in European Conference on Computer Vision .Springer, 2010, pp. 29–42. [9] S. Agarwal, K. Mierle, and T. C. S. Team, “Ceres Solver,” 10 2023. [Online]. Available: https://github.com/ceres-solver/ ceres-solver [10] Z. Ye, G. Li, H. Liu, Z. Cui, H. Bao, and G. Zhang, “Coli-ba: Compact linearization based solver for bundle adjustment,” IEEE Transactions on Visualization and Computer Graphics , vol. 28, no. 11, pp. 3727–3736, 2022. [11] S. Weber, N. Demmel, T. C. Chan, and D. Cremers, “Power bundle adjustment for large-scale 3d reconstruction,” in IEEE Conference on Computer Vision and Pattern Recognition , 2023, pp. 281–289. [12] J. Schneider, F. Schindler, T. L¨ abe, and W. F ¨ orstner, “Bundle ad-justment for multi-camera systems with points at infinity,” ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences , vol. 1, pp. 75–80, 2012. [13] S. Urban, S. Wursthorn, J. Leitloff, and S. Hinz, “Multicol bundle adjustment: a generic method for pose estimation, simultaneous self-calibration and reconstruction for arbitrary multi-camera sys-tems,” International Journal of Computer Vision , vol. 121, pp. 234– 252, 2017. [14] Q. Cai, L. Zhang, Y. Wu, W. Yu, and D. Hu, “A pose-only solution to visual reconstruction and navigation,” IEEE Transactions on Pattern Analysis and Machine Intelligence , vol. 45, no. 1, pp. 73–86, 2023. [15] Q. Cai, Y. Wu, L. Zhang, and P. Zhang, “Equivalent constraints for two-view geometry: Pose solution/pure rotation identification and 3d reconstruction,” International Journal of Computer Vision , vol. 127, pp. 163–180, 2019. [16] R. Pless, “Using many cameras as one,” in IEEE Computer Society Conference on Computer Vision and Pattern Recognition , vol. 2. IEEE, 2003, pp. II–587. [17] A. J. Davison, I. D. Reid, N. D. Molton, and O. Stasse, “Monoslam: Real-time single camera slam,” IEEE Transactions on Pattern Analy-sis and Machine Intelligence , vol. 29, no. 6, pp. 1052–1067, 2007. [18] C. Forster, M. Pizzoli, and D. Scaramuzza, “Svo: Fast semi-direct monocular visual odometry,” in IEEE international conference on robotics and automation . IEEE, 2014, pp. 15–22. [19] R. Mur-Artal and J. D. Tard ´ os, “Orb-slam2: An open-source slam system for monocular, stereo, and rgb-d cameras,” IEEE Transac-tions on Robotics , vol. 33, no. 5, pp. 1255–1262, 2017. [20] R. Wang, M. Schworer, and D. Cremers, “Stereo dso: Large-scale direct sparse visual odometry with stereo cameras,” in IEEE international conference on computer vision , 2017, pp. 3903–3911. [21] T. Qin, P. Li, and S. Shen, “Vins-mono: A robust and versatile monocular visual-inertial state estimator,” IEEE transactions on robotics , vol. 34, no. 4, pp. 1004–1020, 2018. [22] S. Leutenegger, S. Lynen, M. Bosse, R. Siegwart, and P. Furgale, “Keyframe-based visual–inertial odometry using nonlinear opti-mization,” The International Journal of Robotics Research , vol. 34, no. 3, pp. 314–334, 2015. [23] M. J. Tribou, A. Harmat, D. W. Wang, I. Sharf, and S. L. Waslan-der, “Multi-camera parallel tracking and mapping with non-overlapping fields of view,” The International Journal of Robotics Research , vol. 34, no. 12, pp. 1480–1500, 2015. [24] G. Klein and D. Murray, “Parallel tracking and mapping for small ar workspaces,” in IEEE and ACM international symposium on mixed and augmented reality . IEEE, 2007, pp. 225–234. [25] S. Urban and S. Hinz, “Multicol-slam-a modular real-time multi-camera slam system,” arXiv preprint arXiv:1610.07336 , 2016. [26] Y. He, H. Yu, W. Yang, and S. Scherer, “Towards robust visual-inertial odometry with multiple non-overlapping monocular cam-eras,” in IEEE International Conference on Intelligent Robots and Systems . IEEE, 2022, pp. 9452–9458. [27] W. Zhang, S. Wang, X. Dong, R. Guo, and N. Haala, “Bamf-slam: Bundle adjusted multi-fisheye visual-inertial slam using recurrent field transforms,” in IEEE international conference on robotics and automation . IEEE, 2023, pp. 6232–6238. [28] Y. Wang, Y. Ng, I. Sa, A. Parra, C. Rodriguez-Opazo, T. Lin, and H. Li, “Mavis: Multi-camera augmented visual-inertial slam using se 2 (3) based exact imu pre-integration,” in IEEE International Conference on Robotics and Automation . IEEE, 2024, pp. 1694–1700. [29] L. Zhang, D. Wisth, M. Camurri, and M. Fallon, “Balancing the budget: Feature selection and tracking for multi-camera visual-inertial odometry,” IEEE Robotics and Automation Letters , vol. 7, no. 2, pp. 1182–1189, 2021. [30] J. Kuo, M. Muglikar, Z. Zhang, and D. Scaramuzza, “Redesigning slam for arbitrary multi-camera systems,” in IEEE International Conference on Robotics and Automation . IEEE, 2020, pp. 2116–2122. [31] P. Kaveti, S. N. Vaidyanathan, A. T. Chelvan, and H. Singh, “Design and evaluation of a generic visual slam framework for multi camera systems,” IEEE Robotics and Automation Letters , vol. 8, no. 11, pp. 7368–7375, 2023. [32] R. Hartley and A. Zisserman, Multiple view geometry in computer vision . Cambridge university press, 2003. [33] A. Delaunoy and M. Pollefeys, “Photometric bundle adjustment for dense multi-view 3d modeling,” in IEEE Conference on Com-puter Vision and Pattern Recognition , 2014, pp. 1486–1493. [34] J. Engel, V. Koltun, and D. Cremers, “Direct sparse odometry,” 
+
+IEEE transactions on pattern analysis and machine intelligence , vol. 40, no. 3, pp. 611–625, 2017. [35] B. Guan and J. Zhao, “Affine correspondences between multi-camera systems for relative pose estimation,” IEEE Transactions on Pattern Analysis and Machine Intelligence , 2025. [36] J. L. Sch ¨ onberger and J.-M. Frahm, “Structure-from-motion revis-ited,” in IEEE Conference on Computer Vision and Pattern Recognition ,2016, pp. 4104–4113. [37] S. Liang, B. Guan, Z. Yu, P. Sun, and Y. Shang, “Camera calibration using a collimator system,” in European Conference on Computer Vision . Springer, 2024, pp. 374–390. [38] D. Tan, S. Liang, B. Li, B. Guan, A. Su, Y. Lin, D. Zhang, M. Wan, Z. Liu, C. Wang et al. , “Optimal pose guidance for stereo calibra-tion in 3d deformation measurement,” Experimental Mechanics , pp. 1–14, 2026. [39] N. Demmel, C. Sommer, D. Cremers, and V. Usenko, “Square root bundle adjustment for large-scale reconstruction,” in IEEE Conference on Computer Vision and Pattern Recognition , 2021, pp. 11 718–11 727. [40] L. Zhou, Z. Luo, M. Zhen, T. Shen, S. Li, Z. Huang, T. Fang, and 18 
+
+L. Quan, “Stochastic bundle adjustment for efficient and scalable 3d reconstruction,” in European Conference on Computer Vision .Springer, 2020, pp. 364–379. [41] C. Wu, S. Agarwal, B. Curless, and S. M. Seitz, “Multicore bundle adjustment,” in IEEE Conference on Computer Vision and Pattern Recognition . IEEE, 2011, pp. 3057–3064. [42] J. Ren, W. Liang, R. Yan, L. Mai, S. Liu, and X. Liu, “Megba: A gpu-based distributed library for large-scale bundle adjustment,” in European Conference on Computer Vision . Springer, 2022, pp. 715–731. [43] F. Lu and E. Milios, “Globally consistent range scan alignment for environment mapping,” Autonomous robots , vol. 4, pp. 333–349, 1997. [44] S. H. Lee and J. Civera, “Rotation-only bundle adjustment,” in 
+
+IEEE Conference on Computer Vision and Pattern Recognition , 2021, pp. 424–433. [45] L. Kneip and S. Lynen, “Direct optimization of frame-to-frame rotation,” in IEEE International Conference on Computer Vision , 2013, pp. 2352–2359. [46] Y. Ge, L. Zhang, Y. Wu, and D. Hu, “Pipo-slam: Lightweight visual-inertial slam with preintegration merging theory and pose-only descriptions of multiple view geometry,” IEEE Transactions on Robotics , vol. 40, pp. 2046–2059, 2024. [47] L. Wang, H. Tang, T. Zhang, Y. Wang, Q. Zhang, and X. Niu, “Po-kf: A pose-only representation-based kalman filter for visual inertial odometry,” IEEE Internet of Things Journal , 2025. [48] D. Scaramuzza, A. Martinelli, and R. Siegwart, “A flexible tech-nique for accurate omnidirectional camera calibration and struc-ture from motion,” in IEEE International Conference on Computer Vision Systems , 2006, pp. 45–45. [49] J. Kannala and S. Brandt, “A generic camera model and calibration method for conventional, wide-angle, and fish-eye lenses,” IEEE Transactions on Pattern Analysis and Machine Intelligence , vol. 28, no. 8, pp. 1335–1340, 2006. [50] L. Zhao, S. Huang, Y. Sun, L. Yan, and G. Dissanayake, “Parallaxba: bundle adjustment using parallax angle feature parametrization,” The International Journal of Robotics Research ,vol. 34, no. 4-5, pp. 493–516, 2015. [51] C. Beder and R. Steffen, “Determining an initial image pair for fixing the scale of a 3d reconstruction from an image sequence,” in 
+
+Joint Pattern Recognition Symposium . Springer, 2006, pp. 657–666. [52] F. R. Helmert, Die Ausgleichungsrechnung nach der Methode der kleinsten Quadrate: mit Anwendungen auf die Geod¨ asie und die Theorie der Messinstrumente . Leipzig: BG Teubner, 1872. [53] E. B. Corrochano and W. F ¨ orstner, “Uncertainty and projective geometry,” Handbook of Geometric Computing: Applications in Pattern Recognition, Computer Vision, Neuralcomputing, and Robotics , pp. 493–534, 2005. [54] W. F ¨ orstner and B. P. Wrobel, Photogrammetric computer vision .Springer, 2016, vol. 6. [55] W. F ¨ orstner, “Minimal representations for uncertainty and estima-tion in projective spaces,” in Asian Conference on Computer Vision .Springer, 2010, pp. 619–632. [56] S. Ramalingam, S. K. Lodha, and P. Sturm, “A generic structure-from-motion framework,” Computer Vision and Image Understand-ing , vol. 103, no. 3, pp. 218–228, 2006. [57] R. I. Hartley and P. Sturm, “Triangulation,” Computer vision and image understanding , vol. 68, no. 2, pp. 146–157, 1997. [58] K. Yang, W. Fang, Y. Zhao, and N. Deng, “Iteratively reweighted midpoint method for fast multiple view triangulation,” IEEE Robotics and Automation Letters , vol. 4, no. 2, pp. 708–715, 2019. [59] T. Sch ¨ ops, J. L. Sch ¨ onberger, S. Galliani, T. Sattler, K. Schindler, M. Pollefeys, and A. Geiger, “A multi-view stereo benchmark with high-resolution images and multi-camera videos,” in IEEE Conference on Computer Vision and Pattern Recognition , 2017, pp. 2538–2547. [60] A. Geiger, P. Lenz, and R. Urtasun, “Are we ready for autonomous driving? the kitti vision benchmark suite,” in IEEE Conference on Computer Vision and Pattern Recognition , 2012. [61] B. Zeisl, P. F. Georgel, F. Schweiger, E. G. Steinbach, N. Navab, and G. Munich, “Estimation of location uncertainty for scale invariant features points.” in British Machine Vision Conference , 2009, pp. 1– 12. [62] D. Muhle, L. Koestler, K. M. Jatavallabhula, and D. Cremers, “Learning correspondence uncertainty via differentiable nonlinear least squares,” in IEEE Conference on Computer Vision and Pattern Recognition , 2023, pp. 13 102–13 112. [63] H. Li, R. Hartley, and J.-h. Kim, “A linear approach to motion esti-mation using generalized camera models,” in 2008 IEEE Conference on Computer Vision and Pattern Recognition . IEEE, 2008, pp. 1–8. [64] L. Kneip and P. Furgale, “Opengv: A unified and generalized approach to real-time calibrated geometric vision,” in IEEE inter-national conference on robotics and automation . IEEE, 2014, pp. 1–8.
