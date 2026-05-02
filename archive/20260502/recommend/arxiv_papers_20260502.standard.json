@@ -1,0 +1,527 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-02T19:00:02.491316+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 9,
+    "quick_skim_target": 11,
+    "quick_selected": 9
+  },
+  "deep_dive": [
+    {
+      "id": "2604.26943v1",
+      "title": "ProcFunc: Function-Oriented Abstractions for Procedural 3D Generation in Python",
+      "abstract": "We introduce ProcFunc, a library for Blender-based procedural 3D generation in Python. ProcFunc provides a library of easy-to-use Python functions, which streamline creating, combining, analyzing, and executing procedural generation code. ProcFunc makes it easy to create large-scale diverse training data, by combinatorial compositions of semantic components. VLMs can use ProcFunc to edit procedural material and geometry code and can create new procedural code with significantly fewer coding errors. Finally, as an example use case, we use ProcFunc to develop a new procedural generator of indoor rooms, which includes a collection of new compositional procedural materials. We demonstrate the detail, runtime efficiency, and diversity of this room generator, as well as its use for 3D synthetic data generation. Please visit https://github.com/princeton-vl/procfunc for source code.",
+      "authors": [
+        "Alexander Raistrick",
+        "Karhan Kayan",
+        "Jack Nugent",
+        "David Yan",
+        "Lingjie Mei",
+        "Meenal Parakh",
+        "Hongyu Wen",
+        "Dylan Li",
+        "Yiming Zuo",
+        "Erich Liang",
+        "Jia Deng"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-29T17:52:17+00:00",
+      "link": "https://arxiv.org/pdf/2604.26943v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "procedural 3D generation of indoor rooms",
+      "llm_evidence_cn": "室内房间的程序化3D生成",
+      "llm_evidence": "室内房间的程序化3D生成",
+      "canonical_evidence": "室内房间的程序化3D生成",
+      "llm_tldr_en": "ProcFunc provides Python abstractions for procedural 3D generation, demonstrated by creating indoor room scenes.",
+      "llm_tldr_cn": "ProcFunc 为程序化 3D 生成提供 Python 抽象，并通过创建室内房间场景进行了演示。",
+      "llm_tldr": "ProcFunc 为程序化 3D 生成提供 Python 抽象，并通过创建室内房间场景进行了演示。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.26694v1",
+      "title": "Unified 4D World Action Modeling from Video Priors with Asynchronous Denoising",
+      "abstract": "We propose X-WAM, a Unified 4D World Model that unifies real-time robotic action execution and high-fidelity 4D world synthesis (video + 3D reconstruction) in a single framework, addressing the critical limitations of prior unified world models (e.g., UWM) that only model 2D pixel-space and fail to balance action efficiency and world modeling quality. To leverage the strong visual priors of pretrained video diffusion models, X-WAM imagines the future world by predicting multi-view RGB-D videos, and obtains spatial information efficiently through a lightweight structural adaptation: replicating the final few blocks of the pretrained Diffusion Transformer into a dedicated depth prediction branch for the reconstruction of future spatial information. Moreover, we propose Asynchronous Noise Sampling (ANS) to jointly optimize generation quality and action decoding efficiency. ANS applies a specialized asynchronous denoising schedule during inference, which rapidly decodes actions with fewer steps to enable efficient real-time execution, while dedicating the full sequence of steps to generate high-fidelity video. Rather than entirely decoupling the timesteps during training, ANS samples from their joint distribution to align with the inference distribution. Pretrained on over 5,800 hours of robotic data, X-WAM achieves 79.2% and 90.7% average success rate on RoboCasa and RoboTwin 2.0 benchmarks, while producing high-fidelity 4D reconstruction and generation surpassing existing methods in both visual and geometric metrics.",
+      "authors": [
+        "Jun Guo",
+        "Qiwei Li",
+        "Peiyan Li",
+        "Zilong Chen",
+        "Nan Sun",
+        "Yifei Su",
+        "Heyun Wang",
+        "Yuan Zhang",
+        "Xinghang Li",
+        "Huaping Liu"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI",
+        "cs.CV"
+      ],
+      "published": "2026-04-29T14:01:54+00:00",
+      "link": "https://arxiv.org/pdf/2604.26694v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "unified 4D world synthesis and 3D reconstruction",
+      "llm_evidence_cn": "统一的4D世界合成与3D重建",
+      "llm_evidence": "统一的4D世界合成与3D重建",
+      "canonical_evidence": "统一的4D世界合成与3D重建",
+      "llm_tldr_en": "X-WAM unifies robotic action execution with high-fidelity 4D world synthesis and 3D reconstruction.",
+      "llm_tldr_cn": "X-WAM将机器人动作执行与高保真4D世界合成及3D重建统一起来。",
+      "llm_tldr": "X-WAM将机器人动作执行与高保真4D世界合成及3D重建统一起来。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.28193v1",
+      "title": "Generalizable Sparse-View 3D Reconstruction from Unconstrained Images",
+      "abstract": "Reconstructing 3D scenes from sparse, unposed images remains challenging under real-world conditions with varying illumination and transient occlusions. Existing methods rely on scene-specific optimization using appearance embeddings or dynamic masks, which requires extensive per-scene training and fails under sparse views. Moreover, evaluations on limited scenes raise questions about generalization. We present GenWildSplat, a feed-forward framework for sparse-view outdoor reconstruction that requires no per-scene optimization. Given unposed internet images, GenWildSplat predicts depth, camera parameters, and 3D Gaussians in a canonical space using learned geometric priors. An appearance adapter modulates appearance for target lighting conditions, while semantic segmentation handles transient objects. Through curriculum learning on synthetic and real data, GenWildSplat generalizes across diverse illumination and occlusion patterns. Evaluations on PhotoTourism and MegaScenes benchmark demonstrate state-of-the-art feed-forward rendering quality, achieving real-time inference without test-time optimization",
+      "authors": [
+        "Vinayak Gupta",
+        "Chih-Hao Lin",
+        "Shenlong Wang",
+        "Anand Bhattad",
+        "Jia-Bin Huang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-30T17:59:55+00:00",
+      "link": "https://arxiv.org/pdf/2604.28193v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "feed-forward framework for sparse-view 3D scene reconstruction",
+      "llm_evidence_cn": "稀疏视图3D场景重建的前馈框架",
+      "llm_evidence": "稀疏视图3D场景重建的前馈框架",
+      "canonical_evidence": "稀疏视图3D场景重建的前馈框架",
+      "llm_tldr_en": "GenWildSplat enables generalizable 3D scene reconstruction from unconstrained sparse images using Gaussian Splatting.",
+      "llm_tldr_cn": "GenWildSplat利用高斯泼溅技术实现从无约束稀疏图像中进行可泛化的3D场景重建。",
+      "llm_tldr": "GenWildSplat利用高斯泼溅技术实现从无约束稀疏图像中进行可泛化的3D场景重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.25459v1",
+      "title": "GS-Playground: A High-Throughput Photorealistic Simulator for Vision-Informed Robot Learning",
+      "abstract": "Embodied AI research is undergoing a shift toward vision-centric perceptual paradigms. While massively parallel simulators have catalyzed breakthroughs in proprioception-based locomotion, their potential remains largely untapped for vision-informed tasks due to the prohibitive computational overhead of large-scale photorealistic rendering. Furthermore, the creation of simulation-ready 3D assets heavily relies on labor-intensive manual modeling, while the significant sim-to-real physical gap hinders the transfer of contact-rich manipulation policies. To address these bottlenecks, we propose GS-Playground, a multi-modal simulation framework designed to accelerate end-to-end perceptual learning. We develop a novel high-performance parallel physics engine, specifically designed to integrate with a batch 3D Gaussian Splatting (3DGS) rendering pipeline to ensure high-fidelity synchronization. Our system achieves a breakthrough throughput of 10^4 FPS at 640x480 resolution, significantly lowering the barrier for large-scale visual RL. Additionally, we introduce an automated Real2Sim workflow that reconstructs photorealistic, physically consistent, and memory-efficient environments, streamlining the generation of complex simulation-ready scenes. Extensive experiments on locomotion, navigation, and manipulation demonstrate that GS-Playground effectively bridges the perceptual and physical gaps across diverse embodied tasks. Project homepage: https://gsplayground.github.io.",
+      "authors": [
+        "Yufei Jia",
+        "Heng Zhang",
+        "Ziheng Zhang",
+        "Junzhe Wu",
+        "Mingrui Yu",
+        "Zifan Wang",
+        "Dixuan Jiang",
+        "Zheng Li",
+        "Chenyu Cao",
+        "Zhuoyuan Yu",
+        "Xun Yang",
+        "Haizhou Ge",
+        "Yuchi Zhang",
+        "Jiayuan Zhang",
+        "Zhenbiao Huang",
+        "Tianle Liu",
+        "Shenyu Chen",
+        "Jiacheng Wang",
+        "Bin Xie",
+        "Xuran Yao",
+        "Xiwa Deng",
+        "Guangyu Wang",
+        "Jinzhi Zhang",
+        "Lei Hao",
+        "Zhixing Chen",
+        "Yuxiang Chen",
+        "Anqi Wang",
+        "Hongyun Tian",
+        "Yiyi Yan",
+        "Zhanxiang Cao",
+        "Yizhou Jiang",
+        "Hanyang Shao",
+        "Yue Li",
+        "Lu Shi",
+        "Bokui Chen",
+        "Wei Sui",
+        "Hanqing Cui",
+        "Yusen Qin",
+        "Ruqi Huang",
+        "Lei Han",
+        "Tiancai Wang",
+        "Guyue Zhou"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-28T10:05:39+00:00",
+      "link": "https://arxiv.org/pdf/2604.25459v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "simulator for vision-informed robot learning with 3D assets",
+      "llm_evidence_cn": "带有3D资产的视觉感知机器人学习模拟器",
+      "llm_evidence": "带有3D资产的视觉感知机器人学习模拟器",
+      "canonical_evidence": "带有3D资产的视觉感知机器人学习模拟器",
+      "llm_tldr_en": "GS-Playground is a high-throughput photorealistic simulator designed for vision-centric robot learning.",
+      "llm_tldr_cn": "GS-Playground 是一个专为以视觉为中心的机器人学习设计的高吞吐量逼真模拟器。",
+      "llm_tldr": "GS-Playground 是一个专为以视觉为中心的机器人学习设计的高吞吐量逼真模拟器。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.25129v1",
+      "title": "8DNA: 8D Neural Asset Light Transport by Distribution Learning",
+      "abstract": "High-fidelity 3D assets exhibit intriguing global illumination effects like subsurface scattering, glossy interreflections, and fine-scale fiber scatterings, which often involve long scattering paths that are expensive to simulate. We introduce 8D neural assets (8DNA) to pre-bake these light transport effects into neural representations. Unlike prior methods that assume far-field lighting and precompute light transport into 6D functions, 8DNA learns the full 8D light transport, enabling accurate rendering under near-field illumination. Our training leverages a distribution-learning formulation that learns light transport from forward path-traced samples, which produces less optimization variance with lower training budget than the prior regression-based approaches. Experiments show our 8DNA rendering closely matches path-traced results under various scene configurations, yet it achieves improved variance reduction and fast inference speeds on challenging assets.",
+      "authors": [
+        "Liwen Wu",
+        "Haolin Lu",
+        "Bing Xu",
+        "Miloš Hašan",
+        "Ravi Ramamoorthi"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR",
+        "cs.CV"
+      ],
+      "published": "2026-04-28T02:07:42+00:00",
+      "link": "https://arxiv.org/pdf/2604.25129v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "neural representations for 3D asset light transport",
+      "llm_evidence_cn": "3D资产光线传输的神经表示",
+      "llm_evidence": "3D资产光线传输的神经表示",
+      "canonical_evidence": "3D资产光线传输的神经表示",
+      "llm_tldr_en": "Introduces 8D neural assets to pre-bake complex light transport effects for high-fidelity 3D rendering.",
+      "llm_tldr_cn": "引入8D神经资产来预烘焙复杂的光线传输效果，实现高保真3D渲染。",
+      "llm_tldr": "引入8D神经资产来预烘焙复杂的光线传输效果，实现高保真3D渲染。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.26067v1",
+      "title": "RADIO-ViPE: Online Tightly Coupled Multi-Modal Fusion for Open-Vocabulary Semantic SLAM in Dynamic Environments",
+      "abstract": "We present RADIO-ViPE (Reduce All Domains Into One -- Video Pose Engine), an online semantic SLAM system that enables geometry-aware open-vocabulary grounding, associating arbitrary natural language queries with localized 3D regions and objects in dynamic environments. Unlike existing approaches that require calibrated, posed RGB-D input, RADIO-ViPE operates directly on raw monocular RGB video streams, requiring no prior camera intrinsics, depth sensors, or pose initialization. The system tightly couples multi-modal embeddings -- spanning vision and language -- derived from agglomerative foundation models (e.g., RADIO) with geometric scene information. This coupling takes place in initialization, optimization and factor graph connections to improve the consistency of the map from multiple modalities. The optimization is wrapped within adaptive robust kernels, designed to handle both actively moving objects and agent-displaced scene elements (e.g., furniture rearranged during ego-centric session). Experiments demonstrate that RADIO-ViPE achieves state-of-the-art results on the dynamic TUM-RGBD benchmark while maintaining competitive performance against offline open-vocabulary methods that rely on calibrated data and static scene assumptions. RADIO-ViPE bridges a critical gap in real-world deployment, enabling robust open-vocabulary semantic grounding for autonomous robotics and unconstrained in-the-wild video streams. Project page: https://be2rlab.github.io/radio_vipe",
+      "authors": [
+        "Zaid Nasser",
+        "Mikhail Iumanov",
+        "Tianhao Li",
+        "Maxim Popov",
+        "Jaafar Mahmoud",
+        "Sergey Kolyubin"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-28T19:09:09+00:00",
+      "link": "https://arxiv.org/pdf/2604.26067v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "associating natural language queries with localized 3D regions and objects",
+      "llm_evidence_cn": "将自然语言查询与局部3D区域和对象关联",
+      "llm_evidence": "将自然语言查询与局部3D区域和对象关联",
+      "canonical_evidence": "将自然语言查询与局部3D区域和对象关联",
+      "llm_tldr_en": "A semantic SLAM system that enables open-vocabulary grounding and 3D scene understanding from monocular video.",
+      "llm_tldr_cn": "一种语义SLAM系统，可从单目视频中实现开放词汇接地和3D场景理解。",
+      "llm_tldr": "一种语义SLAM系统，可从单目视频中实现开放词汇接地和3D场景理解。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.25404v1",
+      "title": "Robust Graph Matching through Semantic Relationship Generation for SLAM",
+      "abstract": "Graph-based representations such as Scene Graphs enable localization in structured indoor environments by matching a locally observed graph, constructed from sensor data, to a prior map. This process is particularly challenging in environments with repetitive or symmetric layouts, where structural cues alone are often insufficient to resolve ambiguities. We propose a semantic-enhanced graph matching approach that explicitly models relations between detected objects and structural elements, such as rooms and wall planes. Objects are detected from RGB-D data and integrated into the graph, and their relations to structural elements are exploited to filter candidate correspondences prior to geometric verification, significantly reducing ambiguity and search complexity. The proposed method is integrated within the iS-Graphs framework and evaluated in synthetic and simulated environments. Results show that semantic relations significantly reduce the number of candidate matches, improve computational efficiency, and enable faster convergence, particularly in symmetric scenarios where purely geometric approaches fail.",
+      "authors": [
+        "David Perez-Saura",
+        "Jose Andres Millan-Romera",
+        "Miguel Fernandez-Cortizas",
+        "Holger Voos",
+        "Pascual Campoy",
+        "Jose Luis Sanchez-Lopez"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-28T09:15:51+00:00",
+      "link": "https://arxiv.org/pdf/2604.25404v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "semantic relationship generation for scene graphs and 3D structural elements",
+      "llm_evidence_cn": "场景图和3D结构元素的语义关系生成",
+      "llm_evidence": "场景图和3D结构元素的语义关系生成",
+      "canonical_evidence": "场景图和3D结构元素的语义关系生成",
+      "llm_tldr_en": "Enhances SLAM by modeling semantic relationships between objects and structural elements in 3D scene graphs.",
+      "llm_tldr_cn": "通过建模3D场景图中物体与结构元素之间的语义关系来增强SLAM性能。",
+      "llm_tldr": "通过建模3D场景图中物体与结构元素之间的语义关系来增强SLAM性能。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.27590v1",
+      "title": "Fake3DGS: A Benchmark for 3D Manipulation Detection in Neural Rendering",
+      "abstract": "Recent advances in 3D reconstruction and neural rendering,particularly 3D Gaussian Splatting, make it feasible and simple to edit 3D scenes and re-render them as highly realistic images. Therefore, security concerns arise regarding the authenticity of 3D content. Despite this threat, 3D fake detection remains largely unexplored in the literature, and most existing work is limited to 2D space. Therefore, in this paper, we formalize the concept of 3D fake detection and introduce Fake3DGS, a dataset of 3D Gaussian splatting scenes and corresponding rendered views, where fake images are produced by controlled manipulations of geometry, appearance, and spatial layout, while preserving high visual realism. Using this benchmark, we demonstrate that current state-of-the-art 2D detectors struggle to distinguish between original and 3D manipulated images. To bridge this gap, we introduce a 3D-aware detection method that leverages multi-view coherence and features derived from the Gaussian splatting representation. Experimental results demonstrate a substantial improvement in recognizing modified 3D content, underscoring the validity of the new dataset and the necessity for authenticity assessment techniques that extend beyond 2D evidence. Code and data are publicly released for future investigations.",
+      "authors": [
+        "Davide Di Nucci",
+        "Riccardo Catalini",
+        "Guido Borghi",
+        "Roberto Vezzani"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-30T08:41:41+00:00",
+      "link": "https://arxiv.org/pdf/2604.27590v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Benchmark for 3D scene manipulation detection",
+      "llm_evidence_cn": "3D场景篡改检测基准",
+      "llm_evidence": "3D场景篡改检测基准",
+      "canonical_evidence": "3D场景篡改检测基准",
+      "llm_tldr_en": "Formalizes 3D fake detection and provides a benchmark for identifying manipulations in neural rendered scenes.",
+      "llm_tldr_cn": "正式化了3D伪造检测，并为识别神经渲染场景中的篡改提供了基准。",
+      "llm_tldr": "正式化了3D伪造检测，并为识别神经渲染场景中的篡改提供了基准。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.26454v1",
+      "title": "Last-Layer-Centric Feature Recombination: Unleashing 3D Geometric Knowledge in DINOv3 for Monocular Depth Estimation",
+      "abstract": "Monocular depth estimation (MDE) is a fundamental yet inherently ill-posed task. Recent vision foundation models (VFMs), particularly DINO-based transformers, have significantly improved accuracy and generalization for dense prediction. Prior works generally follow a unified paradigm: sampling a fixed set of intermediate transformer layers at uniform intervals to build multi-scale features. This common practice implicitly assumes that geometric information is uniformly distributed across layers, which may underutilize the structural 3D cues encoded in VFMs. In this study, we present a systematic layer-wise analysis of DINOv3, revealing that 3D information is distributed non-uniformly: deeper layers exhibit stronger depth predictability and better capture inter-sample geometric variation. Motivated by this, we introduce a Last-Layer-Centric Feature Recombination (LFR) module to enhance geometric expressiveness. LFR treats the final layer as a geometric anchor and adaptively selects complementary intermediate layers according to a minimal-similarity criterion. Selected features are fused with the last-layer representation via compact linear adapters.Extensive experiments show that LFR module consistently improves MDE accuracy and achieves state-of-the-art performance. Our analysis sheds light on how geometric knowledge is organized within VFMs and offers an efficient strategy for unlocking their potential in dense 3D tasks.",
+      "authors": [
+        "Gongshu Wang",
+        "Zhirui Wang",
+        "Kan Yang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-29T09:11:36+00:00",
+      "link": "https://arxiv.org/pdf/2604.26454v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "unleashing 3D geometric knowledge for monocular depth estimation",
+      "llm_evidence_cn": "释放单目深度估计中的3D几何知识",
+      "llm_evidence": "释放单目深度估计中的3D几何知识",
+      "canonical_evidence": "释放单目深度估计中的3D几何知识",
+      "llm_tldr_en": "Analyzes and optimizes feature recombination in vision foundation models to improve 3D geometric depth estimation.",
+      "llm_tldr_cn": "分析并优化视觉基础模型中的特征重组，以提高3D几何深度估计的准确性。",
+      "llm_tldr": "分析并优化视觉基础模型中的特征重组，以提高3D几何深度估计的准确性。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.28122v1",
+      "title": "Beyond Gaussian Bottlenecks: Topologically Aligned Encoding of Vision-Transformer Feature Spaces",
+      "abstract": "Modern visual world modeling systems increasingly rely on high-capacity architectures and large-scale data to produce plausible motion, yet they often fail to preserve underlying 3D geometry or physically consistent camera dynamics. A key limitation lies not only in model capacity, but in the latent representations used to encode geometric structure. We propose S$^2$VAE, a geometry-first latent learning framework that focuses on compressing and representing the latent 3D state of a scene, including camera motion, depth, and point-level structure, rather than modeling appearance alone. Building on representations from a Visual Geometry Grounded Transformer (VGGT), we introduce a novel type of variational autoencoder using a product of Power Spherical latent distributions, explicitly enforcing hyperspherical structure in the bottleneck to preserve directional and geometric semantics under strong compression. Across depth estimation, camera pose recovery, and point cloud reconstruction, we show that geometry-aligned hyperspherical latents consistently outperform conventional Gaussian bottlenecks, particularly in high-compression regimes. Our results highlight latent geometry as a first-class design choice for physically grounded visual and world models.",
+      "authors": [
+        "Andrew Bond",
+        "Ilkin Umut Melanlioglu",
+        "Erkut Erdem",
+        "Aykut Erdem"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-04-30T17:12:31+00:00",
+      "link": "https://arxiv.org/pdf/2604.28122v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "latent learning framework for 3D scene state and structure",
+      "llm_evidence_cn": "用于3D场景状态和结构的潜空间学习框架",
+      "llm_evidence": "用于3D场景状态和结构的潜空间学习框架",
+      "canonical_evidence": "用于3D场景状态和结构的潜空间学习框架",
+      "llm_tldr_en": "Proposes S2VAE to encode 3D scene geometry and motion into a topologically aligned latent space.",
+      "llm_tldr_cn": "提出S2VAE框架，将3D场景几何和运动编码到拓扑对齐的潜空间中。",
+      "llm_tldr": "提出S2VAE框架，将3D场景几何和运动编码到拓扑对齐的潜空间中。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.26620v1",
+      "title": "SnapPose3D: Diffusion-Based Single-Frame 2D-to-3D Lifting of Human Poses",
+      "abstract": "Depth ambiguity and joint uncertainty are the two main obstacles in obtaining accurate human pose predictions by 2D-to-3D lifting methods proposed in the literature. In particular, these issues are caused by 2D joint locations that can be mapped to multiple 3D positions, inducing multiple possible final poses. Following these considerations, we propose leveraging diffusion-based models generation capability to predict multiple hypotheses and aggregate them in a final accurate pose. Therefore, we introduce SnapPose3D, a pose-lifting framework trained deterministically to denoise 3D poses conditioned on both visual context and 2D pose features. SnapPose3D adopts a probabilistic approach during inference, generating multiple hypotheses through random sampling from a unit Gaussian distribution. Unlike most previous methods that address pose ambiguity by processing temporal sequences, SnapPose3D uses single frames as input, avoiding tracking and limiting computational cost, data acquisition complexity, and the need for online, real-time applications. We extensively evaluate SnapPose3D on well-known benchmarks for the 3D human pose estimation task showing its ability to generate and aggregate accurate hypotheses that lead to state-of-the-art results.",
+      "authors": [
+        "Alessandro Simoni",
+        "Riccardo Catalini",
+        "Davide Di Nucci",
+        "Guido Borghi",
+        "Davide Davoli",
+        "Lorenzo Garattoni",
+        "Gianpiero Francesca",
+        "Yuki Kawana",
+        "Roberto Vezzani"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-29T12:45:40+00:00",
+      "link": "https://arxiv.org/pdf/2604.26620v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "diffusion-based 2D-to-3D lifting for human pose generation",
+      "llm_evidence_cn": "基于扩散模型的2D到3D人体姿态生成",
+      "llm_evidence": "基于扩散模型的2D到3D人体姿态生成",
+      "canonical_evidence": "基于扩散模型的2D到3D人体姿态生成",
+      "llm_tldr_en": "SnapPose3D uses diffusion models to generate accurate 3D human poses from single 2D frames.",
+      "llm_tldr_cn": "SnapPose3D利用扩散模型从单张2D图像中生成准确的3D人体姿态。",
+      "llm_tldr": "SnapPose3D利用扩散模型从单张2D图像中生成准确的3D人体姿态。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.27871v1",
+      "title": "D-Rex : Diffusion Rendering for Relightable Expressive Avatars",
+      "abstract": "We present D-Rex, a person-specific framework for photorealistic, relightable, expressive, and animatable full-body human avatars with free-viewpoint rendering. Existing methods for relightable full-body avatars rely on explicit 3D intrinsic decomposition with analytic reflectance models, which require accurate geometry registration and careful optimization to capture realistic light transport effects. This tight coupling of relighting with avatar modeling has hindered expressiveness: to our knowledge, no existing method demonstrates strong facial animation alongside relighting, limiting applicability in telepresence, gaming, and virtual production. We propose to decouple relighting entirely from avatar modeling by treating it as an image-space post-process: a learned translation from flat-lit, albedo-like renderings to a target HDR illumination. To this end, we leverage the strong generative prior of a pre-trained video diffusion relighting model, fine-tuned via LoRA on paired flat-lit and relit frames captured in a light stage. The flat-lit driving frames are produced by an independent expressive full-body avatar framework trained under white-light conditions, requiring no modification to support relighting, making D-Rex directly applicable to any white-light avatar system. We demonstrate that D-Rex enables view- and temporally consistent relighting while faithfully preserving expressive motion and fine-grained facial detail, outperforming physically-based relightable avatar baselines. Project page is https://vcai.mpi-inf.mpg.de/projects/DRex/",
+      "authors": [
+        "Timo Teufel",
+        "Xilong Zhou",
+        "Umar Iqbal",
+        "Jan Kautz",
+        "Marc Habermann",
+        "Vladislav Golyanik",
+        "Christian Theobalt"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR"
+      ],
+      "published": "2026-04-30T13:53:03+00:00",
+      "link": "https://arxiv.org/pdf/2604.27871v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "generative framework for relightable 3D human avatars",
+      "llm_evidence_cn": "可重光照3D人体化身的生成框架",
+      "llm_evidence": "可重光照3D人体化身的生成框架",
+      "canonical_evidence": "可重光照3D人体化身的生成框架",
+      "llm_tldr_en": "D-Rex decouples relighting from modeling to create expressive and animatable 3D human avatars.",
+      "llm_tldr_cn": "D-Rex将重光照与建模解耦，以创建具有表现力且可动画化的3D人体化身。",
+      "llm_tldr": "D-Rex将重光照与建模解耦，以创建具有表现力且可动画化的3D人体化身。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

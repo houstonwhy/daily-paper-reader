@@ -6,74 +6,58 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-05-01
-- 运行时间：2026-05-01 19:41:32 UTC
+- 最新运行日期：2026-05-02
+- 运行时间：2026-05-02 19:01:32 UTC
 - 运行状态：成功
-- 本次总论文数：17
-- 精读区：6
-- 速读区：11
+- 本次总论文数：12
+- 精读区：3
+- 速读区：9
 
 ### 今日简报（AI）
-- 今日共生成 17 篇推荐（精读 6 篇，速读 11 篇）
-- 精读：《CasLayout: Cascaded 3D Layout Diffusion for Indoor Scene Synthesis with Implicit Relation Modeling》（10.0/10）, 《SpatialGrammar: A Domain-Specific Language for LLM-Based 3D Indoor Scene Generation》（10.0/10）
-- 速读：《REVIVE 3D: Refinement via Encoded Voluminous Inflated prior for Volume Enhancement》（8.0/10）, 《World2Minecraft: Occupancy-Driven Simulated Scenes Construction》（8.0/10）, 《3D-ReGen: A Unified 3D Geometry Regeneration Framework》（8.0/10）
-- 这些结果覆盖了当下较热的方向，建议先看精读区论文的关键问题与方法。
-- 详情：[/202605/01/README](/202605/01/README)
+今日聚焦 3D 过程化生成与 4D 世界建模，深度解析了 Python 驱动的几何抽象与视频先验驱动的动作建模。
+重点关注 ProcFunc 带来的高效 3D 编程范式，以及利用异步去噪实现视频到 4D 动作建模的统一框架。
+建议开发者尝试
+- 详情：[/202605/02/README](/202605/02/README)
 
 ### 精读区论文标签
-1. [CasLayout: Cascaded 3D Layout Diffusion for Indoor Scene Synthesis with Implicit Relation Modeling](/202605/01/2604.27361v1-caslayout-cascaded-3d-layout-diffusion-for-indoor-scene-synthesis-with-implicit-relation-modeling)  
-   标签：评分：10.0/10、query:3dgen
-   evidence：用于3D室内场景合成和布局生成的级联扩散框架
-2. [SpatialGrammar: A Domain-Specific Language for LLM-Based 3D Indoor Scene Generation](/202605/01/2604.27555v1-spatialgrammar-a-domain-specific-language-for-llm-based-3d-indoor-scene-generation)  
-   标签：评分：10.0/10、query:3dgen
-   evidence：基于大语言模型的自然语言3D室内场景生成
-3. [Reconstruction by Generation: 3D Multi-Object Scene Reconstruction from Sparse Observations](/202605/01/2604.27106v1-reconstruction-by-generation-3d-multi-object-scene-reconstruction-from-sparse-observations)  
+1. [ProcFunc: Function-Oriented Abstractions for Procedural 3D Generation in Python](/202605/02/2604.26943v1-procfunc-function-oriented-abstractions-for-procedural-3d-generation-in-python)  
    标签：评分：9.0/10、query:3dgen
-   evidence：用于3D多物体场景重建与合成的生成式框架
-4. [HERMES++: Toward a Unified Driving World Model for 3D Scene Understanding and Generation](/202605/01/2604.28196v1-hermes-toward-a-unified-driving-world-model-for-3d-scene-understanding-and-generation)  
-   标签：评分：9.0/10、query:3dgen
-   evidence：集成了3D场景理解与未来几何生成的统一模型
-5. [SQuadGen: Generating Simple Quad Layouts via Chart Distance Fields](/202605/01/2604.27329v1-squadgen-generating-simple-quad-layouts-via-chart-distance-fields)  
+   evidence：室内房间的程序化3D生成
+2. [Unified 4D World Action Modeling from Video Priors with Asynchronous Denoising](/202605/02/2604.26694v1-unified-4d-world-action-modeling-from-video-priors-with-asynchronous-denoising)  
    标签：评分：8.0/10、query:3dgen
-   evidence：基于扩散模型的3D形状生成框架
-6. [Sparse-View 3D Gaussian Splatting in the Wild](/202605/01/2604.27422v1-sparse-view-3d-gaussian-splatting-in-the-wild)  
+   evidence：统一的4D世界合成与3D重建
+3. [Generalizable Sparse-View 3D Reconstruction from Unconstrained Images](/202605/02/2604.28193v1-generalizable-sparse-view-3d-reconstruction-from-unconstrained-images)  
    标签：评分：8.0/10、query:3dgen
-   evidence：无约束场景下稀疏视图的3D场景合成
+   evidence：稀疏视图3D场景重建的前馈框架
 
 ### 速读区论文标签
-1. [REVIVE 3D: Refinement via Encoded Voluminous Inflated prior for Volume Enhancement](/202605/01/2604.27504v1-revive-3d-refinement-via-encoded-voluminous-inflated-prior-for-volume-enhancement)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：3D资产生成模型与体积增强
-2. [World2Minecraft: Occupancy-Driven Simulated Scenes Construction](/202605/01/2604.27578v1-world2minecraft-occupancy-driven-simulated-scenes-construction)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：用于模拟环境的3D场景构建与合成
-3. [3D-ReGen: A Unified 3D Geometry Regeneration Framework](/202605/01/2604.28134v1-3d-regen-a-unified-3d-geometry-regeneration-framework)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：3D几何再生与合成框架
-4. [Visual Generation in the New Era: An Evolution from Atomic Mapping to Agentic World Modeling](/202605/01/2604.28185v1-visual-generation-in-the-new-era-an-evolution-from-atomic-mapping-to-agentic-world-modeling)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：视觉与世界模型生成的分类与演进
-5. [EvFlow-GS: Event Enhanced Motion Deblurring with Optical Flow for 3D Gaussian Splatting](/202605/01/2604.22183v1-evflow-gs-event-enhanced-motion-deblurring-with-optical-flow-for-3d-gaussian-splatting)  
+1. [GS-Playground: A High-Throughput Photorealistic Simulator for Vision-Informed Robot Learning](/202605/02/2604.25459v1-gs-playground-a-high-throughput-photorealistic-simulator-for-vision-informed-robot-learning)  
    标签：评分：7.0/10、query:3dgen
-   evidence：用于场景重建的3D高斯泼溅
-6. [Flow4DGS-SLAM: Optical Flow-Guided 4D Gaussian Splatting SLAM](/202605/01/2604.22339v2-flow4dgs-slam-optical-flow-guided-4d-gaussian-splatting-slam)  
+   evidence：带有3D资产的视觉感知机器人学习模拟器
+2. [RADIO-ViPE: Online Tightly Coupled Multi-Modal Fusion for Open-Vocabulary Semantic SLAM in Dynamic Environments](/202605/02/2604.26067v1-radio-vipe-online-tightly-coupled-multi-modal-fusion-for-open-vocabulary-semantic-slam-in-dynamic-environments)  
    标签：评分：7.0/10、query:3dgen
-   evidence：动态环境下的3D场景重建与合成
-7. [Softmax-GS: Generalized Gaussians Learning When to Blend or Bound](/202605/01/2604.27437v1-softmax-gs-generalized-gaussians-learning-when-to-blend-or-bound)  
+   evidence：将自然语言查询与局部3D区域和对象关联
+3. [Fake3DGS: A Benchmark for 3D Manipulation Detection in Neural Rendering](/202605/02/2604.27590v1-fake3dgs-a-benchmark-for-3d-manipulation-detection-in-neural-rendering)  
    标签：评分：7.0/10、query:3dgen
-   evidence：用于场景合成的3D表示和重建方法
-8. [Faster 3D Gaussian Splatting Convergence via Structure-Aware Densification](/202605/01/2604.28016v1-faster-3d-gaussian-splatting-convergence-via-structure-aware-densification)  
+   evidence：3D场景篡改检测基准
+4. [Beyond Gaussian Bottlenecks: Topologically Aligned Encoding of Vision-Transformer Feature Spaces](/202605/02/2604.28122v1-beyond-gaussian-bottlenecks-topologically-aligned-encoding-of-vision-transformer-feature-spaces)  
    标签：评分：7.0/10、query:3dgen
-   evidence：使用高斯泼溅进行3D场景表示与合成
-9. [A Pose-only Geometric Constraint for Multi-Camera Pose Adjustment](/202605/01/2604.23704v1-a-pose-only-geometric-constraint-for-multi-camera-pose-adjustment)  
+   evidence：用于3D场景状态和结构的潜空间学习框架
+5. [8DNA: 8D Neural Asset Light Transport by Distribution Learning](/202605/02/2604.25129v1-8dna-8d-neural-asset-light-transport-by-distribution-learning)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于3D场景重建的几何约束
-10. [PointTransformerX:Portable and Efficient 3D Point Cloud Processing without Sparse Algorithms](/202605/01/2604.24169v1-pointtransformerxportable-and-efficient-3d-point-cloud-processing-without-sparse-algorithms)  
+   evidence：3D资产光线传输的神经表示
+6. [Robust Graph Matching through Semantic Relationship Generation for SLAM](/202605/02/2604.25404v1-robust-graph-matching-through-semantic-relationship-generation-for-slam)  
    标签：评分：6.0/10、query:3dgen
-   evidence：3D点云表示与空间关系编码
-11. [Monocular Depth Estimation via Neural Network with Learnable Algebraic Group and Ring Structures](/202605/01/2604.24328v1-monocular-depth-estimation-via-neural-network-with-learnable-algebraic-group-and-ring-structures)  
+   evidence：场景图和3D结构元素的语义关系生成
+7. [Last-Layer-Centric Feature Recombination: Unleashing 3D Geometric Knowledge in DINOv3 for Monocular Depth Estimation](/202605/02/2604.26454v1-last-layer-centric-feature-recombination-unleashing-3d-geometric-knowledge-in-dinov3-for-monocular-depth-estimation)  
    标签：评分：6.0/10、query:3dgen
-   evidence：单目深度估计是3D场景表示和重建的基础任务。
+   evidence：释放单目深度估计中的3D几何知识
+8. [SnapPose3D: Diffusion-Based Single-Frame 2D-to-3D Lifting of Human Poses](/202605/02/2604.26620v1-snappose3d-diffusion-based-single-frame-2d-to-3d-lifting-of-human-poses)  
+   标签：评分：6.0/10、query:3dgen
+   evidence：基于扩散模型的2D到3D人体姿态生成
+9. [D-Rex : Diffusion Rendering for Relightable Expressive Avatars](/202605/02/2604.27871v1-d-rex--diffusion-rendering-for-relightable-expressive-avatars)  
+   标签：评分：6.0/10、query:3dgen
+   evidence：可重光照3D人体化身的生成框架
 
 
 <div class="dpr-home-promo-card">
