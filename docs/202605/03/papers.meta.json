@@ -1,0 +1,51 @@
+{
+  "label": "2026-05-03",
+  "date": "2026-05-03",
+  "generated_at": "2026-05-03T19:47:20",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202605/03/2604.25466v1-generalizable-human-gaussian-splatting-via-multi-view-semantic-consistency",
+      "section": "quick",
+      "title_en": "Generalizable Human Gaussian Splatting via Multi-view Semantic Consistency",
+      "authors": "Jingi Kim, Wonjun Kim",
+      "date": "2026-04-28",
+      "pdf": "https://arxiv.org/pdf/2604.25466v1",
+      "score": "6.0",
+      "evidence": "3D人体渲染与高斯泼溅",
+      "tldr": "针对稀疏视角下人体高斯泼溅（Gaussian Splatting）泛化性不足的问题，本文提出了一种基于多视角语义一致性的新方法。通过将各视角的潜嵌入向量投影到共享3D空间，并利用跨视角注意力机制根据身体部位进行特征重校准，解决了复杂姿态和遮挡导致的特征不一致及空间歧义问题，显著提升了人体渲染质量和3D高斯定位的准确性。",
+      "tags": "query:3dgen",
+      "abstract_en": "Recently, generalizable human Gaussian splatting from sparse-view inputs has been actively studied for the photorealistic human rendering. Most existing methods rely on explicit geometric constraints or predefined structural representations to accurately position 3D Gaussians. Although these approaches have shown the remarkable progress in this field, they still suffer from inconsistent feature representations across multi-view inputs due to complex articulations of the human body and limited overlaps between different views. To address this problem, we propose a novel method to accurately localize 3D Gaussians and ultimately improve the quality of human rendering. The key idea is to unproject latent embeddings encoded from each viewpoint into a shared 3D space through predicted depth maps and recalibrate them belonging to the same body part based on cross-view attention. This helps the model resolve the spatial ambiguity occurring in highly textured regions as well as occluded body parts, thus leading to the accurate localization of 3D Gaussians. Experimental results on benchmark datasets show that the proposed method efficiently improves the performance of generalizable human Gaussian splatting from sparse-view inputs.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/03/2604.27147v1-how-to-guide-your-flow-few-step-alignment-via-flow-map-reward-guidance",
+      "section": "quick",
+      "title_en": "How to Guide Your Flow: Few-Step Alignment via Flow Map Reward Guidance",
+      "authors": "Jerry Y. Huang, Justin Lin, Sheel Shah, Kartik Nair, Nicholas M. Boffi",
+      "date": "2026-04-29",
+      "pdf": "https://arxiv.org/pdf/2604.27147v1",
+      "score": "6.0",
+      "evidence": "生成模型的引导方法",
+      "tldr": "本研究针对生成模型中最大化特定奖励（如审美或人类偏好）的引导问题，指出传统方法存在计算昂贵或近似不准的缺陷。作者将引导过程重新建模为确定性最优控制问题，并利用流映射（Flow Map）提出了名为 FMRG 的训练无关、单轨迹引导框架。该方法在文本生成图像的多种任务中，仅需 3 次 NFE 即可匹配或超越现有 SOTA 效果，实现了数量级的加速，为高效对齐提供了新思路。",
+      "tags": "query:3dgen",
+      "abstract_en": "In generative modeling, we often wish to produce samples that maximize a user-specified reward such as aesthetic quality or alignment with human preferences, a problem known as guidance. Despite their widespread use, existing guidance methods either require expensive multi-particle, many-step schemes or rely on poorly understood approximations. We reformulate guidance as a deterministic optimal control problem, yielding a hierarchy of algorithms that subsumes existing approaches at the coarsest level. We show that the flow map, an object of significant recent interest for its role in fast inference, arises naturally in the optimal solution. Based on this observation, we propose Flow Map Reward Guidance (FMRG): a training-free, single-trajectory framework that uses the flow map to both integrate and guide the flow. At text-to-image scale, FMRG matches or surpasses baselines across inverse problems, style transfer, human preferences, and VLM rewards with as few as 3 NFEs, giving at least an order-of-magnitude speedup in comparison to prior state of the art.",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202605/03/2604.27572v1-sandsim-curve-guided-gaussian-splatting-for-reconstructing-sand-painting-processes",
+      "section": "quick",
+      "title_en": "SandSim: Curve-Guided Gaussian Splatting for Reconstructing Sand Painting Processes",
+      "authors": "Yilin Wang, Haojie Huang, Chen Li, Yang Li, Changbo Wang, Chenhui Li",
+      "date": "2026-04-30",
+      "pdf": "https://arxiv.org/pdf/2604.27572v1",
+      "score": "6.0",
+      "evidence": "沙画过程的3D重建",
+      "tldr": "本研究提出SandSim框架，旨在从单张图像重建沙画创作过程。针对现有方法在结构连贯性和材质一致性上的不足，该框架引入了曲线引导的高斯表示，将笔触建模为沿连续轨迹的各向异性原语，并结合减法合成方案模拟光衰减。通过语义引导的规划模块推断绘画顺序，SandSim实现了高度逼真且时序连贯的沙画生成，并支持物理模拟交互。",
+      "tags": "query:3dgen",
+      "abstract_en": "Sand painting is a process-driven art where visual appearance emerges from granular accumulation. Given a single image, reconstructing a plausible sand painting process requires modeling coherent stroke structures and material-dependent effects. Existing methods, including stroke-based optimization and diffusion-based video synthesis, often lack structural coherence and material consistency, leading to unrealistic drawing sequences. We present SandSim, a framework that reconstructs a sand painting process from a single image. We introduce a curve-guided Gaussian representation that models strokes as sequences of anisotropic primitives along continuous trajectories, whose smooth kernels capture the soft boundaries of sand strokes and enable coherent stroke formation. We further adopt a subtractive compositing scheme to model light attenuation during sand accumulation. We incorporate a semantic-guided planning module for scene decomposition and drawing order inference. Our framework jointly optimizes stroke geometry and appearance and can be integrated with a physics-based simulator for interactive sand dynamics and editing. Experiments show that our method produces temporally coherent and visually realistic results, achieving improved reconstruction quality and perceptual fidelity compared to existing approaches.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
