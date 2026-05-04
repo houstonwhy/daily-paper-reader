@@ -1,0 +1,660 @@
+Title: Predictive Spatio-Temporal Scene Graphs for Semi-Static Scenes
+
+URL Source: https://arxiv.org/pdf/2605.00121v1
+
+Published Time: Mon, 04 May 2026 00:13:03 GMT
+
+Number of Pages: 17
+
+Markdown Content:
+# Predictive Spatio-Temporal Scene Graphs for Semi-Static Scenes 
+
+Miguel Saavedra-Ruiz ∗,1,2, Charlie Gauthier ∗,1,2, Kumaraditya Gupta 1,2, Shima Shahfar 3,Kirsty Ellis 1,2, Steven Parkison 4 and Liam Paull 1,2
+
+Fig. 1: Perpetua ∗ augments open-vocabulary scene graph representations built by state-of-the-art perception algorithms to produce PredictiveGraphs . The resulting representation supports predictive tempo-spatio-semantic queries. 
+
+Abstract —We have seen tremendous recent progress in our ability to build “spatio-semantic” representations that enable robots to perform complex reasoning across geometry and seman-tics. However, the vast majority of these methods lack any ability to perform reasoning across time. This is a desirable property in situations where a robot repeatedly observes an environment where instances may change in between observations, but in a structured way. Consider as an example a home environment where the location of a mug typically moves from the cupboard to a countertop to the sink and then back to the cupboard on a daily basis. We should be able to learn this cyclic behavior and use it to predict the state of the mug in the future. In this work, we propose a method that is able to perform this type of tempo-spatio-semantic reasoning. Underpinning the method is a filter, Perpetua ∗, that performs Bayesian reasoning on the states of the environment that are observed over time. This filter is integrated within a 3D scene graph structure that we call PredictiveGraphs, where nodes represent objects and edges function as Perpetua ∗
+
+filters encoding spatio-semantic relationships. We validate the method in both simulation and real-world dynamic navigation tasks, where our real world experiments consist of an environ-ment that is undergoing semi-static changes at a bi-hourly fre-quency over a period of three weeks. In both settings, we demon-
+
+> ∗
+
+Equal contribution. 1Department of Computer Science and Operations Research, Universit´ e de Montr´ eal, Montr´ eal, QC, Canada. 2Mila - Quebec AI Institute, Montreal, QC, Canada. 3Independent Researcher. 4Hydro-Qu´ ebec Research Institute (IREQ). 
+
+Preprint: April 2026 
+
+strate that our method outperforms baselines in predicting future environment states, even in the presence of distributional shifts. 
+
+I. I NTRODUCTION 
+
+Achieving long-term operation in dynamic environments remains a fundamental challenge in robotics, spanning nearly three decades of active research [42, 5, 7]. Solving this problem is key to unlocking truly autonomous agents capa-ble of reliable operation in an ever-changing world without constant human intervention [9]. A fundamental challenge lies in the complex nature of semi-static dynamics , where objects often appear or disappear between observations, a challenge exacerbated by partial, noisy sensor data in real-world deployments [41]. Effective handling of such dynamics requires robots to reason across temporal dimensions: leveraging the past to con-textualize observations, tracking the present state of the world, and predicting the future to anticipate changes and enable informed decision-making. However, while many state-of-the-art methods rely on change-detection to maintain an up-to-date map [28, 37, 51, 40], they typically maintain only a hypothesis about the present . By discarding historical data to satisfy memory constraints, these approaches sacrifice the temporal information necessary for predicting environmental evolution. 
+
+> arXiv:2605.00121v1 [cs.RO] 30 Apr 2026
+
+To address this gap, recent approaches have begun exploiting past temporal information to better inform map updates [41], or ground complex queries about the past in spatial maps [3, 48] (e.g., “where were my keys four hours ago?”). While these methods successfully reason about past 
+
+and present , reasoning about the future is largely unexplored. Yet, most real-world scenes exhibit semantically consistent patterns across time that we should be able to learn, e.g., a door consistently open from 9 to 5, or an office building being empty on weekends. Persistence estimators [36, 31] are methods designed to learn and predict such semi-static dynamics. However, existing approaches face a fundamental trade-off: filtering-based methods like Perpetua [38] can track changes in real-time by updating beliefs as new observations arrive but have limited long-term forecasting capabilities, while prediction-based estimators [22, 46] excel at long-horizon forecasting but lack adaptation capabilities. In this paper, we bridge this gap by first proposing Perpetua ∗, a persistence estimator that extends Perpetua [38] with Bayesian model selection. Specifically, we use a switch-ing prior obtained from either environment-specific observa-tions [22] or a large language model (LLM) [11] to improve Perpetua’s persistence estimates over long horizons. As a re-sult, Perpetua ∗ maintains the core strengths of its predecessor while also overcoming its predictive limitations. We then propose PredictiveGraphs, an open-vocabulary map representation that predicts object-level semi-static changes over extended horizons by integrating Perpetua ∗ with a scene graph representation (ConceptGraphs [17]). Specifically, we attach persistence estimators to objects in the map to track their temporal patterns. Our key insight is that in human-centric environments and structured operational settings (e.g. warehouses), objects exhibit a temporal structure driven by routine behaviors rather than randomness [40, 50, 33]. To render persistence estimation (PE) tractable in this complex open-vocabulary setting, we assume that semi-static objects have a finite number of discrete states that we call “receptacles”. Combining persistence estimators with scene graphs allows these map representations to (1) break the staticity assumption and accurately model semi-static objects, (2) predict future object states, including relocation or removal from the environment, and (3) maintain continuously updated based on learned temporal patterns. Therefore, given a text query like “where is my coffee mug,” PredictiveGraphs retrieves the object of interest and uses Perpetua ∗ to predict its most likely location at some time t from a list of previously observed receptacles, even when the underlying 3D map is outdated. We demonstrate the utility of this approach through a dynamic object navigation task. In summary, our contributions are: 1) Perpetua ∗, a persistence estimator that extends Perpetua with a switching prior via Bayesian model selection, enabling long-horizon predictions while preserving real-time adaptability; 2) PredictiveGraphs , a tempo-spatio-semantic scene graph that integrates Perpetua ∗ to model object-level semi-static dynamics; and 3) A long-term dataset of semi-static dynamics spanning three weeks in a laboratory setting, with bi-hourly ob-servations during operational hours 1.We validate our approach on both simulation data and a novel real-world dataset capturing semi-static dynamics in a laboratory over three weeks. Through these experiments, we demonstrate that our method can address a new type of spatio-temporal queries that previous methods could not address by propagating forward in time our map representation. II. R ELATED WORK 
+
+Persistence Estimation. PE models and predicts the tem-poral dynamics of semi-static features [36]. Unlike spatio-temporal simultaneous localization and mapping (SLAM) [41, 4], which tracks but does not forecast changes, PE explicitly predict future feature states. Existing approaches include pre-dictive methods , such as FreMen [22] and ARMA [46], which excel at long-horizon forecasting via frequency-domain or autoregressive modeling but struggle with distributional shifts, and filtering methods , such as the Persistence Filter [36] and Perpetua [38], which adapt to real-time noise but lack long-term predictive power. Perpetua ∗ bridges this gap by extending Perpetua with a switching prior via Bayesian model selection. While several works have integrated PE with spatial repre-sentations [18, 13, 19, 2], these methods operate on low-level geometric features, lacking the semantic understanding neces-sary for symbolic reasoning. Similarly, graph neural network-based methods for temporal link prediction [23, 27, 44, 32] share our goal of forecasting scene graph changes. However, unlike Perpetua ∗, these approaches do not recursively adapt to new observations. Finally, unlike spatio-temporal human tra-jectory prediction [15], PredictiveGraphs focuses on predicting semi-static changes at the object-instance level. 
+
+Scene Graphs. 3D scene-graphs have evolved from closed-vocabulary models to open-vocabulary representations using vision-language models (VLMs), such as ConceptGraphs [17], HOV-SG [47], and Clio [29]. Recent methods exploit temporal information to inform map updates [50, 6, 26] or integrate it into map optimization [41, 33]. Spatio-temporal representa-tions have incorporated VLMs with retrieval augmented gener-ation (RAG) [25] to ground queries about past events in spatial maps [35, 14, 16, 3, 48, 49]. Although scene graphs such as DualMap [20], DynaMem [26], and OpenIn [43] model semi-static environments, and others predict graph changes [32, 23], PredictiveGraphs is the first method to incorporate predictive capabilities into an open-vocabulary scene graph III. P ROBLEM STATEMENT 
+
+The goal of PE in robotics is to model the presence of objects that are being moved in the environment. Following the problem setting of Saavedra-Ruiz et al. [38], we assume that an agent is operating in an environment that is undergoing semi-static changes. Similar to previous semantic scene graph work [20, 6, 17, 47], we assume access to RGB-D frames 
+
+I = {It1 , I t2 , . . . , I tN } with known poses collected during multiple mapping sessions at times {ti}Ni=1 ∈ [0 , ∞). These 
+
+> 1Will be released soon.
+
+observations are used to construct and maintain a metric-semantic scene graph GtN = ⟨V tN , EtN ⟩ up to time tN ,where EtN denotes the edges, and VtN = OStN ∪ O RtN ∪ O BG 
+
+comprises semi-static objects, receptacles, and background elements, respectively. Each semi-static object oj ∈ O StN is connected via edges to the set of receptacles Rj ⊆ ORtN where it has been previously observed. These connections form the edge set 
+
+EjtN ⊂ E tN , where each edge (oj , o k) is associated with a corresponding binary persistence variable Xj,k tN . For any query time t ∈ [tN , ∞), the persistence variable Xj,k t takes the value 
+
+1 if object oj is present in receptacle ok, and 0 otherwise. Therefore, given a scene graph, GtN , the goal is to predict the environment’s state given a text query at time t > t N such as “where is my coffee mug?” This involves: (1) inferring the posterior probabilities of the persistence variables Xj,k t
+
+associated with edges connected to semi-static objects, and (2) identifying the receptacle with the highest likelihood of containing the target object, or determining that it is unlikely to be present at any receptacle (absence). Underpinning our approach are the following assumptions: 
+
+periodic structure: similar to [22, 38], we assume that objects do not move at random, but instead follow periodic patterns; 
+
+uniqueness: dynamic objects are distinguishable enough to enable tracking across multiple navigation sessions; discrete states: each dynamic object is associated with a finite number of receptacles. IV. P ERPETUA ∗
+
+In this section we present our persistence estimator that we call Perpetua ∗, which models the presence or absence of a specific feature in the environment over time. During the exposition here, we will consider a single environment feature. 
+
+A. Preliminaries: Perpetua 
+
+Perpetua [38] is a persistence estimator that extends the persistence filter proposed by Rosen et al. [36] into a mixture formulation to capture multiple persistence hypotheses. Since Perpetua models individual features at single locations, we omit receptacle indices and let Xt denote the binary feature state. Let {Yti }Ni=1 with Yti ∈ { 0, 1} denote random variables modelling noisy presence observations obtained from an arbi-trary feature detector. Specifically, the mixture of persistence filters models persistence by estimating multiple hypotheses over survival time, T , which characterizes how long a feature exists before disappearing. The generative model is defined as: 
+
+T | C = l ∼ pl(· | C = l),Xt | T =
+
+(
+
+1, t ≤ T, 
+
+0, t > T Yt | Xt ∼ pYt (· | Xt); 
+
+(1) where C ∈ { 1, . . . , L } is a categorical variable denoting the mixture components, with prior probability πl = p(C = l)
+
+satisfying PLl=1 πl = 1 . The function pl denotes the condi-tional density function of the survival time T ∈ [0 , ∞) given the l-th mixture component. The binary variable Xt ∈ { 0, 1}
+
+models feature presence at time t. Note that the events Xt = 1 
+
+and T ≥ 1 are equivalent. Finally, the measurement model 
+
+pYt accounts for observation noise and is characterized by the probability of false negative PM = p(Yt = 0 |Xt = 1) , and false positive PF = p(Yt = 1 |Xt = 0) . From now on, we adopt the notation: xt ≜ (Xt = 1) and cl ≜ (C = l).Given a sequence of noisy observations Y1: N ≜ {yti }Ni=1 ,the mixture of persistence filter’s posterior for any time t ∈
+
+[tN , ∞) is given by: 
+
+p(xt | Y 1: N ) = 
+
+> L
+
+X
+
+> l=1
+
+wl p(xt | cl, Y1: N ), (2) with p(xt | cl, Y1: N ) denoting the conditional posterior of each mixture and wl ≜ p(cl | Y 1: N ) the posterior weights. The conditional posterior of each mixture can be decomposed as 
+
+p(xt | cl, Y1: N ) = p(Y1: N | xt)pl(xt | cl)
+
+p(Y1: N | cl) , (3) where the measurement likelihood, p(Y1: N | xt), and the prior 
+
+pl(xt | cl) can be recursively updated 
+
+p(Y1: N | xt) = 
+
+> N
+
+Y
+
+> i=1
+
+P 1−yti 
+
+> M
+
+(1 − PM )yti , (4) 
+
+pl(xt | cl) = 1 − Fl(t) = 1 −
+
+Z t
+
+> 0
+
+pl(τ |cl)dτ. (5) The conditional evidence, p(Y1: N | cl), is more involved to compute. However, exploiting the fact that it can be decomposed as a sum over disjoint time intervals, it can be recursively updated as 
+
+H(Y1: N | cl) = P ytN 
+
+> F
+
+(1 − PF )1−ytN
+
+
+
+H(Y1: N −1 | cl) +
+
+p(Y1: N −1 | xtN −1 )[ Fl(tN ) − Fl(tN −1)] 
+
+
+
+,p(Y1: N | cl) = H(Y1: N | cl) + p(Y1: N | xtN )[1 − Fl(tN )] .
+
+(6) Here, H(Y1: N | cl) acts as a recursive accumulator, fa-cilitating the efficient update of the conditional evidence 
+
+p(Y1: N | cl). Once the conditional posterior, p(xt | cl, Y1: N ),is computed for all mixtures, the posterior weights can be recovered via 
+
+wl = p(Y1: N , c l)
+
+p(Y1: N ) = p(Y1: N | cl)p(cl)
+
+PLl=1 p(Y1: N | cl)p(cl) . (7) Finally, instead of using the marginalized mixture posterior from (2), the mixture of persistence filters bases its final pre-diction on the conditional posterior of the dominant component (i.e., the component with the maximum posterior weight): 
+
+p(xt | cl∗ , Y1: N ) s.t. l∗ = arg max 
+
+> l
+
+p(cl | Y 1: N ). (8) To capture feature reappearance, Perpetua introduces a com-plementary mixture of emergence filters. This model is derived analogously to the persistence model in (8). To handle both appearance and disappearance, the persistence and emergence models are coupled via a state machine, where switching is governed by a heuristic threshold based on the models’ belief defined in (8) (for details on model training see [38]). Perpetua has two notable limitations: the heuristic switching mechanism requires costly simulation steps between observations to detect state changes, and, without observations, long-horizon predic-tions are limited to periodic patterns (see Fig. 4, third row), which may diverge from true feature dynamics. 
+
+B. Method 
+
+The main contribution of Perpetua ∗ lies in replacing the heuristic state machine from Perpetua [38] with Bayesian model selection [30], which provides a probabilistic basis for selecting between the emergence and persistence models. In particular, the Bayesian model selection process is informed by a new switching prior, allowing the estimator to leverage environment-specific knowledge or LLMs [45]. We propose a switching prior, f (t) : [0 , ∞) → [0 , 1] , which can take several forms, such as: 
+
+fFreMen (t) = σ  F−1[P(ω)]( t) , (9) 
+
+fLLM (t) = 
+
+> R
+
+X
+
+> r=1
+
+ar · I(t ∈ T r ). (10) Here, (9) applies the inverse Fourier transform F−1 to a set of coefficients P(ω) [22]; and (10) defines a piecewise constant function using the indicator function I(·). In the latter, the LLM generates values ar ∈ [0 , 1] given a prompt. We define σ(x) = min(max( x, 0) , 1) as a saturation function to ensure outputs are in the unit interval. These priors can be learned from data [22, 46, 18], fused together, or directly specified by the user. Given this prior, we define M as a binary random variable which selects between the persistence model MP and the emergence model ME, which are both defined as in (1). M
+
+has a switching probability mass function (PMF) given by: 
+
+pt(M = ME) = f (t), and pt(M = MP) = 1 − f (t), (11) which governs which of the two models, persistence or emergence, is more likely to be active at time t. Note that, unlike Perpetua [38], which only updates either the persistence or emergence model, we update both using all available observations Y1: N . We then employ Bayesian model selec-tion [30] to identify the best predictive model by treating the marginal evidence (denominator in (7)) as the model likelihood 
+
+p(Y1: N | M ) (explicitly conditioned on the model hypothesis) and combining it with the prior pt(M):
+
+p(M | Y 1: N ) ∝ p(Y1: N | M )α(t)pt(M). (12) Since the model likelihood is only updated upon receiving new observations, we introduce an exponential annealing term 
+
+α(t) = exp( −α0(t − tN )) , where α0 > 0 is a decay rate and 
+
+tN is the last observation time. This term gradually flattens the likelihood of the model such that in the prolonged absence of data, model selection becomes increasingly governed by the prior pt(M). Therefore, once the model posterior in (12) is computed, Perpetua ∗ generates predictions for any t ≥ tN
+
+Fig. 2: Perpetua ∗ Bayesian Model Selection: Positive values favor the emergence model, while negative values favor the persistence model. The data gap ( ta to tb) causes the model likelihood to decay, leaving the posterior influenced only by the prior until observations resume. using a weighted average of the persistence and emergence models: 
+
+p(xt | Y 1: N ) = X
+
+> m∈{M E,MP}
+
+p(m | Y 1: N )p(xt | cl∗ , Y1: N , m ), (13) where the predictions for each model p(xt | cl∗ , Y1: N , m ) are computed via (8) using the parameters specific to the per-sistence or emergence model, with c∗ 
+
+> l
+
+denoting the dominant mixture component. To facilitate rapid adaptation to new observations, we apply a forgetting factor γ ∈ [0 , 1] to the measurement likelihood updates in (4). Figure 2 shows how the switching prior (top) and model likelihood (middle) in (12) interact to yield the final model hypothesis (bottom). 
+
+1) Multi-Receptacle Belief: The Perpetua ∗ method we have described so far only handles the state of a single feature ,which corresponds to a specific object receptacle (is the mug on the balcony?) or even a state related to the environment (is it raining?). We now describe how we can aggregate individual Perpetua ∗ estimators to track objects oj ∈ O StN across K
+
+potential receptacles. For this, we define the joint belief as: 
+
+p(xj, 1 
+
+> t
+
+, . . . , x j,K t | Y 1: N ) = 
+
+> K
+
+Y
+
+> k=1
+
+p(xj,k t | Y k), (14) with Yk denoting the observations for the k-th receptacle, and 
+
+p(xj,k t | Y k) representing the state belief over that receptacle, computed via (13). Since this factorization allows an object to be assigned to multiple locations simultaneously, we resolve this ambiguity by identifying the single most likely receptacle using Maximum a Posteriori (MAP) estimation: 
+
+k∗ = arg max 
+
+> k
+
+p(xj, 1 
+
+> t
+
+, . . . , x j,K t | Y 1: N ). (15) Importantly, by comparing the final estimate p(xj,k ∗ 
+
+> t
+
+| Y k∗
+
+)
+
+against a probability threshold δ, this formulation determines not only the location of the object but also its potential absence from the scene (see Fig. 3). We provide a pseudocode outlining the update and prediction steps in Appendix A.1. V. P REDICTIVE GRAPHS 
+
+In this section, we attach Perpetua ∗ estimators to the edges of an open vocabulary scene graph. We call the resulting representation PredictiveGraphs, and it inherits the benefits of both Perpetua ∗ and semantic scene graphs [17, 47]. 
+
+A. Preliminaries: Open-Vocabulary Scene Graphs 
+
+Scene graphs represent environments by encoding objects as nodes and relationships as edges [17, 47]. Underpinning our approach is a scene graph constructed from the output of a SLAM algorithm, comprising a sequence of posed RGB-D frames. We [17, 47, 29] construct the graph by lifting 2D region proposals from posed RGB-D frames into 3D and merging observations over time. Each node also includes a vision-language embedding (e.g., from CLIP [34]) to enable arbitrary natural language queries. Following the notation in Sec. III, a node ou ∈ {O StN ∪O RtN ∪O BG } comprises a feature embedding eu ∈ Rd and a point cloud Pu ⊂ R3. The edge set E captures relationships between objects. 
+
+B. Method 1) Object Classification and Spatial Association: Given a scene graph GtN constructed from observations I from the latest mapping session in the time interval (ti, t N ], we first classify each object node into one of three categories: semi-static objects OStN , receptacles ORtN , or background OBG .We use CLIP to retrieve the objects most likely to be semi-static (we use a text description of what a semi-static object is as the target embedding). We retrieve the top-k
+
+candidates ranked by similarity. An object oj is added to OStN
+
+only after an LLM verification removes false positives from the CLIP-based retrieval. Receptacles are typically large, stationary objects (e.g., tables, shelves, countertops) that serve as containers for semi-static objects 2. Given that receptacles remain fixed throughout operation, we identify them using annotated bounding boxes provided by a human operator. We formulate the assignment of scene graph nodes to receptacle annotations as a bipartite matching problem using 3D IoU between bounding boxes, solved via the Hungarian algorithm. Matched receptacles nodes are assigned to ORtN . All remaining nodes are classified as background OBG .After classification, we determine which semi-static objects are spatially present at which receptacles. For each semi-static object oj ∈ O StN and each receptacle ok ∈ O RtN , we compute the Euclidean distance between their point cloud centroids. This gives a set of object-receptacle associations for a single mapping session. We denote the per-session association as 
+
+A(λ)(oj , o k) = 1 if oj is assigned to ok in the λ-th mapping 
+
+> 2Note, however, that the “receptacle” term can be a misnomer. Predictive-Graphs might consider a door to be the semi-static “object”, and its current state (open, closed) to be its receptacles.
+
+Fig. 3: Edge Update: Each semi-static object node has an associated set of Perpetua ∗ estimators (one for each receptacle node it has been observed at). At prediction time, Perpetua ∗
+
+updates the presence-absence belief of each edge. session (where λ ∈ Λ and Λ is the set of all mapping sessions), and 0 otherwise. Note that these associations are local to a single session and do not yet constitute the full edge set of the predictive graph. 
+
+2) Building the Edge History: To construct the full asso-ciation of where pickupable objects have been observed, we repeat the classification and spatial association procedure from Sec.V-B1 across all mapping sessions. For each session λ ∈ Λ,we build a scene graph from the images collected during that session’s time interval, classify the nodes, and evaluate the per-session association A(λ). We then aggregate these observations: A(oj , o k) = 1 if object oj has been observed on receptacle ok in any mapping session, and 0 otherwise. This historical record serves as the basis for constructing dense tem-poral edges in the time-varying scene graph, as described next. 
+
+3) Temporal Edge Formulation: Having classified the ob-jects and built the edge history, we construct the edge set of the final scene graph GtN to encode spatio-temporal object-receptacle relationships. Unlike standard scene graphs that define sparse edges based on spatial proximity, we adopt a 
+
+dense edge formulation that connects each semi-static object to all receptacles at which it has been historically observed. Formally, for each semi-static object oj ∈ O StN , we establish connectivity to the set of receptacles Rj = {ok ∈ O RtN |
+
+A(oj , o k) = 1 }. In other words, an edge (oj , o k) is created for every receptacle at which oj has been observed in any mapping session. The edge weight xj,k t between semi-static object oj and receptacle ok at query time t is given by the Perpetua ∗ belief computed via (13). This formulation yields a time-varying scene graph GtN = ( VtN , EtN ), where the edge weights evolve according to learned persistence dynamics. Figure 3 illustrates how Perpetua ∗ estimators are attached to the edges between a semi-static object and its receptacles to determine the object’s most likely location. 
+
+4) Temporal Queries and Map Propagation: The integra-tion of Perpetua ∗ with the scene graph enables querying the map at arbitrary future times t > t N , even in the absence of new observations by recomputing the edge weights for all semi-static object-receptacle pairs using the corresponding Perpetua ∗ estimators. For visualization, we resolve the ambi-Fig. 4: Persistence Belief: As shown, FreMEn struggles to adapt to distribution shifts, while Perpetua reverts to a cyclic pattern in the absence of data. Perpetua ∗ achieves the best tradeoff between adaptation and prediction quality regardless of the choice of switching prior. guity of having multiple candidate receptacles by selecting the most likely location for each semi-static object using (15) and spawning the object at a position on the predicted receptacle’s surface. For navigation tasks, we use the top-k receptacles ranked by edge weight, providing a prioritized list of locations to visit. 
+
+5) Perpetua ∗ Belief Updates: As the robot navigates and acquires new observations, the Perpetua ∗ estimators are up-dated in real-time to incorporate new information. For any RGB-D image It acquired at time t > tN , we construct a local scene graph Glocal  
+
+> t
+
+and apply the same classification procedure described in Sec.V-B1 to identify local semi-static objects OS, local  
+
+> t
+
+and receptacles OR, local  
+
+> t
+
+.We then compute the local spatial association to determine which semi-static objects are currently present on which recep-tacles. For each receptacle ok ∈ O R, local  
+
+> t
+
+that corresponds to a known receptacle in ORtN , we generate measurements for the corresponding Perpetua ∗ estimator: a presence measurement (yt = 1 ) for each semi-static object oj ∈ O S, local  
+
+> t
+
+found on 
+
+ok via the association function, and an absence measurement (yt = 0 ) for each oj ∈ O StN that is not detected on ok in the local observation using the association function. This online update mechanism enables PredictiveGraphs to adapt to distribution shifts where test-time dynamics diverge from the training data. 
+
+C. Embodied LLM Planning 
+
+We use a planning architecture that integrates our temporal object map with the LangChain [10] framework and consists of three primary components: (1) an Agent that orchestrates reasoning and tool invocation, (2) a Temporal Object Map ,TABLE I: Persistence Estimation: We ablate Perpetua ∗’s with different switching priors: FreMEn (FM), an LLM, and ground truth (GT). Results averaged over five random seeds.                                                       
+
+> Method MAE ↓B-Acc ↑F1 ↑
+> Perpetua [38] 0.066 ±0.003 0.662 ±0.005 0.930 ±0.008
+> FreMEn [22] 0.151 ±0.001 0.659 ±0.002 0.936 ±0.001
+> Perpetua ∗(FM) 0.042 ±0.001 0.690 ±0.010 0.977 ±0.001
+> Perpetua ∗(LLM) 0.044 ±0.003 0.660 ±0.005 0.966 ±0.004
+> Perpetua ∗(GT) 0.024 ±0.002 0.702 ±0.012 0.983 ±0.001
+
+our time-varying scene graph PredictiveGraphs that tracks object-receptacle relationships over time using Perpetua ∗, and (3) Observation Updates that feed robot observations back into Perpetua ∗ to update its beliefs and update the map state of PredictiveGraphs that the robot uses to navigate. PredictiveGraphs equips the agent with three tools for embodied planning: semantic search , location prediction , and 
+
+active navigation . The first uses CLIP [34] to identify objects in the map matching an open-vocabulary query. The second queries the underlying Perpetua ∗ models to obtain a probabil-ity distribution over receptacles for a given object at some time t. The third navigates the agent toward the predicted receptacle by integrating path planning with continuous map updates. This allows the agent to actively scan the environment and terminate early if the target object is detected or deemed absent. For a full description, see the Appendix B.1. VI. E VALUATION 
+
+We evaluate Perpetua ∗ and PredictiveGraphs in two stages. First, in Sec.VI-A, we benchmark Perpetua ∗ against estab-lished baselines, assessing long-term prediction, adaptation, and computational efficiency using a semi-static simulator. Second, in Sec.VI-B, we evaluate PredictiveGraphs on semi-static object navigation tasks [20]. We validate our approach across multiple ProcTHOR scenes [12] and demonstrate its effectiveness through real-world deployment in a laboratory with semi-static objects. 
+
+A. Evaluation: Perpetua ∗
+
+1) Experimental Setup: To evaluate our persistence estima-tor, Perpetua ∗, we report the mean absolute error (MAE) be-tween the predicted belief and ground truth state, the balanced accuracy (B-Acc) to account for class imbalance (e.g., mostly present or absent features), and the F1 score [38]. For MAE and F1, we threshold the predicted belief at 0.5.Unless stated otherwise, the prior pl in (1) is modelled as a mixture of log-normal distributions. We set the forgetting fac-tor γ = 0 .99 (which maintains approximately the last 250 ob-servations in memory) and decay rate α0 ≈ 0.01 , which corre-sponds to defer almost entirely to the prior after approximately 
+
+300 time units. We evaluate Perpetua ∗ with three variants of switching priors f (t): (1) a FreMEn prior (9) that computes 1000 Fourier coefficients and selects the optimal subset using a held-out validation set; (2) an LLM prior (10) generated via 
+
+gemini-2.5-pro [11]; and (3) an oracle prior that uses step functions matching the ground truth training set dynamics. For a complete description see Appendix B.2 and B.3. TABLE II: Predictive Navigation Experiment: PredictiveGraphs with Perpetua ∗ or FreMEn estimators outperforms baselines under both privileged and noisy perception.                                                                                                                                                                                                                                                                               
+
+> Static Setting (157) Dynamic Setting (93) Overall (250)
+> Presence (157) Presence (75) Absence (18) Average Perception Method Success (%) ↑SPL (%) ↑Success (%) ↑SPL (%) ↑AR (%) ↑Dist (m) ↓Success (%) ↑SPL (%) ↑
+> Privileged  CG [17] 51 .4±7.0 49 .3±6.6 0.0±0.0 0.0±0.0 46 .4±16.3 4.4±1.6 35 .2±4.8 33 .2±4.9
+> CG + LLM 88 .1±3.7 81 .1±3.5 68 .5±6.3 44 .7±6.5 20 .2±10.6 17 .0±2.4 76 .4±3.3 68 .4±3.3
+> CG + LLM + Hist. 94 .4±2.2 88 .5±2.5 65 .6±4.8 41 .7±5.3 14 .3±9.9 17 .2±2.8 80 .0±3.0 73 .2±3.7
+> Ours (FreMEn [22] )97.9 ±1.1 93.5 ±1.3 92.8 ±3.1 81.5 ±4.1 90.5 ±6.1 4.2 ±1.3 95.2 ±1.4 88.9 ±2.3
+> Ours 97.9 ±1.1 93.5 ±1.3 92.8 ±3.1 81 .1±3.9 90.5 ±6.1 4.2 ±1.3 95.2 ±1.4 88.9 ±2.3
+> CLIP + LLM  CG [17] 43 .0±6.7 41 .0±6.4 0.0±0.0 0.0±0.0 46 .4±16.3 4.4 ±1.6 29 .6±4.5 27 .4±4.6
+> CG + LLM 63 .5±4.9 56 .9±4.6 55 .6±6.5 35 .2±4.9 16 .7±10.9 17 .8±2.3 57 .2±4.5 49 .7±4.0
+> CG + LLM + Hist. 65 .3±5.6 61 .6±5.7 51 .2±5.5 30 .5±4.1 40 .5±15.4 15 .0±2.3 58 .4±4.5 51 .4±4.9
+> Ours (FreMEn [22] )68.4 ±4.0 65.2 ±4.4 73 .8±7.6 65 .3±6.5 90.5 ±6.1 4.5 ±1.3 71.6 ±2.6 65 .0±3.7
+> Ours 68.4 ±4.0 65.2 ±4.4 76.2 ±8.3 67.0 ±7.0 90.5 ±6.1 4.5 ±1.3 71.6 ±2.9 65.1 ±3.1
+
+2) Simulation Environment: We use the semi-static simulation environment from Perpetua [38], which consists of a robot observing eight objects (four static, four semi-static) that follow a weekly schedule of appearance and disappearance. We collect a test set of one month of data and evaluate on a subsequent one-week test set, applying an observation noise of PM = PF = 0 .1 to both sets. For the train set, patterns are stable during weekdays but exhibit variations during weekends. To demonstrate adaptation capabilities, we introduce a “long weekend” scenario in the test set (snapshot provided in Appendix B.4), where two weekdays (Monday and Friday) adopt the weekend behavior. This tests the method’s ability to adapt when schedules suddenly change. Table I presents the quantitative results of this evaluation. Overall, Perpetua ∗ outperforms both Perpetua and FreMEn with all three prior choices. Notably, Perpetua struggles to predict long-term dynamics in the absence of observations (see Saturday and Sunday in Fig 4), defaulting to cyclic pattern predictions at best. Meanwhile, FreMEn’s lack of adaptation capabilities leads to degraded predictions when the test set’s dynamics deviates from the training set’s (see Monday and Friday in Fig 4). In contrast, Perpetua ∗ offers accurate long-term predictions even in the absence of observations. For a computational complexity analysis of Perpetua ∗, including its memory footprint, see Appendix C.1. 
+
+B. Evaluation: PredictiveGraphs 1) Experimental Setup: We conduct three distinct assess-ments: (1) Predictive Navigation (Simulation) : 250 predictive closed-vocabulary queries across 10 ProcThor [12] environ-ments; (2) Adaptive Navigation (Simulation) : 125 queries across 5 ProcThor [12] environments where the agent can dynamically switch targets during navigation by consuming new observations, evaluated under unseen test-time dynamics; and (3) Real-World Experiment : We replicate the adaptive navigation setting in a real world laboratory with three rooms and execute 25 open-vocabulary queries. For each query, we randomly sample: (1) a future time point up to one week ahead from the last map update, (2) a target object (either static or dynamic) 3, and (3) a starting robot pose. The robot is allowed up to two attempts to locate and retrieve the target. We consider a query successful if the object is visible and within 1 meter of the robot’s final position [39]. For the real-world experiment shown in Fig. 5, the initial position of the robot is the same across all queries. Navigation is based on A* over a map created with RTAB-Map [24] and we use an Agilex Ranger Mini 2.0 robot equipped with an Intel RealSense D435 RGB-D camera. Object-receptacle assignments follow a known ground-truth object schedule. In the real world, we manually relocate objects according to said schedule. The simulator uses a fixed temporal δt of 1 hour, after which semi-static objects might move to a different receptacle, stay put, vanish from the scene, or reappear. The real world uses δt = 2 hours. In both cases, the robot collects data during each δt interval. In simulation, we generate 4 weeks of data per environment and we split the data into 2 weeks for training, 1 week for validation, and 1 week for testing; in the real world, we collect 3 weeks. For more details see Appendices D and E. We report success rate (SR) and success weighted by path length (SPL) . There can also be absent objects for which we measure abort rate (AR) (correct abort rate) and navigation distance (DIST) (distance traveled before termination). We report standard deviations across scenes. 
+
+2) Baselines: We compare PredictiveGraphs against the following baselines:  
+
+> •
+
+ConceptGraphs (CG) [17] : An open-vocabulary 3D scene graph whose nodes are objects and edges repre-sent spatio-semantic object relations. Object locations are retrieved from the last map state.  
+
+> •
+
+CG + LLM : We augment CG with an LLM that reasons about object dynamics given the time elapsed since the last map update.  
+
+> •
+
+CG + LLM + History : Inspired by [3, 14], we extend the CG + LLM baseline by providing it with the history of visited receptacles, indicating which objects have been found to be present or absent (last 100 timestamped observations).  
+
+> 3Unlike Jiang et al. [20], we classify queries where an object only moves within its receptacle as static. •
+
+DualMap [20]: An online open-vocabulary scene graph that maintains dual global-local map representations to handle semi-static scene changes during navigation.  
+
+> •
+
+PredictiveGraphs (FreMEn) : An ablation of our proposed method where we replaced our estimator, Perpetua ∗, with FreMEn [22] as the switching prior. 
+
+3) Training Details: We train Perpetua ∗ following the procedure in Sec.VI-A1 with decay rate set to γ = 9.21 
+
+(switching to the prior after 30 minutes). Our base scene graph is ConceptGraphs [17] and we classify objects as present or absent based on a persistence threshold of 0.2. All methods use the same association function based on CLIP [34] embeddings with an LLM verifier ( gpt-5-mini ). TABLE III: Adaptive Navigation Experiment: The adaptive capabilities of Perpetua ∗ enable better performance even under distributional shifts in environment dynamics.                                 
+
+> Overall (125 queries)
+> Perception Method Success (%) ↑SPL (%) ↑
+> Privileged Ours (FreMEn [22]) 72 .0±3.6 70 .2±2.8
+> Ours 83.2 ±4.3 75.9 ±2.9
+> CLIP + LLM Ours (FreMEn [22]) 52 .0±5.7 50 .7±5.2
+> Ours 55.4 ±5.1 51.6 ±4.4
+
+4) Simulation Results: Table II presents results for the predictive navigation experiment. To isolate the impact of perception errors, we also report privileged results (objects are identified using AI2Thor’s [21] semantic segmentation feature, which is still subject to issues like visual occlusion). PredictiveGraphs achieves the best performance across all query types with both FreMEn and Perpetua ∗ as estimators. Notably, while the LLM-based baselines are competitive, they suffer performance degradation because they predict typical object movement patterns rather than learning environment-specific dynamics. The adaptive navigation results are shown in Table III. We ablate PredictiveGraphs using a fully-predictive estimator (FreMEn) against our adaptive Perpetua ∗. Under privileged perception, PredictiveGraphs with Perpetua ∗ achieves better navigation performance due to its ability to adapt to changing underlying dynamics. Even with perception errors degrading overall performance, PredictiveGraphs with Perpetua ∗ contin-ues to outperform the FreMEn variant. We also note that, as perception pipelines improve, we expect PredictiveGraphs’s performance to also improve further. A detailed version of Table III is shown in Appendix F.1. 
+
+5) Real-World Results: We showcase how PredictiveG-raphs’s temporal prediction capabilities enable effective dy-namic navigation even under real-world perception noise. We compare two training regimes: training on a noised version (10% noise) of the ground truth schedule versus training on data labelled using the procedure described in Sec.V-B. As shown in Table IV, our time-varying scene graph with predictive capabilities robustly estimates semi-static changes even when the underlying scene graph is outdated and in the presence of perception noise. Notably, it surpasses DualMap, a 
+
+Fig. 5: Predictive Navigation: PredictiveGraphs uses its predictive capabilities to anticipate that the shortest path to its goal is blocked (low probability). This allows it to preemptively adapt its navigation plan, choosing a path that is longer but feasible (high probability), and successfully reaching the target without visiting unnecessary locations. TABLE IV: Real-World Navigation: PredictiveGraphs en-ables robust dynamic navigation amidst perception errors, even when trained on noisy real-world data.                                
+
+> Static (10) Dynamic (10) Absent (5) Overall (25)
+> Estimator SR (%) ↑SR (%) ↑AR (%) ↑SR (%) ↑
+> Ours (noised) 90 .080 .0100 .088 .0
+> CG [17] 80 .00.020 .036 .0
+> DualMap [20] 80 .040 .040 .056 .0
+> Ours 80 .060 .080 .072 .0
+
+method designed for semi-static environments but without pre-dictive capabilities. Fig. 5 illustrates this advantage: Predictive-Graphs anticipates a blocked shortest path and preemptively selects a longer but viable alternative, avoiding unnecessary exploration. VII. C ONCLUSION 
+
+In this work, we present PredictiveGraphs, a new 3D scene graph representation that is capable of admitting tempo-spatio-semantic queries. Underpinning the representation is a new persistence filter that we propose called Perpetua ∗ (although any persistence filter could be used). Perpetua ∗ uses Bayesian model selection to select between a combination of emergence and persistence filters. The combination of PredictiveGraphs and Perpetua ∗ is powerful in that it allows us to predict what the semantic scene graph will be in the future and then directly reason over it. Future generalist robots will require these types of reasoning capabilities to enable seamless collaboration with humans and the ability to achieve complex tasks. Even today, surveillance applications such as factory monitoring can already benefit from our approach by providing additional temporal awareness. VIII. L IMITATIONS 
+
+While embedding open-vocabulary scene graphs with persistence estimators yields tempo-spatio-semantic capabilities, our approach is not free of limitations. First, object-receptacle edges are modelled independently. While joint distributions over multiple locations are possible [31], inference costs grow with the number of observed locations per object, inducing a trade-off between expressivity and real-time performance. We believe that striking the right balance in this trade-off is a promising avenue for future work. Second, our method treats objects indistinguishable by the perception system as interchangeable, e.g., two red mugs. We expect that as perception systems improve, so will the downstream performance of our method. Last, our method can be subject to LLM hallucinations, particularly during the verification and planning stage. Hallucinations are an inherent limitation of open-vocabulary operation, and better map-grounding strategies have the potential to reduce their frequency. REFERENCES 
+
+[1] Hirotugu Akaike. A new look at the statistical model identification. In Selected Papers of Hirotugu Akaike ,pages 215–222. Springer, 1974. [2] Waqas Ali, Yixi Cai, Patric Jensfelt, and Thien-Minh Nguyen. Probper-lilo: Probabilistic persistency modeling for life-long mapping. RA-L , 11(3):2530–2537, 2026. [3] Abrar Anwar, John Welsh, Joydeep Biswas, Soha Pouya, and Yan Chang. Remembr: Building and reasoning over long-horizon spatio-temporal memory for robot naviga-tion. In ICRA , pages 2838–2845. IEEE, 2025. [4] Tjark Behrens, Ren´ e Zurbr¨ ugg, Marc Pollefeys, Zuria Bauer, and Hermann Blum. Lost & found: Tracking changes from egocentric observations in 3d dynamic scene graphs. RA-L , 10(4):3739–3746, 2025. [5] Peter Biber and Tom Duckett. Dynamic maps for long-term operation of mobile service robots. In RSS , 2005. [6] Benjamin Bogenberger, Oliver Harrison, Orrin Da-hanaggamaarachchi, Lukas Brunke, Jingxing Qian, Siqi Zhou, and Angela P Schoellig. Where did i leave my glasses? open-vocabulary semantic exploration in real-world semi-static environments. PrePrint , 2025. [7] Cesar Cadena, Luca Carlone, Henry Carrillo, Yasir Latif, Davide Scaramuzza, Jos´ e Neira, Ian Reid, and John J Leonard. Past, present, and future of simultaneous localization and mapping: Toward the robust-perception age. T-RO , 32(6):1309–1332, 2016. [8] Nicolas Carion, Laura Gustafson, Yuan-Ting Hu, Shoub-hik Debnath, Ronghang Hu, Didac Suris, Chaitanya Ryali, Kalyan Vasudev Alwala, Haitham Khedr, Andrew Huang, et al. Sam 3: Segment anything with concepts. 
+
+PrePrint , 2025. [9] Luca Carlone, Ayoung Kim, Timothy Barfoot, Daniel Cremers, and Frank Dellaert, editors. SLAM Handbook. From Localization and Mapping to Spatial Intelligence .Cambridge University Press, 2025. [10] Harrison Chase. Langchain, 2022. URL https://github. com/langchain-ai/langchain. Software. [11] Gheorghe Comanici, Eric Bieber, Mike Schaekermann, Ice Pasupat, Noveen Sachdeva, Inderjit Dhillon, Marcel Blistein, Ori Ram, Dan Zhang, Evan Rosen, et al. Gem-ini 2.5: Pushing the frontier with advanced reasoning, multimodality, long context, and next generation agentic capabilities. PrePrint , 2025. [12] Matt Deitke, Eli VanderBilt, Alvaro Herrasti, Luca Weihs, Kiana Ehsani, Jordi Salvador, Winson Han, Eric Kolve, Aniruddha Kembhavi, and Roozbeh Mottaghi. Procthor: Large-scale embodied ai using procedural gen-eration. NeurIPS , 35:5982–5994, 2022. [13] Tianchen Deng, Hongle Xie, Jingchuan Wang, and Wei-dong Chen. Long-term visual simultaneous localization and mapping: Using a bayesian persistence filter-based global map prediction. RAM , 30(1):36–49, 2023. [14] Muhammad Fadhil Ginting, Dong-Ki Kim, Xiangyun Meng, Andrzej Marek Reinke, Bandi Jai Krishna, Navid Kayhani, Oriana Peltzer, David Fan, Amirreza Shaban, Sung-Kyun Kim, Mykel Kochenderfer, Ali akbar Agha-mohammadi, and Shayegan Omidshafiei. Enter the mind palace: Reasoning and planning for long-term active embodied question answering. In CoRL , 2025. [15] Nicolas Gorlo, Lukas Schmid, and Luca Carlone. Long-term human trajectory prediction using 3d dynamic scene graphs. RA-L , 2024. [16] Nicolas Gorlo, Lukas Schmid, and Luca Carlone. De-scribe anything anywhere at any moment. Computer Vision and Pattern Recognition (CVPR) , 2026. [17] Qiao Gu, Ali Kuwajerwala, Sacha Morin, Krishna Murthy Jatavallabhula, Bipasha Sen, Aditya Agarwal, Corban Rivera, William Paul, Kirsty Ellis, Rama Chellappa, et al. Conceptgraphs: Open-vocabulary 3d scene graphs for perception and planning. In ICRA ,pages 5021–5028. IEEE, 2024. [18] Vitor Guizilini, Ransalu Senanayake, and Fabio Ramos. Dynamic hilbert maps: Real-time occupancy predictions in changing environments. In ICRA , pages 4091–4097. IEEE, 2019. [19] Lucie Halodov´ a, Eliˇ ska Dvoˇ rr´ akov´ a, Filip Majer, Tom´ aˇ sVintr, Oscar Martinez Mozos, Feras Dayoub, and Tom´ aˇ sKrajn´ ık. Predictive and adaptive maps for long-term visual navigation in changing environments. In IROS ,pages 7033–7039, 2019. [20] Jiajun Jiang, Yiming Zhu, Zirui Wu, and Jie Song. Dualmap: Online open-vocabulary semantic mapping for natural language navigation in dynamic changing scenes. 
+
+RA-L , 10(12):12612–12619, 2025. [21] Eric Kolve, Roozbeh Mottaghi, Winson Han, Eli Van-derBilt, Luca Weihs, Alvaro Herrasti, Daniel Gordon, Yuke Zhu, Abhinav Gupta, and Ali Farhadi. Ai2-thor: An interactive 3d environment for visual ai. arXiv , 2017. [22] Tom´ aˇ s Krajn´ ık, Jaime P. Fentanes, Jo˜ ao M. Santos, and Tom Duckett. Fremen: Frequency map enhancement for long-term mobile robot autonomy in changing environ-ments. T-RO , 33(4):964–977, 2017. [23] Andrey Kurenkov, Michael Lingelbach, Tanmay Agar-wal, Emily Jin, Chengshu Li, Ruohan Zhang, Li Fei-Fei, Jiajun Wu, Silvio Savarese, and Roberto Martın-Martın. Modeling dynamic environments with scene graph memory. In International Conference on Machine Learning , pages 17976–17993. PMLR, 2023. [24] Mathieu Labb´ e and Franc ¸ois Michaud. Rtab-map as an open-source lidar and visual simultaneous localization and mapping library for large-scale and long-term online operation. Journal of field robotics , 36(2):416–446, 2019. [25] Patrick Lewis, Ethan Perez, Aleksandra Piktus, Fabio Petroni, Vladimir Karpukhin, Naman Goyal, Heinrich K¨ uttler, Mike Lewis, Wen-tau Yih, Tim Rockt¨ aschel, et al. Retrieval-augmented generation for knowledge-intensive nlp tasks. NeurIPS , 33:9459–9474, 2020. [26] Peiqi Liu, Zhanqiu Guo, Mohit Warke, Soumith Chintala, Chris Paxton, Nur Muhammad Mahi Shafiullah, and Lerrel Pinto. Dynamem: Online dynamic spatio-semantic memory for open world mobile manipulation. In ICRA ,pages 13346–13355. IEEE, 2025. [27] Samuel Looper, Javier Rodriguez-Puigvert, Roland Sieg-wart, Cesar Cadena, and Lukas Schmid. 3d vsg: Long-term semantic scene change prediction through 3d vari-able scene graphs. In ICRA , pages 8179–8186, 2023. [28] Ziqi Lu, Jianbo Ye, and John Leonard. 3dgs-cd: 3d gaussian splatting-based change detection for physical object rearrangement. RA-L , 2025. [29] Dominic Maggio, Yun Chang, Nathan Hughes, Matthew Trang, Dan Griffith, Carlyn Dougherty, Eric Cristofalo, Lukas Schmid, and Luca Carlone. Clio: Real-time task-driven open-set 3d scene graphs. RA-L , 2024. [30] Kevin P. Murphy. Probabilistic Machine Learning: An introduction . MIT Press, 2022. [31] Fernando Nobre, Christoffer Heckman, Paul Ozog, Ryan W. Wolcott, and Jeffrey M. Walls. Online proba-bilistic change detection in feature-based maps. In ICRA ,pages 3661–3668, 2018. [32] Maithili Patel and Sonia Chernova. Proactive robot assistance via spatio-temporal object modeling. PrePrint ,2022. [33] Jingxing Qian, Veronica Chatrath, James Servos, Aaron Mavrinac, Wolfram Burgard, Steven L. Waslander, and Angela Schoellig. Pov-slam: Probabilistic object-level variational slam. In RSS , 2023. [34] Alec Radford, Jong Wook Kim, Chris Hallacy, et al. Learning transferable visual models from natural lan-guage supervision. In International conference on ma-chine learning , pages 8748–8763, 2021. [35] Aaron Ray, Jacob Arkin, Harel Biggie, Chuchu Fan, Luca Carlone, and Nicholas Roy. Structured interfaces for automated reasoning with 3d scene graphs. PrePrint ,2025. [36] D.M. Rosen, J. Mason, and J.J. Leonard. Towards life-long feature-based mapping in semi-static environments. In ICRA , pages 1063–1070, 2016. [37] Joseph Rowell, Lintong Zhang, and Maurice Fallon. Lista: Geometric object-based change detection in clut-tered environments. In ICRA , pages 3632–3638, 2024. [38] Miguel Saavedra-Ruiz, Samer Nashed, Charlie Gauthier, and Liam Paull. Perpetua: Multi-hypothesis persistence modeling for semi-static environments. IROS , 2025. [39] Manolis Savva, Abhishek Kadian, et al. Habitat: A platform for embodied ai research. In ICCV , pages 9339– 9347, 2019. [40] Lukas Schmid, Jeffrey Delmerico, Johannes LSch¨ onberger, Juan Nieto, Marc Pollefeys, Roland Siegwart, and Cesar Cadena. Panoptic multi-tsdfs: a flexible representation for online multi-resolution volumetric mapping and long-term dynamic scene consistency. In ICRA , pages 8018–8024. IEEE, 2022. [41] Lukas Schmid, Marcus Abate, Yun Chang, and Luca Car-lone. Khronos: A unified approach for spatio-temporal metric-semantic slam in dynamic environments. In RSS ,2024. [42] Cyrill Stachniss and Wolfram Burgard. Mobile robot mapping and localization in non-static environments. In 
+
+AAAI , pages 1324–1329, 2005. [43] Yujie Tang, Meiling Wang, Yinan Deng, Zibo Zheng, Jingchuan Deng, Sibo Zuo, and Yufeng Yue. Openin: Open-vocabulary instance-oriented navigation in dy-namic domestic environments. RA-L , 10(9):9256–9263, 2025. [44] Johanna Wald, Armen Avetisyan, Nassir Navab, Federico Tombari, and Matthias Nießner. Rio: 3d object instance re-localization in changing indoor environments. In 
+
+ICCV , pages 7658–7667, 2019. [45] Chenxu Wang, dong wang, Xinghang Li, Dunzheng Wang, and Huaping Liu. Dynamic scene generation for embodied navigation benchmark. In RSS Workshop: Data Generation for Robotics , 2024. [46] Yanbo Wang, Yaxian Fan, Jingchuan Wang, and Weidong Chen. Long-term navigation for autonomous robots based on spatio-temporal map prediction. Robotics and Autonomous Systems , 179:104724, 2024. ISSN 0921-8890. [47] Abdelrhman Werby, Chenguang Huang, Martin B¨ uchner, Abhinav Valada, and Wolfram Burgard. Hierarchical open-vocabulary 3d scene graphs for language-grounded robot navigation. In VLMNM Workshop at ICRA , 2024. [48] Quanting Xie, So Yeon Min, Pengliang Ji, et al. Embodied-rag: General non-parametric embodied mem-ory for retrieval and generation. PrePrint , 2024. [49] Mingfeng Yuan, Hao Zhang, Mahan Mohammadi, Run-hao Li, Jinjun Shan, and Steven L. Waslander. Star: Scal-able task-conditioned retrieval for long-horizon multi-modal robot memory. IEEE Robotics and Automation Letters , 11(5):5994–6001, 2026. doi: 10.1109/LRA.2026. 3677723. [50] Vladimir Yugay, Thies Kersten, Luca Carlone, Theo Gevers, Martin R Oswald, and Lukas Schmid. Gaussian mapping for evolving scenes. PrePrint , 2025. [51] Liyuan Zhu, Shengyu Huang, Konrad Schindler, and Iro Armeni. Living scenes: Multi-object relocalization and reconstruction in changing 3d environments. In CVPR ,pages 28014–28024, 2024. APPENDIX ASUPPLEMENTARY DETAILS : P ERPETUA ∗
+
+A.1 Perpetua ∗ Algorithm 
+
+In Algorithm 1, we present the update and prediction routines for a single receptacle in Perpetua ∗, omitting the receptacle index k for clarity. During the update step, we compute the likelihood, conditional evidence, and posterior weights for both the persistence and emergence models. In the prediction step, we generate the Perpetua ∗ prediction at an arbitrary query time using our proposed Bayesian model selection criterion. 
+
+Algorithm 1: Predict and Update Functions for Perpetua ∗ (Single Receptacle) 
+
+Parameters: Models m ∈ {M P, ME}, Decay rate α0,Forgetting factor γ for receptacle k▷ Updates the state of each model 
+
+Update Input: Observation tuple ( ytN +1 , t N +1 ) 
+
+> 1
+
+Function Update( ytN +1 , t N +1 ): 
+
+> 2
+
+for m ∈ {M P, ME} do  
+
+> 3
+
+Apply forgetting factor γ and update likelihood 
+
+p(Y1: N +1 | xN +1 , m ) via (4);  
+
+> 4
+
+for l ← 1 to L do  
+
+> 5
+
+Update accumulator H(Y1: N +1 | cl, m ) via (6);  
+
+> 6
+
+Update cond. evidence p(Y1: N +1 |cl, m ) via (6);  
+
+> 7
+
+Update posterior weights wl via (7);  
+
+> 8
+
+N ← (N + 1) 
+
+▷ Predicts persistence state at time t
+
+Predict Input: Query time t for receptacle k 
+
+> 9
+
+Function Predict( t): 
+
+> 10
+
+for m ∈ {M P, ME} do  
+
+> 11
+
+Evaluate predictions p(xt | cl∗ , Y1: N , m ) via (8);  
+
+> 12
+
+α(t) ← exp( −α0(t − tN )) ; 
+
+> 13
+
+Compute model posterior p(M | Y 1: N ) via (12);  
+
+> 14
+
+Compute final prediction p(xt | Y 1: N ) via (13);  
+
+> 15
+
+return p(xt | Y 1: N );APPENDIX BSUPPLEMENTARY & I MPLEMENTATION DETAILS 
+
+B.1 LLM Tools 
+
+In this section, we provide the formal specifications for the three core tools that enable embodied planning in PredictiveG-raphs: semantic search (Tool 1), location prediction (Tool 2), and active navigation (Tool 3). For each tool, we define the required inputs, the expected outputs, and the underlying logic used to interface with PredictiveGraphs. 
+
+Tool 1: Semantic Object Search 
+
+Input: query_text (string) 
+
+Output: List of ⟨ object_id : string, score : float 
+
+⟩ or None 
+
+Description: Performs an open-vocabulary search over PredictiveGraphs using CLIP. It compares the embedding of the query_text against the visual embeddings of all mapped objects, returning the 
+
+object_ids with the highest cosine similarities. 
+
+Tool 2: Predict Object Receptacle 
+
+Input: object_id (string), query_time (float) 
+
+Output: Most likely receptacle name (string), proba-bility distribution over receptacles (list of floats) 
+
+Description: Queries the temporal object map (Predic-tiveGraphs) using Perpetua ∗ to predict the location of the target object at the specified query_time . The tool applies a confidence threshold (default δ = 0 .2) to filter receptacles. If no receptacle exceeds the thresh-old, the object is reported as absent. 
+
+Tool 3: Navigate to Receptacle 
+
+Input: receptacle id (string), object id 
+
+(string) 
+
+Output: Success status (boolean), final observation 
+
+Description: Navigates to the receptacle_id 
+
+while actively searching for the target object_id .During navigation, the agent continuously: (1) executes path planning toward the receptacle, (2) updates PredictiveGraphs with RGBD observations, and (3) checks whether the target object is in view. Navigation terminates when either the object is found or the target receptacle is reached. 
+
+B.2 LLM Prompt - Switching Prior 
+
+We present the full LLM prompt used to query the LLM-based switching prior described in Sec VI-A1. We employ a few-shot prompting strategy to leverage the semantic knowl-edge of gemini-2.5-pro , enabling it to infer probable weekly schedules for objects based on their household context and potential usage patterns. The prompt is shown in Prompt 1. Prompt 1: LLM Prior for Perpetua ∗
+
+Consider a household environment composed of two parents and two children. The environment contains various objects located in different places, where objects can appear when needed for an activity (e.g., plates for eating) or disappear when taken by a member (e.g., keys/bags when leaving). During weekdays, the parents typically leave for work in the morning and return in the evening (07:30 - 18:00), while the children attend school during the day (08:00 - 17:00). On weekends, the family tends to stay home more often, engaging in activities such as cooking, cleaning, and leisure time together. 
+
+Task : Generate a weekly schedule (Mon-Sun) for the specific object at the specific location. 
+
+Output Rules : 
+
+> •
+
+Output ONLY a Python list of strings.  
+
+> •
+
+Format: [’Day: HH:MM - Day: HH:MM’, ’Day: HH:MM - Day: HH:MM’, ...]  
+
+> •
+
+Use 3-letter day abbreviations (Mon, Tue, Wed, Thu, Fri, Sat, Sun). 
+
+Example 1: 
+
+Input: 
+
+Object : Plates 
+
+Location : On Dinner Table 
+
+Type : Active Location (appear when used) Output: 
+
+Schedule : [’Mon: 19:00 - Mon: 19:30’, ’Tue: 19:00 -Tue: 19:30’, ... , ’Sun: 18:00 - Sun: 18:30’] 
+
+Current task :Input: 
+
+Object : {object name }
+
+Location : {object location }
+
+Type : {object type }
+
+Output: 
+
+Schedule : [...] 
+
+B.3 Perpetua ∗ Implementation Details 
+
+In this section, we detail the parameters and modeling choices for Perpetua ∗.
+
+a) Hyperparameters: The prior pl in (1) is modeled as a mixture of log-normal distributions. We set the forgetting factor γ = 0 .99 , which maintains an effective memory of approximately 250 observations. The decay rate is set to 
+
+α0 ≈ 0.01 , causing the model to revert almost entirely to the prior after approximately 300 time units. 
+
+b) Model Selection: Following the configuration in Per-petua [38], we search for the optimal number of mixture components (up to a maximum of 5) for both persistence and emergence filters using the Akaike information criteria (AIC) [1]. The observation noise parameters ( PM , P F ) are estimated directly from dataset statistics. 
+
+c) Switching Priors: We evaluate Perpetua ∗ with three variants of the switching prior f (t):
+
+Fig. 6: Weekly Test Schedule: One-week snapshot of the test set with out-of-distribution dynamics for the different objects used in the Perpetua ∗ evaluation presented in Sec.VI-A. Note how Friday and Monday follow the same dynamics as the weekend, emulating a “long weekend”. 1) FreMEn Prior: Based on (9), this variant computes 1000 Fourier coefficients and selects the optimal subset via a held-out validation set of one week. 2) LLM Prior: Generated via gemini-2.5-pro [11] using the formulation in (10). The full prompt is shown in Appendix B.2. 3) Oracle Prior: Uses step functions that perfectly match the ground truth dynamics of the training set. 
+
+B.4 Schedule 
+
+While the training set used to train Perpetua ∗ in Sec VI-A reflects a standard weekly routine with distinct weekday and weekend patterns, the test set introduces a distributional shift to evaluate adaptation. Specifically, we construct a “long week-end” scenario where Monday and Friday exhibit weekend-like dynamics. This modification forces the model to adjust to sudden schedule changes, serving as a stress test for real-time adaptation. A snapshot of these shifted dynamics is provided in Fig. 6. APPENDIX CSUPPLEMENTARY RESULTS : P ERPETUA ∗
+
+C.1 Complexity Analysis and Illustrative Example: Perpetua ∗
+
+In Fig. 7, we report the results of a complexity analysis of Perpetua ∗ versus Perpetua. Perpetua ∗ is more computationally Fig. 7: Computational Complexity: prediction (top) and update (bottom) steps for Perpetua ∗ with a FreMEn prior versus Perpetua. Top: prediction time as a function of Fourier coefficients in Perpetua ∗ and simulation steps in Perpetua. Bottom: update time with up to 1 million samples. Results are averaged over five random seeds. Perpetua ∗ exhibits faster computation in both cases by replacing Perpetua’s state ma-chine with our Bayesian model selection mechanism. TABLE V: Memory footprint of Perpetua ∗: (a) Per-edge cost as a function of mixture components. (b) Total cost as a function of edges using mixture models with five mixture components and a FreMEn prior with 1,000 coefficients.            
+
+> Quantity Value (a) Per mixture component Base cost 27 .89 KB Cost per component 0.047 KB (b) Per edge Base cost 0.000 KB Cost per edge 28 .13 KB
+
+efficient at both prediction and belief updates due to its switch-ing mechanism based on Bayesian model selection, which avoids Perpetua’s reliance on expensive simulation steps. Table V shows the memory footprint of adding extra mixture components or edges to the graph. The per-mixture cost is negligible ( 0.047 KB), while the per-edge cost is 28 KB for a model with five mixture components and a FreMEn prior with a thousand coefficients. New edges are only added when a new object-receptacle pair is observed, so memory scales linearly with the number of discovered relationships rather than with deployment time. For example, in a scene with 250 objects appearing in up to 4 different locations each (1,000 edges), the total overhead is 28 MB on top of the base scene graph, which can itself reach several GB due to stored object point clouds. Overall, the additional memory and compute overhead of Perpetua ∗ is negligible compared to modern mapping approaches. Furthermore, in Fig. 8 we present an illustrative example showing how the different components (mixture models, Bayesian model selection) interact to yield the final Perpetua ∗ prediction even in the absence of data. 0              
+
+> 1
+> Ground Truth True State Obs.
+> 0
+> 1
+> Dominant Mixture Component EP
+> 0
+> E
+> P
+> Log Posterior Odds Favors EFavors P
+> t0tatb
+> Time
+> 0
+> 1
+> Perpetua *Belief Perpetua *
+
+Fig. 8: Illustrative Example Perpetua ∗: An object undergoes semi-static changes at varying rates (top row). We maintain a mixture of persistence and emergence filters (each comprising three components in this example) that adapt their belief as new observations arrive. The second row shows the dominant component of the persistence and emergence filters (see (8)) at each time step. As time progresses, our Bayesian model selection criterion (see (12)) identifies the mixture that best explains the observed data (third row). Notably, between times ta and tb, where no observations are available, the log posterior odds keep evolving due to our switching prior, whereas the dominant mixture component remains frozen. The bottom row shows the final Perpetua ∗ prediction, obtained by mixing the output of both mixture models at each time step, as shown in (13). By leveraging the switching prior (cf. Fig. 2 and Fig. 4), Perpetua ∗ maintains accurate predictions even in the absence of observations. APPENDIX DSIMULATION DETAILS : P REDICTIVE GRAPHS 
+
+D.1 Hierarchical Scheduling Model 
+
+The spatial distribution of each pickupable object over time is governed by a hierarchical temporal model inspired by human activity patterns. For each pickupable, we generate a schedule that specifies which receptacle contains that object at each timestep. This schedule uses a hierarchical structure with different temporal scales (e.g., year → month → week → day 
+
+→ hour) and different divisions for each hierarchical level. Transitions between hierarchical levels and receptacles follow a Markov process. For instance, a schedule whose hierarchical levels are day and hour, with 5 different day-level patterns, will have a one day-level transition matrix and 5 different hour-level transition matrices. Following Kurenkov et al. [23], the transition matrices are defined using weights computed from the relationship between “pickupable” and “receptacle” objects defined in ProcTHOR. Duration in each receptacle is sampled Fig. 9: Dynamic Shift in ProcTHOR Adaptation Exper-iments: Illustration of the train and test time dynamics for the adaptation experiments in Sec.VI-B4. The first week displays standard training dynamics for the “newspaper” object across three receptacles. In the second week, these dynamics change, introducing a shift that challenges predictive methods, requiring approaches capable of real-time adaptation such as Perpetua ∗.from a uniform distribution, also informed by the ProcTHOR semantic prior. This hierarchical structure allows us to capture realistic patterns: objects stay in certain locations for hours or days, but may transition to different receptacles across longer timescales. 4. Figure 9 shows a two-week generated schedule. The first week shows standard train-time dynamics, while the second week exhibits shifted test-time dynamics, as used during our adaptation experiments in Sec. VI-B4. 
+
+D.2 Temporal Resolution 
+
+Observations are collected at a fixed temporal δt of 1 hour. We generate continuous trajectory data by simulating 4 weeks of time per environment, yielding a total of 672 timesteps per environment (partitioned into two weeks for training, one for validation, and one for testing). We use 15 different ProcThor scenes, which we select to have at least 5 rooms each and a navigable space between 100 m 2 and 150 m 2. A top-down view of the scenes is shown in Fig. 14. 
+
+D.3 Relationship Between Groundtruth and Privileged Data 
+
+The groundtruth assignment indicates the simulator’s “true” state (the receptacle that contains the object), while the privi-leged information filters this through the current observability constraints imposed by the camera viewpoint and rendering. Formally: privileged s,r,t =
+
+
+
+1 if gt s,r,t = 1 ∧ obj. visible ,
+
+0 if gt s,r,t = 0 ∧ rec. visible ,
+
+−1 if rec. hidden ,
+
+−2 if r invalid for p;
+
+(16) 
+
+> 4The source code will be made publicly available soon.
+
+Fig. 10: Real-World Environment : (Top) Top-down view showing receptacle and door bounding boxes. Receptacles are color-coded by room: pink (first room), teal (second room), and mustard (third room). Door bounding boxes are highlighted in blue. (Bottom) An isometric view of the three-room laboratory setup used for all real-world experiments. where 1 denotes presence, 0 absence, -1 missing data, and 
+
+-2 that the receptacle r is invalid for object s.APPENDIX EREAL -W ORLD DETAILS : P REDICTIVE GRAPHS 
+
+E.1 Real-World Details 
+
+For our real-world evaluation, we construct a dataset where we manually relocate objects according to a known ground-truth schedule. We deployed an Agilex Ranger Mini 2.0 robot equipped with an Intel RealSense D435 camera and teleoperated it through multiple trajectories to gather RGB-D observations. RTAB-Map [24] was used as the pose estimation backend and mapping tool. To evaluate PredictiveGraphs under realistic perception noise, we generated object-receptacle training labels for Perpetua ∗
+
+using a custom perception pipeline based on SAM3 [8] and the association function described in Sec.V-B. The environment consists of a three-room laboratory con-nected by two doors (Fig. 10), containing a total of 28 receptacles distributed as 10, 10, and 8 across the rooms, respectively. Throughout the experiments, the two doors were periodically opened and closed to vary the environment’s TABLE VI: Adaptive Navigation Experiment: Detailed version of Table III. The adaptive capabilities of Perpetua ∗ enable better performance even under distributional shifts in environment dynamics. While perception errors degrade performance by introducing spurious belief updates, Perpetua ∗ maintains its overall advantage due to its adaptation capabilities.                                                                                                                               
+
+> Static Setting (80) Dynamic Setting (45) Overall (125)
+> Presence (80) Presence (38) Absence (7) Average Perception Method Success (%) ↑SPL (%) ↑Success (%) ↑SPL (%) ↑AR (%) ↑Dist (m) ↓Success (%) ↑SPL (%) ↑
+> Privileged Ours (FreMEn [22]) 79 .3±2.6 78 .1±3.0 53 .0±13.4 48 .8±11.9 44 .4±29.4 9.3±2.7 72 .0±3.6 70 .2±2.8
+> Ours 89.3 ±2.7 83.4 ±1.3 65.4 ±10.4 56.3 ±9.9 88.9 ±11.1 7.7 ±2.3 83.2 ±4.3 75.9 ±2.9
+> CLIP + LLM Ours (FreMEn [22]) 57 .1±4.8 55 .9±4.9 37 .2±9.4 36 .2±8.7 44 .4±29.4 10 .9±3.8 52 .0±5.7 50 .7±5.2
+> Ours 58.5 ±3.6 57.3 ±3.8 38.6 ±8.7 37.2 ±8.1 100.0 ±5.1 9.8 ±4.3 55.4 ±5.1 51.6 ±4.4
+
+Fig. 11: Qualitative Navigation Results in ProcTHOR: The top row shows a navigation sequence where PredictiveGraphs is queried 46 hours after the last map update (top-down map shown in the first row, third column of Fig. 14). In the first column, our method predicts that the soap bottle has moved from the dresser (red spline tip) to a side table (green spline tip). The second column shows the robot navigating to the predicted location, with its path marked in blue. The final column displays the successful detection of the soap bottle. The bottom row depicts a similar example with an alarm clock 
+
+queried 72 hours after the last map update (top-down map shown in the third row, first column of Fig. 14). topological connectivity. Scans were taken bi-hourly from 9:00 AM to 5:00 PM over a span of three weeks, yielding a dataset of 84 scans. For each scan, we provide RGB-D frames and camera poses in a common origin frame, along with manually annotated 3D bounding boxes for the receptacles. During data collection, we used the following 21 objects: 
+
+greenbowl, bell, panda, penguin, redbowl, bluecup, yellowcup, greencube, bluecube, headphones, duck, egg, carrot, hairbrush, redbottle, redmug, redplate, woodenspoon, spoon, spatula, blueball .
+
+E.2 Hardware 
+
+All simulation experiments were conducted on an insti-tutional cluster equipped with Nvidia RTX 8000 and L40S GPUs. The Agilex Ranger Mini 2.0 was equipped with an Nvidia Jetson Orin for onboard control, but model inference was performed offboard, on an Nvidia RTX 2080. For both the LLM-based navigation agent and the LLM-based predictive baselines we use gpt-5.2 .APPENDIX FEXTENDED REAL -WORLD RESULTS 
+
+F.1 Simulation results 
+
+Table VI presents the comprehensive adaptive navigation results, expanding on the results provided in Sec. VI-B4. Here, we ablate PredictiveGraphs by comparing the fully-predictive FreMEn estimator against our adaptive Perpetua ∗
+
+method. Under privileged perception, PredictiveGraphs with Perpetua ∗ achieves superior navigation performance, effec-tively adapting to the shift in test-time dynamics. Even when perception errors degrade performance, particularly in the dynamic setting, Perpetua ∗ maintains its advantage over the FreMEn variant. As demonstrated by the privileged results, we Fig. 12: Qualitative Navigation Result in Real-World -Topological Graph Change: Extended version of Fig. 5. The open-vocabulary query is “Is there something useful to comb my hair? ”, with query time 146 hours after the last map update. (1) Shows the last known position of the relevant object identified by PredictiveGraphs (a hair brush). (2) Our method predicts that the hair brush is in another room and detects that the door along the shortest path is closed; this updates the cost map, prompting the planner to generate a longer but feasible path. (3) The agent successfully locates the target object. expect that as perception pipelines improve, the performance of PredictiveGraphs will scale accordingly. Additionally, Fig. 11 presents qualitative results for the ProcTHOR navigation experiments from Sec. VI-B4. This figure shows how PredictiveGraphs accurately predicts the location of target objects at different query times. This ca-pability allows the agent to exploit predictive information to successfully navigate to its target, even when the underlying scene graph has not been updated for several hours. 
+
+F.2 Real-World results 
+
+In this section, we provide additional qualitative results to supplement the real-world navigation experiments discussed in Sec. VI-B5. Figure 12 presents an extended version of 
+
+Fig. 13: Qualitative Navigation Result in Real-World -Replanning: Open-vocabulary query “ Could you get me a healthy vegetable? ” with query time 29 hours after the last map update. (1) PredictiveGraphs identifies the target object as a carrot. (2) PredictiveGraphs proposes an initial candidate location; however, upon navigating to it, the object is not found. (3) Instead of reverting to the object’s last known location, PredictiveGraphs predicts a new location where the carrot is successfully found, highlighting the robustness of our tempo-spatio-semantic scene graph in dynamic scenes. Fig. 5, demonstrating the Agilex Ranger Mini 2.0 successfully navigating to its target, a hair brush. By anticipating that the shortest path is blocked, our method proactively plans a longer, yet feasible, alternative route to circumvent the obstacle. Similarly, Fig. 13 illustrates a search for a “healthy veg-etable” where the initial predicted location is empty. Instead of relying on the outdated map, PredictiveGraphs correctly predicts a new location for the object, allowing the agent to recover and successfully complete the task. These experiments are also shown in the first section of the video that we include as part of our supplementary material. Fig. 14: ProcTHOR environments: Top-down view of the different 15 ProcTHOR scenes used in the simulation experiments in Sec.VI-A2. Each scene has at least 5 rooms and a navigable space between 100 m 2 and 150 m 2.
