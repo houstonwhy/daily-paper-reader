@@ -6,71 +6,58 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-05-04
-- 运行时间：2026-05-04 19:13:23 UTC
+- 最新运行日期：2026-05-05
+- 运行时间：2026-05-05 19:13:33 UTC
 - 运行状态：成功
-- 本次总论文数：16
-- 精读区：6
-- 速读区：10
+- 本次总论文数：12
+- 精读区：3
+- 速读区：9
 
 ### 今日简报（AI）
-- 今日共生成 16 篇推荐（精读 6 篇，速读 10 篇）
-- 精读：《Map2World: Segment Map Conditioned Text to 3D World Generation》（10.0/10）, 《Pose-Aware Diffusion for 3D Generation》（9.0/10）
-- 速读：《BlenderRAG: High-Fidelity 3D Object Generation via Retrieval-Augmented Code Synthesis》（8.0/10）, 《MotuBrain: An Advanced World Action Model for Robot Control》（7.0/10）, 《Physically Native World Models: A Hamiltonian Perspective on Generative World Modeling》（7.0/10）
-- 这些结果覆盖了当下较热的方向，建议先看精读区论文的关键问题与方法。
-- 详情：[/202605/04/README](/202605/04/README)
+今日聚焦 12 篇前沿成果，重点攻克高一致性文本转 3D 生成与智能化实验室布局设计。
+推荐关注 MOC-3D 在 3D 生成一致性上的算法突破，以及 LabBuilder 如何利用协议驱动构建安全可交互的科研空间。
+建议读者深入了解生成式 AI 如何从单纯的视觉生成演进为具备物理约束与功能性的复杂场景构建。
+- 详情：[/202605/05/README](/202605/05/README)
 
 ### 精读区论文标签
-1. [Map2World: Segment Map Conditioned Text to 3D World Generation](/202605/04/2605.00781v1-map2world-segment-map-conditioned-text-to-3d-world-generation)  
+1. [MOC-3D: Manifold-Order Consistency for Text-to-3D Generation](/202605/05/2605.01743v1-moc-3d-manifold-order-consistency-for-text-to-3d-generation)  
    标签：评分：10.0/10、query:3dgen
-   evidence：基于分割图条件的文本到3D世界生成
-2. [Pose-Aware Diffusion for 3D Generation](/202605/04/2605.00345v1-pose-aware-diffusion-for-3d-generation)  
-   标签：评分：9.0/10、query:3dgen
-   evidence：用于3D几何生成的扩散框架
-3. [InpaintSLat: Inpainting Structured 3D Latents via Initial Noise Optimization](/202605/04/2605.00664v1-inpaintslat-inpainting-structured-3d-latents-via-initial-noise-optimization)  
-   标签：评分：9.0/10、query:3dgen
-   evidence：潜扩散框架中的可控3D补全
-4. [FieryGS: In-the-Wild Fire Synthesis with Physics-Integrated Gaussian Splatting](/202605/04/2605.00177v1-fierygs-in-the-wild-fire-synthesis-with-physics-integrated-gaussian-splatting)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：结合物理集成的高斯泼溅3D场景合成
-5. [GOR-IS: 3D Gaussian Object Removal in the Intrinsic Space](/202605/04/2605.00498v1-gor-is-3d-gaussian-object-removal-in-the-intrinsic-space)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：3D高斯泼溅场景编辑与物体移除
-6. [2D-SuGaR: Surface-Aware Gaussian Splatting for Geometrically Accurate Mesh Reconstruction](/202605/04/2605.00569v1-2d-sugar-surface-aware-gaussian-splatting-for-geometrically-accurate-mesh-reconstruction)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：用于场景重建的3D高斯泼溅
+   evidence：解决拓扑不一致性的文本到3D生成方法
+2. [LabBuilder: Protocol-Grounded 3D Layout Generation for Interactable and Safe Laboratory](/202605/05/2605.02288v1-labbuilder-protocol-grounded-3d-layout-generation-for-interactable-and-safe-laboratory)  
+   标签：评分：10.0/10、query:3dgen
+   evidence：根据简明文本规范生成3D布局
+3. [Orchestrating Spatial Semantics via a Zone-Graph Paradigm for Intricate Indoor Scene Generation](/202605/05/2605.02537v1-orchestrating-spatial-semantics-via-a-zone-graph-paradigm-for-intricate-indoor-scene-generation)  
+   标签：评分：10.0/10、query:3dgen
+   evidence：从语义意图生成复杂室内场景的框架
 
 ### 速读区论文标签
-1. [BlenderRAG: High-Fidelity 3D Object Generation via Retrieval-Augmented Code Synthesis](/202605/04/2605.00632v1-blenderrag-high-fidelity-3d-object-generation-via-retrieval-augmented-code-synthesis)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：通过检索增强代码生成的3D物体生成
-2. [MotuBrain: An Advanced World Action Model for Robot Control](/202605/04/2604.27792v1-motubrain-an-advanced-world-action-model-for-robot-control)  
+1. [Prop-Chromeleon: Adaptive Haptic Props in Mixed Reality through Generative Artificial Intelligence](/202605/05/2605.00804v1-prop-chromeleon-adaptive-haptic-props-in-mixed-reality-through-generative-artificial-intelligence)  
    标签：评分：7.0/10、query:3dgen
-   evidence：用于世界动态的多模态生成模型
-3. [Physically Native World Models: A Hamiltonian Perspective on Generative World Modeling](/202605/04/2605.00412v1-physically-native-world-models-a-hamiltonian-perspective-on-generative-world-modeling)  
+   evidence：文本到3D虚拟资产生成
+2. [Prop-Chromeleon: Adaptive Haptic Props in Mixed Reality through Generative Artificial Intelligence](/202605/05/2605.00804v2-prop-chromeleon-adaptive-haptic-props-in-mixed-reality-through-generative-artificial-intelligence)  
    标签：评分：7.0/10、query:3dgen
-   evidence：生成式世界模型和以3D场景为中心的模型
-4. [PhysiGen: Integrating Collision-Aware Physical Constraints for High-Fidelity Human-Human Interaction Generation](/202605/04/2605.00517v1-physigen-integrating-collision-aware-physical-constraints-for-high-fidelity-human-human-interaction-generation)  
+   evidence：混合现实中虚拟资产的生成与锚定
+3. [InterPhys: Physics-aware Human Motion Synthesis in a Dynamic Scene](/202605/05/2605.01036v1-interphys-physics-aware-human-motion-synthesis-in-a-dynamic-scene)  
    标签：评分：7.0/10、query:3dgen
-   evidence：3D人体动作合成与交互生成
-5. [PEPS: Positional Encoding Projected Sampling -- Extended](/202605/04/2604.24167v1-peps-positional-encoding-projected-sampling----extended)  
+   evidence：动态3D场景中具有物理意识的人体运动合成
+4. [CADFS: A Big CAD Program Dataset and Framework for Computer-Aided Design with Large Language Models](/202605/05/2605.01925v1-cadfs-a-big-cad-program-dataset-and-framework-for-computer-aided-design-with-large-language-models)  
+   标签：评分：7.0/10、query:3dgen
+   evidence：生成式CAD设计与3D建模
+5. [GETA-3DGS: Automatic Joint Structured Pruning and Quantization for 3D Gaussian Splatting](/202605/05/2605.02086v1-geta-3dgs-automatic-joint-structured-pruning-and-quantization-for-3d-gaussian-splatting)  
+   标签：评分：7.0/10、query:3dgen
+   evidence：3D场景表示与合成优化
+6. [A Principled Approach for Creating High-fidelity Synthetic Demonstrations for Imitation Learning](/202605/05/2605.01232v1-a-principled-approach-for-creating-high-fidelity-synthetic-demonstrations-for-imitation-learning)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于形状表示的隐式神经表示
-6. [EnerGS: Energy-Based Gaussian Splatting with Partial Geometric Priors](/202605/04/2604.26238v1-energs-energy-based-gaussian-splatting-with-partial-geometric-priors)  
+   evidence：用于合成演示生成的3D高斯泼溅
+7. [PointCSP: Cross-Sample Semantic Propagation and Stability Preservation in Self-Supervised Point Cloud Learning](/202605/05/2605.01759v1-pointcsp-cross-sample-semantic-propagation-and-stability-preservation-in-self-supervised-point-cloud-learning)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于场景重建的3D高斯泼溅技术
-7. [Multiple Consistent 2D-3D Mappings for Robust Zero-Shot 3D Visual Grounding](/202605/04/2604.26261v1-multiple-consistent-2d-3d-mappings-for-robust-zero-shot-3d-visual-grounding)  
+   evidence：场景级点云语义表示
+8. [DataEvolver: Let Your Data Build and Improve Itself via Goal-Driven Loop Agents](/202605/05/2605.01789v1-dataevolver-let-your-data-build-and-improve-itself-via-goal-driven-loop-agents)  
    标签：评分：6.0/10、query:3dgen
-   evidence：3D视觉定位与空间推理
-8. [Semantic Foam: Unifying Spatial and Semantic Scene Decomposition](/202605/04/2604.26262v2-semantic-foam-unifying-spatial-and-semantic-scene-decomposition)  
+   evidence：用于生成3D网格和伪影的闭环视觉数据引擎
+9. [Cardiac Mesh Flow: One-Step Generation of 3D+t Cardiac Four-Chamber Meshes via Flow Matching](/202605/05/2605.01884v1-cardiac-mesh-flow-one-step-generation-of-3dt-cardiac-four-chamber-meshes-via-flow-matching)  
    标签：评分：6.0/10、query:3dgen
-   evidence：3D表示的语义场景分解
-9. [Two-View Accumulation as the Primary Training Lever for Hybrid-Capture Gaussian Splatting: A Variance-Decomposition View of When Gradient Surgery Helps](/202605/04/2605.00052v1-two-view-accumulation-as-the-primary-training-lever-for-hybrid-capture-gaussian-splatting-a-variance-decomposition-view-of-when-gradient-surgery-helps)  
-   标签：评分：6.0/10、query:3dgen
-   evidence：用于新视角合成的3D高斯泼溅技术
-10. [Predictive Spatio-Temporal Scene Graphs for Semi-Static Scenes](/202605/04/2605.00121v1-predictive-spatio-temporal-scene-graphs-for-semi-static-scenes)  
-   标签：评分：6.0/10、query:3dgen
-   evidence：用于环境推理的时空场景图
+   evidence：用于3D心脏形状合成的生成流模型
 
 
 <div class="dpr-home-promo-card">

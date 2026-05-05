@@ -1,0 +1,499 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-05T19:11:57.827983+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 9,
+    "quick_skim_target": 11,
+    "quick_selected": 9
+  },
+  "deep_dive": [
+    {
+      "id": "2605.01743v1",
+      "title": "MOC-3D: Manifold-Order Consistency for Text-to-3D Generation",
+      "abstract": "With the burgeoning development of fields such as the Metaverse, Virtual Reality (VR), and Digital Twins, text-to-3D generation has emerged as a research hotspot in both academia and industry. Currently, optimization methods based on Score Distillation Sampling (SDS) utilizing 2D diffusion priors have become the mainstream technological paradigm in this field. However, due to the view bias of 2D priors and the mode-seeking ambiguity combined with gradient noise induced by high Classifier-Free Guidance (CFG), these methods still suffer from macro-topological inconsistency (e.g., the Janus problem) and micro-geometric discontinuity.   To address these challenges, we propose MOC-3D, a text-to-3D generation method based on geometric manifold and semantic view-order consistency. Built upon the ScaleDreamer framework, our method incorporates a Semantic View-Order Constraint Module and a Manifold-based Feature Continuity Module. The former aims to rectify macro-topological inconsistency, while the latter focuses on eliminating micro-geometric discontinuity. Specifically, the Semantic View-Order Constraint Module leverages the prior knowledge of CLIP to impose a Monotonicity Rank Constraint on semantic score representations across different views, thereby providing effective guidance for the global topological structure of 3D objects. Meanwhile, the Manifold-based Feature Continuity Module employs the Riemannian Metric on the Symmetric Positive Definite (SPD) manifold. By measuring the distance of feature statistical distributions in the Riemannian space, it promotes the smooth evolution and continuity of micro-textures across multi-views in a statistical sense. Under the macro-micro synergistic optimization of these two modules, our model can simultaneously improve macro-structural consistency and micro-detail continuity.",
+      "authors": [
+        "Chenyang Fan",
+        "Junshi Cheng",
+        "Wen Yang",
+        "Zihong Li",
+        "Wenfeng Zhang",
+        "Wei Hu",
+        "Yi Zhang",
+        "Pan Zeng"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.MM"
+      ],
+      "published": "2026-05-03T06:45:48+00:00",
+      "link": "https://arxiv.org/pdf/2605.01743v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "text-to-3D generation method addressing topological inconsistency",
+      "llm_evidence_cn": "解决拓扑不一致性的文本到3D生成方法",
+      "llm_evidence": "解决拓扑不一致性的文本到3D生成方法",
+      "canonical_evidence": "解决拓扑不一致性的文本到3D生成方法",
+      "llm_tldr_en": "MOC-3D improves text-to-3D generation by ensuring manifold-order consistency and reducing Janus problems.",
+      "llm_tldr_cn": "MOC-3D通过确保流形阶一致性并减少双头龙问题，改进了文本到3D的生成。",
+      "llm_tldr": "MOC-3D通过确保流形阶一致性并减少双头龙问题，改进了文本到3D的生成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "text-to-3D scene generation frameworks",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.02288v1",
+      "title": "LabBuilder: Protocol-Grounded 3D Layout Generation for Interactable and Safe Laboratory",
+      "abstract": "Automated laboratories hold the promise of accelerating scientific discovery, yet their deployment is bottlenecked by the difficulty of designing safe and executable environments. While simulator-based design offers scalability, existing 3D scene generation methods are primarily tailored for household settings, optimizing for visual plausibility while neglecting the rigorous functional semantics and safety constraints essential for scientific experimentation. We present LabBuilder, an end-to-end system that generates and verifies 3D laboratory layouts from concise textual specifications. It operates through three tightly coupled components: LabForge first curates a meta-dataset of annotated assets and chemical knowledge, translating natural language specifications into structured protocols; building on these protocols, LabGen synthesizes laboratory layouts via an iterative, constraint-aware optimization strategy; finally, LabTouchstone evaluates the resulting layouts as a unified benchmark. Extensive experiments demonstrate that LabBuilder significantly outperforms existing state-of-the-art methods, producing laboratory environments that are not only realistic but also functionally valid and safe for complex experimental workflows.",
+      "authors": [
+        "Jianbao Cao",
+        "Zhangrui Zhao",
+        "Bohan Feng",
+        "Zixuan Hu",
+        "Rui Li",
+        "Haiyuan Wan",
+        "Chenxi Li",
+        "Jingyuan Li",
+        "Wenzhe Cai",
+        "Lei Bai",
+        "Wanli Ouyang",
+        "Lingyu Duan",
+        "Di Huang",
+        "Mingting Pan",
+        "Sha Zhang",
+        "Xinzhu Ma",
+        "Shixiang Tang",
+        "Dongzhan Zhou"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-04T07:24:56+00:00",
+      "link": "https://arxiv.org/pdf/2605.02288v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "3D layout generation from concise textual specifications",
+      "llm_evidence_cn": "根据简明文本规范生成3D布局",
+      "llm_evidence": "根据简明文本规范生成3D布局",
+      "canonical_evidence": "根据简明文本规范生成3D布局",
+      "llm_tldr_en": "Generates and verifies functional 3D laboratory layouts from text descriptions using a protocol-grounded system.",
+      "llm_tldr_cn": "使用协议驱动系统根据文本描述生成并验证功能性3D实验室布局。",
+      "llm_tldr": "使用协议驱动系统根据文本描述生成并验证功能性3D实验室布局。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "text-to-3D scene generation frameworks",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.02537v1",
+      "title": "Orchestrating Spatial Semantics via a Zone-Graph Paradigm for Intricate Indoor Scene Generation",
+      "abstract": "Autonomous 3D indoor scene synthesis breaks down in non-convex rooms with tightly coupled spatial constraints. Data-driven generators lack topological priors for long-horizon planning, while iterative agents fragment semantics and become geometrically brittle. We present ZoneMaestro, a unified framework that shifts the paradigm from object-centric synthesis to Zone-Graph Orchestration. By internalizing a novel zone-based logic, ZoneMaestro translates high-level semantic intent into functional zones and topological constraints, enabling robust adaptation to diverse architectural forms. To support this, we construct Zone-Scene-10K, a large-scale dataset enriched with explicit Zone-Graph annotations. We further introduce an Alternating Alignment Strategy that cycles between reasoning internalization and Zone-Aware Group Relative Policy Optimization (Z-GRPO), effectively reconciling the tension between semantic richness and geometric validity without relying on external physics engines. To rigorously evaluate spatial intelligence beyond convex primitives, we formally define the task of Intricate Spatial Orchestration and release SCALE, a stress-test benchmark for irregular indoor scenarios with complex, dense spatial relations. Extensive experiments demonstrate that ZoneMaestro resolves the density-safety dichotomy, significantly outperforming state-of-the-art baselines in both structural coherence and intent adherence.",
+      "authors": [
+        "Meisheng Zhang",
+        "Shizhao Sun",
+        "Yang Zhao",
+        "Ziyuan Liu",
+        "Zhijun Gao",
+        "Jiang Bian"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI"
+      ],
+      "published": "2026-05-04T12:40:37+00:00",
+      "link": "https://arxiv.org/pdf/2605.02537v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "framework for intricate indoor scene generation from semantic intent",
+      "llm_evidence_cn": "从语义意图生成复杂室内场景的框架",
+      "llm_evidence": "从语义意图生成复杂室内场景的框架",
+      "canonical_evidence": "从语义意图生成复杂室内场景的框架",
+      "llm_tldr_en": "A zone-graph paradigm for synthesizing complex 3D indoor scenes by translating semantic intent into spatial zones.",
+      "llm_tldr_cn": "一种通过将语义意图转化为空间区域来合成复杂3D室内场景的区域图范式。",
+      "llm_tldr": "一种通过将语义意图转化为空间区域来合成复杂3D室内场景的区域图范式。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "text-to-3D scene generation frameworks",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2605.00804v1",
+      "title": "Prop-Chromeleon: Adaptive Haptic Props in Mixed Reality through Generative Artificial Intelligence",
+      "abstract": "Mixed Reality (MR) aims to blend digital and physical worlds, but the absence of haptic feedback often breaks visual-tactile consistency. We introduce Prop-Chromeleon, a MR system based on generative artificial intelligence (AI) that dynamically transforms everyday objects into adaptive passive haptic props through user-provided text prompts. Our AI pipeline performs generation and anchoring of virtual assets that align with the shape of physical props, allowing us to study how virtual content generation behaves under geometric and prompt-based constraints. We evaluate Prop-Chromeleon's effectiveness through a generation study using varied object shapes and user prompts, combining quantitative shape similarity metrics with qualitative prompt fidelity analysis. Our user study further showcases Prop-Chromeleon's improvements in perceived realism, immersion, and enjoyment compared to static baselines. These results show that shape-aware generation can support both believable haptic interaction and creative engagement in MR.",
+      "authors": [
+        "Haoyu Wang",
+        "Fengyuan Zhu",
+        "Bingjian Huang",
+        "Zhecheng Wang",
+        "Ludwig Sidenmark"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC"
+      ],
+      "published": "2026-05-01T17:45:49+00:00",
+      "link": "https://arxiv.org/pdf/2605.00804v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "text-to-3D virtual asset generation",
+      "llm_evidence_cn": "文本到3D虚拟资产生成",
+      "llm_evidence": "文本到3D虚拟资产生成",
+      "canonical_evidence": "文本到3D虚拟资产生成",
+      "llm_tldr_en": "Uses generative AI to create virtual 3D assets from text prompts for mixed reality haptic feedback.",
+      "llm_tldr_cn": "利用生成式人工智能根据文本提示创建虚拟3D资产，用于混合现实触觉反馈。",
+      "llm_tldr": "利用生成式人工智能根据文本提示创建虚拟3D资产，用于混合现实触觉反馈。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "text-to-3D scene generation frameworks",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.01232v1",
+      "title": "A Principled Approach for Creating High-fidelity Synthetic Demonstrations for Imitation Learning",
+      "abstract": "Recent advances in 3D Gaussian Splatting (3DGS) have enabled visually realistic demonstration generation from a single expert trajectory and a short multi-view scan. However, existing 3DGS-based synthesis pipelines typically generate new motions using sampling-based planners or trajectory optimization, which often deviate substantially from the expert's demonstrated path. While such deviations may be acceptable for tasks insensitive to motion shape, they discard subtle spatial and temporal structure that is critical for contact-rich and shape-sensitive manipulation, causing increased demonstration diversity to harm downstream policy learning. We argue that demonstration synthesis should treat the expert trajectory as a strong prior. Building on this principle, we propose a framework that synthesizes diverse task demonstrations while explicitly preserving expert motion structure. We model the expert trajectory using Dynamic Movement Primitives (DMPs) and retarget it to new goals, object configurations, and viewpoints within a reconstructed 3DGS scene, yielding phase-consistent, shape-preserving motion by construction. To safely realize this expert-preserving diversity in cluttered scenes, we introduce an analytic obstacle-aware DMP formulation that operates directly on the continuous density field induced by the 3DGS representation. This enables collision avoidance while minimally perturbing the nominal expert motion, unifying photorealistic rendering and geometric reasoning without additional scene representations. We evaluate our approach on a Spot mobile manipulator across three manipulation tasks with increasing sensitivity to trajectory fidelity. Compared to planner- and optimization-based synthesis, our method produces trajectories with lower deviation and collision rates and yields higher task success when training diffusion-based visuomotor policies.",
+      "authors": [
+        "Moniruzzaman Akash",
+        "Momotaz Begum"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-05-02T04:09:07+00:00",
+      "link": "https://arxiv.org/pdf/2605.01232v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D Gaussian Splatting for synthetic demonstration generation",
+      "llm_evidence_cn": "用于合成演示生成的3D高斯泼溅",
+      "llm_evidence": "用于合成演示生成的3D高斯泼溅",
+      "canonical_evidence": "用于合成演示生成的3D高斯泼溅",
+      "llm_tldr_en": "Uses 3D Gaussian Splatting to create high-fidelity synthetic 3D demonstrations for imitation learning.",
+      "llm_tldr_cn": "利用3D高斯泼溅为模仿学习创建高保真合成3D演示。",
+      "llm_tldr": "利用3D高斯泼溅为模仿学习创建高保真合成3D演示。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.00804v2",
+      "title": "Prop-Chromeleon: Adaptive Haptic Props in Mixed Reality through Generative Artificial Intelligence",
+      "abstract": "Mixed Reality (MR) aims to blend digital and physical worlds, but the absence of haptic feedback often breaks visual-tactile consistency. We introduce Prop-Chromeleon, a MR system based on generative artificial intelligence (AI) that dynamically transforms everyday objects into adaptive passive haptic props through user-provided text prompts. Our AI pipeline performs generation and anchoring of virtual assets that align with the shape of physical props, allowing us to study how virtual content generation behaves under geometric and prompt-based constraints. We evaluate Prop-Chromeleon's effectiveness through a generation study using varied object shapes and user prompts, combining quantitative shape similarity metrics with qualitative prompt fidelity analysis. Our user study further showcases Prop-Chromeleon's improvements in perceived realism, immersion, and enjoyment compared to static baselines. These results show that shape-aware generation can support both believable haptic interaction and creative engagement in MR.",
+      "authors": [
+        "Haoyu Wang",
+        "Fengyuan Zhu",
+        "Bingjian Huang",
+        "Zhecheng Wang",
+        "Ludwig Sidenmark"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC"
+      ],
+      "published": "2026-05-01T17:45:49+00:00",
+      "link": "https://arxiv.org/pdf/2605.00804v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "generation and anchoring of virtual assets in mixed reality",
+      "llm_evidence_cn": "混合现实中虚拟资产的生成与锚定",
+      "llm_evidence": "混合现实中虚拟资产的生成与锚定",
+      "canonical_evidence": "混合现实中虚拟资产的生成与锚定",
+      "llm_tldr_en": "Prop-Chromeleon uses generative AI to transform physical objects into adaptive haptic props in MR.",
+      "llm_tldr_cn": "Prop-Chromeleon利用生成式AI将物理对象转换为混合现实中的自适应触觉道具。",
+      "llm_tldr": "Prop-Chromeleon利用生成式AI将物理对象转换为混合现实中的自适应触觉道具。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.01759v1",
+      "title": "PointCSP: Cross-Sample Semantic Propagation and Stability Preservation in Self-Supervised Point Cloud Learning",
+      "abstract": "Scene-level point cloud self-supervised learning (PC-SSL) has demonstrated potential in enhancing the generalization capability of 3D vision models. Despite the advances in the field through existing methods, the sample-independent modeling paradigm still poses significant limitations in terms of maintaining consistent semantic representations across scenes. This challenge hinders the construction of a unified and transferable semantic space. To address this issue, we propose a PC-SSL framework based on cross-sample semantic propagation (CSP), in which samples within a batch are serialized into continuous input and processed by a state-space model to enable semantic state propagation. This mechanism explicitly models the dynamic dependencies across samples in the state space, allowing the network to establish cross-sample semantic consistency in the latent space and achieve global semantic alignment. Since serialization-based pretraining requires batch-level input organization, we further introduce an asymmetric semantic preservation distillation (SPD) during finetuning to achieve structural alignment of semantic transfer and eliminate inconsistencies caused by batch dependency. The proposed SPD ensures stable transfer of pretrained semantics through a heterogeneous input mechanism and a semantic feature alignment constraint. This enables the model to maintain structured semantic consistency and robustness under single-scene testing conditions. Extensive experiments on multiple benchmark datasets demonstrate that our method consistently outperforms state-of-the-art methods in both performance and semantic consistency.",
+      "authors": [
+        "Xinxing Yu",
+        "Ajian Liu",
+        "Sunyuan Qiang",
+        "Hui Ma",
+        "Liying Yang",
+        "Yuzhong Wang",
+        "Zhi Rao",
+        "Yanyan Liang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-03T07:40:00+00:00",
+      "link": "https://arxiv.org/pdf/2605.01759v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "scene-level point cloud semantic representations",
+      "llm_evidence_cn": "场景级点云语义表示",
+      "llm_evidence": "场景级点云语义表示",
+      "canonical_evidence": "场景级点云语义表示",
+      "llm_tldr_en": "Proposes a self-supervised framework for consistent semantic propagation across 3D point cloud scenes.",
+      "llm_tldr_cn": "提出一种自监督框架，用于在3D点云场景中实现一致的语义传播。",
+      "llm_tldr": "提出一种自监督框架，用于在3D点云场景中实现一致的语义传播。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.01036v1",
+      "title": "InterPhys: Physics-aware Human Motion Synthesis in a Dynamic Scene",
+      "abstract": "This paper tackles the problem of physics-aware human motion synthesis in a dynamic scene. Unlike existing works which mainly tend to generate physically unrealistic motions due to limited contact modeling, typically restricted to hands, in this paper, we introduce a physics-aware human motion generation framework that explicitly models the full spectrum of human-related forces, including human-object, human-scene, and internal body dynamics.~Our method imposes soft physical constraints to maintain force and torque balance, ensuring physically grounded motion synthesis. We further propose a novel continuous distance-based force model that generalizes contact modeling to arbitrary surfaces, capturing interactions not only with static environments but also with dynamic, moving objects. Extensive experiments show that our approach significantly improves physical plausibility and generalizes well to complex scenes, setting a new benchmark for physically consistent human motion generation.",
+      "authors": [
+        "Chaoyue Xing",
+        "Wei Mao",
+        "Miaomiao Liu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-01T19:03:27+00:00",
+      "link": "https://arxiv.org/pdf/2605.01036v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "physics-aware human motion synthesis in dynamic 3D scenes",
+      "llm_evidence_cn": "动态3D场景中具有物理意识的人体运动合成",
+      "llm_evidence": "动态3D场景中具有物理意识的人体运动合成",
+      "canonical_evidence": "动态3D场景中具有物理意识的人体运动合成",
+      "llm_tldr_en": "A framework for generating physically grounded human motions within dynamic 3D environments.",
+      "llm_tldr_cn": "一个用于在动态3D环境中生成符合物理规律的人体运动的框架。",
+      "llm_tldr": "一个用于在动态3D环境中生成符合物理规律的人体运动的框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.01789v1",
+      "title": "DataEvolver: Let Your Data Build and Improve Itself via Goal-Driven Loop Agents",
+      "abstract": "Constructing controllable visual data is a major bottleneck for image editing and multimodal understanding. Useful supervision is rarely produced by a single rendering pass; instead it emerges through iterative generation, inspection, correction, filtering, and export. We present DataEvolver, a closed-loop visual data engine that organizes this process around explicit goals, persistent artifacts, bounded corrective actions, and acceptance decisions. DataEvolver supports multiple artifact types, including RGB images, masks, depth maps, normal maps, meshes, poses, trajectories, and review traces. In the current release, the system operates through two coupled loops: generation-time self-correction within each sample and validation-time self-expansion across dataset rounds. We validate the framework on an image-level object-rotation setting. With a fixed Qwen-Edit LoRA probe, our final Ours+DualGate model outperforms both the unadapted base model and a public multi-angle LoRA on SpatialEdit and a held-out evaluation set. Ablations show a consistent improvement path from scene-aware generation to feedback-driven correction and dual-gated validation. Beyond the released rotation data, our main contribution is a reusable framework for building visual datasets through explicit goal tracking, review, correction, and acceptance loops.",
+      "authors": [
+        "Qisong Zhang",
+        "Wenzhuo Wu",
+        "Zhuangzhuang Jia",
+        "Yunhao Yang",
+        "Huayu Zhang",
+        "Xianghao Zang",
+        "Zhixiang He",
+        "Zhongjiang He",
+        "Kongming Liang",
+        "Zhanyu Ma"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-05-03T09:10:23+00:00",
+      "link": "https://arxiv.org/pdf/2605.01789v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "closed-loop visual data engine for generating 3D meshes and artifacts",
+      "llm_evidence_cn": "用于生成3D网格和伪影的闭环视觉数据引擎",
+      "llm_evidence": "用于生成3D网格和伪影的闭环视觉数据引擎",
+      "canonical_evidence": "用于生成3D网格和伪影的闭环视觉数据引擎",
+      "llm_tldr_en": "A closed-loop engine that iteratively generates and improves multimodal visual data including 3D meshes.",
+      "llm_tldr_cn": "一个通过闭环智能体迭代生成和改进包括3D网格在内的多模态视觉数据的引擎。",
+      "llm_tldr": "一个通过闭环智能体迭代生成和改进包括3D网格在内的多模态视觉数据的引擎。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.01925v1",
+      "title": "CADFS: A Big CAD Program Dataset and Framework for Computer-Aided Design with Large Language Models",
+      "abstract": "We introduce CADFS, a data-centric framework that enables large vision-language models to generate complex CAD design histories. Existing generative CAD systems are restricted to sketch-extrude operations due to simplified representations and limited datasets. We address this by introducing a FeatureScript-based representation and constructing a dataset of 450k real-world CAD models spanning 15 modeling operations. We obtain the dataset via a new pipeline that reconstructs clean, executable FeatureScript programs and provides multimodal annotations. Fine-tuning a VLM on this representation yields state-of-the-art results in text-conditioned CAD generation and image-based reconstruction, producing more accurate, diverse, and feature-rich designs than prior frameworks. Ablations show that each individual component of our framework, i.e., the FeatureScript representation, the extended operation set, and representation-aligned textual descriptions, significantly improves performance. Our framework substantially broadens the complexity and realism achievable in generative CAD. The CADFS framework and the new dataset are available at https://voyleg.github.io/cadfs/.",
+      "authors": [
+        "Vladislav Pyatov",
+        "Gleb Bobrovskikh",
+        "Saveliy Galochkin",
+        "Nikita Boldyrev",
+        "Oleg Voynov",
+        "Alexander Filippov",
+        "Gonzalo Ferrer",
+        "Peter Wonka",
+        "Evgeny Burnaev"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-05-03T15:12:36+00:00",
+      "link": "https://arxiv.org/pdf/2605.01925v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "generative CAD design and 3D modeling",
+      "llm_evidence_cn": "生成式CAD设计与3D建模",
+      "llm_evidence": "生成式CAD设计与3D建模",
+      "canonical_evidence": "生成式CAD设计与3D建模",
+      "llm_tldr_en": "A framework and dataset for generating complex 3D CAD models using large vision-language models.",
+      "llm_tldr_cn": "一个利用大型视觉语言模型生成复杂3D CAD模型的数据集和框架。",
+      "llm_tldr": "一个利用大型视觉语言模型生成复杂3D CAD模型的数据集和框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.01884v1",
+      "title": "Cardiac Mesh Flow: One-Step Generation of 3D+t Cardiac Four-Chamber Meshes via Flow Matching",
+      "abstract": "Spatio-temporal (3D+t) generative modelling of cardiac shape and motion is crucial for understanding heart structure and function at population scale. Existing generative models for cardiac shape synthesis either adopt volumetric shape representations that lack anatomical correspondence across different time points and subjects, or rely on VAE-based frameworks that suffer from a trade-off between reconstruction fidelity and generative diversity. In this work, we propose Cardiac Mesh Flow, a novel generative flow model for 3D+t cardiac four-chamber mesh generation with anatomical correspondence, temporal coherence, and periodic consistency. Leveraging the flow matching technique, Cardiac Mesh Flow performs efficient one-step generation of multi-scale free-form deformation fields, which warp a template mesh to generate cardiac four-chamber meshes across a cardiac cycle. Furthermore, Cardiac Mesh Flow enables controllable generation conditioned on cardiac chamber volumes, allowing precise control of the synthetic heart. Experimental results demonstrate that Cardiac Mesh Flow achieves high fidelity and diversity on both unconditional and conditional generation, compared to state-of-the-art 3D+t cardiac mesh generation methods.",
+      "authors": [
+        "Qiang Ma",
+        "Qingjie Meng",
+        "Mengyun Qiao",
+        "Paul M. Matthews",
+        "Declan P. O'Regan",
+        "Wenjia Bai"
+      ],
+      "primary_category": "eess.IV",
+      "categories": [
+        "eess.IV"
+      ],
+      "published": "2026-05-03T14:01:44+00:00",
+      "link": "https://arxiv.org/pdf/2605.01884v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "generative flow model for 3D cardiac shape synthesis",
+      "llm_evidence_cn": "用于3D心脏形状合成的生成流模型",
+      "llm_evidence": "用于3D心脏形状合成的生成流模型",
+      "canonical_evidence": "用于3D心脏形状合成的生成流模型",
+      "llm_tldr_en": "Proposes Cardiac Mesh Flow for efficient one-step generation of 3D+t cardiac meshes with temporal coherence.",
+      "llm_tldr_cn": "提出Cardiac Mesh Flow，通过流匹配技术实现高效的3D+t心脏网格一键生成。",
+      "llm_tldr": "提出Cardiac Mesh Flow，通过流匹配技术实现高效的3D+t心脏网格一键生成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.02086v1",
+      "title": "GETA-3DGS: Automatic Joint Structured Pruning and Quantization for 3D Gaussian Splatting",
+      "abstract": "3D Gaussian splatting (3DGS) is a state-of-the-art representation for real-time photorealistic novel-view synthesis, yet a single high-fidelity scene typically occupies hundreds of megabytes to several gigabytes, exceeding the budgets of mobile, immersive, and volumetric video platforms. Existing 3DGS compression methods (e.g., HAC++, FlexGaussian, LP-3DGS) treat pruning, quantization, and entropy coding as separate stages and rely on hand-tuned heuristics (opacity thresholds, fixed bit-widths, SH truncation), limiting cross-scene generalization and preventing users from specifying a target rate or quality budget. We propose GETA-3DGS, to our knowledge the first end-to-end automatic joint structured pruning and quantization framework for 3DGS. Building on GETA for joint pruning-quantization of deep networks, we contribute: (i) a 3DGS-aware quantization-aware dependency graph (QADG) treating each Gaussian primitive as a group with five attribute sub-nodes and degree-aware SH sub-nodes; (ii) a render-aware saliency fusing transmittance-weighted contribution, screen-space gradient, and pixel coverage into a Gaussian-level importance score; and (iii) a heterogeneous per-attribute mixed-precision scheme co-optimized with structural sparsity under a projected partial saliency-guided (PPSG) descent guarantee. On Mip-NeRF 360, Tanks and Temples, and Deep Blending, GETA-3DGS operates directly on raw Gaussian primitives rather than a post-hoc anchor representation, delivering ~5x storage reduction over Vanilla 3DGS with no per-scene thresholds. Bit-width policy is the dominant rate-distortion lever: a uniform 6-bit cap costs up to -6.74 dB on view-dependent scenes versus our heterogeneous allocation, matching an information-theoretic reverse-water-filling analysis we develop. GETA-3DGS is complementary to existing codecs: entropy coding (HAC++, CompGS) is downstream, so the two can be composed.",
+      "authors": [
+        "Baobing Zhang",
+        "Wanxin Sui"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.GR",
+        "eess.IV"
+      ],
+      "published": "2026-05-03T23:12:14+00:00",
+      "link": "https://arxiv.org/pdf/2605.02086v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D scene representation and synthesis optimization",
+      "llm_evidence_cn": "3D场景表示与合成优化",
+      "llm_evidence": "3D场景表示与合成优化",
+      "canonical_evidence": "3D场景表示与合成优化",
+      "llm_tldr_en": "Proposes an end-to-end framework for pruning and quantizing 3D Gaussian Splatting to optimize scene storage.",
+      "llm_tldr_cn": "提出了一种端到端的3D高斯泼溅剪枝和量化框架，旨在优化场景存储空间。",
+      "llm_tldr": "提出了一种端到端的3D高斯泼溅剪枝和量化框架，旨在优化场景存储空间。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
