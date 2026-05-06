@@ -1,0 +1,205 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-06T19:13:30.056161+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2605.03359v1",
+      "title": "Mix3R: Mixing Feed-forward Reconstruction and Generative 3D Priors for Joint Multi-view Aligned 3D Reconstruction and Pose Estimation",
+      "abstract": "Recent trends in sparse-view 3D reconstruction have taken two different paths: feed-forward reconstruction that predicts pixel-aligned point maps without a complete geometry, and generative 3D reconstruction that generates complete geometry but often with poor input-alignment. We present Mix3R, a novel generative 3D reconstruction method which mixes feed-forward reconstruction and 3D generation into a single framework in an aligned manner. Mix3R generates a 3D shape in two stages: a sparse voxel generation stage and a textured geometry generation stage. Unlike pure generative methods, our first-stage generation jointly produces a coarse 3D structure (sparse voxels), per-view point maps and camera parameters aligned to that 3D structure. This is made possible by introducing a Mixture-of-Transformers architecture that inserts global self-attentions to a feed-forward reconstruction model and a 3D generative model, both pretrained on large-scale data. This design effectively retains the pretrained priors but enables better 2D-3D alignment. Based on the initial aligned generations of sparse 3D voxels and point maps, we compute an overlap-based attention bias that is directly added to another pretrained textured geometry generation model, enabling it to correctly place input textures onto generated shapes in a training-free manner. Our design brings mutual benefits to both feed-forward reconstruction and 3D generation: The feed-forward branch learns to ground its predictions to a generative 3D prior, and conversely, the 3D generation branch is conditioned on geometrically informative features from the feed-forward branch. As a result, our method produces 3D shapes with better input alignment compared with pure 3D generative methods, together with camera pose estimations more accurate than previous feed-forward reconstruction methods. Our project page is at https://jsnln.github.io/mix3r/",
+      "authors": [
+        "Siyou Lin",
+        "Zhou Xue",
+        "Hongwen Zhang",
+        "Liang An",
+        "Dongping Li",
+        "Shaohui Jiao",
+        "Yebin Liu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-05T04:37:00+00:00",
+      "link": "https://arxiv.org/pdf/2605.03359v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "generative 3D reconstruction method",
+      "llm_evidence_cn": "生成式3D重建方法",
+      "llm_evidence": "生成式3D重建方法",
+      "canonical_evidence": "生成式3D重建方法",
+      "llm_tldr_en": "Combines feed-forward reconstruction and generative priors for aligned 3D shape generation.",
+      "llm_tldr_cn": "结合前馈重建与生成先验，实现对齐的3D形状生成。",
+      "llm_tldr": "结合前馈重建与生成先验，实现对齐的3D形状生成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.28064v1",
+      "title": "3D Reconstruction Techniques in the Manufacturing Domain: Applications, Research Opportunities and Use Cases",
+      "abstract": "This comprehensive review examines the evolution and the current state of the art in three-dimensional (3D) reconstruction techniques in manufacturing applications. The analysis covers both traditional approaches and emerging deep learning methods, showing a critical research gap in unified 3d reconstruction frameworks. Through systematic review of 106 recent publications, we classify reconstruction techniques into three primary categories: data acquisition, point cloud generation, post-processing and applications. Non-contact methods, particularly structured light scanning and stereo vision, have shown significant adoption in manufacturing, with 47% of surveyed applications focusing on quality inspection. The integration of deep learning has enhanced reconstruction accuracy and processing speed, particularly in feature extraction and matching. Key applications span design and development (13%), machining (8%), process (17%), assembly (22%), and quality inspection (40%). While current technologies achieve sub-millimeter accuracy in controlled environments, challenges persist in handling reflective surfaces and dynamic environments. Our findings indicate a trend toward hybrid systems combining multiple sensor types and processing methods to overcome individual limitations. This survey provides a structured framework for understanding current capabilities and future directions in manufacturing-focused 3D reconstruction.",
+      "authors": [
+        "Chialoon Cheng",
+        "Kaijun liu",
+        "Zhiyang Liu",
+        "Marcelo H Ang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-30T16:11:02+00:00",
+      "link": "https://arxiv.org/pdf/2604.28064v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "review of 3D reconstruction and point cloud generation",
+      "llm_evidence_cn": "3D 重建与点云生成综述",
+      "llm_evidence": "3D 重建与点云生成综述",
+      "canonical_evidence": "3D 重建与点云生成综述",
+      "llm_tldr_en": "A comprehensive review of 3D reconstruction techniques, including point cloud generation in manufacturing.",
+      "llm_tldr_cn": "对 3D 重建技术（包括制造业中的点云生成）进行了全面综述。",
+      "llm_tldr": "对 3D 重建技术（包括制造业中的点云生成）进行了全面综述。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.02098v1",
+      "title": "From Spherical to Gaussian: A Comparative Analysis of Point Cloud Cropping Strategies in Large-Scale 3D Environments",
+      "abstract": "Large-scale 3D point clouds can consist of billions of points. Even after downsampling, these point clouds are too large for modern 3D neural networks. In order to develop a semantic understanding of the scene, the point clouds are divided into smaller subclouds that can be processed. Typically, this division is done using spherical crops, resulting in a loss of surrounding geometric context. To address this issue, we propose alternative methods that produce subclouds with larger crop sizes while maintaining a similar number of points. Specifically, we compare exponential, Gaussian, and linear cropping methods with the spherical method. We evaluated two 3D deep learning model architectures using multiple indoor and outdoor environment datasets. Our results demonstrate that altering the cropping strategy can enhance model performance, especially for large-scale outdoor scenes, yielding new state-of-the-art results. Code is available at https://github.com/mvg-inatech/point_cloud_cropping",
+      "authors": [
+        "Maximilian Kellner",
+        "Dominik Merkle",
+        "Michael Brunklaus",
+        "Alexander Reiterer"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-03T23:36:32+00:00",
+      "link": "https://arxiv.org/pdf/2605.02098v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Processing large-scale 3D environments and point clouds",
+      "llm_evidence_cn": "处理大规模3D环境和点云",
+      "llm_evidence": "处理大规模3D环境和点云",
+      "canonical_evidence": "处理大规模3D环境和点云",
+      "llm_tldr_en": "Compares point cloud cropping strategies to improve semantic understanding of large-scale 3D scenes.",
+      "llm_tldr_cn": "比较点云裁剪策略，以提高对大规模3D场景的语义理解。",
+      "llm_tldr": "比较点云裁剪策略，以提高对大规模3D场景的语义理解。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.02742v1",
+      "title": "Adaptive Interpolation-Synthesis for Motion In-Betweening on Keyframe-Based Animation",
+      "abstract": "Motion in-betweening is one of the most artistically demanding and time consuming stages of 3D animation, where the expressivity and rhythm of motion are defined. The level of creative control it requires makes it a major production bottleneck, underscoring the need for intelligent tools that assist animators in this process. Although recent deep learning approaches have achieved strong results in motion synthesis and in-betweening, they assume data characteristics, motion styles, and problem formulations that diverge from professional animation workflows. To bridge this gap, we propose a method explicitly aligned with the constraints of motion in-betweening for keyframe-based animation in production environments. At its core, the Adaptive Interpolation-Synthesis (AIS) layer mirrors the animator's creative process by dynamically balancing learned interpolation and direct pose synthesis. In addition, a domain-based input keypose schedule reflects the distribution of production data, improving stylistic consistency and alignment between training and real-world usage. Our method achieves state-of-the-art performance on production data; when integrated into Autodesk Maya, it enables animators to complete in-betweening tasks with a 3.5x speedup.",
+      "authors": [
+        "Anton Raël",
+        "Julien Boucher",
+        "Antoine Lhermitte"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR",
+        "cs.LG"
+      ],
+      "published": "2026-05-04T15:41:42+00:00",
+      "link": "https://arxiv.org/pdf/2605.02742v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "motion synthesis for 3D animation",
+      "llm_evidence_cn": "3D动画的运动合成",
+      "llm_evidence": "3D动画的运动合成",
+      "canonical_evidence": "3D动画的运动合成",
+      "llm_tldr_en": "A method for motion in-betweening in 3D animation aligned with professional production workflows.",
+      "llm_tldr_cn": "一种符合专业制作流程的3D动画运动补间生成方法。",
+      "llm_tldr": "一种符合专业制作流程的3D动画运动补间生成方法。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.04044v1",
+      "title": "UniCorrn: Unified Correspondence Transformer Across 2D and 3D",
+      "abstract": "Visual correspondence across image-to-image (2D-2D), image-to-point cloud (2D-3D), and point cloud-to-point cloud (3D-3D) geometric matching forms the foundation for numerous 3D vision tasks. Despite sharing a similar problem structure, current methods use task-specific designs with separate models for each modality combination. We present UniCorrn, the first correspondence model with shared weights that unifies geometric matching across all three tasks. Our key insight is that Transformer attention naturally captures cross-modal feature similarity. We propose a dual-stream decoder that maintains separate appearance and positional feature streams. This design enables end-to-end learning through stack-able layers while supporting flexible query-based correspondence estimation across heterogeneous modalities. Our architecture employs modality-specific backbones followed by shared encoder and decoder components, trained jointly on diverse data combining pseudo point clouds from depth maps with real 3D correspondence annotations. UniCorrn achieves competitive performance on 2D-2D matching and surpasses prior state-of-the-art by 8% on 7Scenes (2D-3D) and 10% on 3DLoMatch (3D-3D) in registration recall. Project website: https://neu-vi.github.io/UniCorrn",
+      "authors": [
+        "Prajnan Goswami",
+        "Tianye Ding",
+        "Feng Liu",
+        "Huaizu Jiang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-05T17:58:53+00:00",
+      "link": "https://arxiv.org/pdf/2605.04044v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "geometric matching foundation for 3D vision tasks",
+      "llm_evidence_cn": "3D视觉任务的几何匹配基础",
+      "llm_evidence": "3D视觉任务的几何匹配基础",
+      "canonical_evidence": "3D视觉任务的几何匹配基础",
+      "llm_tldr_en": "Presents a unified Transformer model for geometric matching across 2D and 3D modalities.",
+      "llm_tldr_cn": "提出一种统一的Transformer模型，用于跨2D和3D模态的几何匹配。",
+      "llm_tldr": "提出一种统一的Transformer模型，用于跨2D和3D模态的几何匹配。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
