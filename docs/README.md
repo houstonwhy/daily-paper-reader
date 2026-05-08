@@ -6,58 +6,57 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-05-07
-- 运行时间：2026-05-07 19:28:18 UTC
+- 最新运行日期：2026-05-08
+- 运行时间：2026-05-08 19:57:18 UTC
 - 运行状态：成功
 - 本次总论文数：12
-- 精读区：1
-- 速读区：11
+- 精读区：2
+- 速读区：10
 
 ### 今日简报（AI）
-今日深度复盘12篇前沿成果，重点聚焦3D生成技术在具身智能与机器人仿真中的核心应用。
-满分综述详尽拆解了3D生成如何重塑机器人训练，同时Uni-HOI等工作展示了人机交互与人体建模的最新融合。
-建议优先研读3D生成综述，把握具身智能从模拟到现实跨越的关键技术路径。
-- 详情：[/202605/07/README](/202605/07/README)
+今日聚焦 3D 场景生成与交互闭环，重点攻克从稀疏图像到完整场景的重建难题。
+LLM 与强化学习的耦合实现了沉浸式交互新范式，
+- 详情：[/202605/08/README](/202605/08/README)
 
 ### 精读区论文标签
-1. [3D Generation for Embodied AI and Robotic Simulation: A Survey](/202605/07/2604.26509v2-3d-generation-for-embodied-ai-and-robotic-simulation-a-survey)  
+1. [Closing the Loop: Unified 3D Scene Generation and Immersive Interaction via LLM-RL Coupling](/202605/08/2605.05711v1-closing-the-loop-unified-3d-scene-generation-and-immersive-interaction-via-llm-rl-coupling)  
    标签：评分：10.0/10、query:3dgen
-   evidence：3D生成方法与应用的综述
+   evidence：语言驱动的3D场景生成和空间布局优化的统一框架
+2. [Sparse-to-Complete: From Sparse Image Captures to Complete 3D Scenes](/202605/08/2605.05664v1-sparse-to-complete-from-sparse-image-captures-to-complete-3d-scenes)  
+   标签：评分：9.0/10、query:3dgen
+   evidence：从稀疏图像捕获中进行完整的3D场景重建
 
 ### 速读区论文标签
-1. [Uni-HOI:A Unified framework for Learning the Joint distribution of Text and Human-Object Interaction](/202605/07/2604.27491v1-uni-hoia-unified-framework-for-learning-the-joint-distribution-of-text-and-human-object-interaction)  
+1. [Structured 3D Latents Are Surprisingly Powerful: Unleashing Generalizable Style with 2D Diffusion](/202605/08/2605.04412v2-structured-3d-latents-are-surprisingly-powerful-unleashing-generalizable-style-with-2d-diffusion)  
    标签：评分：7.0/10、query:3dgen
-   evidence：4D/3D空间中以文本为条件的动作与物体交互生成
-2. [HumanSplatHMR: Closing the Loop Between Human Mesh Recovery and Gaussian Splatting Avatar](/202605/07/2605.02784v1-humansplathmr-closing-the-loop-between-human-mesh-recovery-and-gaussian-splatting-avatar)  
+   evidence：使用扩散模型的风格可控3D资产生成
+2. [QuadBox: Accelerating 3D Gaussian Splatting with Geometry-Aware Boxes](/202605/08/2605.04844v1-quadbox-accelerating-3d-gaussian-splatting-with-geometry-aware-boxes)  
    标签：评分：7.0/10、query:3dgen
-   evidence：为场景重建恢复人体外观
-3. [First Shape, Then Meaning: Efficient Geometry and Semantics Learning for Indoor Reconstruction](/202605/07/2605.03463v1-first-shape-then-meaning-efficient-geometry-and-semantics-learning-for-indoor-reconstruction)  
+   evidence：加速用于场景合成的3D高斯泼溅
+3. [MaMi-HOI: Harmonizing Global Kinematics and Local Geometry for Human-Object Interaction Generation](/202605/08/2605.05756v1-mami-hoi-harmonizing-global-kinematics-and-local-geometry-for-human-object-interaction-generation)  
    标签：评分：7.0/10、query:3dgen
-   evidence：室内3D重建与场景上下文
-4. [FUS3DMaps: Scalable and Accurate Open-Vocabulary Semantic Mapping by 3D Fusion of Voxel- and Instance-Level Layers](/202605/07/2605.03669v1-fus3dmaps-scalable-and-accurate-open-vocabulary-semantic-mapping-by-3d-fusion-of-voxel--and-instance-level-layers)  
+   evidence：用于虚拟内容生成的3D人机交互生成
+4. [4DThinker: Thinking with 4D Imagery for Dynamic Spatial Understanding](/202605/08/2605.05997v1-4dthinker-thinking-with-4d-imagery-for-dynamic-spatial-understanding)  
    标签：评分：7.0/10、query:3dgen
-   evidence：3D语义地图与空间接地
-5. [Structured 3D Latents Are Surprisingly Powerful: Unleashing Generalizable Style with 2D Diffusion](/202605/07/2605.04412v1-structured-3d-latents-are-surprisingly-powerful-unleashing-generalizable-style-with-2d-diffusion)  
+   evidence：动态空间推理与4D场景演化模拟
+5. [RealCam: Real-Time Novel-View Video Generation with Interactive Camera Control](/202605/08/2605.06051v1-realcam-real-time-novel-view-video-generation-with-interactive-camera-control)  
    标签：评分：7.0/10、query:3dgen
-   evidence：3D资产生成与风格迁移
-6. [Ilov3Splat: Instance-Level Open-Vocabulary 3D Scene Understanding in Gaussian Splatting](/202605/07/2605.04506v1-ilov3splat-instance-level-open-vocabulary-3d-scene-understanding-in-gaussian-splatting)  
+   evidence：具有交互式相机控制的新视角视频生成
+6. [OpenGaFF: Open-Vocabulary Gaussian Feature Field with Codebook Attention](/202605/08/2605.06088v1-opengaff-open-vocabulary-gaussian-feature-field-with-codebook-attention)  
    标签：评分：7.0/10、query:3dgen
-   evidence：基于高斯泼溅的3D场景理解与语义表示
-7. [LIE: LiDAR-only HD Map Construction with Intensity Enhancement via Online Knowledge Distillation](/202605/07/2605.01478v1-lie-lidar-only-hd-map-construction-with-intensity-enhancement-via-online-knowledge-distillation)  
+   evidence：开放词汇3D场景理解
+7. [Height-Guided Projection Reparameterization for Camera-LiDAR Occupancy](/202605/08/2605.05072v1-height-guided-projection-reparameterization-for-camera-lidar-occupancy)  
    标签：评分：6.0/10、query:3dgen
-   evidence：用于自动驾驶环境的纯激光雷达高精地图构建
-8. [Large-Scale High-Quality 3D Gaussian Head Reconstruction from Multi-View Captures](/202605/07/2605.04035v1-large-scale-high-quality-3d-gaussian-head-reconstruction-from-multi-view-captures)  
+   evidence：用于场景语义的3D占用预测
+8. [A Bayesian Approach for Task-Specific Next-Best-View Selection with Uncertain Geometry](/202605/08/2605.05095v1-a-bayesian-approach-for-task-specific-next-best-view-selection-with-uncertain-geometry)  
    标签：评分：6.0/10、query:3dgen
-   evidence：多视图捕获的3D高斯重建
-9. [ULF-Loc: Unbiased Landmark Feature for Robust Visual Localization with 3D Gaussian Splatting](/202605/07/2605.04730v1-ulf-loc-unbiased-landmark-feature-for-robust-visual-localization-with-3d-gaussian-splatting)  
+   evidence：点云任务特定3D重建框架
+9. [Ray-Aware Pointer Memory with Adaptive Updates for Streaming 3D Reconstruction](/202605/08/2605.05749v1-ray-aware-pointer-memory-with-adaptive-updates-for-streaming-3d-reconstruction)  
    标签：评分：6.0/10、query:3dgen
-   evidence：利用3D高斯泼溅进行视觉定位
-10. [Aes3D: Aesthetic Assessment in 3D Gaussian Splatting](/202605/07/2605.05155v1-aes3d-aesthetic-assessment-in-3d-gaussian-splatting)  
+   evidence：具有空间和视角建模的流式3D重建
+10. [3DSS: 3D Surface Splatting for Inverse Rendering](/202605/08/2605.05876v1-3dss-3d-surface-splatting-for-inverse-rendering)  
    标签：评分：6.0/10、query:3dgen
-   evidence：3D高斯泼溅场景的美学评估
-11. [Syn4D: A Multiview Synthetic 4D Dataset](/202605/07/2605.05207v1-syn4d-a-multiview-synthetic-4d-dataset)  
-   标签：评分：6.0/10、query:3dgen
-   evidence：用于4D场景重建的合成数据集
+   evidence：用于形状逆渲染的可微表面喷溅技术
 
 
 <div class="dpr-home-promo-card">
