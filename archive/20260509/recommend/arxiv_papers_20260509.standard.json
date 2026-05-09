@@ -1,0 +1,416 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-09T19:33:33.348815+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 9,
+    "quick_skim_target": 11,
+    "quick_selected": 9
+  },
+  "deep_dive": [
+    {
+      "id": "2605.04435v1",
+      "title": "Ground4D: Spatially-Grounded Feedforward 4D Reconstruction for Unstructured Off-Road Scenes",
+      "abstract": "Feedforward Gaussian Splatting has recently emerged as an efficient paradigm for 4D reconstruction in autonomous driving. However, in unstructured off-road scenes, its performance degrades due to high-frequency geometry, ego-motion jitter, and increased non-rigid dynamics. These factors introduce conflicting Gaussian observations across timestamps, leading to either over-smoothed renderings or structural artifacts. To address this issue, we propose Ground4D, a spatially-grounded 4D feedforward framework for pose-free off-road reconstruction. The key idea is to resolve temporal conflicts through spatially localized conditioning. Specifically, we introduce voxel-grounded temporal Gaussian aggregation, which partitions the canonical Gaussian space into spatial voxels and performs query-conditioned temporal attention within each voxel. Intra-voxel softmax normalization ensures that temporal selectivity and spatial occupancy become mutually reinforcing rather than conflicting. We furthermore introduce surface normal cues as auxiliary geometric guidance to regularize the geometry of Gaussian primitives. Extensive experiments on ORAD-3D and RELLIS-3D demonstrate that Ground4D consistently outperforms existing feedforward methods in reconstruction quality and generalizes zero-shot to unseen off-road domains. Project page and code:https://github.com/wsnbws/Ground4D.",
+      "authors": [
+        "Shuo Wang",
+        "Jilin Mei",
+        "Fuyang Liu",
+        "Wenfei Guan",
+        "Fanjie Kong",
+        "Zhihua Zhao",
+        "Shuai Wang",
+        "Chen Min",
+        "Yu Hu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-06T02:58:47+00:00",
+      "link": "https://arxiv.org/pdf/2605.04435v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "4D reconstruction for unstructured scenes",
+      "llm_evidence_cn": "非结构化场景的4D重建",
+      "llm_evidence": "非结构化场景的4D重建",
+      "canonical_evidence": "非结构化场景的4D重建",
+      "llm_tldr_en": "Introduces a spatially-grounded feedforward framework for 4D reconstruction of complex off-road scenes.",
+      "llm_tldr_cn": "提出一种空间感知的4D前馈框架，用于复杂越野场景的4D重建。",
+      "llm_tldr": "提出一种空间感知的4D前馈框架，用于复杂越野场景的4D重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2605.01736v1",
+      "title": "Multi-Scale Gaussian-Language Map for Zero-shot Embodied Navigation and Reasoning",
+      "abstract": "Understanding the geometric and semantic structure of environments is essential for embodied navigation and reasoning. Existing semantic mapping methods trade off between explicit geometry and multi-scale semantics, and lack a native interface for large models, thus requiring additional training of feature projection for semantic alignment. To this end, we propose the multi-scale Gaussian-Language Map (GLMap), which introduces three key designs: (1) explicit geometry, (2) multi-scale semantics covering both instance and region concepts, and (3) a dual-modality interface where each semantic unit jointly stores a natural language description and a 3D Gaussian representation. The 3D Gaussians enable compact storage and fast rendering of task-relevant images via Gaussian splatting. To enable efficient incremental construction, we further propose a Gaussian Estimator that analytically derives Gaussian parameters from dense point clouds without gradient-based optimization. Experiments on ObjectNav, InstNav, and SQA tasks show that GLMap effectively enhances target navigation and contextual reasoning, while remaining compatible with large-model-based methods in a zero-shot manner. The code is available at https://github.com/sx-zhang/GLMap.",
+      "authors": [
+        "Sixian Zhang",
+        "Yiyao Wang",
+        "Xinhang Song",
+        "Keming Zhang",
+        "Zijian Xu",
+        "Shuqiang Jiang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-03T06:22:14+00:00",
+      "link": "https://arxiv.org/pdf/2605.01736v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D Gaussian representation for environment mapping",
+      "llm_evidence_cn": "用于环境建图的3D高斯表示",
+      "llm_evidence": "用于环境建图的3D高斯表示",
+      "canonical_evidence": "用于环境建图的3D高斯表示",
+      "llm_tldr_en": "GLMap creates a multi-scale Gaussian-Language map for zero-shot embodied navigation in 3D environments.",
+      "llm_tldr_cn": "GLMap为3D环境中的零样本具身导航创建了多尺度高斯-语言地图。",
+      "llm_tldr": "GLMap为3D环境中的零样本具身导航创建了多尺度高斯-语言地图。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.01001v1",
+      "title": "AnimationDiff: A Visual Comparison Tool for Generated 3D Character Animations",
+      "abstract": "Creating 3D character animations traditionally requires significant time and effort from the animator. Advancements in generative methods now enable easy creation of multiple character animation variations for use or further editing. However, this capability introduces a new challenge in comparing character animations to select the best animation, which is challenging due to temporal misalignment and the large amount of spatial data. We present AnimationDiff, a visual comparison tool for generated character animations. AnimationDiff enables contextual comparisons in the intended scene and camera angle, and embedding of spatial information by combining established animation visualization techniques and easy switching between overlaid and side-by-side comparisons. AnimationDiff also supports filtering to handle information overload, and Temporal Lenses that visualize entire animations over time for overview, alignment, and comparison. We evaluated AnimationDiff in a user study, showcasing its efficacy in animation comparison and providing design insights for comparing motion.",
+      "authors": [
+        "Ludwig Sidenmark",
+        "Qian Zhou",
+        "George Fitzmaurice",
+        "Fraser Anderson"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC"
+      ],
+      "published": "2026-05-01T18:06:44+00:00",
+      "link": "https://arxiv.org/pdf/2605.01001v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "visual comparison tool for generated 3D character animations",
+      "llm_evidence_cn": "生成的3D角色动画视觉对比工具",
+      "llm_evidence": "生成的3D角色动画视觉对比工具",
+      "canonical_evidence": "生成的3D角色动画视觉对比工具",
+      "llm_tldr_en": "AnimationDiff facilitates the comparison and selection of generated 3D character animations in scenes.",
+      "llm_tldr_cn": "AnimationDiff有助于在场景中比较和选择生成的3D角色动画。",
+      "llm_tldr": "AnimationDiff有助于在场景中比较和选择生成的3D角色动画。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.04509v1",
+      "title": "CoherentRaster: Efficient 3D Gaussian Splatting for Light Field Displays",
+      "abstract": "Light field displays (LFDs) require rendering an interlaced image that encodes many view-dependent observations. This multi-view requirement introduces substantial computational overhead, making real-time rendering difficult to achieve. While 3D Gaussian Splatting (3DGS) is efficient for single-view rendering on 2D displays, directly extending it to LFDs is computationally expensive. Moreover, prior accelerations either suffer from GPU inefficiency under spatially incoherent subpixel layouts or rely on computationally heavy multi-plane intermediates. In this paper, we propose CoherentRaster, a 3DGS-based light field rendering framework that performs subpixel-level rasterization. Our method employs Cross-view Coherent Attribute Reuse to eliminate redundant computation across neighboring viewpoints and applies View-coherent Remapping to restore warp-level memory efficiency degraded by the interlaced subpixel layout. Together, CoherentRaster provides an efficient pipeline for real-time, high-quality light field synthesis on consumer-grade hardware.",
+      "authors": [
+        "Gyujin Sim",
+        "Seungjoo Shin",
+        "Hosung Jeon",
+        "Gwangsoon Lee",
+        "Hyon-Gon Choo",
+        "Sunghyun Cho"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR"
+      ],
+      "published": "2026-05-06T05:26:25+00:00",
+      "link": "https://arxiv.org/pdf/2605.04509v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D Gaussian Splatting for scene rendering",
+      "llm_evidence_cn": "用于场景渲染的3D高斯泼溅",
+      "llm_evidence": "用于场景渲染的3D高斯泼溅",
+      "canonical_evidence": "用于场景渲染的3D高斯泼溅",
+      "llm_tldr_en": "Proposes an efficient 3D Gaussian Splatting framework for real-time light field display rendering.",
+      "llm_tldr_cn": "提出一种高效的3D高斯泼溅框架，用于光场显示器的实时渲染。",
+      "llm_tldr": "提出一种高效的3D高斯泼溅框架，用于光场显示器的实时渲染。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.01498v1",
+      "title": "Towards Visual Query Localization in the 3D World",
+      "abstract": "Visual query localization (VQL) aims to predict the spatio-temporal response of the most recent occurrence in a sequence given a query. Currently, most research focuses on visual query localization in 2D videos, while its counterpart in 3D space has received little attention. In this paper, we make the first attempt to address visual query localization in the 3D world by introducing a novel benchmark, dubbed 3DVQL. Specifically, 3DVQL contains 2,002 sequences with around 170,000 frames and 6.4K response track segments from 38 object categories. Each sequence in 3DVQL is provided with multiple modalities, including point clouds, RGB images, and depth images, to support flexible research. To ensure high-quality annotations, each sequence is manually annotated with multiple rounds of verification and refinement. To the best of our knowledge, 3DVQL is the first benchmark for 3D multimodal visual query localization. To facilitate comparison in subsequent research, we implement a series of representative 3D multimodal VQL baselines using point clouds and RGB images. The experimental results show that existing methods exhibit significant performance variations across different fusion modules. To encourage future research, we propose a lift-and-attention fusion algorithm named LaF, which significantly outperforms existing baseline models. Our benchmark and model will be publicly released at https://github.com/wuhengliangliang/3DVQL.",
+      "authors": [
+        "Liang Peng",
+        "Bohan Tan",
+        "Zhipeng Zhang",
+        "Haobo Li",
+        "Yifan Jiao",
+        "Xingping Dong",
+        "Libo Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-02T15:41:54+00:00",
+      "link": "https://arxiv.org/pdf/2605.01498v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Visual query localization in 3D space and benchmarks",
+      "llm_evidence_cn": "3D空间中的视觉查询定位与基准",
+      "llm_evidence": "3D空间中的视觉查询定位与基准",
+      "canonical_evidence": "3D空间中的视觉查询定位与基准",
+      "llm_tldr_en": "Introduces a benchmark for visual query localization in 3D environments using multi-modal data.",
+      "llm_tldr_cn": "引入了一个利用多模态数据在3D环境中进行视觉查询定位的基准。",
+      "llm_tldr": "引入了一个利用多模态数据在3D环境中进行视觉查询定位的基准。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.06192v1",
+      "title": "EA-WM: Event-Aware Generative World Model with Structured Kinematic-to-Visual Action Fields",
+      "abstract": "Pretrained video diffusion models provide powerful spatiotemporal generative priors, making them a natural foundation for robotic world models. While recent world-action models jointly optimize future videos and actions, they predominantly treat video generation as an auxiliary representation for policy learning. Consequently, they insufficiently explore the inverse problem: leveraging action signals to guide video synthesis, thereby often failing to preserve precise robot spatial geometry and fine-grained robot-object interaction dynamics in the generated rollouts. To bridge this gap, we present EA-WM, an Event-Aware Generative World Model that effectively closes the loop between kinematic control and visual perception. Rather than injecting joint or end-effector actions as abstract, low-dimensional tokens, EA-WM projects actions and kinematic states directly into the target camera view as Structured Kinematic-to-Visual Action Fields. To fully exploit this geometrically grounded representation, we introduce event-aware bidirectional fusion blocks that modulate cross-branch attention, capturing object state changes and interaction dynamics. Evaluated on the comprehensive WorldArena benchmark, EA-WM achieves state-of-the-art performance, outperforming existing baselines by a significant margin.",
+      "authors": [
+        "Zhaoyang Yang",
+        "Yurun Jin",
+        "Lizhe Qi",
+        "Cong Huang",
+        "Kai Chen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.RO"
+      ],
+      "published": "2026-05-07T13:06:19+00:00",
+      "link": "https://arxiv.org/pdf/2605.06192v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "generative world model for robot-object interaction dynamics",
+      "llm_evidence_cn": "机器人-物体交互动力学的生成式世界模型",
+      "llm_evidence": "机器人-物体交互动力学的生成式世界模型",
+      "canonical_evidence": "机器人-物体交互动力学的生成式世界模型",
+      "llm_tldr_en": "Presents EA-WM, a generative world model that uses action signals to guide spatiotemporal video synthesis.",
+      "llm_tldr_cn": "提出EA-WM生成式世界模型，利用动作信号引导具有精确几何关系的视频合成。",
+      "llm_tldr": "提出EA-WM生成式世界模型，利用动作信号引导具有精确几何关系的视频合成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.05126v1",
+      "title": "ConsisVLA-4D: Advancing Spatiotemporal Consistency in Efficient 3D-Perception and 4D-Reasoning for Robotic Manipulation",
+      "abstract": "Current Vision-Language-Action (VLA) models primarily focus on mapping 2D observations to actions, but exhibit notable limitations in spatiotemporal perception and reasoning: 1) spatial representations often rely on additional sensors, introducing substantial computational overhead; 2) visual reasoning is typically limited to future-frame prediction, lacking alignment with the instruction-grounded scene and thus compromising spatiotemporal consistency. To address these challenges, we propose ConsisVLA-4D, a unified and efficient framework that enhances spatiotemporal consistency in 3D perception and 4D reasoning. Specifically, we design: 1) CV-Aligner, which ensures cross-view object semantic consistency by filtering instruction-relevant regions and aligning object identities across multiple viewpoints; 2) CO-Fuser, which guarantees cross-object spatial geometric consistency by eliminating spatial relation ambiguities between objects across views using compact latent representations. Building upon these, we introduce 3) CS-Thinker to achieve cross-scene spatiotemporal consistency as actions unfold. It learns implicit knowledge of local dynamics from object-semantic tokens of CV-Aligner and global depth from geometric tokens of CO-Fuser, thereby enhancing efficient visual reasoning under scene variations. Extensive experiments demonstrate that, benefiting from its efficient spatiotemporal consistency design, ConsisVLA-4D achieves 21.6% and 41.5% performance improvements, along with 2.3-fold and 2.4-fold inference speedups compared to OpenVLA on the LIBERO benchmark and real-world platforms, respectively.ConsisVLA-4D is open-sourced and publicly available at",
+      "authors": [
+        "Wei Li",
+        "Jizhihui Liu",
+        "Li Yixing",
+        "Junwen Tong",
+        "Rui Shao",
+        "Liqiang Nie"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-05-06T16:55:44+00:00",
+      "link": "https://arxiv.org/pdf/2605.05126v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D perception and 4D reasoning for scenes",
+      "llm_evidence_cn": "场景的3D感知与4D推理",
+      "llm_evidence": "场景的3D感知与4D推理",
+      "canonical_evidence": "场景的3D感知与4D推理",
+      "llm_tldr_en": "Enhances spatiotemporal consistency in 3D perception and 4D reasoning for robotic manipulation tasks.",
+      "llm_tldr_cn": "增强机器人操作任务中3D感知与4D推理的时空一致性。",
+      "llm_tldr": "增强机器人操作任务中3D感知与4D推理的时空一致性。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.06298v1",
+      "title": "Render, Don't Decode: Weight-Space World Models with Latent Structural Disentanglement",
+      "abstract": "Training world models on vast quantities of unlabelled videos is a critical step toward fully autonomous intelligence. However, the prevailing paradigm of encoding raw pixels into opaque latent spaces and relying on heavy decoders for reconstruction leaves these models computationally expensive and uninterpretable. We address this problem by introducing NOVA, a world modelling framework that represents the system state as the weights and biases of an auxiliary coordinate-based implicit neural representation (INR). This structured representation is analytically rendered, which eliminates the decoder bottleneck while conferring compactness, portability, and zero-shot super-resolution. Furthermore, like most latent action models, NOVA can be distilled into a context-dependent video generator via an action-matching objective. Surprisingly, without resorting to auxiliary losses or adversarial objectives, NOVA can disentangle structural scene components such as background, foreground, and inter-frame motion, enabling users to edit either content or dynamics without compromising the other. We validate our framework on several challenging datasets, achieving strong controllable forecasting while operating on a single consumer GPU at $\\sim$40M parameters. Ultimately, structured representations like INRs not only enhance our understanding of latent dynamics but also pave the way for immersive and customisable virtual experiences.",
+      "authors": [
+        "Roussel Desmond Nzoyem",
+        "Mauro Comi"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-05-07T14:02:00+00:00",
+      "link": "https://arxiv.org/pdf/2605.06298v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "world models representing system state as implicit neural representations",
+      "llm_evidence_cn": "将系统状态表示为隐式神经表示的世界模型",
+      "llm_evidence": "将系统状态表示为隐式神经表示的世界模型",
+      "canonical_evidence": "将系统状态表示为隐式神经表示的世界模型",
+      "llm_tldr_en": "NOVA is a world modeling framework that uses weight-space representations for efficient scene rendering.",
+      "llm_tldr_cn": "NOVA是一个世界建模框架，使用权重空间表示来实现高效的场景渲染。",
+      "llm_tldr": "NOVA是一个世界建模框架，使用权重空间表示来实现高效的场景渲染。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.06658v1",
+      "title": "Relit-LiVE: Relight Video by Jointly Learning Environment Video",
+      "abstract": "Recent advances have shown that large-scale video diffusion models can be repurposed as neural renderers by first decomposing videos into intrinsic scene representations and then performing forward rendering under novel illumination. While promising, this paradigm fundamentally relies on accurate intrinsic decomposition, which remains highly unreliable for real-world videos and often leads to distorted appearances, broken materials, and accumulated temporal artifacts during relighting. In this work, we present Relit-LiVE, a novel video relighting framework that produces physically consistent, temporally stable results without requiring prior knowledge of camera pose. Our key insight is to explicitly introduce raw reference images into the rendering process, enabling the model to recover critical scene cues that are inevitably lost or corrupted in intrinsic representations. Furthermore, we propose a novel environment video prediction formulation that simultaneously generates relit videos and per-frame environment maps aligned with each camera viewpoint in a single diffusion process. This joint prediction enforces strong geometric-illumination alignment and naturally supports dynamic lighting and camera motion, significantly improving physical consistency in video relighting while easing the requirement of known per-frame camera pose. Extensive experiments demonstrate that Relit-LiVE consistently outperforms state-of-the-art video relighting and neural rendering methods across synthetic and real-world benchmarks. Beyond relighting, our framework naturally supports a wide range of downstream applications, including scene-level rendering, material editing, object insertion, and streaming video relighting. The Project is available at https://github.com/zhuxing0/Relit-LiVE.",
+      "authors": [
+        "Weiqing Xiao",
+        "Hong Li",
+        "Xiuyu Yang",
+        "Houyuan Chen",
+        "Wenyi Li",
+        "Tianqi Liu",
+        "Shaocong Xu",
+        "Chongjie Ye",
+        "Hao Zhao",
+        "Beibei Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-07T17:58:15+00:00",
+      "link": "https://arxiv.org/pdf/2605.06658v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "intrinsic scene representations and neural rendering",
+      "llm_evidence_cn": "内在场景表示与神经渲染",
+      "llm_evidence": "内在场景表示与神经渲染",
+      "canonical_evidence": "内在场景表示与神经渲染",
+      "llm_tldr_en": "Relit-LiVE enables physically consistent video relighting by learning environment video representations.",
+      "llm_tldr_cn": "Relit-LiVE通过学习环境视频表示，实现了物理一致的视频重打光。",
+      "llm_tldr": "Relit-LiVE通过学习环境视频表示，实现了物理一致的视频重打光。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.06667v1",
+      "title": "ActCam: Zero-Shot Joint Camera and 3D Motion Control for Video Generation",
+      "abstract": "For artistic applications, video generation requires fine-grained control over both performance and cinematography, i.e., the actor's motion and the camera trajectory. We present ActCam, a zero-shot method for video generation that jointly transfers character motion from a driving video into a new scene and enables per-frame control of intrinsic and extrinsic camera parameters. ActCam builds on any pretrained image-to-video diffusion model that accepts conditioning in terms of scene depth and character pose. Given a source video with a moving character and a target camera motion, ActCam generates pose and depth conditions that remain geometrically consistent across frames. We then run a single sampling process with a two-phase conditioning schedule: early denoising steps condition on both pose and sparse depth to enforce scene structure, after which depth is dropped and pose-only guidance refines high-frequency details without over-constraining the generation. We evaluate ActCam on multiple benchmarks spanning diverse character motions and challenging viewpoint changes. We find that, compared to pose-only control and other pose and camera methods, ActCam improves camera adherence and motion fidelity, and is preferred in human evaluations, especially under large viewpoint changes. Our results highlight that careful camera-consistent conditioning and staged guidance can enable strong joint camera and motion control without training. Project page: https://elkhomar.github.io/actcam/.",
+      "authors": [
+        "Omar El Khalifi",
+        "Thomas Rossi",
+        "Oscar Fossey",
+        "Thibault Fouque",
+        "Ulysse Mizrahi",
+        "Philip Torr",
+        "Ivan Laptev",
+        "Fabio Pizzati",
+        "Baptiste Bellot-Gurlet"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-05-07T17:59:58+00:00",
+      "link": "https://arxiv.org/pdf/2605.06667v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "video generation in new scenes with 3D motion control",
+      "llm_evidence_cn": "具有3D运动控制的新场景视频生成",
+      "llm_evidence": "具有3D运动控制的新场景视频生成",
+      "canonical_evidence": "具有3D运动控制的新场景视频生成",
+      "llm_tldr_en": "ActCam enables zero-shot video generation with joint control over character motion and camera trajectories.",
+      "llm_tldr_cn": "ActCam实现了对角色动作和摄像机轨迹联合控制的零样本视频生成。",
+      "llm_tldr": "ActCam实现了对角色动作和摄像机轨迹联合控制的零样本视频生成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
