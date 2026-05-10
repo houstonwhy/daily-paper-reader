@@ -1,0 +1,23 @@
+{
+  "label": "2026-05-10",
+  "date": "2026-05-10",
+  "generated_at": "2026-05-10T19:00:24",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202605/10/2605.04527v1-velox-learning-representations-of-4d-geometry-and-appearance",
+      "section": "quick",
+      "title_en": "Velox: Learning Representations of 4D Geometry and Appearance",
+      "authors": "Anagh Malik, Dorian Chan, Xiaoming Zhao, David B. Lindell, Oncel Tuzel, Jen-Hao Rick Chang",
+      "date": "2026-05-06",
+      "pdf": "https://arxiv.org/pdf/2605.04527v1",
+      "score": "7.0",
+      "evidence": "学习4D几何与外观的表示",
+      "tldr": "Velox是一个学习4D物体几何与外观潜在表示的框架。它通过编码器将非结构化动态彩色点云压缩为动态形状标记，并利用4D表面解码器和高斯解码器分别捕捉几何演变和外观特征。该表示具有描述性强、压缩率高且易于获取的特点，在视频转4D生成、3D跟踪和布料模拟等下游任务中表现出色，为高效处理动态3D内容提供了新方案。",
+      "tags": "query:3dgen",
+      "abstract_en": "We introduce a framework for learning latent representations of 4D objects which are descriptive, faithfully capturing object geometry and appearance; compressive, aiding in downstream efficiency; and accessible, requiring minimal input, i.e., an unstructured dynamic point cloud, to construct. Specifically, Velox trains an encoder to compress spatiotemporal color point clouds into a set of dynamic shape tokens. These tokens are supervised using two complementary decoders: a 4D surface decoder, which models the time-varying surface distribution capturing the geometry; and a Gaussian decoder, which maps the tokens to 3D Gaussians, helping learn appearance. To demonstrate the utility of our representation, we evaluate it across three downstream tasks -- video-to-4D generation, 3D tracking, and cloth simulation via image-to-4D generation -- and observe strong performances in all settings.",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

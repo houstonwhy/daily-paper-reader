@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-05-10 <!--dpr-date:20260510-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202605/10/2605.04527v1-velox-learning-representations-of-4d-geometry-and-appearance" data-sidebar-item="{&quot;title&quot;: &quot;Velox: Learning Representations of 4D Geometry and Appearance&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2605.04527v1-velox-learning-representations-of-4d-geometry-and-appearance&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;3dgen&quot;}], &quot;evidence&quot;: &quot;学习4D几何与外观的表示&quot;}">Velox: Learning Representations of 4D Geometry and Appearance</a>
   * 2026-05-09 <!--dpr-date:20260509-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202605/09/2605.04435v1-ground4d-spatially-grounded-feedforward-4d-reconstruction-for-unstructured-off-road-scenes" data-sidebar-item="{&quot;title&quot;: &quot;Ground4D: Spatially-Grounded Feedforward 4D Reconstruction for Unstructured Off-Road Scenes&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2605.04435v1-ground4d-spatially-grounded-feedforward-4d-reconstruction-for-unstructured-off-road-scenes&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;3dgen&quot;}], &quot;evidence&quot;: &quot;非结构化场景的4D重建&quot;}">Ground4D: Spatially-Grounded Feedforward 4D Reconstruction for Unstructured Off-Road Scenes</a>
