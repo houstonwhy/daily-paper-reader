@@ -1,0 +1,648 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-11T19:37:45.823811+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 7,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 10,
+    "quick_skim_target": 11,
+    "quick_selected": 10
+  },
+  "deep_dive": [
+    {
+      "id": "2605.06758v1",
+      "title": "R$^3$L: Reasoning 3D Layouts from Relative Spatial Relations",
+      "abstract": "Relative spatial relations provide a compact representation of spatial structure and are fundamental to relative spatial reasoning in 3D layout generation. Recent works leverage Multimodal Large Language Models (MLLMs) to infer such relations, but the inferred relations are often unreliable and are typically handled with post-hoc heuristics. In this paper, we propose R$^3$L, a general framework that improves the reliability and consistency of relative spatial reasoning for 3D layout generation. Our key motivation is that multi-hop reasoning requires repeated reference-frame transformations, which accumulate errors in inferred relations and lead to semantic and metric drift. To mitigate this, we propose invariant spatial decomposition to break coupled relation chains, and consistent spatial imagination to promote self-consistency through an imagine-and-revise loop. We further introduce supportive spatial optimization to ease pose optimization via global-to-local coordinate re-parameterization. Extensive experiments across diverse scene types and instructions demonstrate that R$^3$L produces more physically feasible and semantically consistent layouts. Notably, our analysis shows that resolving frame-induced inconsistencies is crucial for reliable multi-hop relative spatial reasoning. The code is available at https://github.com/Neal2020GitHub/R3L.",
+      "authors": [
+        "Zhifeng Gu",
+        "Yuqi Wang",
+        "Bing Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.LG",
+        "cs.RO"
+      ],
+      "published": "2026-05-07T16:50:12+00:00",
+      "link": "https://arxiv.org/pdf/2605.06758v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "3D layout generation from spatial relations",
+      "llm_evidence_cn": "基于空间关系的 3D 布局生成",
+      "llm_evidence": "基于空间关系的 3D 布局生成",
+      "canonical_evidence": "基于空间关系的 3D 布局生成",
+      "llm_tldr_en": "Improves 3D layout generation by reasoning relative spatial relations using MLLMs.",
+      "llm_tldr_cn": "通过多模态大模型推理相对空间关系，改进 3D 布局生成。",
+      "llm_tldr": "通过多模态大模型推理相对空间关系，改进 3D 布局生成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.07894v1",
+      "title": "SpatialPrompt: XR-Based Spatial Intent Expression as Executable Constraints for AI Generative 3D Design",
+      "abstract": "We present SpatialPrompt, an Extended Reality(XR) system that turns spatial sketches into executable constraints for controllable 3D generation. Users draw rough structures with a 3D pen and add voice prompts for semantic and stylistic intent. The system supports iterative refinement and synchronous co-creation in shared space with color-coded contributions. Implemented on Apple Vision Pro with Logitech Muse and Meshy, a heuristic evaluation suggests that the workflow is intuitive and supports shared understanding in collaborative creation, while revealing needs for faster generation and clearer feedback.",
+      "authors": [
+        "Yichen Andy Yu",
+        "Wanru Li",
+        "Qiaoran Wang",
+        "Jymon Ross",
+        "Gavin Johnson",
+        "Mandy Lui",
+        "Qiao Jin"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC"
+      ],
+      "published": "2026-05-08T15:38:28+00:00",
+      "link": "https://arxiv.org/pdf/2605.07894v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "XR-based spatial intent for AI generative 3D design",
+      "llm_evidence_cn": "基于XR的空间意图用于AI生成式3D设计",
+      "llm_evidence": "基于XR的空间意图用于AI生成式3D设计",
+      "canonical_evidence": "基于XR的空间意图用于AI生成式3D设计",
+      "llm_tldr_en": "Presents SpatialPrompt, an XR system that converts spatial sketches and voice into constraints for 3D generation.",
+      "llm_tldr_cn": "展示了SpatialPrompt，一个将空间草图和语音转换为3D生成约束的XR系统。",
+      "llm_tldr": "展示了SpatialPrompt，一个将空间草图和语音转换为3D生成约束的XR系统。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "text-to-3D scene generation frameworks",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.07971v1",
+      "title": "DVD: Discrete Voxel Diffusion for 3D Generation and Editing",
+      "abstract": "We introduce Discrete Voxel Diffusion (DVD), a discrete diffusion framework to generate, assess, and edit sparse voxels for SLat (Structured LATent) based 3D generative pipelines. Although discrete diffusion has not generally displaced continuous diffusion in image-like generation, we show that it can be an effective first-stage prior for sparse voxel scaffolds. By treating voxel occupancy as a native discrete variable, DVD avoids continuous-to-discrete thresholding and provides a simple framework for voxel generation, uncertainty estimation, and editing. Beyond quality gains, DVD provides more interpretable generation dynamics through explicit categorical modeling. Furthermore, we leverage the predictive entropy as a robust uncertainty metric to identify ambiguous voxel regions and complicated samples, facilitating tasks such as data filtering and quality assessment. Finally, we propose a lightweight fine-tuning strategy using block-structured perturbation patterns. This approach empowers the model to inpaint and edit voxels within a single sampling round, requiring negligible auxiliary computation and no additional model evaluations.",
+      "authors": [
+        "Zhengrui Xiang",
+        "Jiaqi Wu",
+        "Fupeng Sun",
+        "Heliang Zheng",
+        "Yingzhen Li"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-05-08T16:32:17+00:00",
+      "link": "https://arxiv.org/pdf/2605.07971v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "discrete diffusion framework for 3D generation and editing",
+      "llm_evidence_cn": "用于3D生成和编辑的离散扩散框架",
+      "llm_evidence": "用于3D生成和编辑的离散扩散框架",
+      "canonical_evidence": "用于3D生成和编辑的离散扩散框架",
+      "llm_tldr_en": "DVD uses discrete voxel diffusion as an effective prior for high-quality 3D asset generation and editing.",
+      "llm_tldr_cn": "DVD利用离散体素扩散作为高质量3D资产生成和编辑的有效先验。",
+      "llm_tldr": "DVD利用离散体素扩散作为高质量3D资产生成和编辑的有效先验。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.05876v2",
+      "title": "3DSS: 3D Surface Splatting for Inverse Rendering",
+      "abstract": "We present 3D Surface Splatting (3DSS), the first differentiable surface splatting renderer for physically-based inverse rendering from multi-view images. Our central insight is that the surface separation problem at the heart of surface splatting admits a direct formulation in terms of the reconstruction kernels themselves. From this foundation we derive a coverage-based compositing model whose per-layer opacity arises directly from the accumulated Elliptical Weighted Average reconstruction weight, yielding anti-aliased silhouettes and informative visibility gradients at sparsely covered edges. Combined with forward microfacet shading under co-optimized HDR environment lighting and density-aware adaptive refinement, 3DSS jointly recovers shape, spatially-varying BRDF materials, and illumination. Because the optimized representation is a set of oriented surface samples, it bridges natively to mesh-based workflows via surface reconstruction from oriented point cloud methods. We evaluate 3DSS against mesh-based, implicit, and Gaussian-splatting baselines across geometry reconstruction, novel-view synthesis, and novel-illumination relighting.",
+      "authors": [
+        "Mae Younes",
+        "Adnane Boukhayma"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR",
+        "cs.CV"
+      ],
+      "published": "2026-05-07T08:43:51+00:00",
+      "link": "https://arxiv.org/pdf/2605.05876v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "inverse rendering for 3D scene reconstruction",
+      "llm_evidence_cn": "用于3D场景重建的逆向渲染",
+      "llm_evidence": "用于3D场景重建的逆向渲染",
+      "canonical_evidence": "用于3D场景重建的逆向渲染",
+      "llm_tldr_en": "3DSS is a differentiable surface splatting renderer that recovers shape and materials for 3D scene synthesis.",
+      "llm_tldr_cn": "3DSS 是一种可微分表面泼溅渲染器，可恢复 3D 场景合成的形状和材质。",
+      "llm_tldr": "3DSS 是一种可微分表面泼溅渲染器，可恢复 3D 场景合成的形状和材质。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.07287v1",
+      "title": "SplatWeaver: Learning to Allocate Gaussian Primitives for Generalizable Novel View Synthesis",
+      "abstract": "Generalizable novel view synthesis aims to render unseen views from uncalibrated input images without requiring per-scene optimization. Recent feed-forward approaches based on 3D Gaussian Splatting have achieved promising efficiency and rendering quality. However, most of them assign a fixed number of Gaussians to each pixel or voxel, ignoring the spatially varying complexity of real-world scenes. Such uniform allocation often wastes Gaussian primitives in smooth regions while providing insufficient capacity for fine structures, complex geometry, and high-frequency details. This motivates us to predict region-dependent primitive cardinalities rather than impose a fixed primitive budget everywhere, enabling a more expressive yet compact 3D scene representation. Therefore, we propose SplatWeaver, a generalizable novel view synthesis framework that is able to dynamically allocate Gaussian primitives over different regions in a feed-forward manner. Specifically, SplatWeaver introduces cardinality Gaussian experts and a pixel-level routing scheme, wherein each expert specializes in producing a specific number of primitives from 0 to M, and the routing scheme coordinates these experts to adaptively determine how many Gaussian primitives should be allocated to each spatial location. Moreover, SplatWeaver incorporates a high-frequency prior with attendant guidance module and routing regularization to stabilize expert selection and promote complexity-aware allocation. By leveraging high-frequency structural cues, the routing process is encouraged to assign more Gaussian primitives to fine structures, complex geometry, and textured regions, while suppressing redundant primitives in smooth areas. Extensive experiments across diverse scenarios show that SplatWeaver consistently outperforms state-of-the-art methods, delivering more faithful novel-view renderings with fewer Gaussian primitives.",
+      "authors": [
+        "Yecong Wan",
+        "Fan Li",
+        "Mingwen Shao",
+        "Wangmeng Zuo"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-08T05:51:34+00:00",
+      "link": "https://arxiv.org/pdf/2605.07287v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "3D Gaussian Splatting for scene synthesis",
+      "llm_evidence_cn": "用于场景合成的3D高斯泼溅",
+      "llm_evidence": "用于场景合成的3D高斯泼溅",
+      "canonical_evidence": "用于场景合成的3D高斯泼溅",
+      "llm_tldr_en": "Optimizes 3D Gaussian Splatting by predicting region-dependent primitive cardinalities for better scene synthesis.",
+      "llm_tldr_cn": "通过预测区域相关的基元基数来优化3D高斯泼溅，从而实现更好的场景合成。",
+      "llm_tldr": "通过预测区域相关的基元基数来优化3D高斯泼溅，从而实现更好的场景合成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.07385v1",
+      "title": "Velocity-Space 3D Asset Editing",
+      "abstract": "Editing a 3D asset locally, modifying a target region while preserving the rest, is a fundamental requirement of native 3D editing. Existing methods enforce locality through mechanisms external to the generator, such as manual 3D masks, post-hoc voxel merging, or 2D multi-view lifting. None of them intervene where the corruption actually originates: inside the ODE sampler. For a rectified-flow generator to achieve faithful local editing, its velocity field should be strong over the target editing region while vanishing on preserved content. Yet a single velocity field can hardly satisfy both requirements simultaneously, leading to three problems: (i) identity leakage that keeps the edit signal non-zero on preserved regions; (ii) no dedicated edit-amplification channel, so strengthening the edit inevitably perturbs identity; and (iii) an identity drag at the geometry and material stages, where a global condition pulls every token toward the target. We propose VS3D (Velocity-Space 3D Asset editing}), an inversion-free, training-free, and mask-free framework that addresses each problem with a targeted intervention inside the sampler. VS3D integrates three complementary modules, each corresponding to a specific stage of the editing pipeline. Reconstruction-Anchored Source Injection (RASI) absorbs identity leakage by turning the unconditional embedding into a per-step, asset-specific anchor calibrated through source reconstruction. Partial-Mean Guidance (PMG) amplifies the edit signal by contrasting high- and low-quality subsample estimates of the velocity difference, active only where a consistent edit exists. Twin-Agreement Residual injection (TAR) lets the sampler decide token by token what to preserve at the geometry and material stages.",
+      "authors": [
+        "Hao Liu",
+        "Yuxuan Lin",
+        "Jingfeng Guo",
+        "Ruihang Chu",
+        "Junjie Wang",
+        "Ruotong Li",
+        "Yujiu Yang"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR",
+        "cs.CV"
+      ],
+      "published": "2026-05-08T07:42:12+00:00",
+      "link": "https://arxiv.org/pdf/2605.07385v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "local editing of 3D assets via velocity-space intervention",
+      "llm_evidence_cn": "通过速度空间干预对3D资产进行局部编辑",
+      "llm_evidence": "通过速度空间干预对3D资产进行局部编辑",
+      "canonical_evidence": "通过速度空间干预对3D资产进行局部编辑",
+      "llm_tldr_en": "Introduces a velocity-space method for faithful local 3D asset editing within rectified-flow generators.",
+      "llm_tldr_cn": "介绍了一种在整流流生成器中进行忠实局部3D资产编辑的速度空间方法。",
+      "llm_tldr": "介绍了一种在整流流生成器中进行忠实局部3D资产编辑的速度空间方法。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2605.07390v1",
+      "title": "ST-Gen4D: Embedding 4D Spatiotemporal Cognition into World Model for 4D Generation",
+      "abstract": "Generative models have achieved success in producing apparently coherent 2D videos, but remain challenging in the physical world due to lack of 4D spatiotemporal scale. Typically, existing 4D generative models directly embed macro scale constraints to enhance overall spatiotemporal consistency. However, these methods only ensure global appearance coherence and fail to reveal the local dynamics of the physical world. Our insight is that global appearance structure and local dynamic topology empower 4D spatiotemporal cognition, thereby enabling 4D generation with spatiotemporal regularities. In this work, we propose ST-Gen4D, a 4D generation framework with 4D spatiotemporal cognition-based world model. Our model is guided by four key designs: 1) Spatiotemporal representation. We encode various modalities into multiple representations as a feature basis. 2) Spatiotemporal cognition. We sculpture these representations into global appearance graph and local dynamic graph, and fuse them via semantic-bridged spatiotemporal fusion to obtain a 4D cognition graph. 3) Spatiotemporal reasoning. We utilize a world model to derive future state based on the 4D cognition. 4) Spatiotemporal generation. We leverage the derived cognition as condition to guide latent diffusion for 4D Gaussian generation. By deeply integrating 4D intrinsic cognition with generative priors, our model guarantees the structural rationality and topological consistency of 4D generation. Moreover, we propose ST-4D datasets by aggregating public 4D datasets and self-built subset. Extensive experiments demonstrate the superiority of our ST-Gen4D across 3D and 4D generation tasks.",
+      "authors": [
+        "Haonan Wang",
+        "Hanyu Zhou",
+        "Tao Gu",
+        "Luxin Yan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-08T07:44:56+00:00",
+      "link": "https://arxiv.org/pdf/2605.07390v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "4D generation framework for spatiotemporal regularities in physical worlds",
+      "llm_evidence_cn": "物理世界中具有时空规律的4D生成框架",
+      "llm_evidence": "物理世界中具有时空规律的4D生成框架",
+      "canonical_evidence": "物理世界中具有时空规律的4D生成框架",
+      "llm_tldr_en": "Proposes ST-Gen4D, a world model for 4D generation ensuring global coherence and local dynamics.",
+      "llm_tldr_cn": "提出ST-Gen4D，一种用于4D生成的物理世界模型，确保全局一致性和局部动力学。",
+      "llm_tldr": "提出ST-Gen4D，一种用于4D生成的物理世界模型，确保全局一致性和局部动力学。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2605.06270v1",
+      "title": "Spark3R: Asymmetric Token Reduction Makes Fast Feed-Forward 3D Reconstruction",
+      "abstract": "Feed-forward 3D reconstruction models based on Vision Transformers can directly estimate scene geometry and camera poses from a small set of input images, but scaling them to video inputs with hundreds or thousands of frames remains challenging due to the quadratic cost of global attention layers. Recent token-merging methods accelerate these models by compressing the token sequence within the global attention layers, but they apply a uniform reduction to query tokens and key-value tokens, ignoring their functionally distinct roles in 3D reconstruction. In this work, we identify a key property of feed-forward 3D reconstruction models: query tokens encode view-specific geometric requests and are sensitive to compression, while key-value tokens represent shared scene context and tolerate aggressive compression. Guided by this insight, we propose Spark3R, a training-free acceleration framework that decouples the compression of query tokens and key-value tokens by assigning distinct reduction factors, with intra-group token merging applied to query tokens and lightweight token pruning to key-value tokens. Additionally, Spark3R adaptively adjusts the key-value reduction factor across layers, further improving the quality-efficiency trade-off. As a plug-and-play framework requiring no retraining, Spark3R integrates directly into multiple pretrained feed-forward 3D reconstruction models, including VGGT, $π^3$, and Depth-Anything-3, and achieves up to $28\\times$ speedup on 1,000-frame inputs while maintaining competitive reconstruction quality.",
+      "authors": [
+        "Zecheng Tang",
+        "Jiaye Fu",
+        "Qiankun Gao",
+        "Haijie Li",
+        "Yanmin Wu",
+        "Jiaqi Zhang",
+        "Siwei Ma",
+        "Jian Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-07T13:45:37+00:00",
+      "link": "https://arxiv.org/pdf/2605.06270v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "fast feed-forward 3D reconstruction of scenes",
+      "llm_evidence_cn": "场景的快速前馈3D重建",
+      "llm_evidence": "场景的快速前馈3D重建",
+      "canonical_evidence": "场景的快速前馈3D重建",
+      "llm_tldr_en": "An asymmetric token reduction method for fast feed-forward 3D reconstruction from video inputs.",
+      "llm_tldr_cn": "一种用于从视频输入中进行快速前馈3D重建的非对称令牌减少方法。",
+      "llm_tldr": "一种用于从视频输入中进行快速前馈3D重建的非对称令牌减少方法。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.04035v2",
+      "title": "Large-Scale High-Quality 3D Gaussian Head Reconstruction from Multi-View Captures",
+      "abstract": "We propose HeadsUp, a scalable feed-forward method for reconstructing high-quality 3D Gaussian heads from large-scale multi-camera setups. Our method employs an efficient encoder-decoder architecture that compresses input views into a compact latent representation. This latent representation is then decoded into a set of UV-parameterized 3D Gaussians anchored to a neutral head template. This UV representation decouples the number of 3D Gaussians from the number and resolution of input images, enabling training with many high-resolution input views. We train and evaluate our model on an internal dataset with more than 10,000 subjects, which is an order of magnitude larger than existing multi-view human head datasets. HeadsUp achieves state-of-the-art reconstruction quality and generalizes to novel identities without test-time optimization. We extensively analyze the scaling behavior of our model across identities, views, and model capacity, revealing practical insights for quality-compute trade-offs. Finally, we highlight the strength of our latent space by showcasing two downstream applications: generating novel 3D identities and animating the 3D heads with expression blendshapes.",
+      "authors": [
+        "Evangelos Ntavelis",
+        "Sean Wu",
+        "Mohamad Shahbazi",
+        "Fabio Maninchedda",
+        "Dmitry Kostiaev",
+        "Artem Sevastopolsky",
+        "Vittorio Megaro",
+        "Trevor Phillips",
+        "Alejandro Blumentals",
+        "Shridhar Ravikumar",
+        "Mehak Gupta",
+        "Reinhard Knothe",
+        "Jeronimo Bayer",
+        "Matthias Vestner",
+        "Simon Schaefer",
+        "Thomas Etterlin",
+        "Christian Zimmermann",
+        "Mathias Deschler",
+        "Peter Kaufmann",
+        "Stefan Brugger",
+        "Sebastian Martin",
+        "Brian Amberg",
+        "Tom Runia"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-05-05T17:55:01+00:00",
+      "link": "https://arxiv.org/pdf/2605.04035v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D Gaussian head reconstruction from multi-view captures",
+      "llm_evidence_cn": "多视图采集的3D高斯头部重建",
+      "llm_evidence": "多视图采集的3D高斯头部重建",
+      "canonical_evidence": "多视图采集的3D高斯头部重建",
+      "llm_tldr_en": "HeadsUp provides a scalable feed-forward method for high-quality 3D head reconstruction using Gaussian Splatting.",
+      "llm_tldr_cn": "HeadsUp提供了一种可扩展的前馈方法，利用高斯泼溅进行高质量3D头部重建。",
+      "llm_tldr": "HeadsUp提供了一种可扩展的前馈方法，利用高斯泼溅进行高质量3D头部重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.06876v1",
+      "title": "AdpSplit: Error-Driven Adaptive Splitting for Faster Geometry Discovery in 3D Gaussian Splatting",
+      "abstract": "Adaptive density control in 3D Gaussian Splatting (3DGS) repeatedly grows the Gaussian population through fixed-cardinality random splitting to discover useful scene structure. However, in vanilla 3DGS, its binary split operator requires many densification rounds to expose fine details, making it a bottleneck for efficient training schedules with fewer iterations. We introduce AdpSplit, an error-driven adaptive split operator that determines the number of split children and initializes the child parameters from L1-pixel-error region statistics, enabling fewer densification iterations, thus reduced training time, while preserving the rendering quality of full-schedule training. Across the MipNeRF360, Deep-Blending, and Tanks&Temples datasets, AdpSplit reduces the training time of multiple accelerated 3DGS pipelines by 9.2%-22.3% as a simple drop-in replacement for the standard split operator. With FastGS, AdpSplit matches the full-schedule PSNR on MipNeRF360 while reducing training time by 16.4%, corresponding to a 12.6x acceleration over vanilla 3DGS.",
+      "authors": [
+        "Yongjae Lee",
+        "Jingxing Li",
+        "Abhay Kumar Yadav",
+        "Rama Chellappa",
+        "Deliang Fan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-07T19:23:16+00:00",
+      "link": "https://arxiv.org/pdf/2605.06876v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "geometry discovery and scene structure in 3DGS",
+      "llm_evidence_cn": "3DGS中的几何发现与场景结构",
+      "llm_evidence": "3DGS中的几何发现与场景结构",
+      "canonical_evidence": "3DGS中的几何发现与场景结构",
+      "llm_tldr_en": "AdpSplit introduces an error-driven adaptive split operator for faster geometry discovery in 3D Gaussian Splatting.",
+      "llm_tldr_cn": "AdpSplit 引入了一种误差驱动的自适应分裂算子，以加快 3D 高斯泼溅中的几何发现。",
+      "llm_tldr": "AdpSplit 引入了一种误差驱动的自适应分裂算子，以加快 3D 高斯泼溅中的几何发现。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.07203v1",
+      "title": "From Pixels to Primitives: Scene Change Detection in 3D Gaussian Splatting",
+      "abstract": "Scene change detection methods built on Gaussian splatting universally follow a render-then-compare paradigm: the pre-change scene is rendered into 2D and compared against post-change images via pixel or feature residuals. This change detection problem with Gaussian Splatting has been treated as a question about pixels; we treat it as a question about primitives. We provide direct evidence that native primitive attributes alone -- position, anisotropic covariance, and color -- carry sufficient signal for scene change detection. What makes primitive-space comparison hard is the under-constrained nature of Gaussian splatting representation: independent optimizations yield primitive solutions whose count, positions, shapes, and colors differ even where nothing has changed. We address this challenge with anisotropic models of geometric and photometric drift, complemented by a per-primitive observability term that reflects the extent to which each Gaussian is constrained by the camera geometry. Operating directly on primitives gives our method, GD-DIFF, two properties that distinguish it from render-then-compare methods. First, change maps are multi-view consistent by construction, where prior work had to learn this through an additional optimization objective. Second, geometric and appearance changes are scored separately, identifying not just where but what kind of change occurred, distinguishing structural changes (e.g., an added object) from surface-level ones (e.g., a color change) without supervision or external model dependencies. On real-world benchmarks, GS-DIFF surpasses the prior state-of-the-art approach by approximatelt 17% in mean Intersection over Union.",
+      "authors": [
+        "Chamuditha Jayanga Galappaththige",
+        "Jason Lai",
+        "Timothy Patten",
+        "Donald Dansereau",
+        "Niko Suenderhauf",
+        "Dimity Miller"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-08T03:50:10+00:00",
+      "link": "https://arxiv.org/pdf/2605.07203v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "scene change detection in 3D Gaussian Splatting",
+      "llm_evidence_cn": "3D高斯泼溅中的场景变化检测",
+      "llm_evidence": "3D高斯泼溅中的场景变化检测",
+      "canonical_evidence": "3D高斯泼溅中的场景变化检测",
+      "llm_tldr_en": "A method for detecting scene changes directly in the primitive space of 3D Gaussian Splatting representations.",
+      "llm_tldr_cn": "一种直接在3D高斯泼溅表示的基元空间中检测场景变化的方法。",
+      "llm_tldr": "一种直接在3D高斯泼溅表示的基元空间中检测场景变化的方法。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.07148v1",
+      "title": "Uncovering and Shaping the Latent Representation of 3D Scene Topology in Vision-Language Models",
+      "abstract": "Decades of cognitive science establish that humans navigate environments by forming cognitive maps, defined as allocentric and topology-preserving representations of 3D space. While modern Vision-Language Models (VLMs) demonstrate emergent spatial reasoning from 2D egocentric inputs, it remains unclear whether they construct an analogous 3D internal representation. In this paper, we demonstrate that current VLMs do possess a latent topological map of 3D scenes, but it is heavily overshadowed by non-geometric visual semantics, such as color and shape. By isolating this spatial subspace through cross-scene linear feature extraction, we extract a clean spatial subspace that causally controls the model's spatial outputs. We mathematically shape this latent representation and prove its correspondence to the Laplacian eigenmaps of the scene's 3D Gaussian-kernel graph, converging to the physical 3D space in the continuous limit. Motivated by this geometric identification, we further introduce a mathematically principled latent regularization method for VLMs, based on Dirichlet energy. Applying this single-term regularizer to a minimal 500-step supervised VLM fine-tuning (SFT) on simple synthetic data yields significant improvements on real-world spatial benchmarks, outperforming standard SFT and competitive baselines by up to 12.1\\% in spatial tasks involving scene topology understanding. Source code is available at https://github.com/pittisl/vlm-latent-shaping",
+      "authors": [
+        "Haoming Wang",
+        "Wei Gao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-08T02:32:27+00:00",
+      "link": "https://arxiv.org/pdf/2605.07148v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "latent representation of 3D scene topology in VLMs",
+      "llm_evidence_cn": "视觉语言模型中3D场景拓扑的潜表征",
+      "llm_evidence": "视觉语言模型中3D场景拓扑的潜表征",
+      "canonical_evidence": "视觉语言模型中3D场景拓扑的潜表征",
+      "llm_tldr_en": "Identifies and extracts a latent topological map of 3D scenes from Vision-Language Models to improve spatial reasoning.",
+      "llm_tldr_cn": "从视觉语言模型中识别并提取3D场景的潜拓扑图，以改进空间推理能力。",
+      "llm_tldr": "从视觉语言模型中识别并提取3D场景的潜拓扑图，以改进空间推理能力。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.07496v1",
+      "title": "PathPainter: Transferring the Generalization Ability of Image Generation Models to Embodied Navigation",
+      "abstract": "Bird's-eye-view (BEV) images have been widely demonstrated to provide valuable prior information for navigation. Given the global information provided by such views, two key challenges remain: how to fully exploit this information and how to reliably use it during execution. In this paper, we propose a navigation system that uses BEV images as global priors and is designed for ground and near-ground robotic platforms. The system employs an image generation model to interpret human intent from natural language, identify the target destination, and generate traversability masks. During execution, we introduce cross-view localization to align the robot's odometry with the BEV map and mitigate long-term drift in conventional odometry. We conduct extensive benchmark experiments to evaluate the proposed method and further validate it on a UAV platform. Using only a conventional local motion planner, the UAV successfully completes a 160-meter outdoor long-range navigation task. This work demonstrates how the world-understanding capabilities of foundation models can be transferred to embodied navigation, enabling robots to benefit from the strong generalization ability of existing image generation models.",
+      "authors": [
+        "Yijin Wang",
+        "Yuru Tian",
+        "Xijie Huang",
+        "Weiqi Gai",
+        "Mo Zhu",
+        "Xin Zhou",
+        "Yuze Wu",
+        "Fei Gao"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-05-08T09:33:19+00:00",
+      "link": "https://arxiv.org/pdf/2605.07496v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Generative models for traversability masks in 3D environments",
+      "llm_evidence_cn": "用于3D环境中可通行掩码生成的生成模型",
+      "llm_evidence": "用于3D环境中可通行掩码生成的生成模型",
+      "canonical_evidence": "用于3D环境中可通行掩码生成的生成模型",
+      "llm_tldr_en": "Uses image generation models to create BEV traversability maps for robotic navigation.",
+      "llm_tldr_cn": "利用图像生成模型为机器人导航创建鸟瞰图可通行性地图。",
+      "llm_tldr": "利用图像生成模型为机器人导航创建鸟瞰图可通行性地图。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.07550v1",
+      "title": "Mind the Gap: Geometrically Accurate Generative Reconstruction from Disjoint Views",
+      "abstract": "3D vision systems are fundamentally constrained by their reliance on visual overlap: reconstruction methods require it for geometric alignment, while generative models use it to enforce multi-view consistency. This limitation is particularly acute in real-world scenarios such as distributed swarm robotics or crowd-sourced data collection, where capturing overlapping perspectives, both in terms of spatial and appearance overlap, is often impossible. We introduce Generative Reconstruction from Disjoint Views as a new paradigm, establish a comprehensive dataset, and propose specialized evaluation metrics for zero-overlap scenarios. Our benchmarking demonstrates that existing state-of-the-art methods fail catastrophically on this task, producing disconnected geometries or semantically incoherent reconstructions. To address these limitations, we propose GLADOS, a general, modular framework that operates through three stages: (1) Generative Bridging, where foundation models synthesize intermediate perspectives to connect disjoint inputs; (2) Robust Coarse 3D Reconstruction, that establish coarse geometric scaffold via global alignment which absorbs local contradictions from generative process; and (3) Iterative Context Expansion and Consistency Optimization to fill missing regions and unify the reconstruction. As an architectureagnostic framework, GLADOS enables seamless integration of future advances in generation, reconstruction, and inpainting. The source code is available at: https://github.com/gwilczynski95/GLADOS.",
+      "authors": [
+        "Grzegorz Wilczynski",
+        "Mikołaj Zielinski",
+        "Bartosz Świrta",
+        "Dominik Belter",
+        "Przemysław Spurek"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-08T10:24:23+00:00",
+      "link": "https://arxiv.org/pdf/2605.07550v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "generative reconstruction from disjoint views for 3D environments",
+      "llm_evidence_cn": "针对3D环境的不相交视图生成式重建",
+      "llm_evidence": "针对3D环境的不相交视图生成式重建",
+      "canonical_evidence": "针对3D环境的不相交视图生成式重建",
+      "llm_tldr_en": "Proposes a new paradigm for generative 3D reconstruction from non-overlapping views in complex environments.",
+      "llm_tldr_cn": "提出了一种在复杂环境中从非重叠视图进行生成式3D重建的新范式。",
+      "llm_tldr": "提出了一种在复杂环境中从非重叠视图进行生成式3D重建的新范式。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.07781v1",
+      "title": "Differentiable Ray Tracing with Gaussians for Unified Radio Propagation Simulation and View Synthesis",
+      "abstract": "Explicit neural representations such as 3D Gaussian Splatting (3DGS) enable high-fidelity and real-time novel view synthesis, yet optimize for alpha-composited optical appearance rather than ray-intersectable geometry. In contrast, radio-frequency (RF) digital twins require deterministic multi-bounce paths, where the geometry dictates trajectories and their associated attenuation and delay. We introduce a framework enabling differentiable RF propagation simulation directly within visually reconstructed neural scenes, allowing point-to-point path computation between arbitrary 3D locations while preserving high-quality visual rendering. Unlike conventional RF simulation pipelines that rely on manually constructed meshes, we embed Gaussian primitives into a hardware-accelerated ray tracing structure as the underlying spatial representation. By extracting physically meaningful channel impulse responses from visual-only reconstructions, we provide cross-modal evidence that neural reconstructions can serve as unified spatial representations for both electromagnetic propagation simulation and photorealistic view synthesis.",
+      "authors": [
+        "Niklas Vaara",
+        "Lam Huynh",
+        "Pekka Sangi",
+        "Miguel Bordallo López",
+        "Janne Heikkilä"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-08T14:19:28+00:00",
+      "link": "https://arxiv.org/pdf/2605.07781v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "differentiable RF simulation within visually reconstructed neural scenes",
+      "llm_evidence_cn": "视觉重建神经场景中的可微分射频模拟",
+      "llm_evidence": "视觉重建神经场景中的可微分射频模拟",
+      "canonical_evidence": "视觉重建神经场景中的可微分射频模拟",
+      "llm_tldr_en": "Integrates differentiable ray tracing with 3D Gaussian Splatting for unified radio propagation and view synthesis.",
+      "llm_tldr_cn": "将可微分光线追踪与3D高斯泼溅结合，用于统一的无线电传播模拟和视图合成。",
+      "llm_tldr": "将可微分光线追踪与3D高斯泼溅结合，用于统一的无线电传播模拟和视图合成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.08064v1",
+      "title": "Proxy3D: Efficient 3D Representations for Vision-Language Models via Semantic Clustering and Alignment",
+      "abstract": "Spatial intelligence in vision-language models (VLMs) attracts research interest with the practical demand to reason in the 3D world.Despite promising results, most existing methods follow the conventional 2D pipeline in VLMs and use pixel-aligned representations for the vision modality. However, correspondence-based models with implicit 3D scene understanding often fail to achieve spatial consistency, and representation-based models with 3D geometric priors lack efficiency in vision sequence serialization. To address this, we propose a Proxy3D method with compact yet comprehensive 3D proxy representations for the vision modality. Given only video frames as input, we employ semantic and geometric encoders to extract scene features and then perform their semantic-aware clustering to obtain a set of proxies in the 3D space. For representation alignment, we further curate the SpaceSpan dataset and apply multi-stage training to adopt the proposed 3D proxy representations with the VLM. When using shorter sequences for vision information, our method achieves competitive or state-of-the-art performance in 3D visual question answering, visual grounding and general spatial intelligence benchmarks.",
+      "authors": [
+        "Jerry Jiang",
+        "Haowen Sun",
+        "Denis Gudovskiy",
+        "Yohei Nakata",
+        "Tomoyuki Okuno",
+        "Kurt Keutzer",
+        "Wenzhao Zheng"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-08T17:50:47+00:00",
+      "link": "https://arxiv.org/pdf/2605.08064v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D proxy representations for scene understanding in VLMs",
+      "llm_evidence_cn": "用于视觉语言模型场景理解的3D代理表示",
+      "llm_evidence": "用于视觉语言模型场景理解的3D代理表示",
+      "canonical_evidence": "用于视觉语言模型场景理解的3D代理表示",
+      "llm_tldr_en": "Proposes Proxy3D to provide efficient 3D geometric priors for vision-language models via semantic clustering.",
+      "llm_tldr_cn": "提出Proxy3D，通过语义聚类为视觉语言模型提供高效的3D几何先验。",
+      "llm_tldr": "提出Proxy3D，通过语义聚类为视觉语言模型提供高效的3D几何先验。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
