@@ -1,0 +1,537 @@
+Title: Thinking with Novel Views: A Systematic Analysis of Generative-Augmented Spatial Intelligence
+
+URL Source: https://arxiv.org/pdf/2605.10588v1
+
+Published Time: Tue, 12 May 2026 02:56:33 GMT
+
+Number of Pages: 17
+
+Markdown Content:
+# Thinking with Novel Views: A Systematic Analysis of Generative-Augmented Spatial Intelligence 
+
+Yanbing Zhang, Bo Wang, Jianhui Liu, Nan Jiang, Jiaxiu Jiang, Haoze Sun Yijun Yang, Shenghe Zheng, Lin Song, Haoyang Huang, Nan Duan, Wenbo Li †
+
+Joy Future Academy 
+
+Abstract 
+
+Current Large Multimodal Models (LMMs) struggle with spatial reasoning tasks requiring viewpoint-dependent understanding, largely because they are confined to a single, static observation. We propose Thinking with Novel Views (TwNV), a paradigm that integrates generative novel-view synthesis into the reasoning loop: a Reasoner LMM identifies spatial ambiguity, instructs a Painter to synthesize an alternative viewpoint, and re-examines the scene with the additional evidence. Through systematic experiments we address three research questions. (1) Instruc-tion format: numerical camera-pose specifications yield more reliable view control than free-form language. (2) Generation fidelity: synthesized view quality is tightly coupled with downstream spatial accuracy. (3) Inference-time visual scal-ing: iterative multi-turn view refinement further improves performance, echoing recent scaling trends in language reasoning. Across four spatial subtask categories and four LMM architectures (both closed- and open-source), TwNV consistently improves accuracy by +1.3 to +3.9 pp, with the largest gains on viewpoint-sensitive subtasks. These results establish novel-view generation as a practical lever for advancing spatial intelligence of LMMs. 
+
+1 Introduction 
+
+Current Large Multi-modal Models (LMMs) have traditionally operated under a “Single-Pass Percep-tion” paradigm, where reasoning is strictly conditioned on the static content of the provided input image Liu et al. [2024], Achiam et al. [2023], Chen et al. [2024b]. Recently, several works have attempted to evolve this toward a broader “Thinking with Images” (TwI) framework by enabling models to invoke external tools for image manipulation, such as cropping, zooming, or 2D rota-tion Yang et al. [2024, 2025]. However, our preliminary investigation reveals a critical bottleneck: while these heuristic 2D transformations may improve local feature recognition, they offer negligible or even negative gains in complex spatial reasoning. Concretely, when we equip GPT-5 OpenAI [2025a] with a tool-based grounding pipeline that lets the model identify and crop task-relevant regions, overall spatial reasoning accuracy drops by 0.8 percentage points relative to the single-image baseline (69.6% vs. 70.4%), with the deficit widening to 2.0 pp on multi-object relationship questions. This finding suggests that re-framing within the original 2D plane is fundamentally insufficient for spatial cognition: cropping and zooming cannot reveal occluded geometry or disambiguate 3D relational structures that are simply invisible from the input viewpoint. Humans, by contrast, resolve such ambiguities through mental simulation — we do not merely re-orient what we already see, but mentally construct entirely new perspectives to build a more complete spatial workspace. A parallel line of work injects 3D structure into VLMs via depth maps, point clouds, or features from explicit 3D reconstruction Chen et al. [2024a], Fan et al. [2025], Cai et al. [2024], Zhang et al. [2026]. However, recovering 3D geometry from a single image is fundamentally ill-posed and                
+
+> †Corresponding author. Preprint.
+> arXiv:2605.10588v1 [cs.CV] 11 May 2026 ORIGINAL IMAGE
+> Input
+> Q:Consider the real -world 3Dlocations .
+> Is the pedestrian traffic light directly
+> underneath the Apple sign? (Answer :no)
+> How can I get a better viewpoint to accurately determine the relative position?
+
+Thinking with Tool? 
+
+> Cropping or zooming in cannot
+> provide efficient information.
+
+Option 1: 
+
+3D Reconstruction? 
+
+> Losing massive textures and
+> often causing severe artifacts.
+
+Option 2: 
+
+Image Generation? 
+
+> Can strong semantic -level
+> prior of the real world help?
+
+Option 3 (Selected):            
+
+> Evidence : Consistent gains across open -and closed -source models.
+> Move the camera 1.5m left
+> and yaw 15
+> °right.
+> Bad generations I want the camera to
+> move left 1m and
+> yaw right 10
+> °to get
+> a clearer view.
+> Ours Ours -Iterative
+> RQ 3: Any further gains
+> from Multi -turn CoT ?
+> ①Construct editing instructions
+> RQ 2: How does generation quality affect the results?
+> ②Render new views
+> ③Scale reasoning RQ 1: Which type of instruction is most suitable?
+
+Figure 1: Overview of the Thinking with Novel Views paradigm. (Top) Among three strategies for resolving viewpoint ambiguity, only generative novel-view synthesis provides sufficient 3D information while preserving semantics. (Center) Consistent accuracy gains (+1.3 to +3.9 pp) across closed- and open-source VLMs. (Bottom) The system (1) constructs a camera-motion instruction (RQ 1 ), (2) renders a novel view ( RQ 2 ), and optionally (3) refines iteratively ( RQ 3 ). Details in §4. scale-ambiguous Zeng et al. [2024], so the geometry these methods inject is intrinsically noisy in the single-image regime that most spatial-reasoning benchmarks present. They also discard the image priors (textures, semantic context, fine-grained appearance) that pretrained VLMs are trained to read. Generative novel-view synthesis avoids both trade-offs: pretrained image generators have absorbed 3D-aware, world-model-level visual priors during web-scale pretraining Gabeur et al. [2026] and can be repurposed to render the same scene from a different camera pose Liu et al. [2023], producing a new RGB image that keeps the VLM within its trained input distribution while supplying geometric evidence the original view lacks. In this paper, we propose a systematic shift from 2D tool-calling to a generative Thinking with Novel Views (TwNV) paradigm. Rather than treating image generation as a creative end-goal, we reconceptualize it as a dynamic, 3D-aware reasoning workspace. As illustrated in Fig. 1, we introduce a three-stage pipeline: an LMM first acts as the Planner , proactively determining which novel camera pose would best disambiguate the spatial query; a generative model then serves as the Synthesizer , rendering the requested viewpoint by simulating ego-motion such as translation, panning, or tilting; finally, the LMM acts as the Reasoner , jointly interpreting the original and synthesized images to produce an answer. By transforming a static single-image query into an iterative, generation-augmented reasoning process that dynamically explores the 3D scene, we move beyond the perspective constraints of the initial input. As the evidence in Fig. 1 shows, this approach yields consistent accuracy gains (+1.3 to +3.9 percentage points) across four VLMs spanning frontier closed-source systems and open-source models of varying scale, substantially outperforming the tool-based grounding baseline (e.g., 71.7% vs. 69.6% overall on GPT-5, with a striking 5.6 pp advantage on multi-object relationships). Building on this foundation, we conduct an in-depth exploration into the governing principles of the TwNV paradigm, structured around five critical dimensions: 
+
+Scene Coverage. Performance gains are non-uniform across spatial subtasks: viewpoint-sensitive categories (orientation, multi-object relationships) benefit the most, while size estimation sees slight degradation, likely because novel views alter apparent object scale. Detailed analysis is in §4. 
+
+Model Robustness. We evaluate TwNV across a diverse spectrum of model capacities, from Gemini-3-Flash Gemini Team et al. [2025] and GPT-5 OpenAI [2025a] to the open-source Qwen3-VL series (235B and 32B parameters) Bai et al. [2025]. The paradigm delivers consistent improvements at every scale, with a notable “Small-Model Dividend” : the relative gain is more pronounced in smaller models (e.g., +3.9 pp for Qwen3-VL-32B vs. +1.3 pp for GPT-5), suggesting that explicit view 2synthesis serves as a compensatory mechanism for parameter-constrained models by offloading 3D reasoning to an external visual workspace. 
+
+Instruction Design (RQ 1). To maximize the efficacy of the TwNV framework, we assess the optimal instruction interface for the Synthesizer. Our results indicate that continuous 3D camera parameters ( e.g. , explicit translation offsets and rotation angles) vastly outperform both free-form natural language descriptions and discrete categorical instructions. We hypothesize that providing explicit geometric priors minimizes the “semantic noise” inherent in linguistic prompts, thereby ensuring the generation of geometrically precise viewpoints that serve as faithful cues for downstream reasoning. 
+
+Generation Fidelity (RQ 2). We examine how the quality of the Synthesizer influences the final reasoning outcome. By training a specialized pose-aware novel-view editing model to ensure geometric precision, we substantiate the hypothesis that a better Synthesizer indeed yields a better Reasoner . Our analysis reveals a positive correlation between the accuracy of viewpoint synthesis and the success rate of subsequent spatial inference, underscoring that the fidelity of the visual workspace is a decisive factor in the robustness of the entire pipeline. 
+
+Inference-Time Visual Scaling (RQ 3). Finally, we ask whether visual reasoning can be scaled at inference time, analogous to Chain-of-Thought prompting in the textual domain. We demonstrate that iterative refinement scales reasoning performance effectively with additional rounds. In each round, the Reasoner evaluates its previous generation, the Planner updates camera instructions, and the Synthesizer produces improved viewpoints. This iterative loop allows the system to progressively converge on the most diagnostic visual evidence, showing that increased inference-time computation in the visual domain translates directly into superior spatial intelligence. Under a matched VLM-call budget, our image-based scaling outperforms text-only self-reflection by +3 .0 pp ( 78 .7% vs. 75 .7% 
+
+on Gemini-3-Flash). The same compute spent on a new synthesized view yields a larger gain than re-examining the original one. Through this systematic analytical lens, our work operationalizes generative novel-view synthesis as a core reasoning mechanism for spatial understanding. By characterizing the interplay among instruction precision, generative fidelity, model capacity, and iterative refinement, we establish a principled framework for the Thinking with Novel Views paradigm that delivers robust and consistent gains across diverse spatial reasoning tasks and model families. 
+
+2 Related Work 
+
+2.1 MLLM 
+
+The rapid advancement of MLLMs, such as GPT-4o Achiam et al. [2023], Gemini Comanici et al. [2025], and LLaVA Liu et al. [2024], has set new benchmarks in general-purpose visual perception and semantic understanding. By leveraging large-scale vision-language pre-training, these models exhibit remarkable zero-shot capabilities in descriptive tasks. However, their “spatial intelligence”, the ability to comprehend the dynamic world, remains a significant bottleneck. To address this, existing research has branched into two directions. Architectural approaches, including Spatial-MLLM Wu et al. [2025b], VLM-3R Fan et al. [2025], and 3DThinker Chen et al. [2025c], introduce explicit geometric biases or 3D representations into traditional MLLMs. SpatialBot Cai et al. [2024] augments visual encoders with depth, while VILASR Wu et al. [2025c] enables visual chain-of-thought by drawing auxiliary annotations on images. Data scaling efforts, such as SpatialVLM Chen et al. [2024a], SpatialRGPT Cheng et al. [2024], VST Yang et al. [2025], and SenseNova-SI Cai et al. [2025], expand spatial-specific supervision through synthetic or densely annotated datasets. Despite this, most methods rely on static supervised fine-tuning, understanding the world solely from a single view. We instead propose to think with generative novel views. 
+
+2.2 Generative-Augmented Understanding 
+
+Rooted in Analysis-by-Synthesis, Generative-Augmented Understanding links visual synthesis to structural world understanding. One line uses novel views as a reasoning medium: Chain-of-View Prompting Zhao et al. [2026] selects informative views from pre-captured 3D scenes for embodied QA, and Think3D Zhang et al. [2026] uses generative 3D reconstruction for interactive viewpoint manipulation; related work Liu et al. [2025], Chen et al. [2025b] argues that 3D-space perspective 3Generated Image 𝐼 !         
+
+> 6-DOF
+> Ego -Motion
+> Instruction
+> Original
+> Image 𝐼 "
+> Question
+> 𝑄
+> Stage 2
+> Novel
+> View
+> Synthesis
+> Stage 3
+> Spatial
+> Reasoning
+> Inference
+> Stage 1
+> Camera
+> Movement
+> Planning
+> 𝐼 "
+> Quality Verification
+> Object Visibility /Generation Quality /Scene Consistency
+> Answer
+> Mode
+> Switch
+> Simple
+> Iterative
+> Feedback
+> Refinement
+
+Figure 2: The TwNV pipeline. A Planner VLM proposes a 6-DOF camera-motion instruction, a Synthesizer renders the target view It, and a Reasoner VLM jointly interprets {I0, I t}. Iterative Mode adds a Quality Verifier that rejects It and feeds diagnostic feedback to the Planner for up to N
+
+refinement rounds. manipulation is essential for spatial reasoning. A complementary line builds the generative side: Thinking with Camera Liao et al. [2025] treats camera parameters as language to bridge camera understanding and generation, PreciseCam Bernal-Berdun et al. [2025] and DualCamCtrl Zhang et al. [2025] improve the geometric fidelity of camera-controlled synthesis, and Depth Anything 3 Lin et al. [2025b] recovers precise geometry from arbitrary views. Our Thinking with Novel Views paradigm builds on both: unlike CoV, we synthesize novel views on-the-fly rather than rely on pre-captured ones; unlike camera-control methods focused on generation quality alone, we close the loop by using generated views as a reasoning medium and iteratively refining them through verification feedback. 
+
+3 Pipeline, Dataset, and Evaluation 
+
+3.1 Pipeline 
+
+Our pipeline (Fig. 2) transforms a single-image spatial query into a multi-perspective reasoning process through three stages and an optional iterative extension. 
+
+Stage 1: Camera Movement Planning. Given image I0 and question Q, a VLM produces a 6-DOF ego-motion instruction (∆ x, ∆y, ∆z, yaw , pitch , roll) as geometric guidance for the synthesizer (§4.3). 
+
+Stage 2: Novel View Synthesis. A generative model conditioned on I0 and the instruction outputs a synthesized image It from the target perspective (§4.4). 
+
+Stage 3: Spatial Reasoning. In Simple Mode (N =0 ), the VLM reasons over {I0, I t}. In Iterative Mode (N > 0), a Quality Verifier evaluates It on object visibility, generation quality, and scene consistency; rejected views trigger diagnostic feedback to the Planner for revised instructions. The VLM then reasons over {I0, I ∗}, where I∗ is the best accepted view (falling back to I0 if all are rejected). This inference-time visual scaling strategy is analyzed in §4.5. 
+
+3.2 Evaluation Benchmark 
+
+We assemble 695 samples from two sources: 575 from 3DSRBench Ma et al. [2025] via stratified sampling across all 12 subcategories, and 120 from RealWorldQA xAI [2024] focusing on spatially relevant subcategories (orientation, size, position). All samples are organized into four categories (Fig. 3), each probing 3D properties inherently ambiguous under single-view projection: 
+
+Orientation (n=225 ): directional pose including viewpoint, heading, and egocentric left/right and front/behind judgments. Location (n=230 ): spatial position reasoning including depth ordering, vertical comparison, proximity, and relative layout. Size (n=45 ): real-world physical dimension comparisons. Multi-Object (n=195 ): relational reasoning across entities, including facing direction, relative proximity, co-orientation, and alignment. 4Figure 3: Benchmark distribution: 695 samples across 4 categories and 15 subcategories. 
+
+3.3 Implementation Details 
+
+Reasoning Models. Closed-source: Gemini-3-Flash Gemini Team et al. [2025] and GPT-5 OpenAI [2025a]; open-weight: Qwen3-VL-235B and Qwen3-VL-32B Bai et al. [2025]. All four serve as Planner, Verifier, and Reasoner. 
+
+Synthesis Models. GPT-Image-1 OpenAI [2025b], Nano Banana Pro Google DeepMind [2025], 
+
+Qwen-Image-Edit Wu et al. [2025a], and CamCraft (Ours ), a pose-conditioned editing model for geometrically faithful viewpoint synthesis (details in Appendix). 
+
+Answer Judging. Deterministic string matching first; Gemini-3-Flash as semantic judge when ambiguous. 
+
+Conditions. Baseline : single-pass on I0; Ours : Simple Mode, reasoning from {I0, I t}; Ours-Iterative : Iterative Mode, reasoning from {I0, I ∗}. All conditions, including the Baseline, are reported as the majority vote of K=3 independent runs, so that observed differences reflect paradigm choice rather than sampling variance. 
+
+4 Discussion 
+
+Generative novel views can supply spatial evidence the original image lacks, but their usefulness depends on the scene, the reasoning model, the instruction format, and the generator. We address these factors in the five subsections below. 
+
+4.1 Scene Coverage: Is Generated Image Universally Effective Across Scenes? 
+
+To investigate the scope of applicability, we examine whether generated views provide consistent benefits across diverse scene distributions rather than being confined to “generator-friendly” scenarios. We evaluate our paradigm on both a general-purpose and the proposed spatial-oriented understanding benchmark, using GPT-5 as the reasoner and GPT-Image-1 as the painter without any task-specific optimizations .As expected, as illustrated in Figure 4(a), our preliminary analysis on general tasks (encompassing basic perception, recognition, and subject-related QA) indicates that novel views offer negligible assistance, as the required information is already inherently sufficient within the primary perspective. In contrast, for the 3D-oriented benchmark, Figure 4(a) shows that dynamic view compensation improves the overall accuracy from 70.4% to 71.7%. A fine-grained analysis (Figure 4(b)) reveals that our method yields obvious improvements in Orientation (+1.7pp) and Multi-object Relationship 
+
+(+3.6pp) tasks. The significant lift in the latter suggests that novel perspectives are particularly effective for complex relational reasoning, where a single viewpoint may suffer from occlusion or perspective ambiguity. While the model maintains comparable performance in Location (80.4% vs. 80.9%), we observe a minor degradation in the Size category. We hypothesize that while 5General-purpose Spatial-oriented    
+
+> 50
+> 55
+> 60
+> 65
+> 70
+> 75
+> 80
+> 85
+> Accuracy (%)
+> +0.0 pp
+> +1.3 pp
+> (a) Macro Performance
+> GPT-5
+> GPT-5 + GEN_AUG
+> Orientation Location Size Multi-object Relationship
+> 50
+> 60
+> 70
+> 80
+> 90
+> 100
+> Accuracy (%)
+> +1.7 pp
+> (N=225)
+> -0.5 pp
+> (N=230)
+> -2.2 pp
+> (N=45)
+> +3.6 pp
+> (N=195)
+> (b) Fine-grained Spatial Analysis
+> GPT-5
+> GPT-5 + GEN_AUG
+
+Figure 4: Effect of generative view augmentation. (a) Macro accuracy on general-purpose vs. spatial-oriented benchmarks (no change on general, +1 .3pp on spatial). (b) Breakdown by spatial subtask; sample size N is annotated under each category, and values above bars show changes over the GPT-5 baseline. 0 20 40 60    
+
+> Share of failures (%)
+> Bad Generation
+> Wrong Instruction
+> VL Failure
+> 60.83% (N=132)
+> 24.88% (N=54)
+> 14.29% (N=31)
+> (a) Failure Attribution
+> Gemini3-
+> Flash
+> GPT-5 Qwen3-VL-
+> 235B
+> Qwen3-VL-
+> 32B
+> 0
+> 20
+> 40
+> 60
+> 80
+> Accuracy (%)
+> (b) Average Performance
+> 0
+> 2
+> 4
+> 6
+> 8
+> Relative Gain (%)
+> +1.6
+> +1.8
+> +4.7
+> +6.7
+> Baseline Augmented Relative Gain
+
+Figure 5: Failure attribution and per-backbone gains. (a) Error sources on GPT-5+GPTI MAGE 1: bad generation dominates (60.8%), followed by wrong instructions (24.9%) and VL failures (14.3%). (b) Spatial-oriented accuracy for four backbones: baseline (single view) vs. GEN_AUG-augmented (bars), with relative gain (aug −base )/base on the right axis (line). Weaker backbones gain more, peaking at +6.7% for Q WEN 3-VL-32B. generative synthesis excels at providing structural and relational cues, it may also introduce subtle metric inconsistencies or generative artifacts that act as noise, thereby impacting fine-grained scale estimation. Nevertheless, the consistent gains in higher-level reasoning tasks underscore the profound potential of incorporating novel views to bolster spatial intelligence. Errors fall into three categories: wrong instruction , where the prompt under- or mis-specifies the requested view; bad generation , where the synthesized image has geometric errors, artifacts, or missing objects; and VL failure , where the reasoner errs even when the view is correct. Fig. 5(a) shows that bad generation is the main bottleneck, which is why we examine instruction quality in Section 4.3 and the generator in Section 4.4. 
+
+4.2 Model Robustness: Only High-Capacity Reasoners or Also Weaker Ones? 
+
+A practical concern is whether our paradigm only amplifies already-strong models or also benefits weaker reasoners. We evaluate the same generation protocol across four understanding backbones of varying capacity. For each backbone, the baseline uses the original single-view input, while GEN_AUG augments it with our novel-view procedure under identical settings. Fig. 5(b) shows two things. The paradigm helps every backbone we tested, and the smaller the model, the larger its relative gain: Q WEN 3-VL-32B improves the most at +6 .7%, while the stronger GMINI 3-F LASH improves the least. We call this the Small-Model Dividend . Smaller models have weaker internal 3D representations, so an explicit novel view gives them more spatial information than they could recover on their own. 64.3 Prompting Strategies: Are Explicit 3D Camera Parameters Better than Descriptive Motion Language? 
+
+The efficacy of generative-augmented reasoning is highly contingent on instruction quality. We therefore investigate which format best elicits informative and reliable viewpoint changes. Specifically, we compare three paradigms: descriptive natural language, discretized view changes, and precise numerical camera pose changes, as visualized in Figure 6. Input Image               
+
+> Q: Are the vehicles facing left?
+> Options: A: Yes, B: No (Answer: A)
+> GPT -Image -1 w/ Natural
+> Instruction: Dolly straight forward across the street
+> toward the cars, then shift slightly right to stand
+> between the orange car and the silver SUV, and pan left
+> to get a clear side -on view of both so their front ends
+> are visible to judge the facing direction.
+> GPT -Image -1 w/ Discrete
+> Instruction: Zoom in to inspect front vs.
+> rear details (headlights, grille, taillights)
+> of both vehicles , which are hard to see due
+> to rain and distance.
+> GPT -Image -1 w/ Numerical
+> Instruction: Transform the view as if the camera moved:
+> -Translation: right -5.000 m , down 0.000 m, forward
+> 10.000 m
+> -Rotation: pitch 0.0 °,yaw 15.0
+> °, roll 0.0 °
+> -Keep the 3D scene static; only change the viewpoint .
+
+Figure 6: Qualitative comparison of three instruction paradigms. Natural : free-form motion lan-guage. Discrete : categorical directives ( e.g. , “zoom in”, “side view”). Numerical : explicit 6-DoF pose changes. Natural and discrete prompts introduce redundant semantic cues that cause spatial hallucinations (e.g., shifted object positions), whereas numerical instructions preserve the original scene layout. We use end-to-end spatial-reasoning accuracy as a proxy for instruction quality. We pair two reasoners, GPT-5 and Gemini-3-Flash, with two painters, GPT-Image-1 and Nano Banana Pro, so that prompt-engineering quirks or model-specific preferences do not drive the result. 
+
+Figure 7: Accuracy gain (%) over the single-view baseline for three instruction formats across two reasoners (rows) and two painters (column groups). Blue: improvement; red: degradation. As illustrated in Figure 7, numerical camera pose changes yield the most robust performance gains, remaining consistently positive across all four reasoner–painter combinations ( +0 .5% to +1 .3% ). In contrast, natural language instructions exhibit a strong reasoner-dependent effect: they produce marginal gains with Gemini-3-Flash ( +0 .3% ) but substantially degrade performance with GPT-5 (−2.2% / −2.6% ). We attribute this discrepancy to the semantically redundant cues inherent in free-form descriptions (mentioning object identities, scene context, or intended inspection goals), which prompt the editing model to hallucinate spatial modifications beyond the intended viewpoint shift, such as altering object positions or scales. Discretized instructions reduce this risk but still carry categorical semantics that can be misinterpreted, resulting in near-zero or marginal gains across most settings. Numerical instructions, by conveying only geometric transformation parameters (translation in meters, rotation in degrees), minimize such hallucinations and ensure the generative module produces viewpoint changes that faithfully preserve the original scene layout. This consistency underscores the advantage of using explicit geometric constraints to improve spatial reasoning performance. 
+
+4.4 Generation Quality: Would a “Better Painter” Make a Better Thinker in 3D? 
+
+Even with carefully designed prompts, the overall performance can still be bottlenecked by the gener-ator’s ability to preserve 3D fidelity and multi-view consistency. In this section, we investigate the impact of generation quality from two angles: (i) how do existing mainstream image editing models, both open-source and commercial, affect the downstream spatial reasoning accuracy, and (ii) can a generator purpose-built for pose-conditioned camera editing further close the gap? Concretely, we 7Table 1: Comparison of different image editing models in our pipeline. GPT-5is used as the fixed understanding model. The results show the accuracy (%) for each sub-category and the final voting accuracy. 
+
+Category w/o Gen QWEN IMAGE EDIT NANO BANANA PRO GPTI MAGE 1 CAM CRAFT 
+
+Orientation 63.6 61.8 60.9 65.3 65.3 Location 80.9 77.8 83.0 80.4 82.6 Size 93.3 86.7 91.1 91.1 91.1 Multi-object 60.5 61.5 63.6 64.1 66.2 Overall 70.4 68.6 70.9 71.7 72.9 
+
+keep the understanding model (GPT-5) and task protocol fixed, and swap the image editor among four candidates: two open-source models (Q WEN IMAGE EDIT and N ANO BANANA PRO ), one commercial model (GPTI MAGE 1), and our own pose-conditioned editor, C AM CRAFT , trained specifically on large-scale 3D data for geometrically faithful view synthesis. Full architecture, training data, and training configuration for C AM CRAFT are detailed in Appendix A. Table 1 reports the results. Not every generator improves over the no-generation baseline: Q WEN IM-
+
+AGE EDIT decreases the overall accuracy by 1.8 pp, suggesting that low-fidelity edits can introduce misleading visual evidence that actively harms reasoning. N ANO BANANA PRO yields a marginal gain (+0.5 pp), while GPTI MAGE 1 provides a moderate improvement (+1.3 pp). C AM CRAFT achieves the best overall accuracy (72.9%), a +2.5 pp gain over the baseline, and leads on three of the four subtasks. The progression from Q WEN IMAGE EDIT to C AM CRAFT reveals a clear trend: the more geometrically faithful the generated view, the greater the benefit for spatial reasoning. In particu-lar, a generator must reach a certain fidelity threshold before its outputs help rather than hurt the downstream reasoner. The improved generator also shifts where failures concentrate. Compared to GPTI MAGE 1, the Bad Generation share drops from 60.8% to 45.2%, while the Wrong Instruction share rises from 24.9% to 43.1%. The instructions themselves did not get worse; cleaning up generation errors simply leaves instruction quality as the next bottleneck, which we address in §4.5. 
+
+4.5 Capacity Scaling: Can We Scale Reasoning with Image Sampling and Verification Like Text? Q: “Which object has a higher location? A: Clock on top of the tower | B: house” 
+
+> VLM: Camera
+> Movement
+> Planer
+
+Round 1 Instruction Novel View    
+
+> Synthesizer
+> Original Image 𝐼 !Generated View 𝐼 "
+
+VLM: Quality Verifier Accept     
+
+> Continue moving upward and adjust pitch for a more
+> level viewing angle.
+> Camera shifted upward successfully. Tower and house remain
+> structurally consistent. However,bottom -up perspective distortion
+> persists –in sufficient height to compare absolute elevations.
+> VLM: Camera
+> Movement
+> Planer
+> (with History)
+
+Round 2 Instruction Novel View 
+
+> Synthesizer
+> Informed by R1 feedback: need more elevation
+
+VLM: Quality Verifier Accept    
+
+> Minor refinement possible but current view is sufficient
+> for height comparison.
+> By elevating the camera and adjusting pitch, the second
+> image achieves a better viewpoint with reduced
+> distortion, clearly showing the real 3D spatial relationship
+> between the tower and house.
+> Current Base 𝐼 "Generated View 𝐼 #
+> R2 = Best View Round
+
+VLM: Final Spatial Reasoning Answer: B - House 
+
+> The elevated viewpoint shows the clock top lies below
+> the house roofline.
+
+Figure 8: Iterative viewpoint refinement for height comparison: the VLM progressively elevates the camera across two rounds guided by verification feedback, producing a distortion-free view that enables correct spatial reasoning. Section 4.4 flagged Wrong Instruction as the new bottleneck (43.1%). Can we reduce these errors at test time by letting the model verify its own generated views and refine the camera instructions, much like textual self-consistency? 
+
+Image-based scaling via iterative refinement. We activate the Iterative Mode (§3.1) with N ∈ { 1, 2}
+
+verification rounds on the best Simple-Mode configuration (G MINI 3-F LASH + C AM CRAFT ). At each round, the understanding model inspects the generated view, diagnoses whether it provides useful spatial evidence, and if not, issues a revised camera instruction for re-generation. A single verification 8Table 2: Test-time scaling comparison. Top : text-only self-reflection on the original image ( R:number of reflection rounds). Bottom : image-based iterative refinement ( N : verification–refinement rounds; N =0 : Simple Mode). Text R=1 and Image N =0 both use two VLM calls per run (matched VLM-call budget).                                         
+
+> Strategy Config Orient. Loc. Size Multi-obj Overall
+> Text reflection Baseline ( R=0 )68.9 82.6 93.3 74.9 76.7 Best ( R=1 )69.3 81.3 93.3 72.3 75.7 Worst ( R=4 )68.4 77.0 91.1 68.2 72.7 Image iterative
+> N=0 (Simple) 73.3 85.2 91.1 74.4 78.7
+> N=1 72.4 86.5 91.1 76.9 79.6
+> N=2 72.4 86.1 91.1 76.4 79.3
+
+round ( N =1 ) yields a consistent overall improvement ( 78 .7% → 79 .6% ), with the largest gains on Location ( 85 .2% → 86 .5% ) and Multi-Object Relationship ( 74 .4% → 76 .9% ), both categories where viewpoint quality is most critical (Table 2, bottom). However, adding a second round ( N =2 ) already causes slight regression ( 79 .3% ), and further iterations continue to erode gains. We attribute this to error accumulation: each additional generation–verification cycle risks introducing artifacts or drifting from the original scene context. Fig. 8 illustrates a successful two-round refinement where the verifier guides the planner to progressively elevate the camera, producing a distortion-free view that resolves a height comparison. 
+
+Comparison with text-only self-reflection. We compare against self-reflection , where the VLM critiques its initial answer and re-reasons over the original image for up to R ∈ { 1, . . . , 10 } rounds. Self-reflection consistently degrades performance, fluctuating between 72 .7% and 75 .7% versus the single-pass baseline of 76 .7% (Table 2, top): textual deliberation cannot compensate for missing visual evidence. Image-based scaling at N =1 (79 .6% ) beats the best self-reflection variant by 
+
++3 .9 pp, and the advantage holds at matched VLM-call budget: Simple Mode ( N =0 ) already reaches 
+
+78 .7% versus text reflection R=1 ’s 75 .7% . The gap is not from extra compute but from reasoning over a new viewpoint instead of the same one. 
+
+Where do the gains come from? Table 3 shows the loop mostly removes Wrong Instruction errors: the count drops from 81 to 24, a 70% reduction, so the model is self-correcting its camera planning. Bad Generation stays roughly flat. The loop can change what we ask the generator to render but not how faithfully it renders that request, so bad generation now accounts for 71.1% of the remaining errors. Generation fidelity is the next bottleneck. Table 3: Error attribution be-fore and after iterative refine-ment. Simple Iter. Error Type # % # %Wrong Instr. 81 43.1 24 16.9 Bad Gen. 85 45.2 101 71.1 VL Failure 22 11.7 17 12.0     
+
+> Total 188 100 142 100
+
+These results paint a coherent picture across Sections 4.4–4.5: im-proving the generator (§4.4) shifted the bottleneck from Bad Gener-ation to Wrong Instruction ; iterative verification (§4.5) now resolves most instruction errors, shifting the bottleneck back to generation fidelity. Further progress will likely require advances on both fronts simultaneously (higher-fidelity 3D-aware generators and more pre-cise camera planning) to push beyond the current accuracy ceiling. 
+
+5 Conclusion 
+
+We presented a systematic study of using image generation as a cognitive tool to augment spatial reasoning in VLMs. Rather than relying on a single, ambiguous 2D observation, our Thinking with Novel Views (TwNV) pipeline forms a closed loop: a Planner proposes informative camera motions, a Synthesizer renders the requested viewpoint, a Reasoner interprets the enriched evidence, and a Quality Verifier feeds diagnostic signals back to the Planner for iterative refinement. Across instruction design, generator capacity, and test-time scaling, three findings emerge. (1) Instruc-tion matters: structured pose-conditioned camera transformations reduce ambiguity over free-form view synthesis (§4.3). (2) Better painter, better thinker: a purpose-built generator (C AM CRAFT )outperforms open-source and commercial alternatives, confirming that 3D-faithful generation is the key enabler of downstream gains (§4.4). (3) Visual scaling trumps verbal scaling: iterative view synthesis improves accuracy and outperforms textual self-reflection (§4.5). Error attribution reveals a two-stage bottleneck shift: improving the generator moves the dominant error from Bad Generation to Wrong Instruction , and iterative verification resolves most instruction errors, returning the bottleneck to generation fidelity, a diagnostic loop that charts the next round of improvement. 9Limitations and future work. Iteration shifts the residual bottleneck back to generation fidelity, where CAM CRAFT still produces artifacts under large viewpoint changes. Stronger 3D-aware generators or a dedicated spatial VLM fine-tuned on pose-conditioned planning data would each chip away at this gap, but neither addresses the deeper issue: planning, rendering, and verification are still handled by separate networks whose hand-offs accumulate disagreement and cause the verification loop to saturate after one round. A unified multimodal model for understanding and generation [Liao et al., 2025, Xie et al., 2024, Chen et al., 2025a], in which one network plans, renders, and verifies viewpoints, would replace this brittle pipeline. We see this as the most promising path toward stronger generative spatial intelligence. Our evaluation is also limited to static, rigid scenes; dynamic objects and predicates such as containment, support, and occlusion remain open. We hope this work establishes image generation as a principled and complementary axis, alongside textual chain-of-thought and tool use, for enhancing the spatial intelligence of foundation models. 
+
+References 
+
+Josh Achiam, Steven Adler, Sandhini Agarwal, Lama Ahmad, Ilge Akkaya, Florencia Leoni Aleman, Diogo Almeida, Janko Altenschmidt, Sam Altman, Shyamal Anadkat, et al. Gpt-4 technical report. 
+
+arXiv:2303.08774 , 2023. Shuai Bai, Yuxuan Cai, Ruizhe Chen, Keqin Chen, Xionghui Chen, Zesen Cheng, Lianghao Deng, Wei Ding, Chang Gao, et al. Qwen3-VL technical report. arXiv preprint arXiv:2511.21631 , 2025. URL https://arxiv.org/abs/2511.21631 .Edurne Bernal-Berdun, Ana Serrano, Belen Masia, Matheus Gadelha, Yannick Hold-Geoffroy, Xin Sun, and Diego Gutierrez. Precisecam: Precise camera control for text-to-image generation. In 
+
+Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pages 2724–2733, 2025. Wenxiao Cai, Iaroslav Ponomarenko, Jianhao Yuan, Xiaoqi Li, Wankou Yang, Hao Dong, and Bo Zhao. Spatialbot: Precise spatial understanding with vision language models. arXiv:2406.13642 ,2024. Zhongang Cai, Ruisi Wang, Chenyang Gu, Fanyi Pu, Junxiang Xu, Yubo Wang, Wanqi Yin, Zhitao Yang, Chen Wei, Qingping Sun, et al. Scaling spatial intelligence with multimodal foundation models. arXiv preprint arXiv:2511.13719 , 2025. Boyuan Chen, Zhuo Xu, Sean Kirmani, Brain Ichter, Dorsa Sadigh, Leonidas Guibas, and Fei Xia. Spatialvlm: Endowing vision-language models with spatial reasoning capabilities. In CVPR ,2024a. Xiaokang Chen, Zhiyu Wu, Xingchao Liu, Zizheng Pan, Wen Liu, Zhenda Xie, Xingkai Yu, and Chong Ruan. Janus-pro: Unified multimodal understanding and generation with data and model scaling. arXiv:2501.17811 , 2025a. Zeren Chen, Xiaoya Lu, Zhijie Zheng, Pengrui Li, Lehan He, Yijin Zhou, Jing Shao, Bohan Zhuang, and Lu Sheng. Geometrically-constrained agent for spatial reasoning. arXiv preprint arXiv:2511.22659 , 2025b. Zhangquan Chen, Manyuan Zhang, Xinlei Yu, Xufang Luo, Mingze Sun, Zihao Pan, Yan Feng, Peng Pei, Xunliang Cai, and Ruqi Huang. Think with 3d: Geometric imagination grounded spatial reasoning from limited views. arXiv preprint arXiv:2510.18632 , 2025c. Zhe Chen, Jiannan Wu, Wenhai Wang, Weijie Su, Guo Chen, Sen Xing, Muyan Zhong, Qinglong Zhang, Xizhou Zhu, Lewei Lu, et al. Internvl: Scaling up vision foundation models and aligning for generic visual-linguistic tasks. In CVPR , 2024b. An-Chieh Cheng, Hongxu Yin, Yang Fu, Qiushan Guo, Ruihan Yang, Jan Kautz, Xiaolong Wang, and Sifei Liu. Spatialrgpt: Grounded spatial reasoning in vision-language models. NeurIPS , 2024. Gheorghe Comanici, Eric Bieber, Mike Schaekermann, Ice Pasupat, Noveen Sachdeva, Inderjit Dhillon, Marcel Blistein, Ori Ram, Dan Zhang, Evan Rosen, et al. Gemini 2.5: Pushing the frontier with advanced reasoning, multimodality, long context, and next generation agentic capabilities. 
+
+arXiv:2507.06261 , 2025. 10 Zhiwen Fan, Jian Zhang, Renjie Li, Junge Zhang, Runjin Chen, Hezhen Hu, Kevin Wang, Huaizhi Qu, Dilin Wang, Zhicheng Yan, et al. Vlm-3r: Vision-language models augmented with instruction-aligned 3d reconstruction. arXiv:2505.20279 , 2025. Valentin Gabeur, Shangbang Long, Songyou Peng, Paul Voigtlaender, Shuyang Sun, Yanan Bao, Karen Truong, Zhicheng Wang, Wenlei Zhou, Jonathan T. Barron, Kyle Genova, Nithish Kannen, Sherry Ben, Yandong Li, Mandy Guo, Suhas Yogin, Yiming Gu, Huizhong Chen, Oliver Wang, Saining Xie, Howard Zhou, Kaiming He, Thomas Funkhouser, Jean-Baptiste Alayrac, and Radu Soricut. Image generators are generalist vision learners. arXiv preprint arXiv:2604.20329 , 2026. Gemini Team et al. Gemini 2.5: Pushing the frontier with advanced reasoning, multimodality, long context, and next generation agentic capabilities. arXiv preprint arXiv:2507.06261 , 2025. URL 
+
+https://arxiv.org/abs/2507.06261 .Google DeepMind. Nano banana pro: Gemini 3 pro image model. https://blog.google/ technology/ai/nano-banana-pro/ , 2025. Kristen Grauman, Andrew Westbury, Lorenzo Torresani, Kris Kitani, Jitendra Malik, Triantafyllos Afouras, Kumar Ashutosh, et al. Ego-Exo4D: Understanding skilled human activity from first-and third-person perspectives. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) , 2024. Xiaoguang Han, Yushuang Wu, Luyue Shi, Haolin Liu, Hongjie Liao, Lingteng Qiu, Weihao Yuan, Xiaodong Gu, Zilong Dong, and Shuguang Cui. MVImgNet2.0: A larger-scale dataset of multi-view images. ACM Transactions on Graphics (TOG) , 43(6), 2024. Kang Liao, Size Wu, Zhonghua Wu, Linyi Jin, Chao Wang, Yikai Wang, Fei Wang, Wei Li, and Chen Change Loy. Thinking with camera: A unified multimodal model for camera-centric understanding and generation. arXiv preprint arXiv:2510.08673 , 2025. Haotong Lin, Sili Chen, Jun Hao Liew, Donny Y. Chen, Zhenyu Li, Guang Shi, Jiashi Feng, and Bingyi Kang. Depth anything 3: Recovering the visual space from any views. arXiv preprint arXiv:2511.10647 , 2025a. Haotong Lin, Sili Chen, Junhao Liew, Donny Y Chen, Zhenyu Li, Guang Shi, Jiashi Feng, and Bingyi Kang. Depth anything 3: Recovering the visual space from any views. arXiv preprint arXiv:2511.10647 , 2025b. Lu Ling, Yichen Sheng, Zhi Tu, Wentian Zhao, Cheng Xin, Kun Wan, Lantao Yu, Qianyu Guo, Zixun Yu, Yawen Lu, Xuanmao Li, Aniruddha Mukherjee, Rohan Ashok, Xingpeng Sun, Xiangrui Kong, Hao Kang, Tianyi Zhang, Aniket Bera, Gang Hua, and Bedrich Benes. DL3DV-10K: A large-scale scene dataset for deep learning-based 3D vision. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) , 2024. Haotian Liu, Chunyuan Li, Qingyang Wu, and Yong Jae Lee. Visual instruction tuning. In NeurIPS ,2024. Ruoshi Liu, Rundi Wu, Basile Van Hoorick, Pavel Tokmakov, Sergey Zakharov, and Carl Vondrick. Zero-1-to-3: Zero-shot one image to 3D object. In Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV) , 2023. Yifan Liu, Fangneng Zhan, Kaichen Zhou, Yilun Du, Paul Pu Liang, and Hanspeter Pfister. Abstract 3d perception for spatial intelligence in vision-language models. arXiv preprint arXiv:2511.10946 ,2025. Wufei Ma, Haoyu Chen, Guofeng Zhang, Yu-Cheng Chou, Jieneng Chen, Celso de Melo, and Alan Yuille. 3DSRBench: A comprehensive 3D spatial reasoning benchmark. In Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV) , 2025. OpenAI. OpenAI GPT-5 system card. arXiv preprint arXiv:2601.03267 , 2025a. URL https: //arxiv.org/abs/2601.03267 .OpenAI. Introducing our latest image generation model in the API. https://openai.com/index/ image-generation-api , April 2025b. 11 Thomas Schöps, Johannes L. Schönberger, Silvano Galliani, Torsten Sattler, Konrad Schindler, Marc Pollefeys, and Andreas Geiger. A multi-view stereo benchmark with high-resolution images and multi-camera videos. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) , 2017. Chenfei Wu, Jiahao Li, Jingren Zhou, Junyang Lin, Kaiyuan Gao, Kun Yan, Sheng-ming Yin, Shuai Bai, Xiao Xu, Yilei Chen, et al. Qwen-image technical report. arXiv preprint arXiv:2508.02324 ,2025a. URL https://arxiv.org/abs/2508.02324 .Diankun Wu, Fangfu Liu, Yi-Hsin Hung, and Yueqi Duan. Spatial-mllm: Boosting mllm capabilities in visual-based spatial intelligence. arXiv preprint arXiv:2505.23747 , 2025b. Junfei Wu, Jian Guan, Kaituo Feng, Qiang Liu, Shu Wu, Liang Wang, Wei Wu, and Tieniu Tan. Reinforcing spatial reasoning in vision-language models with interwoven thinking and visual drawing. arXiv:2506.09965 , 2025c. xAI. RealWorldQA: An image understanding benchmark for real-world spatial reasoning. https: //x.ai/news/grok-1.5v , 2024. Jinheng Xie, Weijia Mao, Zechen Bai, David Junhao Zhang, Weihao Wang, Kevin Qinghong Lin, Yuchao Gu, Zhijie Chen, Zhenheng Yang, and Mike Zheng Shou. Show-o: One single transformer to unify multimodal understanding and generation. arXiv:2408.12528 , 2024. Rui Yang, Lin Song, Yanwei Li, Sijie Zhao, Yixiao Ge, Xiu Li, and Ying Shan. Gpt4tools: Teaching large language model to use tools via self-instruction. In NeurIPS , 2024. Rui Yang, Ziyu Zhu, Yanwei Li, Jingjia Huang, Shen Yan, Siyuan Zhou, Zhe Liu, Xiangtai Li, Shuangye Li, Wenqian Wang, et al. Visual spatial tuning. arXiv preprint arXiv:2511.05491 , 2025. Chandan Yeshwanth, Yueh-Cheng Liu, Matthias Nießner, and Angela Dai. ScanNet++: A high-fidelity dataset of 3D indoor scenes. In Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV) , pages 12–22, 2023. Ziyao Zeng, Yangchao Wu, Hyoungseob Park, Daniel Wang, Fengyu Yang, Stefano Soatto, Dong Lao, Byung-Woo Hong, and Alex Wong. RSA: Resolving scale ambiguities in monocular depth estimators through language descriptions. arXiv preprint arXiv:2410.02924 , 2024. Hongfei Zhang, Kanghao Chen, Zixin Zhang, Harold Haodong Chen, Yuanhuiyi Lyu, Yuqi Zhang, Shuai Yang, Kun Zhou, and Yingcong Chen. Dualcamctrl: Dual-branch diffusion model for geometry-aware camera-controlled video generation. arXiv preprint arXiv:2511.23127 , 2025. Zaibin Zhang, Yuhan Wu, Lianjie Jia, Yifan Wang, Zhongbo Zhang, Yijiang Li, Binghao Ran, Fuxi Zhang, Zhuohan Sun, Zhenfei Yin, et al. Think3d: Thinking with space for spatial reasoning. 
+
+arXiv preprint arXiv:2601.13029 , 2026. Haoyu Zhao, Akide Liu, Zeyu Zhang, Weijie Wang, Feng Chen, Ruihan Zhu, Gholamreza Haf-fari, and Bohan Zhuang. Cov: Chain-of-view prompting for spatial reasoning. arXiv preprint arXiv:2601.05172 , 2026. Tinghui Zhou, Richard Tucker, John Flynn, Graham Fyffe, and Noah Snavely. Stereo magnifica-tion: Learning view synthesis using multiplane images. ACM Transactions on Graphics (Proc. SIGGRAPH) , 37(4):1–12, 2018. 12 Supplementary Material 
+
+A Novel View Synthesis Model: Training and Evaluation 
+
+This appendix provides comprehensive details on the architecture, training data, data processing pipeline, training procedure, and dedicated evaluation of C AM CRAFT , the novel view synthesis (NVS) model employed in Stage 2 of our pipeline (cf. Section 3.1 in the main paper). 
+
+A.1 Architecture 
+
+CAM CRAFT is built upon a 16B-parameter MMDiT backbone paired with a Qwen3-VL-8B-Instruct semantic encoder that encodes the text-form camera-pose instruction. The reference (source) image is independently encoded by the Wan2.1 VAE into a latent representation, which is then con-catenated channel-wise with the generation noise latent. Joint self-attention is applied over both the reference and generation representations, allowing the model to attend to fine-grained appear-ance details while following the geometric transformation specified by the 6-DOF pose instruction 
+
+(∆ x, ∆y, ∆z, yaw , pitch , roll ). This design prioritises geometric consistency under explicit camera-pose control, directly targeting the dominant failure mode ( Bad Generation ) identified in Section 4.1 of the main paper. 
+
+A.2 Training Data 
+
+The model is trained on 7.6 M image pairs collected from four complementary 3D data sources, each contributing distinct scene characteristics and camera-motion distributions (see Figure A.1 for representative examples): • DL3DV-10K Ling et al. [2024]: Large-scale real-world captures spanning diverse indoor and out-door environments with wide-baseline camera trajectories and substantial translation magnitudes. • ScanNet++ Yeshwanth et al. [2023]: High-fidelity indoor reconstructions of room-scale scenes, providing dense viewpoint coverage with moderate camera motions. • Blender : Synthetic scenes rendered with exact ground-truth camera parameters, offering pixel-perfect pose supervision and diverse viewpoint transformations including large rotations. • Ego-Exo4D Grauman et al. [2024]: Human-centric scenes captured from both egocentric and exocentric viewpoints, introducing large camera translations/rotations and diverse human activities. The combination of these sources ensures broad coverage of indoor/outdoor settings, synthetic/real imagery, human-centric scenarios, and camera motions ranging from subtle to extreme. 
+
+A.3 Data Processing Pipeline 
+
+Two key processing steps are applied uniformly across all open-source datasets (DL3DV-10K, ScanNet++, and Ego-Exo4D; the Blender data already provides exact metric-scale poses and does not require either step). 
+
+ORB-based overlap filtering. For each candidate image pair, we compute ORB feature descriptors and perform brute-force matching. Pairs with fewer than 10 verified matches are discarded. This filtering removes pairs whose views share negligible visual overlap ( e.g. , due to extreme camera baselines or entirely different rooms), which would otherwise introduce noisy supervision and destabilise training. 
+
+Metric-scale normalisation. Different datasets define camera poses in heterogeneous coordinate systems whose unit lengths do not correspond to physical metres. To unify translation magnitudes across all sources, we leverage Depth Anything 3 Lin et al. [2025a] to predict monocular metric-depth maps for both images in each pair. We then back-project the known camera-relative depth values into 3D point clouds, and compute a least-squares scale factor by aligning the reconstructed point-cloud depths to the predicted metric depths. The resulting factor is used to rescale the translation vector 13 -Translation: right 3.861 m, down 2.619 m, forward 5.412 m                       
+
+> -Rotation: pitch -1.7 °, yaw -26.0 °, roll 15.7 °
+> DL3DV -10K
+> -Translation: right -0.669 m, down 0.446 m, forward 0.290 m
+> -Rotation: pitch 6.6 °, yaw 33.0 °, roll 9.4 °
+> ScanNet ++
+> -Translation: right 0.884 m, down -0.867 m, forward 0.287 m
+> -Rotation: pitch 18.0 °, yaw -19.3 °, roll -18.0 °
+> Blender
+> -Translation: right -0.143 m, down -0.708 m, forward 5.261 m
+> -Rotation: pitch 19.7 °, yaw 176.3 °, roll 0.9 °
+> Ego -Exo4D
+
+Figure A.1: Training data overview. Representative source–target image pairs from the four datasets used to train C AM CRAFT . Each panel shows a pair of images together with the annotated 6-DOF camera transformation (translation in metres; rotation in degrees). The training set spans outdoor architecture ( DL3DV-10K ), indoor rooms ( ScanNet++ ), photorealistic synthetic environments (Blender ), and human-centric multi-view captures ( Ego-Exo4D ), collectively covering a wide range of scene types and camera-motion magnitudes. 
+
+(∆ x, ∆y, ∆z) to metres ; rotations are intrinsically scale-invariant and therefore remain unchanged. This procedure ensures that the model receives geometrically consistent, real-world-scale translation supervision regardless of the original dataset’s coordinate conventions. 
+
+A.4 Training Configuration 
+
+We adopt a bucket-based resolution strategy with a base size of 1024 to accommodate varying aspect ratios of the input images; each image pair is assigned to the resolution bucket that best preserves its native aspect ratio while keeping the total pixel count close to 1024 ×1024 . Each training step uses a global batch size of 2,048 samples. To preserve the base model’s text-to-image (T2I) generation capability and mitigate catastrophic forgetting, we adopt a mixed training strategy: 50% of each batch consists of standard T2I data, while the remaining 50% consists of camera-pose-conditioned editing pairs. This yields an effective batch size of 1,024 editing pairs per step; consequently, 8k steps correspond to approximately one full epoch over the 7.6 M editing pairs. The model is initialised from the pre-trained T2I weights and fine-tuned end-to-end on the mixed data described above. The convergence behaviour under this setting is analysed in Section A.7. 
+
+A.5 Camera Pose Control Benchmark 
+
+To rigorously evaluate the geometric fidelity of C AM CRAFT , we construct a dedicated camera pose control benchmark comprising 168 evaluation pairs that span both in-domain and out-of-domain data sources. Figure A.2 shows representative evaluation pairs. 
+
+Benchmark composition. Evaluation pairs are drawn from four datasets: • DL3DV-10K-VAL (in-domain ) Ling et al. [2024]: A held-out validation split of DL3DV-10K. Samples include both randomly selected pairs and manually curated cases with semantically meaningful viewpoint changes ( e.g. , a side-view to front-view transition of the main subject). • ETH3D (out-of-domain ) Schöps et al. [2017]: Outdoor multi-view stereo scenes featuring architec-tural structures and building façades. • MVImgNet2 (out-of-domain ) Han et al. [2024]: Object-centric multi-view captures with moderate camera motions around everyday objects. 14 -Translation: right -5.362 m, down -0.686 m, forward 5.339 m                       
+
+> -Rotation: pitch 6.7 °, yaw 94. 3°, roll 4.3 °
+> DL3DV -10K -VAL
+> -Translation: right 0.921 m, down 0.131 m, forward 1.321 m
+> -Rotation: pitch -1.5 °, yaw -44.7 °, roll 3.4 °
+> ETH3D
+> -Translation: right -1.105 m, down 0.062 m, forward 0.883 m
+> -Rotation: pitch -2. 5°, yaw 82.9 °, roll -6. 2°
+> MVImgNet2
+> -Translation: right -0.563 m, down -0.362 m, forward 3.135 m
+> -Rotation: pitch -7.0 °, yaw -3.7 °, roll -0.3 °
+> RealEstate10K
+
+Figure A.2: Camera pose control evaluation benchmark. Representative source–target pairs from the four evaluation datasets with annotated 6-DOF transformations. DL3DV-10K-VAL serves as an in-domain test set (including manually curated challenging viewpoint transitions), while ETH3D ,
+
+MVImgNet2 , and RealEstate10K provide out-of-domain evaluation across diverse scene types and camera-motion patterns. • RealEstate10K (out-of-domain ) Zhou et al. [2018]: Indoor real-estate video frames exhibiting forward-facing motions and room-scale translations. 
+
+A.6 Evaluation Metrics 
+
+We employ Gemini-3-Pro as an automated judge and assess each generated view along three complementary dimensions, each scored on a 1–5 Likert scale: 1. Instruction Compliance (IC) : measures whether the generated image achieves the same camera viewpoint as the ground-truth target. The evaluator receives the ground-truth target view and the generated view, and compares camera position, orientation, viewing angle, and the set of visible scene regions, while explicitly ignoring rendering style or image-quality differences. 2. Consistency with Original (CO) : assesses whether objects and background elements present in the source image are faithfully preserved in the generated novel view. The evaluator receives all three images (source, ground-truth target, and generated view), and checks each identifiable element for identity, appearance, and spatial arrangement consistency. 3. Rationality of New Content (RN) : evaluates the plausibility of newly visible regions that the model must hallucinate ( e.g. , previously occluded surfaces or out-of-frame areas). The evaluator judges whether the synthesized content exhibits coherent geometry, consistent materials and lighting, and seamless integration with the existing scene, using the ground-truth target as reference. 
+
+A.7 Training Convergence Analysis 
+
+Table A.1 reports evaluation scores at three training checkpoints, all fine-tuned from the same pre-trained T2I weights. Key observations: • The 16k-step checkpoint achieves the highest overall score (2.773), with notably stronger Consis-tency with Original and Rationality of New Content than either the earlier or later checkpoints, suggesting that two epochs strike the best balance between learning geometric control and retaining generation quality. • Extending training to 24k steps ( ∼3 epochs) leads to a clear drop in all three metrics compared with the 8k checkpoint, suggesting overfitting to the training distribution and degradation of generation diversity. 15 Table A.1: Training convergence analysis for C AM CRAFT . We evaluate checkpoints at different training steps on our camera pose control benchmark (Section A.5). All models are fine-tuned from the pre-trained T2I weights. IC : Instruction Compliance; CO : Consistency with Original; RN :Rationality of New Content. All metrics are on a 1–5 scale ( ↑ higher is better). Best results are 
+
+bolded .                    
+
+> Checkpoint IC ↑CO ↑RN ↑Avg ↑
+> 8k steps ( ∼1 epoch) 2.964 2.637 2.458 2.687 16k steps ( ∼2 epochs) 2.941 2.696 2.683 2.773
+> 24k steps ( ∼3 epochs) 2.954 2.611 2.313 2.626
+
+• Instruction Compliance remains relatively stable across all checkpoints ( ∼2.94–2.96), indicating that the model learns coarse viewpoint control early in training; the main gains from continued training manifest in finer-grained scene consistency and content plausibility. Based on these results, we select the 16k-step checkpoint as the final C AM CRAFT model used throughout all experiments in the main paper. 
+
+B Capability Threshold Analysis 
+
+Table B.1: Performance of Q WEN 3-VL-8B under our image-based paradigm. Unlike the four stronger backbones evaluated in the main paper, Q WEN 3-VL-8B shows an overall accuracy decrease 
+
+after augmentation, suggesting the existence of a capability threshold. Values are accuracies (%).                
+
+> Variant Orientation Location Size Multi-Object Avg
+> Baseline 43.1 64.8 80.0 56.9 56.5
+> GEN_AUG 46.7 59.1 53.3 50.3 52.2
+
+In the main paper (Section 4.2), we demonstrate that our image-based paradigm consistently improves all four evaluated understanding backbones, with the gain magnitude inversely correlated with baseline strength. A natural follow-up question is whether this trend extrapolates to even weaker models. To investigate, we additionally evaluate Q WEN 3-VL-8B under the identical generation and prompting protocol. Table B.1 reports the per-category and overall results. In contrast to the consistent gains observed for the four stronger models, Q WEN 3-VL-8B exhibits an overall accuracy drop of 4.3 pp after augmentation (56.5% → 52.2%). While Orientation improves slightly (+3.6 pp), Location, Size, and Multi-Object all degrade, with Size suffering the largest decline (−26.7 pp). To diagnose this anomalous behaviour, we analyse the failure-type distribution and compare it with that of a stronger model (GPT-5). For Q WEN 3-VL-8B, the errors consist of 40.06% Wrong Instruction (133 cases), 42.47% Bad Generation (141 cases), and 17.47% VL Failure (58 cases), whereas the corresponding ratios for GPT-5 are 24.88% (54), 60.83% (132), and 14.29% (31), respectively. Notably, Q WEN 3-VL-8B exhibits a substantially higher fraction of Wrong Instruction 
+
+errors than GPT-5, indicating that a large portion of its failures arise from misinterpreting task requirements or failing to follow the intended instruction rather than from missing visual evidence. This finding suggests the existence of a capability threshold : the model must possess a basic level of task understanding (such as correctly parsing and executing the 3D-oriented instruction) before it can effectively benefit from the additional visual cues provided by novel-view synthesis. When instruction-following itself becomes the dominant failure mode, image-based augmentation provides limited headroom and may even amplify misaligned reasoning, explaining the negative overall effect observed for Q WEN 3-VL-8B. This analysis motivates the choice of the four backbones reported in the main paper and provides a practical guideline for practitioners: our paradigm is broadly beneficial across a wide capacity range, but the understanding backbone should meet a minimum instruction-following competence for the augmentation to take effect. 
+
+C Additional Qualitative Results 
+
+16 Input Image GPT -Image -1CamCraft Nano Banana Pro Qwen -Image -Edit        
+
+> Q: Is the traffic light directly above the umbrella?
+> Options: A: Yes, B: No (Answer: B)
+> Edit instruction: -Translation: right 1.500 m, down 0.000 m, forward 0.000 m
+> -Rotation: pitch 0.0 °, yaw -20.0 °, roll 0.0 °
+
+Figure C.1: Qualitative comparison of novel-view synthesis across different generation models. 
+
+Given an input image and a camera transformation (right 1.5 m, yaw −20 ◦), we compare the outputs of C AM CRAFT (ours), GPT-Image-1, Nano Banana Pro, and Qwen-Image-Edit. While the competing models largely fail to faithfully follow the specified camera movement, producing outputs with incorrect viewpoint shifts, C AM CRAFT accurately realizes the target transformation and preserves the original 3D spatial relationships. (a) Orientation 
+
+Original Generated 
+
+Q: If I stand at the smiling woman's position 
+
+facing where it is facing, is the coffee mug next 
+
+to the window in front of me or behind me? 
+
+A: in front of | B: behind 
+
+GT : B (behind) 
+
+Pred : B ✅
+
+(b) Location 
+
+Original Generated 
+
+Q: Consider the real -world 3D locations of the 
+
+objects. Which object has a higher location? 
+
+A: man in grey suit | B: traffic light 
+
+GT : B (traffic light) 
+
+Pred : B ✅
+
+(c) Size 
+
+Original Generated 
+
+Q: Which cup is taller? 
+
+A: They are the same size. | B: The cup in the 
+
+front is taller. | C: The cup in the back is taller. 
+
+GT : C (The cup in the back is taller) 
+
+Pred : C ✅
+
+(d) Multi Object 
+
+Original Generated 
+
+Q: Consider the real -world 3D locations of the 
+
+objects. Which is closer to the laptop, the cat or 
+
+the wood chair with book? 
+
+A: cat | B: wood chair with book 
+
+GT : A (cat) 
+
+Pred : A ✅
+
+Figure C.2: Qualitative examples of C AM CRAFT -generated novel-view images across four evaluation categories. For each category, namely (a) Location, (b) Orientation, (c) Size, and (d) Multi-Object, we show the original image (left) and the novel-view image synthesized by C AM CRAFT 
+
+(right) given non-trivial camera transformations (e.g., yaw up to 45 ◦, translation up to 1.8 m). Despite the significant viewpoint changes, C AM CRAFT consistently generates geometrically coherent images that preserve the underlying 3D spatial relationships. We verify this by querying Gemini-3-Flash on the synthesized views: the model correctly answers the corresponding spatial reasoning question in all four cases, confirming that C AM CRAFT faithfully maintains the 3D cues required by each task type. 17

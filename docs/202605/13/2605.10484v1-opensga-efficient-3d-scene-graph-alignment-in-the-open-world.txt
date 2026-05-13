@@ -1,0 +1,827 @@
+Title: OpenSGA: Efficient 3D Scene Graph Alignment in the Open World
+
+URL Source: https://arxiv.org/pdf/2605.10484v1
+
+Published Time: Tue, 12 May 2026 03:22:23 GMT
+
+Number of Pages: 22
+
+Markdown Content:
+# OpenSGA: Efficient 3D Scene Graph Alignment in the Open World 
+
+> Journal Title XX(X):1–22 ©The Author(s) 2026 Reprints and permission: sagepub.co.uk/journalsPermissions.nav DOI: 10.1177/ToBeAssigned www.sagepub.com/
+
+SAGE 
+
+## Gang Chen 1, Sebasti ´ an Barbas Laina 2, Stefan Leutenegger 3, and Javier Alonso-Mora 1
+
+Abstract 
+
+Scene graph alignment establishes object correspondences between two 3D scene graphs constructed from partially overlapping observations. This enables efficient scene understanding and object-level relocalization when a robot revisits a place, as well as global map fusion across multiple agents. Such capabilities are essential for robots that require long-term memory for long-horizon tasks involving interactions with the environment. Existing approaches mainly focus on subscan-to-subscan (S2S) alignment and depend heavily on geometric point-cloud features, leaving frame-to-scan (F2S) alignment and open-set vision–language features underexplored. In addition, existing datasets for scene graph alignment remain small-scale with limited object diversity, constraining systematic training and evaluation. We present a unified and efficient scene graph alignment framework that predicts object correspondences by fusing vision–language, textual, and geometric features with spatial context. The framework comprises modules such as a distance-gated spatial attention encoder, a minimum-cost-flow-based allocator, and a global scene embedding generator to achieve accurate alignment even under large coordinate discrepancies. We further introduce ScanNet-SG, a large-scale dataset generated via an automated annotation pipeline with over 700k samples, covering 509 object categories from ScanNet labels and over 3k categories from GPT-4o-based tagging. Experiments show that our method achieves the best overall performance on both F2S and S2S tasks, substantially outperforming existing scene graph alignment methods. Our code and dataset are released at: https://autonomousrobots.nl/paper_ websites/opensga .
+
+Keywords 
+
+3D Scene Graph, Graph Alignment, Environment Representation 
+
+## 1 Introduction 
+
+3D scene graphs (Armeni et al. (2019)) are emerging as a powerful representation for embodied agents operating in open-world environments, as they provide a compact and scalable abstraction that integrates semantic, geometric, and spatial information about objects. A typical 3D scene graph models the environment as nodes corresponding to objects and edges encoding relationships between them. This structured representation has demonstrated increasing value across a wide range of robotics tasks, including open-world navigation (Liu et al. (2025c); Dai et al. (2024); Devarakonda et al. (2024); Tang et al. (2025)), mobile manipulation (Gu et al. (2024); Honerkamp et al. (2024); Rana et al. (2023)), simultaneous localization and mapping (SLAM) (Bavle et al. (2023); Peterson et al. (2025); Liu et al. (2025a)), and high-level scene understanding and reasoning (Ge et al. (2024); Gorlo et al. (2024)). In many of these applications, robots must continuously integrate observations across time and across agents by revisiting previously observed places and maintaining a consistent object-level representation. This requires identifying shared objects across scene graphs of the same environment despite viewpoint changes and partial overlap, which is formalized as the scene graph alignment problem (Sarkar et al. (2023)) and remains challenging due to viewpoint-dependent appearance variation, partial observations, and the diverse set of objects encountered in real-world environments. In practice, scene graph alignment arises in two complementary settings: frame-to-scan (F2S) alignment, which aligns a partial observation (e.g., a single RGB-D frame) to a global scan-level scene graph under limited visible context, and subscan-to-subscan (S2S) alignment, which aligns two partial reconstructions (e.g., subscans / submaps) captured from different viewpoints, time periods, or agents. F2S is particularly useful for scene understanding and object relocalization when a robot revisits a place or resumes operation after charging or recovery, and must quickly align a partial observation to its global map. S2S is particularly useful for global map fusion, allowing a single robot or multiple agents to align and merge independently built submaps. Some recent works (Sarkar et al. (2023); Xie et al. (2024); Liu et al. (2025a); Singh et al. (2025)) have                       
+
+> 1Autonomous Multi-Robots Lab, Department of Cognitive Robotics, School of Mechanical Engineering, Delft University of Technology, 2628 CD, Delft, Netherlands
+> 2Mobile Robotics Lab, School of Computation, Information and Technology, Technical University of Munich
+> 3Mobile Robotics Lab, Department of Mechanical and Process Engineering, ETH Z ¨ urich
+> Corresponding author:
+> Gang Chen, g.chen-5@tudelft.nl
+> Prepared using sagej.cls [Version: 2017/01/17 v1.20]
+> arXiv:2605.10484v1 [cs.CV] 11 May 2026
+
+2 Journal Title XX(X) A Frame-to-Scan Alignment          
+
+> BSubscan-to-Subscan Alignment
+> Scene0000_01 Frame 1133 Scene0000_00 SG of Scan SG of a Frame Node (unmatched) Node (matched) Correct Correspondence Wrong Correspondence SG Edges
+> 264_1029 from Scene0000_00 Subscan 459_1207 from Scene0000_01 Subscan
+> Figure 1. A visualization of the F2S (A) and S2S (B) alignment tasks in our ScanNet-SG dataset. Correspondences are predicted by our released high-performance model, and correct correspondences are illustrated with green lines. SG denotes scene graph. In (A), the scene graph of Frame 1133 in
+
+Scene0000 01 is shown on the left, while the scene graph of the full scan ( Scene0000 00 ) of the same scene is shown on the right. In (B), two subscans constructed from the same scene with an overlap ratio of 0.87 are presented. 
+
+started to formalize this problem, demonstrating scene graph alignment as a key primitive for single or multiple robot mapping and navigation. However, these works remain limited in task coverage, matching strategies, and dataset scale, which constrains systematic evaluation in robotics settings. (1) Tasks : Although existing methods have been proposed for the S2S alignment, the F2S alignment setting is still underexplored. SceneGraphLoc (Miao et al. (2024)) introduces a cross-modal localization method for the F2S task, but focuses on room-level coarse localization rather than object-level node alignment. (2) Matching methods : Most approaches rely heavily on geometric registration cues from point clouds, which are unreliable under partial observations due to sparse overlap and viewpoint-dependent occlusions. Although some methods incorporate semantic embeddings (Liu et al. (2025a); Singh et al. (2025)), the potential of modern vision–language models (VLMs) derived open-set object features remains underexplored for robust scene graph alignment. (3) Datasets : Current datasets do not provide large-scale, diverse open-set object alignment data. For instance, SGAligner (Sarkar et al. (2023)) constructs a benchmark with 17k samples on 3D SSG (Wald et al. (2020)), but the label space remains limited to 160 classes. In contrast, SG-Reg (Liu et al. (2025a)) includes a broader open-set vocabulary but releases only 100 alignment samples. These limitations motivate a new large-scale dataset and learning-based alignment framework that support open-world objects under partial and cross-view overlap in both S2S and F2S settings. In this work, we propose an efficient scene graph alignment framework that fuses VLM features from GroundingDINO (Liu et al. (2024)), BERT features (Reimers and Gurevych (2019)), and 3D bounding box features with spatial context to predict correspondences between two scene graphs. The framework incorporates a distance-gated spatial attention (DGSA) encoder for contextual feature fusion, a matching score predictor with lightweight and high-performance variants, and a minimum-cost-flow (MCF)–based allocator for many-to-one matching. A learnable class embedding is further introduced to facilitate scalable alignment in big multi-scene environments. To enable large-scale training and evaluation, we also develop an automated annotation pipeline that generates open-set 3D scene graphs from RGB-D images and poses by integrating foundation models with point cloud processing tools. Applying this pipeline to ScanNet (Dai et al. (2017)), we construct a dataset supporting both F2S and S2S alignment tasks, in which each object node is enriched with multimodal attributes. Figure 1 presents the dataset and representative F2S and S2S alignment results generated by the high-performance variant of our model. Our main contributions include: • We introduce an end-to-end 3D scene graph alignment framework for object-level correspondence prediction, enabling robust alignment under partial observations and viewpoint changes. Compared with baseline methods, our approach improves accuracy by 6.4%–13.7% and F1 score by 4.1%–11.2% in different test groups. Relative to the state-of-the-art method that also requires training, our framework reduces both training and inference time by at least 60% while maintaining superior performance. • We propose a distance-gated spatial attention encoder to capture node context under large coordinate discrepancies, an MCF-based allocator for many-to-one association, and a global embedding module for efficient matching across multi-scene environments. Together, these components improve alignment accuracy on both F2S and S2S tasks. • We develop an automated annotation pipeline for constructing 3D scene graphs enriched with textual and VLM features. Building on this pipeline, we introduce ScanNet-SG, a large-scale dataset and benchmark that supports both F2S and S2S alignment tasks in indoor environments. ScanNet-SG contains over 700k annotated alignment samples, making it approximately 45× larger than existing datasets, and covers more than 500 object classes in the SG-509 subset and 3k classes in the SG-GPT subset, representing 3× and 18× increases in category diversity, respectively. We also tested using the predicted correspondences to support downstream point cloud registration, demonstrating their practical utility for registering point clouds with low overlap ratios. We release both lightweight and high-performance models of our method to support different efficiency–accuracy trade-offs.   
+
+> Prepared using sagej.cls Chen et al. 3
+
+## 2 Related Works 
+
+## 2.1 3D Scene Graph 
+
+In recent years, 3D scene graphs have emerged as a tool for environment representation, encoding perceptually relevant elements in a graph, where nodes correspond to objects or regions, and edges encode relationships such as spatial or semantic interactions (Armeni et al. (2019)). Each node is often associated with rich semantic and geometric attributes, such as semantic labels, text embeddings, point clouds, 3D bounding boxes, and other node-level properties. As a compact and scalable environment representation (Gu et al. (2025); Hughes et al. (2024)), 3D scene graphs have recently gained significant attention in robotics. They have been used for open-world navigation and mobile manipulation (Gu et al. (2024); Honerkamp et al. (2024); Rana et al. (2023); Liu et al. (2025c); Dai et al. (2024); Devarakonda et al. (2024); Tang et al. (2025); Chen et al. (2025)), as well as to improve the accuracy of SLAM (Bavle et al. (2023); Peterson et al. (2025)), infer the location of unseen objects (Ge et al. (2024)), perform visual relocalization (Oliveira et al. (2025)), predict long-term human trajectories (Gorlo et al. (2024)), and support scene generation (Liu et al. (2025b)). These applications highlight the versatility of 3D scene graphs as a unified high-level representation for perception, decision-making, and planning. Hydra (Hughes et al. (2022, 2024)) enables real-time hierarchical scene graph construction from RGB-D data by integrating SLAM, object detection, and geometric verification, while Hydra-Multi (Chang et al. (2023)) extends this capability to collaborative multi-robot mapping through hierarchical graph fusion. With the emergence of foundation models, such as VLMs (Liu et al. (2024); Radford et al. (2021); OpenAI (2024)) and segmentation models such as Segment Anything (Kirillov et al. (2023); Zhao et al. (2023)), recent works have explored building open-world 3D scene graphs that support open-set object categories (Koch et al. (2024); Chen et al. (2024); Maggio et al. (2024); Zhang et al. (2025); Wu et al. (2023); Strader et al. (2024); Olivastri et al. (2024); Liu et al. (2025a)). These methods typically use SLAM for localization and dense geometric reconstruction, while VLMs and segmentation models are used to detect object instances, associate geometric points with each node, and infer spatial or semantic relationships between nearby nodes to construct graph edges. We do not focus on real-time scene graph construction. Instead, we propose an offline pipeline to build scene graphs for generating training and evaluation data for scene graph alignment. Our primary focus is on the scene graph alignment described in the following sections. 
+
+## 2.2 Scene Graph Alignment 
+
+Scene graph alignment aims to establish correspondences between nodes in two scene graphs that represent partially overlapping observations of the same environment (Sarkar et al. (2023)). Unlike geometric registration, which focuses on estimating spatial transformations, scene graph alignment operates at the object level by matching nodes based on semantic, geometric, and relational attributes. Accurate alignment is critical for robotics applications, such as localization (Bavle et al. (2023); Peterson et al. (2025)) or relocalization (Oliveira et al. (2025)), long-term or multi-gent mapping (Liu et al. (2025a)), and downstream point cloud registration (Sarkar et al. (2023); Xie et al. (2024)), where reliable object correspondence matters. SGAligner (Sarkar et al. (2023)) first formalized scene graph alignment by encoding object point clouds as node features and uses graph attention networks to aggregate spatial and structural context from neighboring nodes, followed by contrastive learning to predict correspondences. SG-PGM (Xie et al. (2024)) further improves alignment by fusing the semantic point clouds through joint node-level and fragment-level encoders, enabling more robust matching under partial overlap. More recent works incorporate additional modalities to improve robustness and generalization. SG-Reg (Liu et al. (2025a)) integrates point cloud feature, Bert embedding of the object label, and bounding box features for efficient and generalizable alignment, while SGAligner++ (Singh et al. (2025)) further incorporates CAD features, constructing unified scene graphs that preserve structural relationships across observations. In addition to learned matching methods, ROMAN (Peterson et al. (2025)) performs zero-shot scene graph alignment by leveraging CLIP (Radford et al. (2021)) embeddings, PCA-based geometric features extracted from object point clouds, and a unified graph-theoretic global data association framework. Despite these advances, most existing scene graph alignment methods rely predominantly on geometric features derived from object point clouds, which are sensitive to incomplete observations and sparse overlap. While VLM features have been exploited in zero-shot approaches such as ROMAN (Peterson et al. (2025)), their incorporation into trainable matching architectures remains largely underexplored. Furthermore, prior works have primarily focused on the S2S alignment task, where both scene graphs typically have comparable spatial coverage. The F2S alignment task, in which one graph represents only a small partial observation of another much larger scene graph, remains insufficiently studied. In this work, we address both the F2S and S2S alignment tasks within a unified framework, evaluated on different subsets of the proposed dataset. 
+
+## 2.3 Dataset 
+
+Several datasets with 3D scene graph annotations have been proposed in recent years, such as 3D SSG (Wald et al. (2020)), SG-FRONT (Ge et al. (2024)), VLA-3D (Zhang et al. (2024a)), and SG3D (Zhang et al. (2024b)). These datasets construct scene graphs on top of semantically annotated point cloud scans for navigation and mobile manipulation tasks. However, they do not contain scene graph pairs constructed from partially overlapping observations of the same environment, and thus do not support the scene graph alignment task. Few datasets explicitly supporting 3D scene graph align-ment have been proposed. Building upon the scene graph annotations of 3DSSG, SGAligner (Sarkar et al. (2023)) introduces a dataset for aligning partially overlapping 3D scene graphs. In this dataset, subscans are generated from globally aligned scans in 3RScan (Wald et al. (2019)) with controlled overlap ratios. Each subscan is converted into a sub-scene graph, and nodes within overlapping regions are   
+
+> Prepared using sagej.cls 4Journal Title XX(X)
+
+treated as ground-truth correspondences. The dataset con-tains approximately 15.1k training pairs and 1.9k validation pairs, covering around 160 object classes. Later, SG-Reg (Liu et al. (2025a)) proposed a smaller dataset of approxi-mately 4k samples tailored specifically for S2S alignment. Although both SGAligner and SG-Reg provide object-level point clouds and semantic labels, they do not include vision–language features, which we identify as a critical cue for robust open-world scene graph matching. Moreover, these datasets focus exclusively on S2S alignment. The F2S setting, where a partial observation must be matched to a larger global map, remains unexplored. In contrast, our dataset is substantially larger, covering over 500 and 3k object classes across different groups and containing more than 700k samples. It additionally incorporates GroundingDino (Liu et al. (2024)) vision–language features for each node and supports both S2S alignment and F2S matching, enabling evaluation in more diverse open-world scenarios. 
+
+## 3 Problem Definition 
+
+OpenSGA is mainly targeted to solve the open-world 3D semantic scene graph alignment problem. A 3D scene graph is denoted as G = {V , E} , where V is a set of nodes that represent real objects in the environment and E is a set of edges that connect the nodes. (a) Nodes : Each node vi ∈ V corresponds to a real-world object and contains multimodal attributes, such as visual– language features f vl , text embedding f t, and a geometric feature f g. Let xi ∈ R3 denote the object’s 3D position. The node representation is then 
+
+vi = [ xi, f vl ,i , f t,i , f g,i ], (1) where f g,i in our method is the size of the object’s 3D oriented bounding box, while point-based geometric descriptors used in prior works (Liu et al. (2025a); Xie et al. (2024)) are included only for comparison. The text embeddings f t and the vision–language features f vl are obtained by encoding the label text with SBERT (Reimers and Gurevych (2019)) and by extracting the hidden-layer representation of GroundingDINO (Liu et al. (2024)) during object detection, respectively. Details of these features are provided in Section 5. (b) Edges : An undirected edge eij ∈ E connects nodes vi
+
+and vj and stores their Euclidean distance, 
+
+dij = ∥xi − xj ∥. (2) To avoid fully connected graphs, we connect only the N
+
+nearest neighbors for each node. (c) Alignment Problem : Given two partially overlapped 3D scene graphs GA and GB captured from the same environment, the goal is to find the correct node correspondences 
+
+MAB = {(vAi , vBj ) | vAi ∈ G A, vBj ∈ G B }. (3) Only nodes that physically correspond to the same real object should be matched. Note some nodes have no matches because the graphs are often built from different views and may cover different areas of the scene. In practical robotic navigation scenarios, we assume that GA and GB originate from different sources in the two tasks described in Section 1. In the F2S task, GA
+
+is constructed from the current observation, while GB is derived from a more complete map accumulated from previous observations. The node positions in GB are represented in the global reference frame of the previously built map. In contrast, the node positions in GA are defined in the current camera frame, whose pose may be arbitrary and unrelated to the global reference frame of 
+
+GB . This design decouples object alignment from ego-pose estimation, ensuring that correspondences are established based on object features and spatial relationships rather than similarities in global poses. In the S2S task, both GA
+
+and GB are constructed from sequences of images that capture the same scene with partial overlap. These graphs represent submaps generated either by multiple robots or by a single robot at different times. We assume a static environment for both tasks. Since both tasks are inherently node-level alignment problems, we address them using a unified network architecture. The similarities and differences of the two tasks will be further discussed in Section 5. 
+
+## 4 Scene Graph Alignment 
+
+In this section, we first present our network designed for F2S and S2S alignment in 4.1. We assume that the graphs to align have been built and represented as GA and GB
+
+(specifications of how the scene graphs are built can be found later in Section 5.1). As a large-scale environment can contain multiple scenes to align with, we introduce a global graph retrieval module that computes discriminative graph-level embeddings in 4.2. The loss functions used in training are presented in 4.3. 
+
+## 4.1 Alignment Network 
+
+Our alignment network is designed to find the match MAB 
+
+given input 3D scene graphs GA and GB . The architecture of the network is shown in Fig. 2. We divide our network into three parts: encoder, matcher and allocator. Each part is introduced in detail in the following:  
+
+> Encoder
+
+The encoder aims to generate a feature vector that encodes the essential characteristics of each node as well as its surrounding neighborhood under open-world variations. The encoders for GA and GB share the same structure and weights. For clarity, we omit the superscripts A and B in the following description. The text embeddings f t and the vision–language features 
+
+f vl are already high-dimensional embeddings produced by pre-trained models (Reimers and Gurevych (2019); Liu et al. (2024)). In contrast, the geometric descriptor f g
+
+is a normalized 3D vector representing the size of the object’s oriented bounding box. We first encode f g using a feed-forward network (FFN) with one hidden layer to obtain a higher-dimensional embedding. By concatenating this embedding with f vl and f t, we obtain the initial node feature vector, illustrated as a three-block stacked column in the encoder portion of Fig. 2 and denoted as ci hereafter. While this initial embedding captures only the intrinsic properties of a node (center node), it does not incorporate  
+
+> Prepared using sagej.cls
+
+Chen et al. 5Input Input Allocator Output Matcher      
+
+> 1) Eff Matcher 2) Lightglue 3D
+> FFN Center Nbrs
+> Center →Nbr attention Nbr →Nbr attention
+> Encoder
+> Encoder
+> Shared structure & weights
+> FFN
+> L layers Global Embedding
+> Self attention
+> Figure 2. The system architecture of our 3D scene graph alignment network. From left to right: input scene graphs, alignment network composed of encoder, matcher and allocator, output matching result. Each node is composed of 3D position
+
+x, visual language feature f vl , text feature f t and geometry feature f g . The green lines in the output block illustrate the matched nodes. “Nbr” is the abbreviation of “neighbor”. The global embedding module is connected with white arrows, as it is used only in large environments containing multiple scenes. 
+
+any context or neighborhood information. Prior works have demonstrated that local context is critical for accurate scene graph alignment (Sarkar et al. (2023); Liu et al. (2025a); Xie et al. (2024)). However, it is still nontrivial to get a good embedding since it needs to be inherently translation and rotation invariant to ensure consistent representations even when the two input graphs GA and GB are defined in very different coordinate frames. The current state-of-the-art, Triplet-boosted Graph Neural Network (T-GNN) (Xie et al. (2024)), addresses this issue by constructing triplet features that incorporate the edge length and angle of two randomly selected neighbor nodes and the center node. However, T-GNN introduces two key limitations: (i) it enforces only yaw-rotation invariance, while pitch and roll invariance are not supported since the method relies on defining an anti-clockwise ordering of neighbors for constructing triplet features; (ii) at least two neighbor nodes are required to make a Triplet thus for a frame with only one neighbor node, the neighbor information, which is still useful, is skipped. Our method begins by leveraging the inherent global rigidity of local 3D scene graphs. Under the assumption that each node has at least three neighbors in non-coplanar positions, the center node and its neighbors form a globally rigid subgraph, whose structure is uniquely determined by the set of pairwise distances between nodes. Therefore, the geometric layout of the objects can be fully described using only the distances, which naturally yields translation- and rotation-invariant representations. Building upon this insight, our method encodes neighborhood geometry exclusively through center-to-neighbor distances and neighbor-to-neighbor distances. Specifically, we make two distance-gated attention blocks: (a) Center to neighbor attention : For each center node vi,we first calculate the distance dij to each neighbor node vj .The distance is encoded by a sinusoidal positional encoder described in (Vaswani et al. (2017)). Let PE (dij ), i̸ =
+
+j denote the encoded distance embedding. The neighbor feature of vj is defined as 
+
+hij = ( PE (dij ) ∥ cj ) (4) We then compute the attention from the center node to its neighbors by: 
+
+qi = W qci, kij = W khij , vij = W vhij (5) 
+
+αraw ij = q⊤ 
+
+> i
+
+kij 
+
+√dh
+
+(6) where qi, kij and vij are the query, key and value while 
+
+W q, W k and W v are the corresponding learnable weight matrices. dh is the dimensionality of each attention head. 
+
+αraw ij is the calculated raw attention score and is further gated by: 
+
+αij = g( dij ) · αraw ij , (7) where g( dij ) denotes the distance gate function implemented by a lightweight gating network. The network consists of a two-layer MLP followed by a sigmoid activation, producing a scalar value in (0 , 1) . This distance gate explicitly adds geometric prior into the attention to enforce biased attention based on distance, e.g., close neighbors should get more attention. Then the attention weight is normalized with softmax and the output o(c →n)  
+
+> i
+
+is calculated with 
+
+o(c →n)  
+
+> i
+
+= X 
+
+> j∈N (i)
+
+softmax j (αij )vij . (8) where the superscript (c → n) stands for center to neighbors and N (i) is the neighbor ID set of the ith node. (b) Neighbor to neighbor attention : The neighbor to neighbor attention of the ith node works similarly as the center to neighbor attention and can be formulated as the following: 
+
+qij = W ′
+
+> q
+
+hij , kik = W ′
+
+> k
+
+hik , vik = W ′
+
+> v
+
+hik , (9) 
+
+βjk = g( djk ) q⊤ 
+
+> ij
+
+kik 
+
+√dh
+
+, (10) 
+
+o(n →n)  
+
+> i
+
+= 1
+
+|N (i)|
+
+X  
+
+> j,k ∈N (i),j ̸=k
+
+softmax k(βjk )vik . (11) where i̸ = j̸ = k and W ′
+
+> q
+
+, W ′ 
+
+> k
+
+and W ′ 
+
+> v
+
+are learnable weight matrices. The output o(n →n)  
+
+> i
+
+in (11) is the average pooling over all neighbors.  
+
+> Prepared using sagej.cls
+
+6 Journal Title XX(X) 
+
+Note the computational complexity of center to neighbor attention is O(N ) while that of neighbor to neighbor attention is O(N 2). In practice, we set the maximum neighbor number N = 4 to ensure efficiency. After o(c →n)  
+
+> i
+
+and o(n →n)  
+
+> i
+
+are computed, we get the combined neighbor feature embedding using residual (He et al. (2016)) and LayerNorm (Ba et al. (2016)) as follows: 
+
+˜ci = LayerNorm 
+
+
+
+ci + W o(o(c →n)  
+
+> i
+
++ o(n →n)  
+
+> i
+
+)
+
+
+
+(12) where W o stands for the weight of a single MLP layer. The final node representation for alignment is obtained by concatenating ˜ci and ci. The concatenated feature is then passed through a projection feed-forward network (FFN) to match the input dimensionality required by the matcher. When the number of neighbors is fewer than three, the local 3D scene graph composed of the ego node and its neighbors is no longer globally rigid. Nevertheless, the distance-gated attention still serves as an effective cue for modeling neighborhood relationships, and our method performs well in practice. 
+
+Matcher Given the encoded node sets from GA and GB ,this module predicts matching scores, i.e., the pairwise similarities between nodes in GA and GB . For simplicity, we refer to this matching score prediction module as the matcher in the following sections. Our framework provides two variants of the matcher. The first is a lightweight cosine-similarity-based matcher. It computes pairwise similarities using normalized dot products. To handle unmatched nodes, we incorporate a learnable “dustbin” row and column that provide the model with an explicit option for non-matches. The second variant adapts LightGlue (Lindenberger et al. (2023)), a popular and efficient 2D visual keypoint matching network, to the 3D setting in order to estimate similarity scores. Specifically, we extend keypoints to 3D, apply 3D coordinate normalization, and lift the positional encoding to 3D accordingly. The input feature dimension is also adjusted to be compatible with our model. The adapted version is referred to as LightGlue3D in Fig. 2. Compared to the first matcher, LightGlue3D achieves a higher performance but requires more GPU memory as well as longer training and inference time. 
+
+Allocator Our matcher outputs a similarity score matrix. Let I and J denote the number of nodes in GA and GB ,respectively. Suppose P ∈ [0 , 1] I×J is the similarity score matrix. Once P ∈ [0 , 1] I×J is predicted, the final matching result MAB needs to be allocated. Note this step is not included in training but uses the algorithm described in the following. One commonly used allocation strategy is mutual nearest neighbor (MNN), which we adopt as one of the allocation algorithms in our framework. However, MNN only supports one-to-one matching. In practice, under-segmentation occasionally occurs (3–5% of nodes in our dataset). For example, two spatially adjacent sofas or connected cabinets may be segmented as a single instance in some frames and ultimately merged into one object in the map, while in the current frame, they can be segmented as two separate instances. As a result, multiple instances in the frame may correspond to the same object in the map. We further illustrate this issue in Fig. 5. Therefore, the matching can be many-to-one rather than strictly one-to-one. To address this, we formulate the matching problem as an iterative minimum-cost flow (MCF) problem and introduce a geometric penalty to encourage shape consistency between 
+
+GA and GB .We define a virtual source node s and a sink node t and construct the flow in the following. Each node vAi receives one unit of flow from the source: 
+
+(s → vAi ), cap = 1 , cost = 0 (13) where cap is the capacity. For each pair with similarity above a threshold τ and among the top K candidates in P , we add a candidate matching edge, which is 
+
+(vAi → vBj ), (i, j ) ∈ C , cap = 1 , cost = cij (14) 
+
+C = {(i, j ) | P [i, j ] ≥ τ, j ∈ Top -K(i)} (15) where Top -K(i) denotes the indices of the K largest entries in row i of P . The cost is defined as follows: 
+
+c(t) 
+
+> ij
+
+= − log( P [i, j ]) + λpen (t−1) (i, j ) (16) where (t) represents the current iteration. For a candidate correspondence (i, j ) and a set of previously selected matches M(t−1) = {(k, l )}, we define the geometry penalty as 
+
+pen (t−1) (i, j ) = max 
+
+> (k,l )∈M (t−1)
+
+dAi,k − dBj,l (17) which is, pairwise structural consistency term, penalizing matchings that distort relative distances using the matching result from last iteration. Here, dAi,k denotes the Euclidean distance between nodes i and k in GA, while dBj,l denotes the distance between nodes j and l in GB .Each node in GA may also be left unmatched with a constant cost C unmatched :
+
+(vAi → t), cap = 1 , cost = Cunmatched (18) Nodes in GB have matching capacity more than one: 
+
+(vBj → t), cap = Cap max , cost = 0 (19) allowing at most Cap max matches to be assigned to vBj .Let Fij denote the binary flow variable on the edge 
+
+(vAi → vBj ) for (i, j ) ∈ C . We solve the following discrete optimization problem: 
+
+min 
+
+> F
+
+X
+
+> (i,j )∈C
+
+Fij c(t) 
+
+> ij
+
+(20) s.t. Fij ∈ { 0, 1}, ∀(i, j ) ∈ C (21) 
+
+X
+
+> j:( i,j )∈C
+
+Fij + Fi→t = 1 , ∀i = 1 , . . . , I (22) 
+
+X
+
+> i:( i,j )∈C
+
+Fij ≤ Cap max , ∀j = 1 , . . . , J (23) where (21), (22), and (23) enforce the binary flow, flow conservation, and capacity constraints.  
+
+> Prepared using sagej.cls
+
+Chen et al. 7
+
+The problem is solved by iteratively solving a linear min-cost flow problem with NetworkX (Hagberg et al. (2008)) in CPU and recalculating pen (t−1) (i, j ) until the result has converged or a maximum iteration is reached. Detailed parameter values are provided in Appendix A.3. Note that in our setting, GB is typically constructed from a more complete scan, where spatially adjacent objects with the same semantic label are fused into a single instance, as discussed at the beginning of this subsection. As a result, many-to-one matching can occur in our setting, whereas one-to-many matching does not. Nevertheless, if one-to-many matching were to be considered, the capacity of the edge 
+
+(s → vi) could be increased to a value greater than one. 
+
+## 4.2 Global scene embeddings 
+
+Our alignment network performs node-level matching between two scene graphs. However, in large-scale environments containing multiple scenes, a robot must first identify the most relevant scene corresponding to the current observation before performing detailed node-level matching. Exhaustively matching the current observation against all candidate scenes is computationally inefficient. To address this, we introduce a global graph retrieval module that computes discriminative graph-level embeddings and retrieves the Top-K candidate scenes for subsequent node-level matching. Specifically, we incorporate a learnable class embedding 
+
+cCLS into the encoder. The class token aggregates the graph information via an independent two-layered multi-head self-attention module. This descriptor is then used to query the most relevant scene graphs from a database containing all candidate scenes, thereby enabling a more efficient matching process. To select the Top-K graphs for node-level matching, we first perform database filtering based on the cosine similarity between global descriptors. We then apply a weighted reranking step to the retrieved Top-K candidates, combining global similarity with node-level matching confidence. The reranking score is defined as: 
+
+stq = cq 
+
+> CLS
+> T
+
+ct
+
+> CLS
+
+X
+
+> i,j ∈M
+
+P[i, j ]. (24) In this setting, stq is the similarity between a graph query q
+
+and a target t. The elements i, j ∈ M are the set of matched nodes between graphs and P is the matrix that contains all the scores of the matching elements between the two graphs 
+
+q and t. When doing a matching against a database of graphs, the selected graph to match against is the graph t that yields the highest stq with the query graph q.
+
+## 4.3 Loss function 
+
+For node-level correspondence prediction in 4.1, methods using the cosine-similarity-based efficient matcher (marked with “L” in the results) are trained with the bidirectional InfoNCE loss proposed in CLIP (Radford et al. (2021)). This objective maximizes similarity between matched pairs while minimizing similarity between unmatched pairs, encouraging discriminative embeddings for different objects. Methods using lifted LightGlue (Lindenberger et al. (2023)) as the matcher (marked with “H” in the results) are trained using the negative log-likelihood (NLL) loss implemented in the LightGlue codebase. To train the global scene embedding in 4.2, we rely on a triplet margin contrastive loss with negative hard-mining. Given a processed batch, we select the positive pair and the hardest negative scan, the one that is closest in embedding space to ca
+
+> CLS
+
+. To train our samples, we use the following loss function 
+
+dap = ∥ca 
+
+> CLS
+
+− cp
+
+> CLS
+
+∥2 , dan = ∥ca 
+
+> CLS
+
+− cn
+
+> CLS
+
+∥2 (25) 
+
+Ltriplet = max ( dap − dan + m, 0) (26) where ca 
+
+> CLS
+
+is the global embedding associated to the graph from the image, cp 
+
+> CLS
+
+is the embedding of the associated scan graph and cn 
+
+> CLS
+
+is the embedding of the mined graph. 
+
+## 5 Scene Graph Building and Dataset Construction 
+
+This section first introduces our pipeline used to construct 3D scene graphs with the object features described in Section 3. We apply this pipeline to the ScanNet (Dai et al. (2017)) dataset to build ScanNet-SG, our dataset designed for scene graph alignment in both the F2S and S2S tasks. We then present the dataset construction and grouping strategies for the F2S and S2S tasks, respectively. 
+
+## 5.1 Scene Graph Building 
+
+Our 3D semantic scene graph is constructed from RGB-D images with given camera poses. The overall process consists of five steps: 
+
+1) Image tagging Given an RGB image, we first use either the human annotations provided in ScanNet or an object-tagging model, such as ChatGPT-4o (OpenAI (2024)), to generate labels or textual descriptions of the objects present in the image. 
+
+2) Segmentation and VLM feature extraction The gener-ated text descriptions are provided as prompts to Grounded-SAM (Ren et al. (2024)) to obtain instance-level object masks. At the same time, we acquire Visual–language embeddings f vl by extracting a 256-dimensional embedding vector from the hidden layers of GroundingDINO (Liu et al. (2024)) used within Grounded-SAM. 
+
+3) Text embedding Text embeddings f t are extracted from the object descriptions using SBERT (Reimers and Gurevych (2019)), resulting in 384-dimensional embedding vectors. 
+
+4) Bounding box computation Using the depth image and instance masks, we compute instance-aware point clouds. Oriented 3D bounding boxes are then estimated using PCA-based OBB fitting (Gottschalk et al. (1996); Ericson (2004)). The geometric feature f g corresponds to the normalized size of the bounding box, where normalization is performed with respect to the maximum extent of the entire point cloud. The center of each bounding box is used as the spatial position of the corresponding object. For a 3D scene graph constructed from a single frame, Steps 1)–4) yield the object nodes. Edges are established by computing pairwise distances between nodes and connecting each node to its N nearest neighbors within a distance  
+
+> Prepared using sagej.cls
+
+8 Journal Title XX(X) RGB image Depth image Pose    
+
+> Grounded SAM
+> Image tagging
+> SBert
+> Instance Point cloud PCA OBB Multi frame Agg.
+> Single frame SG Scan / Subscan SG
+> Input 3D Scene Graph labels masks
+> Figure 3. Illustration of our object feature extraction and scene graph construction pipeline. Blue arrows indicate additional steps applied when building scene graphs from multiple frames, such as scans or subscans.
+
+threshold dth . For scene graphs constructed from scans or subscans comprising multiple frames, the following additional step is applied: 
+
+5) Multiview fusion We use instance masks and depth images from multiple views to generate per-instance point clouds. Instances corresponding to the same object are merged based on 3D mIoU and f t similarity. During merging, the visual–language embeddings f vl and text embeddings f t are averaged, while the point clouds from different views are aggregated and downsampled using a voxel grid filter. The bounding box is then recomputed from the merged point cloud to obtain f g. We further present the details of the multiview fusion step in Appendix A.1. The key procedures and data flow is shown in figure 3. In the following, we assume that scene graphs GA and GB
+
+are constructed using the above procedure. In the frame-to-scan node matching task, GA represents a smaller graph built from a single frame, while GB corresponds to a complete scan of the scene. In the subscan-to-subscan node matching task, both GA and GB are constructed from incomplete scans of the same scene and share partial overlap. Our dataset is built upon ScanNet (Dai et al. (2017)), which contains over 1,500 RGB-D scans spanning 807 indoor scenes. Most scenes contain more than one scan captured from different camera trajectories. In the following, we present the subsets for frame-to-scan task and subscan to subscan task, respectively. 
+
+## 5.2 Frame-to-Scan (F2S) Matching 
+
+To support frame-to-scan matching, we generate two groups of frame–scan pairs. The Self Scan group refers to the setting where the frame-level and the scan-level scene graphs originate from the same scan. This setting evaluates whether a robot revisiting a previously observed pose, with access to only a single-frame partial observation, can correctly associate objects with their more complete counterparts in the fused map. Cross Scan Group considers frames sampled from a different scan of the same scene. This setting introduces novel viewpoints and newly appearing and missing regions, thereby reflecting more realistic scenarios. In the original ScanNet dataset, different scans of the same scene are represented in separate global coordinate frames, and object instances are not associated across scans. To enable cross-scan matching, we register the scan-level point clouds from different scans of ScanNet using RANSAC-based global registration followed by ICP refinement (Fischler and Bolles (1981); Besl and McKay (1992)) to estimate the transformation between scans. To ensure estimation quality, we manually inspect all registration results and discard scan pairs with noticeable misalignment. We report the estimation performance in Appendix A.2. Each instance within a scan is assigned a unique identifier in accordance with the labels provided in ScanNet. Cross-scan instance association within the same scene is then performed using 3D mIoU together with semantic label consistency, as detailed in Step 5) and Appendix A.1. We use Scenes 0–599 (1,276 scans) to construct the training set and Scenes 600–705 (237 scans) for testing. Frames are sampled every three frames from the original sequences. In total, the dataset contains approximately 557.0k training pairs and 87.9k test pairs, where 48.3% are generated from Self Scan and 52.7% from Cross Scan . The objects in this dataset span 509 unique semantic labels, and therefore we refer to this benchmark as ScanNet-SG-509 .To further increase object diversity and improve open-world generalization, we additionally use GPT-4o-mini (OpenAI (2024)) for image-based object tagging. Recent study Xie et al. (2026) has shown that tags generated with large VLMs achieve strong agreement with human labels and can support downstream learning tasks effectively. Compared to the original ScanNet annotations, the labels generated by GPT-4o-mini capture a substantially richer set of fine-grained and previously unannotated objects, including frequently occurring everyday items such as cable, mouse, water bottle, and light switch, as well as many other categories. Although only Scenes 0–99 are used for training and Scenes 601–610 and 696–705 for testing—amounting to 17.0% of the total data in ScanNet-SG-509 —this process yields 3,195 unique object labels, which is 6.3× more than in ScanNet-SG-509 . We refer to this benchmark as ScanNet-SG-GPT .
+
+## 5.3 Subscan-to-subscan (S2S) Matching 
+
+Each subscan is constructed from 50 to 300 randomly selected yet temporally contiguous frames processed in Section 5.2 (150 to 900 frames in the original ScanNet dataset). We use the method described in Section 5.1 to build the point-cloud map and the scene graph for each subscan. If two subscans from different scans of the same scene overlap, we include the pair as one dataset sample. In total, the dataset contains 13.4k training samples from Scenes 0–599 and 3.4k test samples from Scenes 600–705. In Figure 1B, Subscan 264 1029 is constructed from frames 264 to 1029 in Scene0000 00 of ScanNet, while Subscan 459 1027 is constructed from frames 459 to 1027 in Scene0000 01 .The samples in the S2S task have the following difference 
+
+compared to the F2S task: (i) In F2S, the node-overlap ratio is typically close to one ( > 90% on average) from GA to 
+
+GB while very low ( < 20% on average) from GB to GA,since the frame-level nodes are usually a subset of those in the complete scan, except when new regions are observed in the cross-scan setting. In S2S, the overlap ratio between two subscans spans (0 , 1] . We report the detailed distribution in Fig. 13 in Appendix A.2. (ii) In F2S, the two scene graphs are expressed in the camera frame and the world  
+
+> Prepared using sagej.cls
+
+Chen et al. 9                    
+
+> Table 1. Subset Statistics of ScanNet-SG dataset
+> Task Subset Name Label Source Training Samples Test Samples M2O Ratio F2S ScanNet-SG-509 ScanNet 557.0k 118.6k 3.2%
+> ScanNet-SG-GPT GPT-4o 87.9k 26.9k 5.0%
+> S2S ScanNet-SG-Subscan ScanNet 13.4k 3.4k 0.0%
+
+frame, respectively, and therefore differ substantially in their coordinate systems. In contrast, in S2S, both scene graphs are expressed in world frames. While these world frames are not identical because the graphs are built from different scans, they share a similar gravity alignment (i.e., the z-axis points upward). (iii) In ScanNet-SG-509, F2S matches a small graph with 4.5 nodes on average to a larger graph with 22.2 nodes on average, whereas S2S matches two graphs with 17.3 nodes on average. (iv) There are no many-to-one matching in S2S, as both subscans are fused maps. The general data statistics are presented in Table 1, where the many-to-one ratio indicates the percentage of nodes that have many-to-one matching from a frame to a scan. More statistics and visualizations of the dataset are provided in Appendix A.2. 
+
+## 6 Results 
+
+This section reports experimental results. Section 6.1 describes the experimental setup and baseline methods. In Section 6.2, we present results on the F2S alignment task. Section 6.3 further extends F2S by registering a frame-level SG against multiple scan-level SGs from different scenes, thereby simulating matching in large-scale environments containing multiple scenes. In Section 6.4, the results on the S2S task are reported. Additional results, including additional ablation studies with different input feature types, performance of fine tuned models for the S2S task, performance of models trained jointly on F2S and S2S data, and downstream point cloud registration results, are provided in Appendix A.4 and Appendix A.5 to maintain clarity and conciseness in the main text. 
+
+## 6.1 Experimental Setup 
+
+Five baseline methods and seven ablation variants of our method are evaluated for F2S and S2S tasks. As a learning-based baseline, we include SG-Reg (Liu et al. (2025a)), a state-of-the-art scene graph alignment method that leverages instance point clouds, 3D bounding boxes, and text features through a dedicated matching network. We further consider four zero-shot baselines. The first is ROMAN (Peterson et al. (2025)), which performs geometrically consistent matching using point cloud features and VLM embeddings. For a fair comparison, we adapt ROMAN by replacing its original FastSAM (Zhao et al. (2023)) segments with our object-level segments and by using the VLM embeddings generated by GroundingDINO (Liu et al. (2024)) rather than CLIP (Radford et al. (2021)). The remaining three zero-shot baselines rely on cosine similarity between object embeddings: VLM embeddings from GroundingDINO (Liu et al. (2024)), language embeddings from SBERT (Reimers and Gurevych (2019)), and their concatenation. For each query object, the instance                            
+
+> Table 2. Ablation Variants
+> Method Encoder Matcher Allocator
+> Ours L T-GNN + MNN T-GNN Eff. Matcher (L) MNN Ours L DGSA + MNN DGSA Eff. Matcher (L) MNN Ours L DGSA + MCF Final DGSA Eff. Matcher (L) MCF Ours H FFN + MNN FFN LightGlue3D (H) MNN Ours H T-GNN + MNN T-GNN LightGlue3D (H) MNN Ours H DGSA + MNN DGSA LightGlue3D (H) MNN Ours H DGSA + MCF Final DGSA LightGlue3D (H) MCF
+
+with the highest similarity exceeding a predefined threshold is selected as the match. These VLM and language embeddings are trained to produce high cosine similarity for semantically consistent objects while separating distinct ones, making cosine similarity a strong yet simple baseline for zero-shot matching. Finally, we evaluate seven ablation variants of our approach that isolate the impact of different encoders, matchers, and allocators. The full configurations are summarized in Table 2. Our approach builds on the same pretrained features as the zero-shot baselines but further trains a matching network. In general, the model size and computational cost of the variants are primarily determined by the choice of matcher. Variants based on the cosine-similarity efficient matcher are lightweight but typically achieve lower accuracy, whereas variants based on LightGlue3D are more computationally demanding yet consistently deliver stronger performance. To reflect this trade-off, we report both a Lightweight and a High-performance version of our method, and denote them with markers L and H, respectively. In addition to the T-GNN encoder (Liu et al. (2025a)) and our DGSA encoder, we also tested FFN as a baseline variant. All models are trained on NVIDIA A40 GPUs and tested on a desktop equipped with an NVIDIA RTX 3080 Ti. Each model is trained for 10 epochs using the AdamW optimizer (Loshchilov and Hutter (2019)) with a learning rate of 2 ×
+
+10 −4 and a batch size of 64. Detailed model parameters are provided in Appendix A.3. Performance is evaluated using four metrics: Accuracy , Precision , Recall , and F1 score .Each metric is computed per test sample over the nodes and then averaged across the test set. The minimum matching score thresholds and other key parameters of the compared methods are optimized using Optuna (Akiba et al. (2019)) to maximize the F1 score. 
+
+## 6.2 Frame-to-scan Node Matching 
+
+For this task, all models are trained on the ScanNet-SG-509 training split, which includes a mixture of self-scan and cross-scan samples. We evaluate performance on three test sets: (i) the self-scan group, (ii) the cross-scan group, and (iii) the ScanNet-SG-GPT subset. These test sets represent progressively more challenging settings. In (i), query frames are drawn from the same scan used to construct the map, resulting in minimal viewpoint and coverage variation. In (ii), query frames originate from different scanning trajectories, leading to larger viewpoint changes. In (iii), we further evaluate on ScanNet-SG-GPT , whose expanded object vocabulary generated by GPT-4o presents  
+
+> Prepared using sagej.cls
+
+10 Journal Title XX(X)                                                                                                                                                                                  
+
+> Table 3. Matching Results in ScanNet-SG-509 Self Scan Group (Simple)
+> Method Acc ↑Pr ↑Re ↑F1 ↑
+> SG-Reg 0.114 0.158 0.190 0.172 ROMAN 0.433 0.590 0.484 0.519 VLM CosSim 0.731 0.754 0.939 0.811 Bert CosSim 0.512 0.515 0.877 0.616 VLM+Bert CosSim 0.762 0.766 0.973 0.836 Ours L T-GNN + MNN 0.589 0.638 0.713 0.658 Ours L DGSA + MNN 0.820 0.864 0.914 0.876 Ours L DGSA + MCF Final 0.838 0.838 0.990 0.892 Ours H FFN + MNN 0.877 0.890 0.958 0.912 Ours H T-GNN + MNN 0.748 0.753 0.797 0.769 Ours H DGSA + MNN 0.897 0.906 0.967 0.927 Ours H DGSA + MCF Final 0.899 0.904 0.974 0.929
+> Table 4. Matching Results in ScanNet-SG-509 Cross Scan Group (Medium)
+> Method Acc ↑Pr ↑Re ↑F1 ↑
+> SG-Reg 0.027 0.039 0.042 0.040 ROMAN 0.358 0.414 0.374 0.380 VLM CosSim 0.540 0.550 0.800 0.620 Bert CosSim 0.455 0.458 0.715 0.519 VLM+Bert CosSim 0.564 0.562 0.876 0.656 Ours L T-GNN + MNN 0.481 0.499 0.667 0.548 Ours L DGSA + MNN 0.628 0.653 0.833 0.709 Ours L DGSA + MCF Final 0.626 0.626 0.925 0.723 Ours H FFN + MNN 0.683 0.683 0.860 0.740 Ours H T-GNN + MNN 0.609 0.585 0.715 0.627 Ours H DGSA + MNN 0.708 0.711 0.873 0.762 Ours H DGSA + MCF Final 0.714 0.709 0.887 0.768
+> Table 5. Matching Results in ScanNet-SG-GPT Test Set (Difficult)
+> Method Acc ↑Pr ↑Re ↑F1 ↑
+> SG-Reg 0.012 0.019 0.033 0.024 ROMAN 0.143 0.187 0.156 0.160 VLM CosSim 0.306 0.354 0.504 0.381 Bert CosSim 0.260 0.339 0.377 0.306 VLM+Bert CosSim 0.356 0.363 0.740 0.462 Ours L T-GNN + MNN 0.242 0.254 0.529 0.232 Ours L DGSA + MNN 0.355 0.372 0.676 0.422 Ours L DGSA + MCF Final 0.356 0.356 0.788 0.466 Ours H FFN + MNN 0.394 0.421 0.628 0.476 Ours H T-GNN + MNN 0.391 0.412 0.587 0.458 Ours H DGSA + MNN 0.416 0.440 0.661 0.500 Ours H DGSA + MCF Final 0.420 0.440 0.671 0.503
+
+the most challenging generalization setting. Importantly, we do not use the ScanNet-SG-GPT training split; instead, all models are trained exclusively on ScanNet-SG-509 . This design enables a direct assessment of cross-vocabulary generalization from ScanNet-SG-509 to ScanNet-SG-GPT 
+
+Tables 3–5 summarize the F2S matching results in the three test sets. For each metric, the best result is highlighted in bold with an orange background, and the second-best result is highlighted with a cyan background. In general, our method consistently outperforms both SG-Reg (Liu et al. (2025a)) and the zero-shot cosine-similarity baselines. In particular, Ours H DGSA + MCF Final achieves the highest accuracy and F1 score in all three settings. The first key observation is the importance of pretrained semantic features for open-vocabulary instance matching. The cosine-similarity baselines demonstrate that VLM and SBERT embeddings already provide strong correspondence signals, and their combination further improves perfor-mance, indicating that the two modalities capture com-plementary information. SG-Reg does not leverage VLM features and instead relies heavily on instance point clouds and coordinate-dependent geometric encoding. In F2S, the large coordinate-system mismatch between the frame and the scan, together with partial observations caused by limited view coverage, makes such point-cloud-based features sub-stantially less reliable, leading to a significant performance degradation. Building on these pretrained representations, our learned models improve robustness across all settings. Even the lightweight variants outperform most baselines, indicating that training enables the matcher to exploit addi-tional contextual and geometric cues beyond raw semantic similarity. We visualize the results of five different methods on seven F2S samples with varying numbers of nodes in the frame in Fig. 4. A second consistent trend is the impact of the encoder design. T-GNN, originally proposed in SG-Reg (Liu et al. (2025a)), performs noticeably worse than our DGSA encoder across all evaluation settings. This is mainly because T-GNN relies on encoding coordinate-sensitive position relations, while F2S involves a significant coordinate-system discrepancy between frame-level and scan-level observations. As a result, the geometric patterns learned by T-GNN become difficult to transfer reliably, even compared to the FFN baseline. In contrast, the spatial-attention encoder provides a more stable representation under these conditions, enabling stronger matching performance for both lightweight (L) and high-performance (H) matchers. Comparing our variants with MNN and MCF allocators, we observe that MCF—by explicitly supporting many-to-one correspondences—primarily improves performance by increasing recall and yielding more stable F1 scores across all test sets. With the lightweight matcher, recall and F1 improve by 0.093 and 0.025 on average over the three test sets (from Ours L DGSA + MNN to Ours L DGSA + MCF Final). With the high-performance matcher, the gains are smaller, with average improvements of 0.010 in recall and 0.003 in F1 (from Ours H DGSA + MNN to Ours H DGSA + MCF Final). The larger improvement in the lightweight setting stems from the fact that the lightweight matcher relies mainly on feature similarity and does not enforce geometric consistency between matched object pairs, whereas MCF incorporates such global allocation constraints. In contrast, the high-performance matcher already models relative-distance consistency internally, and therefore, MCF mainly contributes by enabling many-to-one matching. As shown in Table 1, many-to-one cases occur in only a small fraction of nodes in the dataset, which limits the overall performance gain. In Figure 5, we compare the matching results using the MNN and MCF allocators for samples with many-to-one correspondences. MNN fails to resolve the many-to-one case, causing one of the two instances to be either mismatched or assigned to the no-match class. In contrast, MCF correctly handles the many-to-one correspondence and produces consistent matches. To jointly compare efficiency and matching performance, we visualize the results in a radar plot in Fig. 6. Efficiency is  
+
+> Prepared using sagej.cls
+
+Chen et al. 11 Ours H DGSA + MCF Final 
+
+> (1) (2) (3) (4) (5) (6) (7)
+
+A Node (unmatched) Node (matched) Correct Corres. Wrong Corres. GT Correction 
+
+VLM+Bert CosSim 
+
+> (1) (2) (3) (4) (5) (6) (7)
+
+C
+
+Ours L DGSA + MCF Final 
+
+> (1) (2) (3) (4) (5) (6) (7)
+
+D Ours H T -GNN + MNN 
+
+> (1) (2) (3) (4) (5) (6) (7)
+
+E
+
+SG-Reg 
+
+> (1) (2) (3) (4) (5) (6) (7)
+
+B
+
+> (5) (4) (3) (6) (7) (1) (2)
+
+Figure 4. Visualization of matching results produced by different models (A–E). In each subplot, the central point cloud corresponds to the full scan of Scene0673 00 . The query frames are selected from a separate scan of the same scene, 
+
+Scene0673 01 (cross-scan), and are shown in the top-left corner as instance-segmented RGB images labeled (1)–(7), corresponding to ScanNet frame IDs 15, 105, 252, 639, 1050, 1521, and 1830 (Dai et al. (2017)). Objects are visualized with distinct colors, and each object center is marked with a blue dot (unmatched) or a red dot (matched). Correct correspondences are indicated by green lines, while incorrect correspondences are shown in red. Orange lines denote the ground-truth corrected correspondences for either incorrect or missed matches. For visualization purposes, each frame point cloud (originally in its camera coordinate system) is transformed into the world coordinate system of Scene0673 00 and then translated to a nearby location around the scan point cloud. This transformation is applied only for visualization and is not provided to any model. In (A), Ours H DGSA + MCF predicts the correct correspondences even when only two and three nodes (corresponding to one and two neighbors) are present in (1) and (2), respectively. 
+
+quantified by the number of model parameters, the average training time per epoch, and the average inference time per sample, while performance is measured by accuracy and F1 score. All results are reported on the cross-scan (Medium ) test set. The plot includes SG-Reg and three  
+
+> Prepared using sagej.cls
+
+12 Journal Title XX(X)                  
+
+> Table 6. Retrieval accuracy with different K values when using the global scene descriptors.
+> Method Recall@1 ↑Recall@5 ↑Recall@10 ↑Recall@20 ↑
+> Ours L 0.63 0.89 0.95 0.98 Ours H 0.63 0.88 0.95 0.98
+
+representative variants of our method. We omit the cosine-similarity baselines, as they require no additional training and their inference cost is dominated by a simple similarity computation. As shown in Fig. 6, our variants are three times faster than SG-Reg. Ours L DGSA + MCF Final achieves a favorable trade-off between efficiency and performance, whereas Ours H DGSA + MCF Final is larger and slower but has the best overall accuracy and F1 score. 
+
+## 6.3 Frame-to-scan with Multiple Scenes 
+
+When operating in a large-scale environment containing multiple scenes, the system must identify the correct scene against which to perform object node matching. To showcase the necessity of a global embedding, we evaluate the retrieval accuracy of the correct scene graph from a graph database given a query graph obtained from an image. The metric Recall@K is employed to evaluate whether the target scene is ranked among the top K scenes in terms of similarity. Additionally, we report the inference time to assess the efficiency of each method. For this evaluation, we use the data from the testing scenes (scenes 600-705) and treat each scene’s graph as one entry of our database, ensuring that there is only one correct graph in our target set. In these experiments, we only evaluate the final versions of our networks: the high-performance variant (Ours H) and the lightweight variant (Ours L), both employing DGSA and MCF. The first experiment evaluates the ability of the proposed global embedding to retrieve the correct graph from a database of graphs. We test different values of K to evaluate the capacity of using the global embedding as a filtering step in the retrieval step. The results of this experiment are presented in Table 6. As it can be seen, both variants yield similar retrieval accuracy across different K value, mainly because they employ the same number of multi-head attention layers to produce the global embedding. For our final experiment, we ablate different methods to obtain the correct scene graph (Recall@1) from one forward pass with our network: match against all candidates followed by reranking ( baseline ), or first using the global embedding for filtering, denoted as top K, and then performing reranking. In our experiments, we also compare two reranking strategies: the weighted reranking proposed in equation (24) ( weight rerank ) and direct reranking based on the matching score, which would be the same as in (24) but with the dot product being equal to one. The filtering step, based on the global embedding, consists of selecting the Top-K candidates from the database according to the cosine similarity of the global embeddings, after which only the selected scenes are reranked. The results are presented in Table 7. From the results, we observe that the high-performance version of our network achieves higher accuracy at the                                                
+
+> Table 7. Correct scene graph retrieval and computation time in ScanNet-SG Test Set (Medium) with different reranking strategies.
+> Method Recall@1 ↑Time ↓
+> Ours L + baseline 0.64 0.057 Ours L + Top 5 + direct rerank 0.60 0.004 Ours L + Top 10 + direct rerank 0.64 0.011 Ours L + Top 20 + direct rerank 0.68 0.015 Ours L + Top 5 + weighted rerank 0.62 0.005 Ours L + Top 10 + weighted rerank 0.66 0.011 Ours L + Top 20 + weighted rerank 0.69 0.015 Ours H + baseline 0.58 0.835 Ours H + Top 5 + direct rerank 0.67 0.048 Ours H + Top 10 + direct rerank 0.67 0.091 Ours H + Top 20 + direct rerank 0.66 0.181 Ours H + Top 5 + weighted rerank 0.71 0.048 Ours H + Top 10 + weighted rerank 0.73 0.091 Ours H + Top 20 + weighted rerank 0.74 0.181
+
+expense of increased computation time. Compared to the baseline, incorporating filtering improves overall accuracy by removing incorrect graphs that would otherwise obtain high matching scores. Regarding the reranking strategies, the proposed weighted reranking consistently outperforms score-based reranking, indicating that the global embeddings of correct matches are closer in the embedding space than those of incorrect pairs. In terms of processing time, all methods that use the global embedding for filtering are more efficient than performing individual graph matching for all candidates, followed by a selection. As the filter size (K) increases, computation time increases, while accuracy also improves. As expected, the lightweight version is more computationally efficient than the high-performance version of the network. 
+
+## 6.4 Subscan-to-subscan Node Matching 
+
+Table 8 presents the results of the S2S node matching task. The results of two high-performing baseline methods and three of our variants are further illustrated in Fig. 9. Since both subscans are fused from multiple frames, the S2S setting contains almost no many-to-one correspondences (Table 1). Therefore, we use MNN as the only allocator and focus on comparing different feature choices and matching network designs. In the S2S node matching task, the zero-shot cosine-similarity baselines achieve relatively high recall, especially for VLM CosSim (0.906 Re) and VLM+Bert CosSim (0.898 Re). However, their precision remains low (0.370–0.400), leading to moderate F1 scores (0.477–0.530). In contrast, our learned matching models substantially improve accuracy and precision, demonstrating that training a matcher on top of pretrained semantics is critical for disambiguating semantically similar objects. Compared to the best cosine-similarity baseline (VLM+Bert CosSim, 0.530 F1), all variants of our method achieve stronger overall performance. In particular, the best-performing model Ours H DGSA + MNN achieves 0.681 Acc and 0.589 F1, reflecting a more balanced precision–recall trade-off. Unlike in F2S, T-GNN (Liu et al. (2025a)) becomes a more competitive encoder in S2S. In this task, both graphs are constructed from fused multi-frame subscans, which  
+
+> Prepared using sagej.cls
+
+Chen et al. 13 Node (unmatched) Node (matched) Correct Correspondence Wrong Correspondence GT Correction    
+
+> Ours H DGSA + MNN Ours H DGSA + MCF Current Frame Under-segmentation
+
+AB
+
+Figure 5. Many-to-one matching illustration. Rows A and C show the instance segmentation and F2S matching results for test samples from Scene0673 , and Scene0679 , respectively. The instance segmentation images in the left column illustrate under-segmentation in two representative cases: (A) two adjacent sofas, and (B) two curtain segments. In each case, the highlighted instances (red rectangles) are spatially close and can be segmented either as a single instance or as two separate instances depending on the viewpoint. During scan fusion, the final map often merges these observations into a single instance due to the high geometric overlap and semantic similarity across views. However, when the query frame contains two instances (second column), the matching must correctly resolve a many-to-one correspondence. Accuracy F1 Score Parameters Inference Time Training Time 
+
+> 0.027 0.040 9.5M 106.2ms 81.5h 0.626 0.723 8.6M 20.7ms 6.5h 54.8M 27.2ms 18.8h 0.714 0.768 55.4M 32.9ms 19.1h
+> 0.391
+> 0.412 SG-Reg Ours L DGSA + MCF Ours H T-GNN + MNN Ours H DGSA + MCF
+
+Figure 6. Radar plot comparing four learning-based methods across five metrics on F2S task. Accuracy and F1 score are shown on a [0 , 1] scale. Parameters, training time (per epoch on an NVIDIA A40 GPU), and inference time (per sample on an NVIDIA 3080Ti GPU) are normalized to the ranges [5 , 100] M, 
+
+[5 , 100] h, and [10 , 150] ms, respectively. 
+
+reduces the coordinate-system mismatch and alleviates the extreme partial-observation issue present in F2S. As a result, T-GNN-based variants benefit more from their geometric encoding and achieve strong performance: Ours H T-GNN + MNN reaches the best F1 (0.592) and the highest recall among our variants (0.732). Meanwhile, the FFN encoder yields the highest precision (0.565) but lower recall (0.592), leading to a lower F1 (0.556). This suggests that in S2S, geometric consistency encoded by T-GNN helps recover additional true correspondences, whereas simpler encoders tend to be more conservative. SG-Reg (Liu et al. (2025a)) remains significantly behind all other methods. We observe that in the training set, SG-Reg achieves a precision of 0.501 and a recall of 0.512, indicating a tendency to overfit to training data. Although SG-Reg proposed T-GNN, its matching network and feature design rely primarily on point cloud information and do not incorporate VLM features. 
+
+Table 8. Subscan-to-subscan Matching Result                                                 
+
+> Method Acc ↑Pr ↑Re ↑F1 ↑
+> SG-Reg 0.056 0.171 0.078 0.107 ROMAN 0.430 0.505 0.268 0.336 VLM CosSim 0.461 0.370 0.906 0.502 Bert CosSim 0.535 0.382 0.751 0.477 VLM+Bert CosSim 0.518 0.400 0.898 0.530 Ours L T-GNN + MNN 0.642 0.502 0.713 0.568 Ours L DGSA + MNN 0.628 0.490 0.696 0.554 Ours H FFN + MNN 0.677 0.565 0.592 0.556 Ours H T-GNN + MNN 0.667 0.525 0.732 0.592
+> Ours H DGSA + MNN 0.681 0.547 0.684 0.589
+
+This design is not suited for the subscan matching setting, where instance point clouds are often incomplete and the overlap between subscans is limited. ROMAN (Peterson et al. (2025)), which additionally incorporates PCA-based point cloud features alongside VLM embeddings, achieves relatively high precision but substantially lower recall compared to the other zero-shot baselines. As a result, its overall F1 score is the lowest among the four zero-shot methods, primarily due to its limited recall. Moreover, we find that the performance of all methods strongly depends on the overlap ratio between two subscans. In Figure 8, we further group the test set into 10 bins according to overlap ratio from 0 to 1 with a step size of 0.1. In the F1 score–overlap ratio plot, the F1 score of all methods increases noticeably with overlap, indicating that the amount of shared observed area is a primary factor affecting subscan matching difficulty. Interestingly, the accuracy curves of our variants remain relatively flat compared to their F1 curves, whereas the zero-shot VLM+Bert CosSim (Liu et al. (2024); Reimers and Gurevych (2019)) baseline shows a much steeper increase in accuracy as overlap grows. This behavior is mainly driven by the handling of no-match cases at low overlap. When the overlap is small, most query objects have no  
+
+> Prepared using sagej.cls
+
+14 Journal Title XX(X) Accuracy F1 Score Parameters Inference Time Training Time    
+
+> 0.056 0.107 9.5M 79.2ms 2.4h 0.642 0.568 8.6M 16.2ms 0.1h 0.667 0.592 54.8M 29.4ms 0.4h 0.681 0.589 55.4M 31.7ms 0.4h SG-Reg Ours L T-GNN + MNN Ours H T-GNN + MNN Ours H DGSA + MNN
+> Figure 7. Radar plot comparing four learning-based methods across five metrics on S2S task. Accuracy and F1 score are shown on a
+
+[0 , 1] scale. Parameters, training time (per epoch on an NVIDIA A40 GPU), and inference time (per sample on an NVIDIA 3080Ti GPU) are normalized to the ranges [5 , 100] M, 
+
+[0 .01 , 3.5] h, and [10 , 150] ms, respectively. 0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1Overlap ratio 00.2 0.4 0.6 0.8 1Accuracy      
+
+> 00.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1Overlap ratio 00.2 0.4 0.6 0.8 1F1 score VLM+Bert CosSim Ours L DGSA + MNN Ours H T-GNN + MNN Ours L T-GNN + MNN Roman
+> Figure 8. Line plot of accuracy (left) and F1 score (right) changing with different overlap ratio of two subscans.
+
+correspondence in the other subscan, making true negatives dominate the evaluation. While true negatives are reflected in accuracy, they do not contribute to the F1 score. ROMAN (Peterson et al. (2025)) and our models, which consider geometric consistency, are more reliable at predicting the “no-match” label in these low-overlap regimes, maintaining stable accuracy even when the overlap is limited. In contrast, VLM+Bert CosSim tends to produce spurious matches when no correspondence exists due to its lack of geometric consistency, leading to many false positives and thus lower accuracy at low overlap. Notably, compared to the zero-shot setting of ROMAN, the additional task-specific training of our models enables the matcher to better adapt the feature representations and more accurately predict the “no-match” class, thereby improving accuracy under low-overlap conditions. Overall, the S2S results confirm that subscan-level matching benefits from additional training. Compared to F2S, the T-GNN encoder is more effective in S2S, which can be attributed to the reduced coordinate discrepancy between subscans. We further summarize the performance and efficiency metrics of the trained methods in the radar plot shown in Fig. 7. Considering the trade-off between accuracy and computational cost, Ours L T-GNN (Liu et al. (2025a)) + MNN provides the best overall balance, whereas Ours H DGSA + MNN achieves the highest accuracy. Although the S2S task differs from the F2S task as discussed in Section 5.3, both tasks involve object node matching using the same types of features. Therefore, pretraining the model on the F2S dataset, which is substantially larger than the S2S dataset, and subsequently fine-tuning it on the S2S dataset is expected to improve performance. We report the results in Appendix A.4, which show that fine-tuning improves accuracy by 2–3% and F1 score by more than 4% compared to training solely on the S2S dataset. In addition, Appendix A.4 presents results for models trained using all available training data, including F2S data annotated with ScanNet labels and GPT-4o labels, as well as S2S data. The results show improved performance on the S2S task and on the difficult F2S test group (GPT-4o annotated ). In contrast, a performance decrease is observed on the easy and medium F2S groups annotated with ScanNet labels since more labels are involved. Detailed results are provided in the appendix. 
+
+## 7 Conclusion 
+
+This paper presented a learning-based framework and a benchmark for scene graph alignment under partial observations, covering both F2S and S2S node matching. Across both tasks and all three F2S evaluation settings, our methods consistently achieve the best overall performance. The results highlight two main insights. First, features derived from raw instance point clouds are unreliable under partial observations and coordinate discrepancies, especially in F2S, where point-cloud-centric designs degrade substantially. In contrast, pretrained semantic representations are crucial: VLM and SBERT embeddings already provide strong zero-shot matching signals, and combining them yields complementary gains of 2.5%–8.1% in F1 score across evaluation settings. Second, learning on top of these pretrained features further improves robustness. Our trained matching network consistently outperforms zero-shot cosine-similarity baselines by reducing semantic ambiguity and incorporating contextual and geometric cues, improving accuracy by 6.4%–13.7% and F1 score by 4.1%–11.2%. Compared to the training-based baseline, our method further reduces both training and inference time by over 60%. Despite these strengths, our current dataset still has limitations. In particular, edge relationships are mainly represented by geometric distance, and their language descriptions are simplified to a single “next to” relation, limiting the evaluation of richer relation-aware grounding. Enriching edge descriptions and expanding relation diversity are promising directions for future work, alongside further exploiting multi-modal cues to improve alignment in larger-scale and outdoor environments. 
+
+## 8 Funding 
+
+This work is funded in part by the European Union (ERC, INTERACT, 101041863). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the European Research Council Executive Agency. Neither the European Union nor the granting authority can be held responsible for them.  
+
+> Prepared using sagej.cls
+
+Chen et al. 15 698_00_01_732 _942_837_1302 _overlap_0.444 vlm_bert_673_ 00_01_1383_21 39_1584_1989_ overlap_0.926 vlm_bert_673_ 02_654_1140_2 34_1032_0.727 vlm_bert__642 _01_168_777_1 890_2367_overl ap_ratio_0.142     
+
+> Node (unmatched) Node (matched) Correct Correspondence Wrong Correspondence GT Correction
+
+(1) (2) (3) (4) Overlap = 0.926 Overlap = 0.727 Overlap = 0.444 Overlap = 0.142 
+
+> C. Ours L T-GNN [11] + MNN B. VLM+Bert CosSim [27] [42] D. Ours H T-GNN [11] + MNN E. Ours H DGSA + MNN A. ROMAN [10]
+
+Figure 9. Comparison of different methods (A–E) on the S2S alignment task. The subscan pairs in (1)—(4) are: (1) 
+
+Scene0673 00 frames 1383–2139 and Scene0673 01 frames 1584–1989; (2) Scene0673 00 frames 654–1140 and 
+
+Scene0673 02 frames 234–1032; (3) Scene0698 00 frames 732–942 and Scene0698 01 frames 837–1302; and (4) 
+
+Scene0642 00 frames 168–777 and Scene0642 01 frames 1890–2367. The node overlap ratio between two subscans is shown with blue text on the left. The overlap ratio decreases from 0.926 to 0.142 from (1) to (4). Points belonging to different instances are rendered in random colors. Background point clouds are omitted for clarity. 
+
+## A Appendix 
+
+## A.1 Details of Multiview Fusion 
+
+A key technique in multiview fusion is instance tracking across input frames. When ScanNet provides semantic labels and coarse instance segmentations projected from the 3D mesh with manually assigned instance IDs, as in the construction of ScanNet-SG-509 , we associate fine-grained instances obtained from GroundedSAM with ScanNet coarse instances using IoU-based matching to inherit consistent instance IDs. Points belonging to the same instance are then merged and downsampled using a voxel grid filter with a resolution of 0.02 m. For open-set labels tagged by GPT-4o, where no ground-truth instance IDs are available, we perform instance tracking based on both semantic and geometric consistency. Specifically, two instances are considered identical if their SBERT embedding cosine similarity and their voxel-level 3D IoU both exceed predefined thresholds. SBERT embeddings help distinguish semantically different objects that may have high geometric overlap, such as a tablecloth on a table or a book on a laptop. This matching condition is first applied sequentially across frames to construct an initial instance-aware point cloud map for each scan. We then iteratively compare all existing instances and merge those satisfying the same condition until convergence. To improve efficiency, a center distance check is applied prior to similarity evaluation to filter unlikely candidates. This post-merging step is particularly important for resolving duplicate instances caused by multiple times of scans of the same object. Although GroundedSAM leverages the foundation model SAM for segmentation, segmentation noise near object boundaries can introduce outlier points in the fused map. To address this issue, we further apply DBSCAN (Ester et al. (1996)) and Statistical Outlier Removal (SOR) filtering, retaining only the largest connected point cluster for each instance to improve the quality of the reconstructed object point clouds. 
+
+## A.2 Dataset Statistics and Visualization 
+
+In Section 5, we describe the dataset construction pipeline. We present the registration performance for cross-scan transformation matrix estimation (described in Section 5.2) in Tab. 9. Thresholds of 0.05 m and 0.1 m are used to compute the mean and median fitness, RMSE, and overlap ratio (OR), respectively. Figures 1, 4, and 9 present examples of frame-, subscan-, and scan-level 3D scene graphs built using ScanNet labels, together with their corresponding matching results. Figure 10 further shows object instances and scene graphs from six scenes of different sizes constructed with ScanNet labels (ScanNet-SG-509 group). For comparison, Fig. 11 illustrates the corresponding scene graphs for the first three scenes  
+
+> Prepared using sagej.cls
+
+16 Journal Title XX(X)                           
+
+> Table 9. Registration Performance for Cross-scan Matching
+> THR Mean Med. Mean Med. Mean Med. Fitness ↑Fitness ↑RMSE ↓(cm) RMSE ↓(cm) OR ↑OR ↑
+> 0.05 m 0.750 0.798 2.29 2.30 0.800 0.840 0.10 m 0.844 0.899 3.21 3.10 0.898 0.938
+
+when GPT-4o is used for object tagging ( ScanNet-SG-GPT 
+
+group), where substantially more object nodes are observed. The top 30 most frequent object categories in the 
+
+ScanNet-SG-509 and ScanNet-SG-GPT groups are shown in Fig. 12(A) and (B), respectively. We further present the distributions of node counts in frame-level and scan-level scene graphs for the ScanNet-SG-509 and ScanNet-SG-GPT 
+
+groups in Fig. 12(C)–(F). The number of nodes ranges from 3 to 66 in the ScanNet-SG-509 group and from 6 to 204 in the ScanNet-SG-GPT group, reflecting the increased scene complexity enabled by open-set labeling. Each subscan in the ScanNet-SG-Subscan group repre-sents a fragment of a corresponding scan in the ScanNet-SG-509 group. The node count distribution of subscan scene graphs is shown in Fig. 13(B), while Fig. 13(A) presents the overlap ratio distribution for subscan matching pairs. 
+
+## A.3 Model Parameters 
+
+This section provides values of the parameters used in our methods. The DGSA encoder uses 8 attention heads, 4 layers, and a dropout rate of 0.1. The fused feature dimension for both LightGlue3D and the efficient matcher is 512. In the MCF algorithm, the key parameters are τ = 0 .3,
+
+K = 5 , C unmatched = 2 .0, λ = 1 .0, and a maximum of 5 iterations. We assume that the maximum number of nodes in a frame that can correspond to a single node in the map is unknown; therefore, Cap max is set to unlimited. For MNN, the minimum similarity threshold is set to 0.2 for the LightGlue3D (H) version and 0.1 for the efficient matcher (L) version. 
+
+## A.4 Additional Results 
+
+This section provides additional scene graph alignment results as complementary evaluations to the main experi-ments. 
+
+Ablation Study with Different Input Descriptors Three types of features are used in our experiments: the VLM embedding f vl extracted from GroundingDINO (Liu et al. (2024)), the text embedding f t obtained from SBERT (Reimers and Gurevych (2019)), and the geometric feature 
+
+f g derived from 3D bounding box attributes. As shown in Table 10, we train Ours L DGSA + MNN and Ours H DGSA + MNN using different feature combinations and evaluate them on the cross-scan (Medium) group of the F2S task. Using only the VLM embedding f vl already achieves strong performance for both models, confirming that VLM features provide highly discriminative representations for object matching. Incorporating SBERT text embeddings f t
+
+consistently improves performance, yielding higher accuracy and F1 scores for both the lightweight and high-capacity models. Adding geometric features f g also improves performance compared to using f vl alone, although the gain is smaller than that from text embeddings. When all                                                                                                    
+
+> Table 10. Matching Result with Different Feature Sources (Medium)
+> Method Features Acc ↑Pr ↑Re ↑F1 ↑
+> Ours L DGSA + MNN
+> fvl 0.614 0.614 0.921 0.713
+> fvl +ft0.621 0.621 0.923 0.718
+> fvl +fg0.620 0.619 0.922 0.717
+> fvl +ft+fg0.628 0.653 0.833 0.709 Ours H DGSA + MNN
+> fvl 0.690 0.691 0.875 0.751
+> fvl +ft0.706 0.706 0.871 0.758
+> fvl +fg0.695 0.697 0.873 0.754
+> fvl +ft+fg0.708 0.711 0.873 0.762
+> Table 11. Subscan-to-subscan Matching Result with Fine-tuned Models
+> Method Acc ↑Pr ↑Re ↑F1 ↑
+> Ours L DGSA + MNN 0.660 0.523 0.753 0.597
+> (+FT gain) +0.032 +0.033 +0.057 +0.043
+> Ours H DGSA + MNN 0.705 0.571 0.760 0.633
+> (+FT gain) +0.024 +0.024 +0.076 +0.044
+
+three features are used jointly, both models achieve their highest accuracy and precision, with Ours H DGSA + MNN 
+
+also achieving the best overall F1 score of 0.762. However, for Ours L DGSA + MNN , incorporating all features slightly reduces recall, suggesting that the lightweight model becomes more conservative when using richer feature representations. Overall, these results demonstrate that fusing all three feature types provides the most effective solution, improving matching precision and overall robustness by leveraging complementary semantic and geometric information. 
+
+S2S Results with Finetuned Model From F2S We fine-tune our Ours L DGSA + MNN and Ours H DGSA + MNN models, which were pre-trained on the F2S dataset as described in Section 6.2, using the training data from the S2S task and evaluate them on the corresponding S2S test set. The results are presented in Table 11. The gain is computed relative to the corresponding results reported in Table 8. The results show that fine-tuning consistently improves performance across all evaluation metrics for both models. In particular, all metrics improve by at least 2.4%, with recall showing the most significant gain, increasing by more than 5% for both models. This demonstrates that pretraining on the larger F2S dataset provides strong initialization, while task-specific fine-tuning further adapts the model to the characteristics of the S2S task, resulting in improved matching performance. 
+
+Results with Model Trained with All Training Data In this experiment, we train our models using all available training data, including F2S data annotated with ScanNet labels, F2S data annotated with GPT-4o labels, and S2S data. The results are shown in Table 12. The gain is computed relative to the corresponding results reported in Table 3, 4, 5, and 8. For the S2S task, training with all data improves all metrics for both models. In particular, Ours L DGSA+MNN 
+
+improves F1 score by 4.2%, while Ours H DGSA+MNN 
+
+achieves a larger gain of 5.6%, with recall improving by up to 7.1%. This indicates that additional training data enhances  
+
+> Prepared using sagej.cls
+
+Chen et al. 17 Scene0000 Scene0050 Scene0700 Scene0100 Scene0645      
+
+> Scene0261
+> Scene0378
+> Figure 10. Examples of 3D scene graphs constructed using ScanNet human-annotated object labels ( ScanNet-SG-509 ). The blue points show the centers of objects. An edge is added to connect two objects if their distance is smaller than two meters. Scene0000 Scene0050 Scene0700
+> Figure 11. Examples of 3D scene graphs constructed using GPT-4o–tagged objects ScanNet-SG-GPT . The three scenes correspond to those shown in the first row of Fig. 10, but contain substantially more object instances and a significantly larger set of object classes.
+
+the model’s ability to identify correct correspondences in cross-scan matching. For the F2S task, training with all data improves performance on the difficult test group annotated with GPT-4o labels, with F1 score increasing by 2.1% and 1.9% for Ours L DGSA+MCF and Ours H DGSA+MCF ,respectively. In contrast, a slight decrease is observed on the simple and medium groups annotated with ScanNet labels. This is likely due to the increased label diversity introduced by GPT-4o annotations, which improves open-set generalization but slightly reduces performance on the more constrained ScanNet label set. Overall, training with all available data improves performance in more challenging open-set and cross-scan scenarios, particularly for the S2S task and the difficult F2S group. 
+
+## A.5 Downstream Task: Point Cloud Registration Result 
+
+Scene graph alignment can improve downstream point cloud registration by providing high-level object correspondences, as demonstrated in several prior works (Sarkar et al. (2023); Liu et al. (2025a)). Since the point clouds in our dataset contain instance-level information, scene graph alignment offers reliable object-level associations that can guide and constrain point-wise registration. In this section, we evaluate whether scene graph alignment improves point cloud registration performance in both the F2S and S2S groups. In the F2S group, the task is to register a point cloud captured from the current frame to the point cloud of the full scan. We evaluate registration performance using correspondences predicted by our Ours H DGSA + MCF 
+
+model trained in Section 6.2. In the S2S group, the task is to register point clouds between two subscans, where we use  
+
+> Prepared using sagej.cls
+
+18 Journal Title XX(X) 2 3 4 5 6 7 8 9 10 11 12 13 14 frame node number 00.5 11.5 22.5 sample number 10 4
+
+2 3 4 5 6 7 8 9 10 11 12 13 frame node number 0246810 12 14 sample number 10 4
+
+> 345678910 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 55 57 58 60 63 66
+
+scan node number 010 20 30 40 50 60 70 sample number 
+
+> 6817 18 23 24 25 26 28 29 30 34 36 37 40 41 42 43 45 46 47 48 52 53 54 56 58 60 61 62 65 68 69 70 75 80 82 83 88 92 95 98 101 111 112 113 114 124 125 126 128 131 142 145 172 185 198 204 scan node number 0123456789sample number
+
+ScanNet-SG-509 ScanNet-SG-509 ScanNet-SG-gpt ScanNet-SG-gpt 
+
+> chair door bookshelf window table trash can pillow picture cabinet desk box monitor shelf couch office chair towel sink kitchen cabinet backpack doorframe toilet lamp clothes bed curtain whiteboard plant mirror radiator book
+
+01000 2000 3000 4000 5000 Count 
+
+> Chair Door Table Window Chairs Desk Trash Can Toilet Mirror Cabinet Bookshelf Whiteboard Sofa Armchair Computer Monitor Office Chair Lamp Light Switch Electrical Outlet Keyboard Cable Couch Books Miscellaneous Items Bed Water Bottle Sink Countertop Cables Mouse
+
+0100 200 300 400 500 600 Count 
+
+ScanNet-SG-509 ScanNet-SG-gpt A BC DE F
+
+Figure 12. Dataset statistics for the frame-to-scan (F2S) matching task. (A–B) Top-30 most frequent object categories in the 
+
+ScanNet-SG-509 and ScanNet-SG-GPT groups, respectively. (C–D) Distribution of node counts in frame-level and scan-level scene graphs for the ScanNet-SG-509 group. (E–F) Corresponding node count distributions for the ScanNet-SG-GPT group. 345678910 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 46 47 48 node number 0200 400 600 800 1000 1200 sample number           
+
+> 00.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1Overlap ratio 0500 1000 1500 2000 2500 3000 3500 4000 Number of samples
+
+A BScanNet-SG-Subscan ScanNet-SG-Subscan 
+
+Figure 13. Dataset statistics for the subscan-to-subscan (S2S) matching task ( ScanNet-SG-Subscan group ). (A) Distribution of node overlap ratio of two matched subscans. (B) Distribution of node counts in subscans. 
+
+correspondences predicted by our Ours H DGSA + MNN 
+
+model trained in Section 6.4. We conduct evaluation on test Scenes 600 to 625, resulting in 15,596 samples for the F2S group (using Cross Scan data) and 708 samples for the S2S group. Registration in both groups is challenging due to the limited overlap between the source and target point clouds. In the F2S group, the frame point cloud represents only a small portion of the full scan. As a result, the overlap ratio is 0.891 when measured from frame to scan, but only 0.118 in the reverse direction (highly asymmetric overlap). The voxel-level (0.1,m resolution) mIoU between the two point clouds is only 0.083, indicating very limited geometric overlap. In the S2S group, the overlap ratios between subscans are 0.559 and 0.480 in the forward  
+
+> Prepared using sagej.cls
+
+Chen et al. 19                                                                             
+
+> Table 12. Results using the Model Trained with All Training Data
+> Method Task Acc ↑Pr ↑Re ↑F1 ↑
+> Ours L DGSA+MCF F2S (Simple) 0.826 0.826 0.989 0.884
+> (Gain) -0.012 -0.012 -0.001 -0.008
+> F2S (Medium) 0.621 0.621 0.925 0.719
+> (Gain) -0.005 -0.005 +0.000 -0.004
+> F2S (Diffcult) 0.376 0.376 0.806 0.487
+> (Gain) +0.020 +0.020 +0.018 +0.021
+> Ours L DGSA+MNN S2S 0.662 0.527 0.742 0.596
+> (Gain) +0.034 +0.037 +0.046 +0.042
+> Ours H DGSA+MCF F2S (Simple) 0.858 0.884 0.937 0.897
+> (Gain) -0.041 -0.020 -0.037 -0.032
+> F2S (Medium) 0.688 0.695 0.840 0.738
+> (Gain) -0.026 -0.014 -0.047 -0.030
+> F2S (Difficult) 0.447 0.480 0.644 0.522
+> (Gain) +0.027 +0.040 -0.027 +0.019
+> Ours H DGSA+MNN S2S 0.718 0.592 0.755 0.645
+> (Gain) +0.037 +0.045 +0.071 +0.056
+
+and reverse directions, respectively, with a voxel-level mIoU of 0.240. We compare two baseline methods that do not use instance-level matching and three methods that leverage instance correspondences predicted by our model. 
+
+1) Global Points : Point-wise correspondences are estab-lished directly on the full point clouds using RANSAC without feature extraction. 
+
+2) Global FPFH : Fast Point Feature Histogram (FPFH) features are first extracted to establish point correspon-dences, followed by RANSAC-based transformation esti-mation. 
+
+3) Our Matched Instances + One2One GeoTransformer :Inspired by SGAligner (Sarkar et al. (2023)), our model first predicts instance correspondences. GeoTransformer (Qin et al. (2022)) is then applied independently to each matched instance pair to establish point correspondences, which are aggregated and used in RANSAC for transformation estimation. 
+
+4) Our Matched Instances + One2One FPFH : This variant replaces GeoTransformer with FPFH features, which are extracted independently for each matched instance pair to establish correspondences prior to RANSAC. 
+
+5) Our Matched Instances + Cropped FPFH : Our predicted instance correspondences are used to identify a spatial region enclosing the matched instances. A bounding box covering this region is computed, and only the cropped points within this region are used to extract FPFH features and establish correspondences for RANSAC. This approach leverages multiple matched instances jointly while excluding unrelated regions. For all methods, the estimated transformation is further refined using Iterative Closest Point (ICP) for fine registra-tion. Note that the instance correspondences predicted by our model are not error-free, with detailed matching performance reported in Tables 4 and 8. Tables 13 and 14 present the point cloud registration results for the F2S and S2S groups under different RTE and RRE thresholds. As shown in Table 13, global reg-istration methods that operate on the entire point cloud without instance guidance perform poorly. In particular, 
+
+Global Points achieves almost zero success rate (SR), indi-cating that purely geometric point-wise RANSAC fails under such low overlap conditions. Global FPFH improves per-formance by leveraging local geometric features, achieving SR of 0.129, 0.148, and 0.159 under increasingly relaxed thresholds, but remains fundamentally limited by the large proportion of irrelevant points in the full scan. In contrast, methods leveraging instance-level correspondences signifi-cantly improve registration performance. Among them, Our Matched Instances + Cropped FPFH achieves the best results across all thresholds, with SR improving to 0.201, 0.227, and 0.242. This improvement demonstrates that scene graph alignment provides reliable object-level guidance to constrain correspondence search to semantically consis-tent regions, effectively mitigating the negative impact of low overlap. Furthermore, the cropped strategy reduces the number of outlier correspondences introduced by unrelated regions, resulting in both higher accuracy and faster com-putation. Specifically, Our Matched Instances + Cropped FPFH achieves the lowest runtime (0.52 s), which is approx-imately 8.6× faster than global FPFH, highlighting the efficiency benefits of instance-guided spatial filtering. The comparison between One2One GeoTransformer , One2One FPFH , and Cropped FPFH further reveals the importance of using multiple matched instances jointly. While One2One methods restrict correspondence estimation to individual instance pairs, the cropped approach leverages a larger but still relevant region containing multiple matched instances, providing more stable geometric constraints and improving robustness. The S2S task is less difficult due to higher overlap between subscans. As shown in Table 14, global methods already achieve reasonable performance. Global FPFH 
+
+achieves strong results across thresholds, reflecting that geometric features are sufficiently discriminative when overlap is moderate. Instance-guided methods still provide clear advantages. In particular, Our Matched Instances + One2One FPFH achieves the highest SR under moderate and relaxed thresholds, reaching 0.400 and 0.446, corresponding to relative improvements of 7.5% and 10.9% over Global FPFH . This demonstrates that instance-level correspondences help eliminate geometrically ambiguous regions and guide registration toward semantically consistent structures. Meanwhile, Our Matched Instances + Cropped FPFH achieves the lowest rotation and translation errors under moderate thresholds, indicating improved registration accuracy and stability. Compared to the F2S task, the performance gap between global and instance-guided methods is smaller in S2S, as the higher geometric overlap makes global geometric features more reliable. Overall, these results demonstrate that our scene graph alignment model, despite containing imperfect instance correspondences, can significantly improve down-stream point cloud registration, particularly in low-overlap  
+
+> Prepared using sagej.cls
+
+20 Journal Title XX(X) 
+
+Table 13. F2S Point Cloud Registration Results under Different RTE and RRE Thresholds (GT mIOU: 0.083)                                                                        
+
+> Correspondence Method RTE ≤0.5m ,RRE ≤5◦RTE ≤1.0m ,RRE ≤10 ◦RTE ≤2.0m ,RRE ≤15 ◦
+> Time ↓(s) SR ↑RRE ↓(◦)RTE ↓(m) SR ↑RRE ↓(◦)RTE ↓(m) SR ↑RRE ↓(◦)RTE ↓(m)
+> Global Points 0.001 3.22 0.094 0.002 6.55 0.365 0.004 8.27 0.583 4.55 Global FPFH 0.129 1.91 0.076 0.148 2.52 0.107 0.159 3.07 0.165 4.48 Our Matched Instances + One2One GeoTrans 0.016 3.52 0.165 0.057 6.41 0.231 0.095 8.84 0.303 2.73 Our Matched Instances + One2One FPFH 0.029 3.52 0.163 0.107 6.50 0.224 0.188 9.01 0.288 1.50 Our Matched Instances + Cropped FPFH 0.201 1.97 0.078 0.227 2.52 0.107 0.242 3.00 0.163 0.52
+
+Table 14. S2S Point Cloud Registration Results under Different RTE and RRE Thresholds (GT mIOU: 0.240)                                                                        
+
+> Correspondence Method RTE ≤0.5m ,RRE ≤5◦RTE ≤1.0m ,RRE ≤10 ◦RTE ≤2.0m ,RRE ≤15 ◦
+> Time ↓(s) SR ↑RRE ↓(◦)RTE ↓(m) SR ↑RRE ↓(◦)RTE ↓(m) SR ↑RRE ↓(◦)RTE ↓(m)
+> Global Points 0.184 2.02 0.164 0.246 3.10 0.292 0.305 4.16 0.492 1.23
+> Global FPFH 0.301 2.12 0.145 0.372 2.78 0.222 0.402 3.36 0.281 3.43 Our Matched Instances + One2One GeoTrans 0.125 2.96 0.204 0.181 4.07 0.267 0.204 4.94 0.328 2.04 Our Matched Instances + One2One FPFH 0.261 3.00 0.222 0.400 4.24 0.297 0.446 5.03 0.361 1.71 Our Matched Instances + Cropped FPFH 0.297 2.04 0.158 0.355 2.70 0.217 0.391 3.41 0.285 2.40
+
+scenarios. Instance-level correspondences constrain the cor-respondence search space to semantically and spatially rele-vant regions, reducing the likelihood of outlier matches and improving both efficiency and robustness. 
+
+References 
+
+Akiba T, Sano S, Yanase T, Ohta T and Koyama M (2019) Optuna: A next-generation hyperparameter optimization framework. In: Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining .Armeni I, He ZY, Gwak J, Zamir AR, Fischer M, Malik J and Savarese S (2019) 3d scene graph: A structure for unified semantics, 3d space, and camera. In: Proc. of the IEEE/CVF Comput. Vis. and Pattern Recognition Conf. (CVPR) . pp. 5664– 5673. Ba JL, Kiros JR and Hinton GE (2016) Layer normalization. arXiv preprint arXiv:1607.06450 .Bavle H, Sanchez-Lopez JL, Shaheer M, Civera J and Voos H (2023) S-graphs+: Real-time localization and mapping leveraging hierarchical representations. IEEE Robot. Autom. Lett. 8(8): 4927–4934. Besl PJ and McKay ND (1992) Method for registration of 3-d shapes. In: Sensor fusion IV: control paradigms and data structures , volume 1611. Spie, pp. 586–606. Chang Y, Hughes N, Ray A and Carlone L (2023) Hydra-multi: Collaborative online construction of 3d scene graphs with multi-robot teams. In: 2023 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) . IEEE, pp. 10995–11002. Chen L, Wang X, Lu J, Lin S, Wang C and He G (2024) Clip-driven open-vocabulary 3d scene graph generation via cross-modality contrastive learning. In: Proc. of the IEEE/CVF Comput. Vis. and Pattern Recognition Conf. (CVPR) . pp. 27863–27873. Chen Y, Zhang IG, Zhang Y, Xu H, Zhi P, Li Q and Huang S (2025) Synergai: Perception alignment for human-robot collaboration. In: Proc. of the IEEE Intl. Conf. on Robot. and Autom. (ICRA) .IEEE, pp. 3095–3102. Dai A, Chang AX, Savva M, Halber M, Funkhouser T and Nießner M (2017) Scannet: Richly-annotated 3d reconstructions of indoor scenes. In: Proceedings of the IEEE conference on computer vision and pattern recognition . pp. 5828–5839. Dai Z, Asgharivaskasi A, Duong T, Lin S, Tzes ME, Pappas G and Atanasov N (2024) Optimal scene graph planning with large language model guidance. In: Proc. of the IEEE Intl. Conf. on Robot. and Autom. (ICRA) . IEEE, pp. 14062–14069. Devarakonda VN, Goswami RG, Kaypak AU, Patel N, Khorram-bakht R, Krishnamurthy P and Khorrami F (2024) Orionnav: Online planning for robot autonomy with context-aware llm and open-vocabulary semantic scene graphs. arXiv preprint arXiv:2410.06239 .Ericson C (2004) Real-time collision detection . Crc Press. Ester M, Kriegel HP, Sander J and Xu X (1996) A density-based algorithm for discovering clusters in large spatial databases with noise. In: kdd , volume 96. pp. 226–231. Fischler MA and Bolles RC (1981) Random sample consensus: a paradigm for model fitting with applications to image analysis and automated cartography. Communications of the ACM 
+
+24(6): 381–395. Ge W, Tang C and Zhang H (2024) Commonsense scene graph-based target localization for object search. In: Proc. of the IEEE/RSJ Intl. Conf. on Intell. Robots and Syst. (IROS) . IEEE, pp. 13318–13325. Gorlo N, Schmid L and Carlone L (2024) Long-term human trajectory prediction using 3d dynamic scene graphs. IEEE Robotics and Automation Letters 9(12): 10978–10985. Gottschalk S, Lin MC and Manocha D (1996) Obbtree: Ahierarchical structure for rapid interference detection. In: 
+
+Proceedings of the 23rd annual conference on Computer graphics and interactive techniques . pp. 171–180. Gu Q, Kuwajerwala A, Morin S, Jatavallabhula KM, Sen B, Agarwal A, Rivera C, Paul W, Ellis K, Chellappa R, Gan C, de Melo CM, Tenenbaum JB, Torralba A, Shkurti F and Paull L (2024) Conceptgraphs: Open-vocabulary 3d scene graphs for perception and planning. In: Proc. of the IEEE Intl. Conf. on Robot. and Autom. (ICRA) . IEEE, pp. 5021–5028. Gu Q, Ye Z, Yu J, Tang J, Yi T, Dong Y, Wang J, Cui J, Chen X and Wang Y (2025) Mr-cographs: Communication-efficient multi-robot open-vocabulary mapping system via 3d scene graphs. 
+
+IEEE Robotics and Automation Letters . 
+
+> Prepared using sagej.cls
+
+Chen et al. 21 
+
+Hagberg A, Swart PJ and Schult DA (2008) Exploring network structure, dynamics, and function using networkx. Technical report, Los Alamos National Laboratory (LANL), Los Alamos, NM (United States). He K, Zhang X, Ren S and Sun J (2016) Deep residual learning for image recognition. In: Proc. of the IEEE/CVF Comput. Vis. and Pattern Recognition Conf. (CVPR) . pp. 770–778. Honerkamp D, B¨ uchner M, Despinoy F, Welschehold T and Valada A (2024) Language-grounded dynamic scene graphs for interactive object search with mobile manipulation. IEEE Robot. Autom. Lett. 9(10): 8298–8305. Hughes N, Chang Y and Carlone L (2022) Hydra: A real-time spatial perception system for 3d scene graph construction and optimization. In: Robotics: Science and Systems (RSS) .Hughes N, Chang Y, Hu S, Talak R, Abdulhai R, Strader J and Carlone L (2024) Foundations of spatial perception for robotics: Hierarchical representations and real-time systems. 
+
+The International Journal of Robotics Research 43(10): 1457– 1505. Kirillov A, Mintun E, Ravi N, Mao H, Rolland C, Gustafson L, Xiao T, Whitehead S, Berg AC, Lo WY, Dollar P and Girshick R (2023) Segment anything. In: Proceedings of the IEEE/CVF international conference on computer vision . pp. 4015–4026. Koch S, Vaskevicius N, Colosi M, Hermosilla P and Ropinski T (2024) Open3dsg: Open-vocabulary 3d scene graphs from point clouds with queryable objects and open-set relationships. In: Proc. of the IEEE/CVF Comput. Vis. and Pattern Recognition Conf. (CVPR) . pp. 14183–14193. Lindenberger P, Sarlin PE and Pollefeys M (2023) Lightglue: Local feature matching at light speed. In: Proc. of the IEEE/CVF Comput. Vis. and Pattern Recognition Conf. (CVPR) . pp. 17627–17638. Liu C, Qiao Z, Shi J, Wang K, Liu P and Shen S (2025a) Sg-reg: Generalizable and efficient scene graph registration. 
+
+IEEE Trans. Robot. 41: 3870–3889. DOI:10.1109/TRO.2025. 3577020. Liu S, Zeng Z, Ren T, Li F, Zhang H, Yang J, Jiang Q, Li C, Yang J, Su H, Zhu J and Zhang L (2024) Grounding dino: Marrying dino with grounded pre-training for open-set object detection. In: European conference on computer vision . Springer, pp. 38– 55. Liu Y, Li X, Zhang Y, Qi L, Li X, Wang W, Li C, Li X and Yang MH (2025b) Controllable 3d outdoor scene generation via scene graphs. In: Proc. of the IEEE/CVF Intl. Conf. on Computer Vision (ICCV) . pp. 28052–28062. Liu Y, Palmieri L, Koch S, Georgievski I and Aiello M (2025c) Delta: Decomposed efficient long-term robot task planning using large language models. In: Proc. of the IEEE Intl. Conf. on Robot. and Autom. (ICRA) . IEEE, pp. 10995–11001. Loshchilov I and Hutter F (2019) Decoupled weight decay regularization. In: International Conference on Learning Representations .Maggio D, Chang Y, Hughes N, Trang M, Griffith D, Dougherty C, Cristofalo E, Schmid L and Carlone L (2024) Clio: Real-time task-driven open-set 3d scene graphs. IEEE Robot. Autom. Lett. 
+
+9(10): 8921–8928. Miao Y, Engelmann F, Vysotska O, Tombari F, Pollefeys M and Bar´ ath DB (2024) Scenegraphloc: Cross-modal coarse visual localization on 3d scene graphs. In: European Conference on Computer Vision (ECCV) .Olivastri E, Francis J, Pretto A, S¨ underhauf N and Rana K (2024) Multi-modal 3d scene graph updater for shared and dynamic environments. arXiv preprint arXiv:2411.02938 .Oliveira DN, Knights J, Laina SB, Boche S, Burgard W and Leutenegger S (2025) Regrace: A robust and efficient graph-based re-localization algorithm using consistency evaluation. In: Proc. of the IEEE/RSJ Intl. Conf. on Intell. Robots and Syst. (IROS) . IEEE, pp. 2507–2513. OpenAI (2024) GPT-4o System Card. DOI:10.48550/arXiv.2410. 21276. ArXiv:2410.21276. Peterson MB, Jia YX, Tian Y, Thomas A and How JP (2025) ROMAN: Open-Set Object Map Alignment for Robust View-Invariant Global Localization. In: Robotics: Science and Systems (RSS) .Qin Z, Yu H, Wang C, Guo Y, Peng Y and Xu K (2022) Geometric transformer for fast and robust point cloud registration. In: 
+
+Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) . pp. 11143–11152. Radford A, Kim JW, Hallacy C, Ramesh A, Goh G, Agarwal S, Sastry G, Askell A, Mishkin P, Clark J, Krueger G and Sutskever I (2021) Learning transferable visual models from natural language supervision. In: International Conference on Machine Learning .Rana K, Haviland J, Garg S, Abou-Chakra J, Reid I and Suenderhauf N (2023) Sayplan: Grounding large language models using 3d scene graphs for scalable robot task planning. 
+
+Conference on Robot Learning (CoRL) .Reimers N and Gurevych I (2019) Sentence-bert: Sentence embeddings using siamese bert-networks. Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing : 3982–3992. Ren T, Liu S, Zeng A, Lin J, Li K, Cao H, Chen J, Huang X, Chen Y, Yan F, Zeng Z, Zhang H, Li F, Yang J, Li H, Jiang Q and Zhang L (2024) Grounded sam: Assembling open-world models for diverse visual tasks. arXiv preprint arXiv:2401.14159 .Sarkar SD, Miksik O, Pollefeys M, Barath D and Armeni I (2023) Sgaligner: 3d scene alignment with scene graphs. In: Proc. of the IEEE/CVF Intl. Conf. on Computer Vision (ICCV) . pp. 21927–21937. Singh B, Sarkar SD and Armeni I (2025) Sgaligner++: Cross-modal language-aided 3d scene graph alignment. arXiv preprint arXiv:2509.20401 .Strader J, Hughes N, Chen W, Speranzon A and Carlone L (2024) Indoor and outdoor 3d scene graph generation via language-enabled spatial ontologies. IEEE Robot. Autom. Lett. 9(6): 4886–4893. Tang Y, Wang M, Deng Y, Zheng Z, Zhong J, Liu T, Zhao C and Yue Y (2025) Openobject-nav: Open-vocabulary object-oriented navigation based on dynamic carrier-relationship scene graph. In: Proc. of the IEEE/RSJ Intl. Conf. on Intell. Robots and Syst. (IROS) . IEEE, pp. 20182–20188. Vaswani A, Shazeer N, Parmar N, Uszkoreit J, Jones L, Gomez AN, Kaiser Ł and Polosukhin I (2017) Attention is all you need. 
+
+Advances in neural information processing systems 30. Wald J, Avetisyan A, Navab N, Tombari F and Nießner M (2019) Rio: 3d object instance re-localization in changing indoor environments. In: Proceedings of the IEEE/CVF International Conference on Computer Vision . pp. 7658–7667.  
+
+> Prepared using sagej.cls
+
+22 Journal Title XX(X) 
+
+Wald J, Dhamo H, Navab N and Tombari F (2020) Learning 3d semantic scene graphs from 3d indoor reconstructions. In: 
+
+Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition . pp. 3961–3970. Wu SC, Tateno K, Navab N and Tombari F (2023) Incremental 3d semantic scene graph prediction from rgb sequences. In: Proc. of the IEEE/CVF Comput. Vis. and Pattern Recognition Conf. (CVPR) . pp. 5064–5074. Xie MK, Xiao JH, Kou Z, Li Z, Niu G and Sugiyama M (2026) Are multimodal large language models good annotators for image tagging? arXiv preprint arXiv:2602.20972 .Xie Y, Pagani A and Stricker D (2024) Sg-pgm: Partial graph matching network with semantic geometric fusion for 3d scene graph alignment and its downstream tasks. In: Proc. of the IEEE/CVF Comput. Vis. and Pattern Recognition Conf. (CVPR) . pp. 28401–28411. Zhang C, Delitzas A, Wang F, Zhang R, Ji X, Pollefeys M and Engelmann F (2025) Open-vocabulary functional 3d scene graphs for real-world indoor spaces. In: Proc. of the IEEE/CVF Comput. Vis. and Pattern Recognition Conf. (CVPR) . pp. 19401–19413. Zhang H, Zantout N, Kachana P, Wu Z, Zhang J and Wang W (2024a) Vla-3d: A dataset for 3d semantic scene understanding and navigation. arXiv preprint arXiv:2411.03540 .Zhang Z, Zhu Z, Li J, Li P, Wang T, Liu T, Ma X, Chen Y, Jia B, Huang S and Li Q (2024b) Task-oriented sequential grounding and navigation in 3d scenes. arXiv preprint arXiv:2408.04034 
+
+.Zhao X, Ding W, An Y, Du Y, Yu T, Li M, Tang M and Wang J (2023) Fast segment anything. arXiv preprint arXiv:2306.12156 .

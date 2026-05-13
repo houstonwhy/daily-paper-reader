@@ -6,73 +6,73 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-05-12
-- 运行时间：2026-05-12 19:44:41 UTC
+- 最新运行日期：2026-05-13
+- 运行时间：2026-05-13 19:21:53 UTC
 - 运行状态：成功
 - 本次总论文数：17
 - 精读区：6
 - 速读区：11
 
 ### 今日简报（AI）
-今日聚焦高保真3D生成与具身智能，深度解析概率流蒸馏及自动化环境构建等17项前沿成果。
-重点关注满分论文提出的概率流蒸馏技术，以及通过进化编码智能体实现具身学习环境的自动生成。
-建议深入探索3D模型几何缺陷修复与4D时空缝合技术，以应对复杂场景下的生成挑战。
-- 详情：[/202605/12/README](/202605/12/README)
+今日聚焦 3D 生成式世界模型与高斯泼溅（Gaussian Splatting）的深度融合，探索具身智能与动态场景重建的前沿。
+重点关注 3D-Belief 提出的具身信念推理及 VidSplat 利用视频扩散先验实现的极速 3D 重建，两者均在生成式 3D 建模上取得 9.0 高分突破。
+建议优先研读高分精读论文，掌握如何利用扩散模型提升 3D 高斯泼溅的重建质量与动态一致性。
+- 详情：[/202605/13/README](/202605/13/README)
 
 ### 精读区论文标签
-1. [Probability-Flow Distillation: Exact Wasserstein Gradient Flow for High-Fidelity 3D Generation](/202605/12/2605.09071v1-probability-flow-distillation-exact-wasserstein-gradient-flow-for-high-fidelity-3d-generation)  
-   标签：评分：10.0/10、query:3dgen
-   evidence：使用分数蒸馏的高保真文本到3D生成
-2. [SimWorld Studio: Automatic Environment Generation with Evolving Coding Agent for Embodied Agent Learning](/202605/12/2605.09423v1-simworld-studio-automatic-environment-generation-with-evolving-coding-agent-for-embodied-agent-learning)  
+1. [3D-Belief: Embodied Belief Inference via Generative 3D World Modeling](/202605/13/2605.11367v1-3d-belief-embodied-belief-inference-via-generative-3d-world-modeling)  
    标签：评分：9.0/10、query:3dgen
-   evidence：为具身智能学习自动生成3D环境
-3. [Predicting 3D structure by latent posterior sampling](/202605/12/2605.10830v1-predicting-3d-structure-by-latent-posterior-sampling)  
+   evidence：具身智能体的生成式3D世界建模
+2. [VidSplat: Gaussian Splatting Reconstruction with Geometry-Guided Video Diffusion Priors](/202605/13/2605.11424v1-vidsplat-gaussian-splatting-reconstruction-with-geometry-guided-video-diffusion-priors)  
    标签：评分：9.0/10、query:3dgen
-   evidence：使用扩散模型和NeRF的3D场景生成模型
-4. [Pixal3D: Pixel-Aligned 3D Generation from Images](/202605/12/2605.10922v1-pixal3d-pixel-aligned-3d-generation-from-images)  
-   标签：评分：9.0/10、query:3dgen
-   evidence：用于高保真资产的像素对齐3D生成范式
-5. [SeasonScapes: Learning Large-scale Re-lightable 3D Landscapes with Seasonal Variation from Sparse Webcams](/202605/12/2605.09039v1-seasonscapes-learning-large-scale-re-lightable-3d-landscapes-with-seasonal-variation-from-sparse-webcams)  
+   evidence：完整3D场景的生成式重建
+3. [Beyond Spatial Compression: Interface-Centric Generative States for Open-World 3D Structure](/202605/13/2605.10438v1-beyond-spatial-compression-interface-centric-generative-states-for-open-world-3d-structure)  
    标签：评分：8.0/10、query:3dgen
-   evidence：使用扩散模型构建季节性3D景观
-6. [Flame3D: Zero-shot Compositional Reasoning of 3D Scenes with Agentic Language Models](/202605/12/2605.09218v1-flame3d-zero-shot-compositional-reasoning-of-3d-scenes-with-agentic-language-models)  
+   evidence：用于开放世界3D结构和组装的生成状态
+4. [LatentHDR: Decoupling Exposure from Diffusion via Conditional Latent-to-Latent Mapping for Text/Image-to-Panoramic HDR](/202605/13/2605.11115v1-latenthdr-decoupling-exposure-from-diffusion-via-conditional-latent-to-latent-mapping-for-textimage-to-panoramic-hdr)  
    标签：评分：8.0/10、query:3dgen
-   evidence：3D场景的零样本推理与合成
+   evidence：文本/图像到全景HDR场景生成
+5. [PG-3DGS: Optimizing 3D Gaussian Splatting to Satisfy Physics Objectives](/202605/13/2605.11266v1-pg-3dgs-optimizing-3d-gaussian-splatting-to-satisfy-physics-objectives)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：使用高斯泼溅生成满足物理目标的3D场景
+6. [PointForward: Feedforward Driving Reconstruction through Point-Aligned Representations](/202605/13/2605.11594v1-pointforward-feedforward-driving-reconstruction-through-point-aligned-representations)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：驾驶场景的高保真重建
 
 ### 速读区论文标签
-1. [On the Generation and Mitigation of Harmful Geometry in Image-to-3D Models](/202605/12/2605.09606v1-on-the-generation-and-mitigation-of-harmful-geometry-in-image-to-3d-models)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：图像到3D生成模型的测量研究
-2. [MiXR: Harvesting and Recomposing Geometry from Real-World Objects for In-Situ 3D Design](/202605/12/2605.09620v1-mixr-harvesting-and-recomposing-geometry-from-real-world-objects-for-in-situ-3d-design)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：生成式AI从用户组合中合成连贯的3D模型
-3. [Geometric 4D Stitching for Grounded 4D Generation](/202605/12/2605.09984v1-geometric-4d-stitching-for-grounded-4d-generation)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：4D场景生成与重建框架
-4. [TransmissiveGS: Residual-Guided Disentangled Gaussian Splatting for Transmissive Scene Reconstruction and Rendering](/202605/12/2605.10705v1-transmissivegs-residual-guided-disentangled-gaussian-splatting-for-transmissive-scene-reconstruction-and-rendering)  
-   标签：评分：8.0/10、query:3dgen
-   evidence：透射环境的3D场景重建
-5. [From Pixels to Primitives: Scene Change Detection in 3D Gaussian Splatting](/202605/12/2605.07203v2-from-pixels-to-primitives-scene-change-detection-in-3d-gaussian-splatting)  
+1. [ConFixGS: Learning to Fix Feedforward 3D Gaussian Splatting with Confidence-Aware Diffusion Priors in Driving Scenes](/202605/13/2605.09688v1-confixgs-learning-to-fix-feedforward-3d-gaussian-splatting-with-confidence-aware-diffusion-priors-in-driving-scenes)  
    标签：评分：7.0/10、query:3dgen
-   evidence：3D高斯泼溅表示中的场景变化检测
-6. [Distill, Diffuse, and Semanticize (DDS): Annotation-Free 3D Scene Understanding Based on Multi-Granularity Distillation and Graph-Diffusion-Based Segmentation](/202605/12/2605.08293v1-distill-diffuse-and-semanticize-dds-annotation-free-3d-scene-understanding-based-on-multi-granularity-distillation-and-graph-diffusion-based-segmentation)  
+   evidence：利用扩散先验修复驾驶场景中的3D高斯泼溅
+2. [PaMoSplat: Part-Aware Motion-Guided Gaussian Splatting for Dynamic Scene Reconstruction](/202605/13/2605.10307v1-pamosplat-part-aware-motion-guided-gaussian-splatting-for-dynamic-scene-reconstruction)  
    标签：评分：7.0/10、query:3dgen
-   evidence：3D场景理解与语义分割
-7. [Kinematics-Driven Gaussian Shape Deformation for Blurry Monocular Dynamic Scenes](/202605/12/2605.08635v1-kinematics-driven-gaussian-shape-deformation-for-blurry-monocular-dynamic-scenes)  
+   evidence：使用高斯泼溅进行动态场景重建
+3. [DySurface: Consistent 4D Surface Reconstruction via Bridging Explicit Gaussians and Implicit Functions](/202605/13/2605.10360v1-dysurface-consistent-4d-surface-reconstruction-via-bridging-explicit-gaussians-and-implicit-functions)  
    标签：评分：7.0/10、query:3dgen
-   evidence：从单目视频重建动态3D场景
-8. [BEA-GS: BEyond RAdiance Supervision in 3DGS for Precise Object Extraction](/202605/12/2605.09662v1-bea-gs-beyond-radiance-supervision-in-3dgs-for-precise-object-extraction)  
+   evidence：动态场景的4D表面重建
+4. [DySurface: Consistent 4D Surface Reconstruction via Bridging Explicit Gaussians and Implicit Functions](/202605/13/2605.10360v2-dysurface-consistent-4d-surface-reconstruction-via-bridging-explicit-gaussians-and-implicit-functions)  
    标签：评分：7.0/10、query:3dgen
-   evidence：3D语义表示与物体提取
-9. [Height-Guided Projection Reparameterization for Camera-LiDAR Occupancy](/202605/12/2605.05072v2-height-guided-projection-reparameterization-for-camera-lidar-occupancy)  
+   evidence：动态场景中一致的4D表面重建
+5. [Thinking with Novel Views: A Systematic Analysis of Generative-Augmented Spatial Intelligence](/202605/13/2605.10588v1-thinking-with-novel-views-a-systematic-analysis-of-generative-augmented-spatial-intelligence)  
+   标签：评分：7.0/10、query:3dgen
+   evidence：用于空间推理的生成式新视角合成
+6. [4DVGGT-D: 4D Visual Geometry Transformer with Improved Dynamic Depth Estimation](/202605/13/2605.12027v1-4dvggt-d-4d-visual-geometry-transformer-with-improved-dynamic-depth-estimation)  
+   标签：评分：7.0/10、query:3dgen
+   evidence：从单目视频重建动态4D场景
+7. [Ray-Aware Pointer Memory with Adaptive Updates for Streaming 3D Reconstruction](/202605/13/2605.05749v2-ray-aware-pointer-memory-with-adaptive-updates-for-streaming-3d-reconstruction)  
    标签：评分：6.0/10、query:3dgen
-   evidence：3D占据预测与场景语义
-10. [AsyncEvGS: Asynchronous Event-Assisted Gaussian Splatting for Handheld Motion-Blurred Scenes](/202605/12/2605.07192v1-asyncevgs-asynchronous-event-assisted-gaussian-splatting-for-handheld-motion-blurred-scenes)  
+   evidence：3D重建与几何聚合
+8. [Curvature-Aware Captioning:Leveraging Geodesic Attention for 3D Scene Understanding](/202605/13/2605.08808v1-curvature-aware-captioningleveraging-geodesic-attention-for-3d-scene-understanding)  
    标签：评分：6.0/10、query:3dgen
-   evidence：使用高斯泼溅的3D重建框架
-11. [High-Fidelity Surface Splatting-Based 3D Reconstruction from Multi-View Images](/202605/12/2605.07254v1-high-fidelity-surface-splatting-based-3d-reconstruction-from-multi-view-images)  
+   evidence：3D场景描述与理解
+9. [Dependency-Aware Discrete Diffusion for Scene Graph Generation](/202605/13/2605.09065v1-dependency-aware-discrete-diffusion-for-scene-graph-generation)  
    标签：评分：6.0/10、query:3dgen
-   evidence：多视图图像的3D重建
+   evidence：用于3D理解的场景图生成
+10. [OpenSGA: Efficient 3D Scene Graph Alignment in the Open World](/202605/13/2605.10484v1-opensga-efficient-3d-scene-graph-alignment-in-the-open-world)  
+   标签：评分：6.0/10、query:3dgen
+   evidence：3D场景图对齐与场景理解
+11. [Lite3R: A Model-Agnostic Framework for Efficient Feed-Forward 3D Reconstruction](/202605/13/2605.11354v1-lite3r-a-model-agnostic-framework-for-efficient-feed-forward-3d-reconstruction)  
+   标签：评分：6.0/10、query:3dgen
+   evidence：高效3D重建框架
 
 
 <div class="dpr-home-promo-card">
