@@ -1,0 +1,689 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-14T19:50:39.350626+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 6,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 17,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2605.13586v1",
+      "title": "HetScene: Heterogeneity-Aware Diffusion for Dense Indoor Scene Generation",
+      "abstract": "Generating controllable and physically plausible indoor scenes is a pivotal prerequisite for constructing high-fidelity simulation environments for embodied AI. However, existing deeplearning-based methods usually treat all objects as homogeneous instances within a unified generation process. While effective for sparse and simplistic layouts, they struggle to model realistic layouts with dense object arrangements and complex spatial dependencies, leadingto limited scalability and degraded physical plausibility. To deal with these challenges, we revisit indoor layout generation from the perspective of structural heterogeneity and decompose the objects into primary objects and secondary objects according to their distinct roles in shaping a scene. Based on this decomposition, we propose HetScene, a heterogeneous two-stage generation framework that decouples indoor layout synthesis into Structural Layout Generation (SLG) and Contextual Layout Generation (CLG). SLG first generates globally coherent structural layouts with only primary objects conditioned on text descriptions, top-down binary room masks, and spatial relation graphs, establishing a stable global macro-skeleton of large core furniture.",
+      "authors": [
+        "Zini Chen",
+        "Junming Huang",
+        "Rong Zhang",
+        "Jiamin Xu",
+        "Cheng Peng",
+        "Chi Wang",
+        "Weiwei Xu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-05-13T14:21:51+00:00",
+      "link": "https://arxiv.org/pdf/2605.13586v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "dense indoor scene generation using diffusion",
+      "llm_evidence_cn": "使用扩散模型生成稠密室内场景",
+      "llm_evidence": "使用扩散模型生成稠密室内场景",
+      "canonical_evidence": "使用扩散模型生成稠密室内场景",
+      "llm_tldr_en": "HetScene uses heterogeneity-aware diffusion for generating physically plausible dense indoor scene layouts.",
+      "llm_tldr_cn": "HetScene采用异构感知扩散模型生成物理上合理的稠密室内场景布局。",
+      "llm_tldr": "HetScene采用异构感知扩散模型生成物理上合理的稠密室内场景布局。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.13815v1",
+      "title": "OmniLiDAR: A Unified Diffusion Framework for Multi-Domain 3D LiDAR Generation",
+      "abstract": "LiDAR scene generation is increasingly important for scalable simulation and synthetic data creation, especially under diverse sensing conditions that are costly to capture at scale. Typically, diffusion-based LiDAR generators are developed under single-domain settings, requiring separate models for different datasets or sensing conditions and hindering unified, controllable synthesis under heterogeneous distribution shifts. To this end, we present OmniLiDAR, a unified text-conditioned diffusion framework that generates LiDAR scans in a shared range-image representation across eight representative domains spanning three shift types: adverse weather, sensor-configuration changes (e.g., reduced beams), and cross-platform acquisition (vehicle, drone, and quadruped). To enable training a single model over heterogeneous domains without isolating optimization by domain, we introduce a Cross-Domain Training Strategy (CDTS) that mixes domains within each mini-batch and leverages conditioning to steer generation. We further propose Cross-Domain Feature Modeling (CDFM), which captures directional dependencies along azimuth and elevation axes to reflect the anisotropic scanning structure of range images, and Domain-Adaptive Feature Scaling (DAFS) as a lightweight modulation to account for structured domain-dependent feature shifts during denoising. In the absence of a public consolidated benchmark, we construct an 8-domain dataset by combining real-world scans with physically based weather simulation and systematic beam reduction while following official splits. Extensive experiments demonstrate strong generation fidelity and consistent gains in downstream use cases, including generative data augmentation for LiDAR semantic segmentation and 3D object detection, as well as robustness evaluation under corruptions, with consistent benefits in limited-label regimes.",
+      "authors": [
+        "Youquan Liu",
+        "Weidong Yang",
+        "Ao Liang",
+        "Xiang Xu",
+        "Lingdong Kong",
+        "Yang Wu",
+        "Dekai Zhu",
+        "Xin Li",
+        "Runnan Chen",
+        "Ben Fei",
+        "Tongliang Liu",
+        "Wanli Ouyang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.RO"
+      ],
+      "published": "2026-05-13T17:42:20+00:00",
+      "link": "https://arxiv.org/pdf/2605.13815v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Text-conditioned diffusion framework for 3D LiDAR scene generation",
+      "llm_evidence_cn": "用于3D LiDAR场景生成的文本条件扩散框架",
+      "llm_evidence": "用于3D LiDAR场景生成的文本条件扩散框架",
+      "canonical_evidence": "用于3D LiDAR场景生成的文本条件扩散框架",
+      "llm_tldr_en": "Presents a unified diffusion framework for generating multi-domain 3D LiDAR scans from text prompts.",
+      "llm_tldr_cn": "提出了一个统一的扩散框架，用于根据文本提示生成多领域的3D LiDAR扫描。",
+      "llm_tldr": "提出了一个统一的扩散框架，用于根据文本提示生成多领域的3D LiDAR扫描。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.09423v2",
+      "title": "SimWorld Studio: Automatic Environment Generation with Evolving Coding Agent for Embodied Agent Learning",
+      "abstract": "LLM/VLM-based digital agents have advanced rapidly thanks to scalable sandboxes for coding, web navigation, and computer use, which provide rich interactive training grounds. In contrast, embodied agents still lack abundant, diverse, and automatically generated 3D environments for interactive learning. Existing embodied simulators rely on manually crafted scenes or procedural templates, while recent LLM-based 3D generation systems mainly produce static scenes rather than deployable environments with verifiable tasks and standard learning interfaces. We introduce SimWorld Studio, an open-source platform built on Unreal Engine 5 for generating evolving embodied learning environments. At its core is SimCoder, a tool/skill-augmented coding agent that writes and executes engine-level code to construct physically grounded 3D worlds from language/image instructions. SimCoder self-evolves by using verifier feedback (e.g., compilation errors, physics checks, VLM critiques) to revise environments and autonomously add reusable tools and skills to its library. Generated worlds are exported as Gym-style environments for embodied agent learning. SimWorld Studio further enables co-evolution between environment generation and embodied learning: agent performance feedback guides SimCoder to generate adaptive curricula near the learner's capability frontier, so that environments become increasingly challenging as the embodied agent improves. Three case studies on embodied navigation show that self-evolution improves generation reliability, generated environments substantially improve embodied agent performance that generalizes to unseen benchmarks, and co-evolution yields an 18-point success-rate gain over fixed-environment learning and a 40-point gain over an untrained agent.",
+      "authors": [
+        "Haoqiang Kang",
+        "Xiaokang Ye",
+        "Yuhan Liu",
+        "Siddhant Hitesh Mantri",
+        "Lingjun Mao",
+        "James Fleming",
+        "Drishti Regmi",
+        "Lianhui Qin"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-05-10T08:51:50+00:00",
+      "link": "https://arxiv.org/pdf/2605.09423v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "automatic environment generation for embodied agent learning",
+      "llm_evidence_cn": "为具身智能学习自动生成环境",
+      "llm_evidence": "为具身智能学习自动生成环境",
+      "canonical_evidence": "为具身智能学习自动生成环境",
+      "llm_tldr_en": "SimWorld Studio uses LLMs to automatically generate interactive 3D environments for embodied AI.",
+      "llm_tldr_cn": "SimWorld Studio利用大模型为具身智能自动生成交互式3D环境。",
+      "llm_tldr": "SimWorld Studio利用大模型为具身智能自动生成交互式3D环境。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.12957v1",
+      "title": "GTA: Advancing Image-to-3D World Generation via Geometry Then Appearance Video Diffusion",
+      "abstract": "Recent developments in generative models and large-scale datasets have substantially advanced 3D world generation, facilitating a broad range of domains including spatial intelligence, embodied intelligence, and autonomous driving. While achieving remarkable progress, existing approaches to 3D world generation typically prioritize appearance prediction with limited modeling of the underlying geometry, leading to issues such as unreliable scene structure estimation and degraded cross-view consistency. To address these limitations, motivated by the coarse-to-fine nature of human visual perception, we propose GTA, a novel image-to-3D world generation method following a Geometry-Then-Appearance paradigm. Specifically, given a single input image, to improve the structural fidelity of synthesized 3D scenes, GTA adopts a two-stage framework with two dedicated video diffusion models, which first generate coarse geometric structure from novel viewpoints and then synthesize fine-grained appearance conditioned on the predicted geometry. To further enhance cross-view appearance consistency, we introduce a random latent shuffle strategy during the training process, along with a test-time scaling scheme that improves perceptual quality without compromising quantitative performance. Extensive experiments have demonstrated that our proposed method consistently outperforms existing approaches in terms of fidelity, visual quality, and geometric accuracy. Moreover, GTA is shown to be effective as a general enhancement module that further improves the generation quality of existing image-to-3D world pipelines, as well as supporting multiple downstream applications and exhibiting favorable data efficiency during model training, highlighting its versatility and broad applicability. Project page: https://hanxinzhu-lab.github.io/GTA/.",
+      "authors": [
+        "Hanxin Zhu",
+        "Cong Wang",
+        "Peiyan Tu",
+        "Jiayi Luo",
+        "Tianyu He",
+        "Xin Jin",
+        "Zhibo Chen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-13T03:43:02+00:00",
+      "link": "https://arxiv.org/pdf/2605.12957v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "image-to-3D world generation and synthesis",
+      "llm_evidence_cn": "图像到3D世界的生成与合成",
+      "llm_evidence": "图像到3D世界的生成与合成",
+      "canonical_evidence": "图像到3D世界的生成与合成",
+      "llm_tldr_en": "GTA advances 3D world generation using a geometry-then-appearance paradigm for better consistency.",
+      "llm_tldr_cn": "GTA通过先几何后外观的范式提升了3D世界生成的结构可靠性和跨视图一致性。",
+      "llm_tldr": "GTA通过先几何后外观的范式提升了3D世界生成的结构可靠性和跨视图一致性。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.13129v1",
+      "title": "Rigel3D: Rig-aware Latents for Animation-Ready 3D Asset Generation",
+      "abstract": "Recent 3D generative models can synthesize high-quality assets, but their outputs are typically static: they lack the skeletal rigs, joint hierarchies, and skinning weights required for animation. This limits their use in games, film, simulation, virtual agents, and embodied AI, where assets must not only look plausible but also move plausibly. We introduce Rigel3D, a generative method for animation-ready 3D assets represented as rigged meshes. Unlike post-hoc auto-rigging methods that attach rigs to completed shapes, our method jointly models geometry and rig structure through coupled surface and skeleton structured latent representations. A rig-aware autoencoder decodes these representations into mesh geometry, skeleton topology, joint coordinates, and skinning weights, while a two-stage latent generative model synthesizes both surface and skeleton representations for image-conditioned generation. To support downstream animation workflows, we further introduce an open-vocabulary joint labeling module that embeds generated joints into a shared vision-language space, enabling correspondence to arbitrary retargeting templates. Experiments on large-scale rigged asset datasets demonstrate that our method generates diverse, high-quality animation-ready assets and outperforms existing rigging baselines across multiple metrics.",
+      "authors": [
+        "Nikitas Chatzis",
+        "Marios Loizou",
+        "Evangelos Kalogerakis"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR",
+        "cs.CV"
+      ],
+      "published": "2026-05-13T07:55:29+00:00",
+      "link": "https://arxiv.org/pdf/2605.13129v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Generative method for animation-ready 3D assets",
+      "llm_evidence_cn": "动画就绪3D资产的生成方法",
+      "llm_evidence": "动画就绪3D资产的生成方法",
+      "canonical_evidence": "动画就绪3D资产的生成方法",
+      "llm_tldr_en": "Rigel3D jointly models geometry and skeletal rigs to generate high-quality, animation-ready 3D assets.",
+      "llm_tldr_cn": "Rigel3D联合建模几何与骨骼绑定，生成高质量且可直接用于动画的3D资产。",
+      "llm_tldr": "Rigel3D联合建模几何与骨骼绑定，生成高质量且可直接用于动画的3D资产。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.12586v1",
+      "title": "3D Primitives are a Spatial Language for VLMs",
+      "abstract": "Vision-language models (VLMs) exhibit a striking paradox: they can generate executable code that reconstructs a 3D scene from geometric primitives with correct object counts, classes, and approximate positions, yet the same models fail at simpler spatial questions on the same image. We show that 3D geometric primitives (cubes, spheres, cylinders, expressed in executable code) serve as a powerful intermediate representation for spatial understanding, and exploit this through three contributions. First, we introduce \\textbf{\\textsc{SpatialBabel}}, a benchmark evaluating fourteen VLMs on primitive-based 3D scene reconstruction across six \\emph{scene-code languages} (programming languages and declarative formats for 3D primitive scenes), revealing that a single model's object-detection F1 can vary by up to $5.7\\times$ across languages. Second, we propose \\textbf{Code-CoT} (Code Chain-of-Thought), a training-free inference strategy that routes spatial reasoning through primitive-based code generation. Code-CoT lifts the SpatialBabel-QA-Score by up to $+6.4$\\% on primitive scenes and real-photo CV-Bench-3D accuracy by $+5.0$\\% for VLMs with strong coding capabilities. Third, we propose \\textbf{S$^{3}$-FT} (Self-Supervised Spatial Fine-Tuning), which self-supervisedly distills primitive spatial knowledge into general visual reasoning by parsing the model's own Three.js primitive-reconstructions into structured annotations and fine-tuning on the result, with \\emph{no human labels and no teacher model}. Training on primitive images alone, S$^3$-FT improves Qwen3-VL-8B by $+4.6$ to $+8.6$\\% on SpatialBabel-Primitive-QA, $+9.7$\\% on CV-Bench-2D, and $+17$\\% on HallusionBench; the recipe transfers across model families. These results establish geometric primitives in code as both a diagnostic and a transferable spatial vocabulary for VLMs. We will release all artifacts upon publication.",
+      "authors": [
+        "Junze Liu",
+        "Kun Qian",
+        "Florian Dubost",
+        "Kai Zhong",
+        "Arvind Srinivasan",
+        "Nan Chen",
+        "Anping Wang",
+        "Sam Zhang",
+        "Alejandro Mottini",
+        "Qingjun Cui",
+        "Tian Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.DB"
+      ],
+      "published": "2026-05-12T17:57:21+00:00",
+      "link": "https://arxiv.org/pdf/2605.12586v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "VLM-based 3D scene reconstruction from geometric primitives",
+      "llm_evidence_cn": "基于视觉语言模型的几何原语3D场景重建",
+      "llm_evidence": "基于视觉语言模型的几何原语3D场景重建",
+      "canonical_evidence": "基于视觉语言模型的几何原语3D场景重建",
+      "llm_tldr_en": "Uses 3D geometric primitives as an intermediate language for VLMs to perform 3D scene reconstruction from images.",
+      "llm_tldr_cn": "将3D几何原语作为视觉语言模型的中间语言，从图像中进行3D场景重建。",
+      "llm_tldr": "将3D几何原语作为视觉语言模型的中间语言，从图像中进行3D场景重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "text-to-3D scene generation frameworks",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2605.11489v1",
+      "title": "3DGS$^3$: Joint Super Sampling and Frame Interpolation for Real-Time Large-Scale 3DGS Rendering",
+      "abstract": "3D Gaussian Splatting (3DGS) enables high-quality real-time 3D rendering but faces challenges in efficiently scaling to ultra-dense scenes and high-resolution due to computational bottlenecks that limit its use in latency-sensitive applications. Instead of optimizing the splatting pipeline itself, we propose \\textbf{3DGS$^3$}, a unified post-rendering framework that jointly performs super sampling and frame interpolation through differentiable processing of low-resolution outputs to achieve both high-resolution and high-frame-rate rendering. Our \\textbf{Gradient\\- \\-Aware Super Sampling (GASS)} module leverages the continuous differentiability of 3DGS to extract image gradients that guide a GRU-based refinement network to enable high-fidelity super sampling. Furthermore, a \\textbf{Lightweight Temporal Frame Interpolation (LTFI)} module based on a compact U-Net-like backbone fuses temporal and differentiable spatial cues from consecutive frames to synthesize temporally coherent intermediate frames. Experiments on public datasets demonstrate that 3DGS$^3$ achieves superior rendering efficiency and visual quality when compared with state-of-the-art methods and remains compatible with existing 3DGS acceleration techniques. The code will be publicly released upon acceptance.",
+      "authors": [
+        "Yibo Zhao",
+        "Fan Gao",
+        "Youcheng Cai",
+        "Ligang Liu"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR",
+        "cs.CV"
+      ],
+      "published": "2026-05-12T04:05:36+00:00",
+      "link": "https://arxiv.org/pdf/2605.11489v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "post-rendering framework for large-scale 3DGS scene rendering",
+      "llm_evidence_cn": "用于大规模3DGS场景渲染的后处理框架",
+      "llm_evidence": "用于大规模3DGS场景渲染的后处理框架",
+      "canonical_evidence": "用于大规模3DGS场景渲染的后处理框架",
+      "llm_tldr_en": "Presents 3DGS^3, a framework for high-resolution and high-frame-rate rendering of dense 3D scenes.",
+      "llm_tldr_cn": "提出3DGS^3，一个用于高密度3D场景高分辨率和高帧率渲染的框架。",
+      "llm_tldr": "提出3DGS^3，一个用于高密度3D场景高分辨率和高帧率渲染的框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.04506v2",
+      "title": "Ilov3Splat: Instance-Level Open-Vocabulary 3D Scene Understanding in Gaussian Splatting",
+      "abstract": "We introduce Ilov3Splat, a novel framework for instance-level open-vocabulary 3D scene understanding built on 3D Gaussian Splatting (3D-GS). Most prior work depends on 2D rendering-based matching or point-level semantic association, which undermines cross-view consistency, lacks coherent instance-level reasoning, and limits precision in downstream 3D tasks. To address these limitations, our method jointly optimizes scene geometry and semantic representations by augmenting Gaussian splats with view-consistent feature fields. Specifically, we leverage multi-resolution hash embedding to efficiently encode language-aligned CLIP features, enabling dense and coherent language grounding in 3D space. We further train an instance feature field using contrastive loss over SAM masks, supporting fine-grained object distinction across views. At inference time, CLIP-encoded queries are matched against the learned features, followed by two-stage 3D clustering to retrieve relevant Gaussian groups. This enables our framework to identify arbitrary objects in 3D scenes based on natural language descriptions, without requiring category supervision or manual annotations. Experiments on standard benchmarks demonstrate that Ilov3Splat outperforms prior open-vocabulary 3D-GS methods in both object selection and instance segmentation, offering a flexible and accurate solution for language-driven 3D scene understanding. Project page: https://csiro-robotics.github.io/Ilov3Splat.",
+      "authors": [
+        "Binh Long Nguyen",
+        "Kien Nguyen",
+        "Sridha Sridharan",
+        "Clinton Fookes",
+        "Peyman Moghadam"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-05-06T05:23:41+00:00",
+      "link": "https://arxiv.org/pdf/2605.04506v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "instance-level 3D scene understanding and semantic representation",
+      "llm_evidence_cn": "实例级3D场景理解与语义表示",
+      "llm_evidence": "实例级3D场景理解与语义表示",
+      "canonical_evidence": "实例级3D场景理解与语义表示",
+      "llm_tldr_en": "Ilov3Splat optimizes scene geometry and semantics for instance-level open-vocabulary 3D understanding.",
+      "llm_tldr_cn": "Ilov3Splat通过优化场景几何和语义，实现了实例级的开放词汇3D理解。",
+      "llm_tldr": "Ilov3Splat通过优化场景几何和语义，实现了实例级的开放词汇3D理解。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.11967v1",
+      "title": "H2G: Hierarchy-Aware Hyperbolic Grouping for 3D Scenes",
+      "abstract": "Hierarchical 3D grouping aims to recover scene groups across multiple granularities, from fine object parts to complete objects, without relying on semantic labels or a fixed vocabulary. The main challenge is to transform 2D foundation-model cues into coherent hierarchy supervision and embed that hierarchy in a 3D representation. We propose H2G, a hyperbolic affinity field for hierarchical 3D grouping. Our method derives semantically organized tree supervision by interpreting foundation-model affinities through Dasgupta's objective for similarity-based hierarchical clustering. This supervision is distilled into a single Lorentz hyperbolic feature field, whose geometry is well suited for tree-like branching structures. A hierarchy-aware objective aligns the field with fine-level assignments, coarse object structure, compact feature clusters, and LCA (Lowest Common Ancestor) ordering. This formulation represents multiple grouping levels in one feature space, enabling semantic hierarchical grouping grounded in 2D foundation-model knowledge.",
+      "authors": [
+        "ByungHa Ko",
+        "Youngmin Lee",
+        "Dong Hwan Kim"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-12T11:19:57+00:00",
+      "link": "https://arxiv.org/pdf/2605.11967v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Hierarchical 3D grouping for scene representation",
+      "llm_evidence_cn": "用于场景表示的分层3D分组",
+      "llm_evidence": "用于场景表示的分层3D分组",
+      "canonical_evidence": "用于场景表示的分层3D分组",
+      "llm_tldr_en": "H2G uses hyperbolic feature fields to recover hierarchical structures in 3D scenes without semantic labels.",
+      "llm_tldr_cn": "H2G利用双曲特征场在无语义标签的情况下恢复3D场景中的分层结构。",
+      "llm_tldr": "H2G利用双曲特征场在无语义标签的情况下恢复3D场景中的分层结构。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.05876v3",
+      "title": "3DSS: 3D Surface Splatting for Inverse Rendering",
+      "abstract": "We present 3D Surface Splatting (3DSS), the first differentiable surface splatting renderer for physically-based inverse rendering from multi-view images. Our central insight is that the surface separation problem at the heart of surface splatting admits a direct formulation in terms of the reconstruction kernels themselves. From this foundation we derive a coverage-based compositing model whose per-layer opacity arises directly from the accumulated Elliptical Weighted Average reconstruction weight, yielding anti-aliased silhouettes and informative visibility gradients at sparsely covered edges. Combined with forward microfacet shading under co-optimized HDR environment lighting and density-aware adaptive refinement, 3DSS jointly recovers shape, spatially-varying BRDF materials, and illumination. Because the optimized representation is a set of oriented surface samples, it bridges natively to mesh-based workflows via surface reconstruction from oriented point cloud methods. We evaluate 3DSS against mesh-based, implicit, and Gaussian-splatting baselines across geometry reconstruction, novel-view synthesis, and novel-illumination relighting.",
+      "authors": [
+        "Mae Younes",
+        "Adnane Boukhayma"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR",
+        "cs.CV"
+      ],
+      "published": "2026-05-07T08:43:51+00:00",
+      "link": "https://arxiv.org/pdf/2605.05876v3",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D surface splatting for inverse rendering and shape recovery",
+      "llm_evidence_cn": "用于逆向渲染和形状恢复的3D表面喷溅技术",
+      "llm_evidence": "用于逆向渲染和形状恢复的3D表面喷溅技术",
+      "canonical_evidence": "用于逆向渲染和形状恢复的3D表面喷溅技术",
+      "llm_tldr_en": "Introduces a differentiable surface splatting renderer for high-fidelity 3D shape and material recovery.",
+      "llm_tldr_cn": "引入了一种可微分表面喷溅渲染器，用于高保真3D形状和材质恢复。",
+      "llm_tldr": "引入了一种可微分表面喷溅渲染器，用于高保真3D形状和材质恢复。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.12119v1",
+      "title": "MoCam: Unified Novel View Synthesis via Structured Denoising Dynamics",
+      "abstract": "Generative novel view synthesis faces a fundamental dilemma: geometric priors provide spatial alignment but become sparse and inaccurate under view changes, while appearance priors offer visual fidelity but lack geometric correspondence. Existing methods either propagate geometric errors throughout generation or suffer from signal conflicts when fusing both statically. We introduce MoCam, which employs structured denoising dynamics to orchestrate a coordinated progression from geometry to appearance within the diffusion process.MoCam first leverages geometric priors in early stages to anchor coarse structures and tolerate their incompleteness, then switches to appearance priors in later stages to actively correct geometric errors and refine details. This design naturally unifies static and dynamic view synthesis by temporally decoupling geometric alignment and appearance refinement within the diffusion process.Experiments demonstrate that MoCam significantly outperforms prior methods, particularly when point clouds contain severe holes or distortions, achieving robust geometry-appearance disentanglement.",
+      "authors": [
+        "Haofeng Liu",
+        "Yang Zhou",
+        "Ziheng Wang",
+        "Zhengbo Xu",
+        "Zhan Peng",
+        "Jie Ma",
+        "Jun Liang",
+        "Shengfeng He",
+        "Jing Li"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-05-12T13:35:54+00:00",
+      "link": "https://arxiv.org/pdf/2605.12119v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Generative novel view synthesis using diffusion process",
+      "llm_evidence_cn": "使用扩散过程的生成式新视角合成",
+      "llm_evidence": "使用扩散过程的生成式新视角合成",
+      "canonical_evidence": "使用扩散过程的生成式新视角合成",
+      "llm_tldr_en": "MoCam uses structured denoising to balance geometry and appearance for high-fidelity novel view synthesis.",
+      "llm_tldr_cn": "MoCam通过结构化去噪动力学平衡几何与外观，实现高保真新视角合成。",
+      "llm_tldr": "MoCam通过结构化去噪动力学平衡几何与外观，实现高保真新视角合成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.10525v1",
+      "title": "GemDepth: Geometry-Embedded Features for 3D-Consistent Video Depth",
+      "abstract": "Video depth estimation extends monocular prediction into the temporal domain to ensure coherence. However, existing methods often suffer from spatial blurring in fine-detail regions and temporal inconsistencies. We argue that current approaches, which primarily rely on temporal smoothing via Transformers, struggle to maintain strict 3D geometric consistency-particularly under rotations or drastic view changes. To address this, we propose GemDepth, a framework built on the insight that an explicit awareness of camera motion and global 3D structure is a prerequisite for 3D consistency. Distinctively, GemDepth introduces a Geometry-Embedding Module (GEM) that predicts inter-frame camera poses to generate implicit geometric embeddings. This injection of motion priors equips the network with intrinsic 3D perception and alignment capabilities. Guided by these geometric cues, our Alternating Spatio-Temporal Transformer (ASTT) captures latent point-level correspondences to simultaneously enhance spatial precision for sharp details and enforce rigorous temporal consistency. Furthermore, GemDepth employs a data-efficient training strategy, effectively bridging the gap between high efficiency and robust geometric consistency. As shown in Fig.2, comprehensive evaluations demonstrate that GemDepth achieves state-of-the-art performance across multiple datasets, particularly in complex dynamic scenarios. The code is publicly available at: https://github.com/Yuecheng919/GemDepth",
+      "authors": [
+        "Yuecheng LiulJunda Cheng",
+        "Longliang Liu",
+        "Wenjing Liao",
+        "Hanrui Cheng",
+        "Yuzhou Wang",
+        "Xin Yang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-11T13:11:54+00:00",
+      "link": "https://arxiv.org/pdf/2605.10525v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D-consistent video depth and global 3D structure awareness",
+      "llm_evidence_cn": "3D一致性视频深度和全局3D结构感知",
+      "llm_evidence": "3D一致性视频深度和全局3D结构感知",
+      "canonical_evidence": "3D一致性视频深度和全局3D结构感知",
+      "llm_tldr_en": "GemDepth improves 3D consistency in video depth estimation using geometry-embedded features.",
+      "llm_tldr_cn": "GemDepth通过几何嵌入特征提升了视频深度估计中的3D一致性。",
+      "llm_tldr": "GemDepth通过几何嵌入特征提升了视频深度估计中的3D一致性。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.12119v2",
+      "title": "MoCam: Unified Novel View Synthesis via Structured Denoising Dynamics",
+      "abstract": "Generative novel view synthesis faces a fundamental dilemma: geometric priors provide spatial alignment but become sparse and inaccurate under view changes, while appearance priors offer visual fidelity but lack geometric correspondence. Existing methods either propagate geometric errors throughout generation or suffer from signal conflicts when fusing both statically. We introduce MoCam, which employs structured denoising dynamics to orchestrate a coordinated progression from geometry to appearance within the diffusion process. MoCam first leverages geometric priors in early stages to anchor coarse structures and tolerate their incompleteness, then switches to appearance priors in later stages to actively correct geometric errors and refine details. This design naturally unifies static and dynamic view synthesis by temporally decoupling geometric alignment and appearance refinement within the diffusion process. Experiments demonstrate that MoCam significantly outperforms prior methods, particularly when point clouds contain severe holes or distortions, achieving robust geometry-appearance disentanglement.",
+      "authors": [
+        "Haofeng Liu",
+        "Yang Zhou",
+        "Ziheng Wang",
+        "Zhengbo Xu",
+        "Zhan Peng",
+        "Jie Ma",
+        "Jun Liang",
+        "Shengfeng He",
+        "Jing Li"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-05-12T13:35:54+00:00",
+      "link": "https://arxiv.org/pdf/2605.12119v2",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Generative novel view synthesis using structured denoising dynamics",
+      "llm_evidence_cn": "使用结构化去噪动力学的生成式新视图合成",
+      "llm_evidence": "使用结构化去噪动力学的生成式新视图合成",
+      "canonical_evidence": "使用结构化去噪动力学的生成式新视图合成",
+      "llm_tldr_en": "MoCam improves novel view synthesis by coordinating geometric and appearance priors within a diffusion process.",
+      "llm_tldr_cn": "MoCam通过在扩散过程中协调几何和外观先验，改进了新视图合成效果。",
+      "llm_tldr": "MoCam通过在扩散过程中协调几何和外观先验，改进了新视图合成效果。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.11462v1",
+      "title": "SpatialForge: Bootstrapping 3D-Aware Spatial Reasoning from Open-World 2D Images",
+      "abstract": "Recent advancements in Large Vision-Language Models (VLMs) have demonstrated exceptional semantic understanding, yet these models consistently struggle with spatial reasoning, often failing at fundamental geometric tasks such as depth ordering and precise coordinate grounding. Recent efforts introduce spatial supervision from scene-centric datasets (e.g., multi-view scans or indoor video), but are constrained by the limited number of underlying scenes. As a result, the scale and diversity of such data remain significantly smaller than those of web-scale 2D image collections. To address this limitation, we propose SpatialForge, a scalable data synthesis pipeline that transforms in-the-wild 2D images into spatial reasoning supervision. Our approach decomposes spatial reasoning into perception and relation, and constructs structured supervision signals covering depth, layout, and viewpoint-dependent reasoning, with automatic verification to ensure data quality. Based on this pipeline, we build SpatialForge-10M, a large-scale dataset containing 10 million spatial QA pairs. Extensive experiments across multiple spatial reasoning benchmarks demonstrate that training on SpatialForge-10M significantly improves the spatial reasoning ability of standard VLMs, highlighting the effectiveness of scaling 2D data for 3D-aware spatial reasoning.",
+      "authors": [
+        "Zishan Liu",
+        "Ruoxi Zang",
+        "Yanglin Zhang",
+        "Wei Liu",
+        "Yin Zhang",
+        "Jian Yao",
+        "Jiayin Zheng",
+        "Zhengzhe Liu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-05-12T03:20:41+00:00",
+      "link": "https://arxiv.org/pdf/2605.11462v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D-aware spatial reasoning and scene-centric data synthesis",
+      "llm_evidence_cn": "3D感知空间推理与以场景为中心的数据合成",
+      "llm_evidence": "3D感知空间推理与以场景为中心的数据合成",
+      "canonical_evidence": "3D感知空间推理与以场景为中心的数据合成",
+      "llm_tldr_en": "Scalable pipeline transforming 2D images into 3D spatial reasoning supervision.",
+      "llm_tldr_cn": "将2D图像转化为3D空间推理监督的可扩展数据合成流水线。",
+      "llm_tldr": "将2D图像转化为3D空间推理监督的可扩展数据合成流水线。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.12437v1",
+      "title": "3D Gaussian Splatting for Efficient Retrospective Dynamic Scene Novel View Synthesis with a Standardized Benchmark",
+      "abstract": "Retrospective novel view synthesis (NVS) of dynamic scenes is fundamental to applications such as sports. Recent dynamic 3D Gaussian Splatting (3DGS) approaches introduce temporally coupled formulations to enforce motion coherence across time. In this paper, we argue that, in a synchronized multi-view (MV) setting typical of sports, the dynamic scene at each time step is already strongly geometrically constrained. We posit that the availability of calibrated, synchronized viewpoints provides sufficient spatial consistency, and therefore, explicit temporal coupling, or complex multi-body constraints seems unnecessary for retrospective NVS. To this end, we propose an approach tailored for synchronized MV dynamic scene. By initializing the SfM-derived point cloud at the start time and propagating optimized Gaussians over time, we show that efficient retrospective NVS can be achieved without imposing a temporal deformation constraint. Complementing our methodological contribution, we introduce a Dynamic MV dataset framework built on Blender for reproducible NeRF and 3DGS research. The framework generates high-quality, synchronized camera rigs and exports training-ready datasets in standard formats, eliminating inconsistencies in coordinate conventions and data pipelines. Using the framework, we construct a dynamic benchmark suite and evaluate representative NeRF and 3DGS approaches under controlled conditions. Together, we show that, under a synchronized MV setup, efficient retrospective dynamic scene NVS can be achieved using 3DGS. At the same time, the dataset-generation framework enables reproducible and principled benchmarking of dynamic NVS methods.",
+      "authors": [
+        "Yunxiao Zhang",
+        "Suryansh Kumar"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-12T17:33:14+00:00",
+      "link": "https://arxiv.org/pdf/2605.12437v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Dynamic scene novel view synthesis and benchmark",
+      "llm_evidence_cn": "动态场景新视角合成与基准测试",
+      "llm_evidence": "动态场景新视角合成与基准测试",
+      "canonical_evidence": "动态场景新视角合成与基准测试",
+      "llm_tldr_en": "Proposes an efficient 3DGS approach for retrospective dynamic scene synthesis.",
+      "llm_tldr_cn": "提出一种高效的3DGS方法，用于回顾性动态场景合成。",
+      "llm_tldr": "提出一种高效的3DGS方法，用于回顾性动态场景合成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.11616v1",
+      "title": "Grounding by Remembering: Cross-Scene and In-Scene Memory for 3D Functional Affordances",
+      "abstract": "Functional affordance grounding requires more than recognizing an object: an agent must localize the specific region that supports an interaction, such as the handle to pull or the button to press. This is difficult for training-free vision-language pipelines because actionable regions are often small, visually ambiguous, and repeated across multiple same-category instances in a scene. We propose AFFORDMEM, a framework that grounds 3D functional affordances by remembering geometry at two levels. The first is cross-scene affordance memory: the agent maintains a category-level memory bank of RGB images with affordance regions rendered as overlays, and recalls the most informative examples at query time to guide a frozen VLM toward small operable subregions that text-only prompting consistently misses. The second is in-scene spatial memory: as the agent processes the scene, it organizes candidate instances and their 3D spatial relations into a structured scene graph, enabling the language model to resolve references over distant or currently unobserved candidates such as \"the second handle from the top.\" AFFORDMEM requires no model fine-tuning and no target-scene annotation, using a reusable memory bank built from source scenes. On SceneFun3D, our method improves AP50 over the prior training-free state of the art by 3.23 on Split 0 and 3.7 on Split 1. Ablation studies support complementary benefits: cross-scene affordance memory improves fine-grained localization, while in-scene spatial memory provides the larger gain on spatially qualified queries. The project homepage is available at the project page.",
+      "authors": [
+        "Qirui Wang",
+        "Jingyi He",
+        "Yining Pan",
+        "Xulei Yang",
+        "Shijie Li"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-12T06:44:47+00:00",
+      "link": "https://arxiv.org/pdf/2605.11616v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "grounds 3D functional affordances by remembering geometry",
+      "llm_evidence_cn": "通过记忆几何结构来定位3D功能性交互区域",
+      "llm_evidence": "通过记忆几何结构来定位3D功能性交互区域",
+      "canonical_evidence": "通过记忆几何结构来定位3D功能性交互区域",
+      "llm_tldr_en": "Proposes AFFORDMEM to improve 3D scene understanding by grounding functional affordances through memory.",
+      "llm_tldr_cn": "提出AFFORDMEM，通过记忆机制定位功能性交互区域，从而改进3D场景理解。",
+      "llm_tldr": "提出AFFORDMEM，通过记忆机制定位功能性交互区域，从而改进3D场景理解。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.13018v1",
+      "title": "OCH3R: Object-Centric Holistic 3D Reconstruction",
+      "abstract": "Object-centric scene understanding is a fundamental challenge in computer vision. Existing approaches often rely on multi-stage pipelines that first apply pre-trained segmentors to extract individual objects, followed by per-object 3D reconstruction. Such methods are computationally expensive, fragile to segmentation errors, and scale poorly with scene complexity. We introduce OCH3R, a unified framework for Object-Centric Holistic 3D Reconstruction from a single RGB image. OCH3R performs one forward pass to simultaneously predict all object instances with their 6D poses and detailed 3D reconstructions. The key idea is a transformer architecture that predicts per-pixel attributes, including CLIP-based category embeddings, metric depth, normalized object coordinates (NOCS), and a fixed number of 3D Gaussians representing each object. To supervise these Gaussian reconstructions, we transform them into canonical space using the predicted 6D poses and align them with pre-rendered canonical ground truth, avoiding costly per-image Gaussian label generation. On standard indoor benchmarks, OCH3R achieves state-of-the-art performance across monocular depth estimation, open-vocabulary semantic segmentation, and RGB-only category-level 6D pose estimation, while producing high-fidelity, editable per-object reconstructions. Crucially, inference is fully feed-forward and scales independently of the number of objects, offering orders-of-magnitude speedups over conventional multi-stage pipelines in cluttered scenes.",
+      "authors": [
+        "Yi Du",
+        "Yang You",
+        "Xiang Wan",
+        "Leonidas Guibas"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-13T05:17:51+00:00",
+      "link": "https://arxiv.org/pdf/2605.13018v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Object-Centric Holistic 3D Reconstruction from a single RGB image",
+      "llm_evidence_cn": "单张RGB图像的以对象为中心的整体3D重建",
+      "llm_evidence": "单张RGB图像的以对象为中心的整体3D重建",
+      "canonical_evidence": "单张RGB图像的以对象为中心的整体3D重建",
+      "llm_tldr_en": "Presents OCH3R, a unified transformer framework for simultaneous object detection and 3D reconstruction in scenes.",
+      "llm_tldr_cn": "提出OCH3R，一个用于场景中物体同时检测和3D重建的统一Transformer框架。",
+      "llm_tldr": "提出OCH3R，一个用于场景中物体同时检测和3D重建的统一Transformer框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
