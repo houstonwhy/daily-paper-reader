@@ -1,0 +1,527 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-15T19:59:57.107810+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 6,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 7,
+    "quick_skim_target": 11,
+    "quick_selected": 7
+  },
+  "deep_dive": [
+    {
+      "id": "2605.14700v1",
+      "title": "SR-Platform: An Agentic Pipeline for Natural Language-Driven Robot Simulation Environment Synthesis",
+      "abstract": "Generating robot simulation environments remains a major bottleneck in simulation-based robot learning. Constructing a training-ready MuJoCo scene typically requires expertise in 3D asset modeling, MJCF specification, spatial layout, collision avoidance, and robot-model integration. We present SR-Platform, a production-deployed agentic system that converts free-form natural language descriptions into executable, physically valid MuJoCo environments. SR-Platform decomposes scene synthesis into four stages: an LLM-based orchestrator that converts user intent into a structured scene plan; an asset forge that retrieves cached assets or generates new 3D geometry through LLM-to-CadQuery synthesis; a layout architect that assigns object poses and verifies industrial constraints; and a bridge layer that assembles the final MJCF scene and merges the selected robot model. The system is deployed as a nine-service Docker stack with WebSocket progress streaming, MinIO-backed mesh storage, Qdrant-based semantic asset retrieval, Redis job state, and InfluxDB telemetry. Using 30 days of production telemetry covering 611 successful LLM calls, SR-Platform generates five-object scenes with a median end-to-end latency of approximately 50 s, while cache-accelerated scenes complete in approximately 30-40 s. The asset forge shows an 11.3% first-attempt retry rate with automatic recovery, and cached asset retrieval removes per-object LLM calls for previously generated object types. These results show that agentic scene synthesis can reduce the manual effort required to create diverse robot training environments, enabling users to produce executable MuJoCo scenes from plain English prompts in under one minute.",
+      "authors": [
+        "Ben Wei Lim",
+        "Minh Duc Le",
+        "Thang Truong",
+        "Thanh Nguyen Canh"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-05-14T11:14:20+00:00",
+      "link": "https://arxiv.org/pdf/2605.14700v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "natural language-driven robot simulation environment synthesis",
+      "llm_evidence_cn": "自然语言驱动的机器人仿真环境合成",
+      "llm_evidence": "自然语言驱动的机器人仿真环境合成",
+      "canonical_evidence": "自然语言驱动的机器人仿真环境合成",
+      "llm_tldr_en": "An agentic pipeline that converts natural language into physically valid 3D robot simulation environments.",
+      "llm_tldr_cn": "一种智能体流水线，可将自然语言描述转化为物理有效的3D机器人仿真环境。",
+      "llm_tldr": "一种智能体流水线，可将自然语言描述转化为物理有效的3D机器人仿真环境。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "text-to-3D scene generation frameworks",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.14984v1",
+      "title": "Sat3DGen: Comprehensive Street-Level 3D Scene Generation from Single Satellite Image",
+      "abstract": "Generating a street-level 3D scene from a single satellite image is a crucial yet challenging task. Current methods present a stark trade-off: geometry-colorization models achieve high geometric fidelity but are typically building-focused and lack semantic diversity. In contrast, proxy-based models use feed-forward image-to-3D frameworks to generate holistic scenes by jointly learning geometry and texture, a process that yields rich content but coarse and unstable geometry. We attribute these geometric failures to the extreme viewpoint gap and sparse, inconsistent supervision inherent in satellite-to-street data. We introduce Sat3DGen to address these fundamental challenges, which embodies a geometry-first methodology. This methodology enhances the feed-forward paradigm by integrating novel geometric constraints with a perspective-view training strategy, explicitly countering the primary sources of geometric error. This geometry-centric strategy yields a dramatic leap in both 3D accuracy and photorealism. For validation, we first constructed a new benchmark by pairing the VIGOR-OOD test set with high-resolution DSM data. On this benchmark, our method improves geometric RMSE from 6.76m to 5.20m. Crucially, this geometric leap also boosts photorealism, reducing the Fréchet Inception Distance (FID) from $\\sim$40 to 19 against the leading method, Sat2Density++, despite using no extra tailored image-quality modules. We demonstrate the versatility of our high-quality 3D assets through diverse downstream applications, including semantic-map-to-3D synthesis, multi-camera video generation, large-scale meshing, and unsupervised single-image Digital Surface Model (DSM) estimation. The code has been released on https://github.com/qianmingduowan/Sat3DGen.",
+      "authors": [
+        "Ming Qian",
+        "Zimin Xia",
+        "Changkun Liu",
+        "Shuailei Ma",
+        "Wen Wang",
+        "Zeran Ke",
+        "Bin Tan",
+        "Hang Zhang",
+        "Gui-Song Xia"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-05-14T15:48:15+00:00",
+      "link": "https://arxiv.org/pdf/2605.14984v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Street-level 3D scene generation from satellite images",
+      "llm_evidence_cn": "从卫星图像生成街景级 3D 场景",
+      "llm_evidence": "从卫星图像生成街景级 3D 场景",
+      "canonical_evidence": "从卫星图像生成街景级 3D 场景",
+      "llm_tldr_en": "Sat3DGen generates comprehensive street-level 3D scenes from single satellite images using a geometry-first approach.",
+      "llm_tldr_cn": "Sat3DGen 采用几何优先的方法，从单张卫星图像生成全面的街景级 3D 场景。",
+      "llm_tldr": "Sat3DGen 采用几何优先的方法，从单张卫星图像生成全面的街景级 3D 场景。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.15186v1",
+      "title": "VGGT-Edit: Feed-forward Native 3D Scene Editing with Residual Field Prediction",
+      "abstract": "High-quality 3D scene reconstruction has recently advanced toward generalizable feed-forward architectures, enabling the generation of complex environments in a single forward pass. However, despite their strong performance in static scene perception, these models remain limited in responding to dynamic human instructions, which restricts their use in interactive applications. Existing editing methods typically rely on a 2D-lifting strategy, where individual views are edited independently and then lifted back into 3D space. This indirect pipeline often leads to blurry textures and inconsistent geometry, as 2D editors lack the spatial awareness required to preserve structure across viewpoints. To address these limitations, we propose VGGT-Edit, a feed-forward framework for text-conditioned native 3D scene editing. VGGT-Edit introduces depth-synchronized text injection to align semantic guidance with the backbone's spatial poses, ensuring stable instruction grounding. This semantic signal is then processed by a residual transformation head, which directly predicts 3D geometric displacements to deform the scene while preserving background stability. To ensure high-fidelity results, we supervise the framework with a multi-term objective function that enforces geometric accuracy and cross-view consistency. We also construct the DeltaScene Dataset, a large-scale dataset generated through an automated pipeline with 3D agreement filtering to ensure ground-truth quality. Experiments show that VGGT-Edit substantially outperforms 2D-lifting baselines, producing sharper object details, stronger multi-view consistency, and near-instant inference speed.",
+      "authors": [
+        "Kaixin Zhu",
+        "Yiwen Tang",
+        "Yifan Yang",
+        "Renrui Zhang",
+        "Bohan Zeng",
+        "Ziyu Guo",
+        "Ruichuan An",
+        "Zhou Liu",
+        "Qizhi Chen",
+        "Delin Qu",
+        "Jaehong Yoon",
+        "Wentao Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-05-14T17:59:04+00:00",
+      "link": "https://arxiv.org/pdf/2605.15186v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Feed-forward native 3D scene editing and generation of complex environments",
+      "llm_evidence_cn": "前馈原生3D场景编辑及复杂环境生成",
+      "llm_evidence": "前馈原生3D场景编辑及复杂环境生成",
+      "canonical_evidence": "前馈原生3D场景编辑及复杂环境生成",
+      "llm_tldr_en": "VGGT-Edit enables direct 3D scene editing using a feed-forward architecture for consistent geometry.",
+      "llm_tldr_cn": "VGGT-Edit通过前馈架构实现原生3D场景编辑，保证了纹理和几何的一致性。",
+      "llm_tldr": "VGGT-Edit通过前馈架构实现原生3D场景编辑，保证了纹理和几何的一致性。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.12399v1",
+      "title": "GeoQuery: Geometry-Query Diffusion for Sparse-View Reconstruction",
+      "abstract": "3D Gaussian Splatting (3DGS) has emerged as a prominent paradigm for 3D reconstruction and novel view synthesis. However, it remains vulnerable to severe artifacts when trained under sparse-view constraints. While recent methods attempt to rectify artifacts in rendered views using image diffusion models, they typically rely on multi-view self-attention to retrieve information from reference images. We observe that this mechanism often fails when the rendered novel views output by 3DGS are heavily corrupted: damaged query features lead to erroneous cross-view retrieval, resulting in inconsistent rendering refinement. To address this, we propose GeoQuery, a geometry-guided diffusion framework that integrates generative priors with explicit geometric cues via a novel Geometry-guided Cross-view Attention (GCA) mechanism. First, by leveraging predicted depth maps and camera poses, we construct a geometry-induced correspondence field to sample reference features, forming a geometry-aligned proxy query that replaces the corrupted rendering features. Furthermore, we design a new cross-view feature aggregation pipeline, in which we restrict the cross-view attention to a local window around each proxy query to effectively retrieve useful features while suppressing spurious matches. GeoQuery can be seamlessly integrated into existing diffusion-based pipelines, enabling robust reconstruction even under extreme view sparsity. Extensive experiments on sparse-view novel view synthesis and rendering artifact removal demonstrate the effectiveness of our approach.",
+      "authors": [
+        "Xiao Cao",
+        "Yuze Li",
+        "Youmin Zhang",
+        "Jiayu Song",
+        "Cheng Yan",
+        "Wen Li",
+        "Lixin Duan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-12T17:00:47+00:00",
+      "link": "https://arxiv.org/pdf/2605.12399v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Geometry-guided diffusion for 3D reconstruction and novel view synthesis",
+      "llm_evidence_cn": "用于3D重建和新视角合成的几何引导扩散模型",
+      "llm_evidence": "用于3D重建和新视角合成的几何引导扩散模型",
+      "canonical_evidence": "用于3D重建和新视角合成的几何引导扩散模型",
+      "llm_tldr_en": "Proposes GeoQuery to improve sparse-view 3DGS reconstruction using generative diffusion priors.",
+      "llm_tldr_cn": "提出GeoQuery，利用生成式扩散先验改进稀疏视角下的3DGS重建质量。",
+      "llm_tldr": "提出GeoQuery，利用生成式扩散先验改进稀疏视角下的3DGS重建质量。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.14135v1",
+      "title": "PanoPlane: Plane-Aware Panoramic Completion for Sparse-View Indoor 3D Gaussian Splatting",
+      "abstract": "We present PanoPlane, an approach for high-fidelity sparse-view indoor novel view synthesis that reconstructs closed room geometry via panoramic scene completion. Unlike perspective-based methods that generate training views from limited fields of view, PanoPlane leverages $360^{\\circ}$ panoramic completion to condition the generative process on the full spatial layout. We propose Layout Anchored Attention Steering, a training-free mechanism that steers attention within the diffusion model's internal representation toward scene's detected planar surfaces at inference time. By directing each unobserved region's attention toward geometrically consistent observed content, our method replaces unconstrained hallucination with grounded surface extrapolation. The resulting panoramic completions provide supervision for 3D Gaussian Splatting, enabling accurate novel-view synthesis across unobserved regions from as few as three input views. Experiments on Replica, ScanNet++, and Matterport3D demonstrate state-of-the-art novel view synthesis quality across 3, 6, and 9 input views, achieving up to $+17.8\\%$ improvement in PSNR over the current state-of-the-art baseline without any training or fine-tuning of the diffusion model.",
+      "authors": [
+        "Adil Qureshi",
+        "Dongki Jung",
+        "Jaehoon Choi",
+        "Dinesh Manocha"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-13T21:39:01+00:00",
+      "link": "https://arxiv.org/pdf/2605.14135v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Panoramic scene completion for indoor 3D Gaussian Splatting",
+      "llm_evidence_cn": "用于室内3D高斯泼溅的全景场景补全",
+      "llm_evidence": "用于室内3D高斯泼溅的全景场景补全",
+      "canonical_evidence": "用于室内3D高斯泼溅的全景场景补全",
+      "llm_tldr_en": "PanoPlane uses panoramic completion and attention steering to reconstruct indoor 3D scenes from sparse views.",
+      "llm_tldr_cn": "PanoPlane利用全景补全和注意力引导，从稀疏视角重建室内3D场景。",
+      "llm_tldr": "PanoPlane利用全景补全和注意力引导，从稀疏视角重建室内3D场景。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.15187v1",
+      "title": "Articraft: An Agentic System for Scalable Articulated 3D Asset Generation",
+      "abstract": "A bottleneck in learning to understand articulated 3D objects is the lack of large and diverse datasets. In this paper, we propose to leverage large language models (LLMs) to close this gap and generate articulated assets at scale. We reduce the problem of generating an articulated 3D asset to that of writing a program that builds it. We then introduce a new agentic system, Articraft, that writes such programs automatically. We design a programmatic interface and harness to help the LLM do so effectively. The LLM writes code against a domain-specific SDK for defining parts, composing geometry, specifying joints, and writing tests to validate the resulting assets. The harness exposes a restricted workspace and interface to the LLM, validates the resulting assets, and returns structured feedback. In this way, the LLM is not distracted by details such as authoring a URDF file or managing a complex software environment. We show that this produces higher-quality assets than both state-of-the-art articulated-asset generators and general-purpose coding agents. Using Articraft, we build Articraft-10K, a curated dataset of over 10K articulated assets spanning 245 categories, and show its utility both for training models of articulated assets and in downstream applications such as robotics simulation and virtual reality.",
+      "authors": [
+        "Matt Zhou",
+        "Ruining Li",
+        "Xiaoyang Lyu",
+        "Zhaomou Song",
+        "Zhening Huang",
+        "Chuanxia Zheng",
+        "Christian Rupprecht",
+        "Andrea Vedaldi",
+        "Shangzhe Wu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR",
+        "cs.RO"
+      ],
+      "published": "2026-05-14T17:59:18+00:00",
+      "link": "https://arxiv.org/pdf/2605.15187v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Agentic system for scalable articulated 3D asset generation using LLMs",
+      "llm_evidence_cn": "使用大语言模型进行可扩展关节式3D资产生成的智能体系统",
+      "llm_evidence": "使用大语言模型进行可扩展关节式3D资产生成的智能体系统",
+      "canonical_evidence": "使用大语言模型进行可扩展关节式3D资产生成的智能体系统",
+      "llm_tldr_en": "Uses LLMs to automatically write programs that generate diverse articulated 3D assets at scale.",
+      "llm_tldr_cn": "利用大语言模型自动编写程序，以大规模生成多样化的关节式3D资产。",
+      "llm_tldr": "利用大语言模型自动编写程序，以大规模生成多样化的关节式3D资产。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2605.10760v1",
+      "title": "MAGS-SLAM: Monocular Multi-Agent Gaussian Splatting SLAM for Geometrically and Photometrically Consistent Reconstruction",
+      "abstract": "Collaborative photorealistic 3D reconstruction from multiple agents enables rapid large-scale scene capture for virtual production and cooperative multi-robot exploration. While recent 3D Gaussian Splatting (3DGS) SLAM algorithms can generate high-fidelity real-time mapping, most of the existing multi-agent Gaussian SLAM methods still rely on RGB-D sensors to obtain metric depth and simplify cross-agent alignment, which limits the deployment on lightweight, low-cost, or power-constrained robotic platforms. To address this challenge, we propose MAGS-SLAM, the first RGB-only multi-agent 3DGS SLAM framework for collaborative scene reconstruction. Each agent independently builds local monocular Gaussian submaps and transmits compact submap summaries rather than raw observations or dense maps. To facilitate robust collaboration in the presence of monocular scale ambiguity, our framework integrates compact submap communication, geometry- and appearance-aware loop verification, and occupancy-aware Gaussian fusion, enabling coherent global reconstruction without active depth sensors. We further introduce ReplicaMultiagent Plus benchmark for evaluating collaborative Gaussian SLAM. Intensive experiments on synthetic and real-world datasets show that MAGS-SLAM achieves competitive tracking accuracy and comparable or superior rendering quality to state-of-the-art RGB-D collaborative Gaussian SLAM methods while relying only RGB images.",
+      "authors": [
+        "Zhihao Cao",
+        "Qi Shao",
+        "Shuhao Zhai",
+        "Jing Zhang",
+        "Anh Nguyen",
+        "Baoru Huang"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-05-11T15:57:13+00:00",
+      "link": "https://arxiv.org/pdf/2605.10760v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Multi-agent Gaussian Splatting for collaborative scene reconstruction",
+      "llm_evidence_cn": "用于协作场景重建的多智能体高斯泼溅",
+      "llm_evidence": "用于协作场景重建的多智能体高斯泼溅",
+      "canonical_evidence": "用于协作场景重建的多智能体高斯泼溅",
+      "llm_tldr_en": "Presents the first RGB-only multi-agent 3DGS SLAM framework for large-scale scene capture.",
+      "llm_tldr_cn": "提出了首个仅使用RGB的多智能体3DGS SLAM框架，用于大规模场景捕获。",
+      "llm_tldr": "提出了首个仅使用RGB的多智能体3DGS SLAM框架，用于大规模场景捕获。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.14923v1",
+      "title": "SceneParser: Hierarchical Scene Parsing for Visual Semantics Understanding",
+      "abstract": "General scene perception has progressed from object recognition toward open-vocabulary grounding, part localization, and affordance prediction. Yet these capabilities are often realized as isolated predictions that localize objects, parts, or interaction points without capturing the structured dependencies needed for interaction-oriented scene understanding. To address this gap, we introduce Hierarchical Scene Parsing, an interaction-oriented parsing task that represents physical scenes as explicit scene -> object -> part -> affordance hierarchies with cross-level bindings. We instantiate this task with SceneParser, a VLM-based parser trained for unified hierarchical generation with structural-completion pseudo labels and curriculum learning. To support training and evaluation, we construct SceneParser-Bench, a large-scale benchmark built with a scalable hierarchical data engine, containing 110K training images, a 5K validation split, 777K objects, 1.14M parts, 1.74M affordance annotations, and 1.74M valid object-part-affordance chain instances. We further introduce Level-1 to Level-3 conditional metrics and ParseRate to evaluate localization, cross-level binding, and hierarchical completeness. Experiments show that existing MLLMs and perception-stitching pipelines struggle with hierarchical parsing on our SceneParser-Bench, while SceneParser achieves stronger structure-aware performance. Besides, ablations, evaluations on COCO and AGD20K, and a downstream planning probe demonstrate that our SceneParser is compatible with conventional tasks and provides an actionable representation for visual understanding.",
+      "authors": [
+        "Pengxin Xu",
+        "Xincheng Lin",
+        "Luping Xiao",
+        "Qing Jiang",
+        "Meishan Zhang",
+        "Hao Fei",
+        "Shanghang Zhang",
+        "Xingyu Chen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-14T14:58:46+00:00",
+      "link": "https://arxiv.org/pdf/2605.14923v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Hierarchical scene parsing for structured 3D environment understanding",
+      "llm_evidence_cn": "用于结构化3D环境理解的分层场景解析",
+      "llm_evidence": "用于结构化3D环境理解的分层场景解析",
+      "canonical_evidence": "用于结构化3D环境理解的分层场景解析",
+      "llm_tldr_en": "Introduces a VLM-based parser to represent scenes as explicit object-part-affordance hierarchies.",
+      "llm_tldr_cn": "引入基于视觉语言模型的解析器，将场景表示为明确的对象-部件-功能分层结构。",
+      "llm_tldr": "引入基于视觉语言模型的解析器，将场景表示为明确的对象-部件-功能分层结构。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.13755v1",
+      "title": "Generative Texture Diversification of 3D Pedestrians for Robust Autonomous Driving Perception",
+      "abstract": "In recent years, autonomous driving has significantly in creased the demand for high-quality data to train 2D and 3D perception models for safety-critical scenarios. Real world datasets struggle to meet this demand as require ments continuously evolve and large-scale annotated data collection remains costly and time-consuming making syn thetic data a scalable, practical and controllable alterna tive. Pedestrian detection is among the most safety-critical tasks in autonomous driving. In this paper, we propose a simple yet effective method for scaling variability in 3D pedestrian assets for synthetic scene generation. Starting from a single 3D base asset, we generate multiple distinct pedestrian instances by synthesizing diverse facial textures and identity-level appearance variations using StyleGAN2 and automatically mapping them onto 3D meshes. This ap proach enables scalable appearance-level asset diversifica tion without requiring the design of new geometries for each instance. Using the assets, we construct synthetic datasets and study the impact of mixing real and synthetic data for RGB-based object detection. Through complementary ex periments, we analyze geometry-driven distribution shifts in point cloud perception for 3D object detection. Our findings demonstrate that controlled synthetic diversifica tion improves robustness in 2D detection while revealing the sensitivity of 3D perception models to geometric domain gaps. Overall, this work highlights how generative AI en ables scalable, simulation-ready pedestrian diversification through controlled facial texture synthesis, along with the benefits and limitations of cross-domain training strategies in autonomous driving pipelines.",
+      "authors": [
+        "Arka Bhowmick",
+        "Enes Ozeren",
+        "Ahmed Abdullah",
+        "Oliver Wasenmuller"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-13T16:35:50+00:00",
+      "link": "https://arxiv.org/pdf/2605.13755v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "synthetic scene generation for autonomous driving",
+      "llm_evidence_cn": "自动驾驶的合成场景生成",
+      "llm_evidence": "自动驾驶的合成场景生成",
+      "canonical_evidence": "自动驾驶的合成场景生成",
+      "llm_tldr_en": "Generates diverse 3D pedestrian textures to enhance synthetic data for autonomous driving perception.",
+      "llm_tldr_cn": "通过生成多样化的3D行人纹理，增强自动驾驶感知的合成数据。",
+      "llm_tldr": "通过生成多样化的3D行人纹理，增强自动驾驶感知的合成数据。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.14029v1",
+      "title": "Fast and Robust Mesh Simplification for Generated and Real-World 3D Assets",
+      "abstract": "The rapid growth of 3D content from modern reconstruction and generative pipelines, such as neural rendering and large-scale 3D asset generation, has led to an abundance of dense, noisy, and often non-manifold meshes. While these representations achieve high visual fidelity, their complexity poses significant challenges for downstream applications in simulation, AR/VR, and scientific computing, where efficient and reliable geometry is essential. This necessitates mesh simplification methods that are not only fast and robust to \"in-the-wild\" inputs, but also capable of preserving fine geometric structures and high-quality appearance. In this paper, we propose Feature-Aware Quadric Error Metric (FA-QEM), a comprehensive mesh simplification pipeline designed for modern 3D assets. Our approach introduces a novel multi-term quadric error formulation that jointly encodes geometric deviation, boundary curvature, and surface normal consistency, enabling optimal vertex placement that preserves sharp features even under aggressive simplification. Furthermore, we show that high-fidelity geometric simplification significantly improves downstream appearance transfer, serving as a superior front-end for texture mapping via successive mapping techniques. We conduct extensive evaluations on both AI-generated meshes and large-scale real-world datasets, including Thingi10K and the Real-World Textured Things dataset. Our results demonstrate that FA-QEM achieves consistently lower geometric error, better visual fidelity, and substantially faster runtimes compared to existing methods, while maintaining robustness across diverse and challenging inputs. These properties make FA-QEM a practical and effective component for scalable 3D reconstruction and generation pipelines.",
+      "authors": [
+        "Kunal Bhosikar",
+        "Preet Savalia",
+        "Lokender Tiwari",
+        "Brojeshwar Bhowmick"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR",
+        "cs.CG"
+      ],
+      "published": "2026-05-13T18:41:40+00:00",
+      "link": "https://arxiv.org/pdf/2605.14029v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Mesh simplification for generated 3D assets and environments",
+      "llm_evidence_cn": "针对生成的3D资产和环境的网格简化",
+      "llm_evidence": "针对生成的3D资产和环境的网格简化",
+      "canonical_evidence": "针对生成的3D资产和环境的网格简化",
+      "llm_tldr_en": "Develops FA-QEM for fast and robust mesh simplification of complex generated 3D assets.",
+      "llm_tldr_cn": "开发了FA-QEM，用于对复杂的生成式3D资产进行快速且鲁棒的网格简化。",
+      "llm_tldr": "开发了FA-QEM，用于对复杂的生成式3D资产进行快速且鲁棒的网格简化。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.14399v1",
+      "title": "SceneForge: Structured World Supervision from 3D Interventions",
+      "abstract": "Many multimodal learning tasks require supervision that remains consistent across edits, viewpoints, and scene-level interventions. However, such supervision is difficult to obtain from observation-level datasets, which do not expose the underlying scene state or how changes propagate through it. We present SceneForge, an intervention-driven framework that generates structured supervision from editable 3D world states. SceneForge represents each scene as a persistent world with semantic, geometric, and physical dependencies. By applying explicit interventions (e.g., object removal or camera variation) and propagating their effects through scene dependencies, SceneForge renders supervision that remains consistent with object structure and scene-level effects. This produces aligned outputs including counterfactual observations, multi-view observations, and effect-aware signals such as shadows and reflections, all derived from a shared world state rather than post hoc image-space processing. We instantiate SceneForge using Infinigen and Blender to construct a licensing-clean indoor supervision resource with a large number of counterfactual pairs and aligned annotations from over 2K scenes, covering both diverse single-view and registered multi-view settings. Under matched training budgets, incorporating SceneForge supervision improves both object removal and scene removal performance across multiple benchmarks in both quantitative and qualitative evaluation. These results indicate that modeling supervision as structured state transitions in editable worlds provides a practical and scalable foundation for intervention-consistent multimodal learning.",
+      "authors": [
+        "Jizhizi Li",
+        "Jiayang Ao",
+        "Danny Wicks",
+        "Petru-Daniel Tudosiu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-05-14T05:38:00+00:00",
+      "link": "https://arxiv.org/pdf/2605.14399v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Framework for generating structured supervision from editable 3D world states",
+      "llm_evidence_cn": "从可编辑3D世界状态生成结构化监督的框架",
+      "llm_evidence": "从可编辑3D世界状态生成结构化监督的框架",
+      "canonical_evidence": "从可编辑3D世界状态生成结构化监督的框架",
+      "llm_tldr_en": "SceneForge generates consistent multimodal supervision by applying interventions to structured 3D scenes.",
+      "llm_tldr_cn": "SceneForge通过对结构化3D场景进行干预，生成一致的多模态监督信号。",
+      "llm_tldr": "SceneForge通过对结构化3D场景进行干预，生成一致的多模态监督信号。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.14601v1",
+      "title": "Towards Accurate Single Panoramic 3D Detection: A Semantic Gaussian Centric Approach",
+      "abstract": "Three-dimensional object detection in panoramic imagery is crucial for comprehensive scene understanding, yet accurately mapping 2D features to 3D remains a significant challenge. Prevailing methods often project 2D features onto discrete 3D grids, which break geometric continuity and limit representation efficiency. To overcome this limitation, this paper proposes PanoGSDet, a monocular panoramic 3D detection framework built upon continuous semantic 3D Gaussian representations. The proposed framework comprises a panoramic depth estimation component and a semantic Gaussian component. The panoramic depth estimation component extracts the equirectangular semantic and depth features from the monocular panorama input. The semantic Gaussian component includes a semantic Gaussian lifting module that projects spherical features into 3D semantic Gaussians, a semantic Gaussian optimization module that refines these semantic Gaussians, and a Gaussian guided prediction head that generates 3D bounding boxes from optimized Gaussian representations. Extensive experiments on the Structured3D dataset demonstrate that our method significantly outperforms existing methods.",
+      "authors": [
+        "Kanglin Ning",
+        "Yiran Zhao",
+        "Wenrui Li",
+        "Shaoru Sun",
+        "Xingtao Wang",
+        "Xiaopeng Fan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-14T09:14:24+00:00",
+      "link": "https://arxiv.org/pdf/2605.14601v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Panoramic 3D detection using semantic Gaussian representations",
+      "llm_evidence_cn": "使用语义高斯表示的全景3D检测",
+      "llm_evidence": "使用语义高斯表示的全景3D检测",
+      "canonical_evidence": "使用语义高斯表示的全景3D检测",
+      "llm_tldr_en": "A framework for 3D object detection in panoramas using continuous semantic 3D Gaussian representations.",
+      "llm_tldr_cn": "一种利用连续语义3D高斯表示进行全景图3D物体检测的框架。",
+      "llm_tldr": "一种利用连续语义3D高斯表示进行全景图3D物体检测的框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.15010v1",
+      "title": "3D Skew-Normal Splatting",
+      "abstract": "3D Gaussian Splatting (3DGS) has emerged as a leading representation for real-time novel view synthesis and been widely adopted in various downstream applications. The core strength of 3DGS lies in its efficient kernel-based scene representation, where Gaussian primitives provide favorable mathematical and computational properties. However, under a finite primitive budget, the symmetric shape of each primitive directly affects representation compactness, especially near asymmetric structures such as object boundaries and one-sided surfaces. Recent works have explored more complex kernel distributions, yet they either remain within the elliptical family or rely on hard truncation, which limits continuous shape control and introduces distributional discontinuities. In this paper, we propose Skew-Normal Splatting (SNS), which adopts the Azzalini Skew-Normal distribution as the fundamental primitive. By introducing a learnable and bounded skewness parameter, SNS can continuously interpolate between symmetric Gaussians and Half-Gaussian-like shapes, enabling flexible modeling of both sharp boundaries and interior regions. Moremover, SNS preserves analytical tractability under affine transformations and marginalization. This property allows seamless integration into existing Gaussian Splatting rasterization pipelines.Furthermore, to address the strong coupling between scale, rotation, and skewness parameters, we introduce a decoupled parameterization and a block-wise optimization strategy to enhance training stability and accuracy. Extensive experiments on standard novel-view synthesis benchmarks show that SNS consistently improves reconstruction quality over Gaussian and recent non-Gaussian kernels, with clearer benefits on sharp boundaries and thin or one-sided structures.",
+      "authors": [
+        "Xiangru Wu",
+        "Ke Fan",
+        "Yanwei Fu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-14T16:10:41+00:00",
+      "link": "https://arxiv.org/pdf/2605.15010v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "New 3D scene representation using Skew-Normal Splatting",
+      "llm_evidence_cn": "使用偏正态泼溅的新型3D场景表示",
+      "llm_evidence": "使用偏正态泼溅的新型3D场景表示",
+      "canonical_evidence": "使用偏正态泼溅的新型3D场景表示",
+      "llm_tldr_en": "Introduces Skew-Normal distributions to 3DGS for more compact and accurate scene representation.",
+      "llm_tldr_cn": "在3DGS中引入偏正态分布，以实现更紧凑、更准确的场景表示。",
+      "llm_tldr": "在3DGS中引入偏正态分布，以实现更紧凑、更准确的场景表示。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

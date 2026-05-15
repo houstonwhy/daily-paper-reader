@@ -6,74 +6,61 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-05-14
-- 运行时间：2026-05-14 19:53:23 UTC
+- 最新运行日期：2026-05-15
+- 运行时间：2026-05-15 20:01:49 UTC
 - 运行状态：成功
-- 本次总论文数：17
+- 本次总论文数：13
 - 精读区：6
-- 速读区：11
+- 速读区：7
 
 ### 今日简报（AI）
-- 今日共生成 17 篇推荐（精读 6 篇，速读 11 篇）
-- 精读：《HetScene: Heterogeneity-Aware Diffusion for Dense Indoor Scene Generation》（10.0/10）, 《OmniLiDAR: A Unified Diffusion Framework for Multi-Domain 3D LiDAR Generation》（10.0/10）
-- 速读：《3DGS$^3$: Joint Super Sampling and Frame Interpolation for Real-Time Large-Scale 3DGS Rendering》（7.0/10）, 《H2G: Hierarchy-Aware Hyperbolic Grouping for 3D Scenes》（7.0/10）, 《MoCam: Unified Novel View Synthesis via Structured Denoising Dynamics》（7.0/10）
-- 这些结果覆盖了当下较热的方向，建议先看精读区论文的关键问题与方法。
-- 详情：[/202605/14/README](/202605/14/README)
+今日深度解析 13 篇 AI 论文，重点突破了自然语言驱动的机器人仿真与卫星图 3D 街景重建技术。
+SR-Platform 实现了智能体驱动的仿真环境自动化合成，而 Sat3DGen 则展现了单张卫星图生成大规模 3D 场景的惊人潜力。
+建议关注生成式技术在自动驾驶感知与 3D 资产简化中的应用，探索虚拟仿真与现实重建的深度融合。
+- 详情：[/202605/15/README](/202605/15/README)
 
 ### 精读区论文标签
-1. [HetScene: Heterogeneity-Aware Diffusion for Dense Indoor Scene Generation](/202605/14/2605.13586v1-hetscene-heterogeneity-aware-diffusion-for-dense-indoor-scene-generation)  
-   标签：评分：10.0/10、query:3dgen
-   evidence：使用扩散模型生成稠密室内场景
-2. [OmniLiDAR: A Unified Diffusion Framework for Multi-Domain 3D LiDAR Generation](/202605/14/2605.13815v1-omnilidar-a-unified-diffusion-framework-for-multi-domain-3d-lidar-generation)  
-   标签：评分：10.0/10、query:3dgen
-   evidence：用于3D LiDAR场景生成的文本条件扩散框架
-3. [SimWorld Studio: Automatic Environment Generation with Evolving Coding Agent for Embodied Agent Learning](/202605/14/2605.09423v2-simworld-studio-automatic-environment-generation-with-evolving-coding-agent-for-embodied-agent-learning)  
+1. [SR-Platform: An Agentic Pipeline for Natural Language-Driven Robot Simulation Environment Synthesis](/202605/15/2605.14700v1-sr-platform-an-agentic-pipeline-for-natural-language-driven-robot-simulation-environment-synthesis)  
    标签：评分：9.0/10、query:3dgen
-   evidence：为具身智能学习自动生成环境
-4. [GTA: Advancing Image-to-3D World Generation via Geometry Then Appearance Video Diffusion](/202605/14/2605.12957v1-gta-advancing-image-to-3d-world-generation-via-geometry-then-appearance-video-diffusion)  
+   evidence：自然语言驱动的机器人仿真环境合成
+2. [Sat3DGen: Comprehensive Street-Level 3D Scene Generation from Single Satellite Image](/202605/15/2605.14984v1-sat3dgen-comprehensive-street-level-3d-scene-generation-from-single-satellite-image)  
    标签：评分：9.0/10、query:3dgen
-   evidence：图像到3D世界的生成与合成
-5. [Rigel3D: Rig-aware Latents for Animation-Ready 3D Asset Generation](/202605/14/2605.13129v1-rigel3d-rig-aware-latents-for-animation-ready-3d-asset-generation)  
+   evidence：从卫星图像生成街景级 3D 场景
+3. [VGGT-Edit: Feed-forward Native 3D Scene Editing with Residual Field Prediction](/202605/15/2605.15186v1-vggt-edit-feed-forward-native-3d-scene-editing-with-residual-field-prediction)  
    标签：评分：9.0/10、query:3dgen
-   evidence：动画就绪3D资产的生成方法
-6. [3D Primitives are a Spatial Language for VLMs](/202605/14/2605.12586v1-3d-primitives-are-a-spatial-language-for-vlms)  
+   evidence：前馈原生3D场景编辑及复杂环境生成
+4. [GeoQuery: Geometry-Query Diffusion for Sparse-View Reconstruction](/202605/15/2605.12399v1-geoquery-geometry-query-diffusion-for-sparse-view-reconstruction)  
    标签：评分：8.0/10、query:3dgen
-   evidence：基于视觉语言模型的几何原语3D场景重建
+   evidence：用于3D重建和新视角合成的几何引导扩散模型
+5. [PanoPlane: Plane-Aware Panoramic Completion for Sparse-View Indoor 3D Gaussian Splatting](/202605/15/2605.14135v1-panoplane-plane-aware-panoramic-completion-for-sparse-view-indoor-3d-gaussian-splatting)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：用于室内3D高斯泼溅的全景场景补全
+6. [Articraft: An Agentic System for Scalable Articulated 3D Asset Generation](/202605/15/2605.15187v1-articraft-an-agentic-system-for-scalable-articulated-3d-asset-generation)  
+   标签：评分：8.0/10、query:3dgen
+   evidence：使用大语言模型进行可扩展关节式3D资产生成的智能体系统
 
 ### 速读区论文标签
-1. [3DGS$^3$: Joint Super Sampling and Frame Interpolation for Real-Time Large-Scale 3DGS Rendering](/202605/14/2605.11489v1-3dgs3-joint-super-sampling-and-frame-interpolation-for-real-time-large-scale-3dgs-rendering)  
+1. [MAGS-SLAM: Monocular Multi-Agent Gaussian Splatting SLAM for Geometrically and Photometrically Consistent Reconstruction](/202605/15/2605.10760v1-mags-slam-monocular-multi-agent-gaussian-splatting-slam-for-geometrically-and-photometrically-consistent-reconstruction)  
    标签：评分：7.0/10、query:3dgen
-   evidence：用于大规模3DGS场景渲染的后处理框架
-2. [H2G: Hierarchy-Aware Hyperbolic Grouping for 3D Scenes](/202605/14/2605.11967v1-h2g-hierarchy-aware-hyperbolic-grouping-for-3d-scenes)  
+   evidence：用于协作场景重建的多智能体高斯泼溅
+2. [Generative Texture Diversification of 3D Pedestrians for Robust Autonomous Driving Perception](/202605/15/2605.13755v1-generative-texture-diversification-of-3d-pedestrians-for-robust-autonomous-driving-perception)  
    标签：评分：7.0/10、query:3dgen
-   evidence：用于场景表示的分层3D分组
-3. [MoCam: Unified Novel View Synthesis via Structured Denoising Dynamics](/202605/14/2605.12119v1-mocam-unified-novel-view-synthesis-via-structured-denoising-dynamics)  
+   evidence：自动驾驶的合成场景生成
+3. [Fast and Robust Mesh Simplification for Generated and Real-World 3D Assets](/202605/15/2605.14029v1-fast-and-robust-mesh-simplification-for-generated-and-real-world-3d-assets)  
    标签：评分：7.0/10、query:3dgen
-   evidence：使用扩散过程的生成式新视角合成
-4. [MoCam: Unified Novel View Synthesis via Structured Denoising Dynamics](/202605/14/2605.12119v2-mocam-unified-novel-view-synthesis-via-structured-denoising-dynamics)  
+   evidence：针对生成的3D资产和环境的网格简化
+4. [SceneForge: Structured World Supervision from 3D Interventions](/202605/15/2605.14399v1-sceneforge-structured-world-supervision-from-3d-interventions)  
    标签：评分：7.0/10、query:3dgen
-   evidence：使用结构化去噪动力学的生成式新视图合成
-5. [3D Gaussian Splatting for Efficient Retrospective Dynamic Scene Novel View Synthesis with a Standardized Benchmark](/202605/14/2605.12437v1-3d-gaussian-splatting-for-efficient-retrospective-dynamic-scene-novel-view-synthesis-with-a-standardized-benchmark)  
+   evidence：从可编辑3D世界状态生成结构化监督的框架
+5. [Towards Accurate Single Panoramic 3D Detection: A Semantic Gaussian Centric Approach](/202605/15/2605.14601v1-towards-accurate-single-panoramic-3d-detection-a-semantic-gaussian-centric-approach)  
    标签：评分：7.0/10、query:3dgen
-   evidence：动态场景新视角合成与基准测试
-6. [OCH3R: Object-Centric Holistic 3D Reconstruction](/202605/14/2605.13018v1-och3r-object-centric-holistic-3d-reconstruction)  
+   evidence：使用语义高斯表示的全景3D检测
+6. [3D Skew-Normal Splatting](/202605/15/2605.15010v1-3d-skew-normal-splatting)  
    标签：评分：7.0/10、query:3dgen
-   evidence：单张RGB图像的以对象为中心的整体3D重建
-7. [Ilov3Splat: Instance-Level Open-Vocabulary 3D Scene Understanding in Gaussian Splatting](/202605/14/2605.04506v2-ilov3splat-instance-level-open-vocabulary-3d-scene-understanding-in-gaussian-splatting)  
+   evidence：使用偏正态泼溅的新型3D场景表示
+7. [SceneParser: Hierarchical Scene Parsing for Visual Semantics Understanding](/202605/15/2605.14923v1-sceneparser-hierarchical-scene-parsing-for-visual-semantics-understanding)  
    标签：评分：6.0/10、query:3dgen
-   evidence：实例级3D场景理解与语义表示
-8. [3DSS: 3D Surface Splatting for Inverse Rendering](/202605/14/2605.05876v3-3dss-3d-surface-splatting-for-inverse-rendering)  
-   标签：评分：6.0/10、query:3dgen
-   evidence：用于逆向渲染和形状恢复的3D表面喷溅技术
-9. [GemDepth: Geometry-Embedded Features for 3D-Consistent Video Depth](/202605/14/2605.10525v1-gemdepth-geometry-embedded-features-for-3d-consistent-video-depth)  
-   标签：评分：6.0/10、query:3dgen
-   evidence：3D一致性视频深度和全局3D结构感知
-10. [SpatialForge: Bootstrapping 3D-Aware Spatial Reasoning from Open-World 2D Images](/202605/14/2605.11462v1-spatialforge-bootstrapping-3d-aware-spatial-reasoning-from-open-world-2d-images)  
-   标签：评分：6.0/10、query:3dgen
-   evidence：3D感知空间推理与以场景为中心的数据合成
-11. [Grounding by Remembering: Cross-Scene and In-Scene Memory for 3D Functional Affordances](/202605/14/2605.11616v1-grounding-by-remembering-cross-scene-and-in-scene-memory-for-3d-functional-affordances)  
-   标签：评分：6.0/10、query:3dgen
-   evidence：通过记忆几何结构来定位3D功能性交互区域
+   evidence：用于结构化3D环境理解的分层场景解析
 
 
 <div class="dpr-home-promo-card">
