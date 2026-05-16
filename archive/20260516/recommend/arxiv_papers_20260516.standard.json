@@ -1,0 +1,368 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-16T19:17:27.863538+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 8,
+    "quick_skim_target": 11,
+    "quick_selected": 8
+  },
+  "deep_dive": [
+    {
+      "id": "2605.13741v1",
+      "title": "LEXI-SG: Monocular 3D Scene Graph Mapping with Room-Guided Feed-Forward Reconstruction",
+      "abstract": "Scene graphs are becoming a standard representation for robot navigation, providing hierarchical geometric and semantic scene understanding. However, most scene graph mapping methods rely on depth cameras or LiDAR sensors. In this work, we present LEXI-SG, the first dense monocular visual mapping system for open-vocabulary 3D scene graphs using only RGB camera input. Our approach exploits the semantic priors of open-vocabulary foundation models to partition the scene into rooms, deferring feed-forward reconstruction to when each room is fully observed -- enabling scalable dense mapping without sliding-window scale inconsistencies. We propose a room-based factor graph formulation to globally align room reconstructions while preserving local map consistency and naturally imposing the semantic scene graph hierarchy. Within each room, we further support open-vocabulary object segmentation and tracking. We validate LEXI-SG on indoor scenes from the Habitat-Matterport 3D and self-collected egocentric office sequences. We evaluate its performance against existing feed-forward SLAM methods, as well as established scene graphs baselines. We demonstrate improved trajectory estimation and dense reconstruction, as well as, competitive performance in open-vocabulary segmentation. LEXI-SG shows that accurate, scalable, open-vocabulary 3D scene graphs can be achieved from monocular RGB alone. Our project page and office sequences are available here: https://ori-drs.github.io/lexisg-web/.",
+      "authors": [
+        "Christina Kassab",
+        "Hyeonjae Gil",
+        "Matías Mattamala",
+        "Ayoung Kim",
+        "Maurice Fallon"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.CV"
+      ],
+      "published": "2026-05-13T16:19:02+00:00",
+      "link": "https://arxiv.org/pdf/2605.13741v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Monocular 3D scene graph mapping and reconstruction",
+      "llm_evidence_cn": "单目3D场景图映射与重建",
+      "llm_evidence": "单目3D场景图映射与重建",
+      "canonical_evidence": "单目3D场景图映射与重建",
+      "llm_tldr_en": "A monocular visual mapping system for open-vocabulary 3D scene graphs using room-guided reconstruction.",
+      "llm_tldr_cn": "一种利用房间引导重建实现开放词汇3D场景图的单目视觉映射系统。",
+      "llm_tldr": "一种利用房间引导重建实现开放词汇3D场景图的单目视觉映射系统。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2605.13073v1",
+      "title": "HarmoGS: Robust 3D Gaussian Splatting in the Wild via Conflict-Aware Gradient Harmonization",
+      "abstract": "In-the-wild 3D Gaussian Splatting remains challenging due to transient distractors and illumination-induced cross-view appearance inconsistencies. Existing methods mainly rely on image-level masking to suppress unreliable supervision, but masking alone cannot fully eliminate residual occlusions or resolve illumination-induced inconsistencies, both of which can introduce conflicting cross-view gradients. These unresolved conflicts may destabilize Gaussian optimization and lead to visible reconstruction artifacts. We propose a conflict-aware 3DGS framework that addresses this problem from both image-space supervision and gradient-level optimization. Semantic Consistency-Guided Masking learns pixel-wise consistency scores to adaptively refine prior masks and suppress unreliable supervision before gradient formation. A dual-view Conflict-Aware Gradient Harmonization strategy further reconciles view-specific gradients by mutually rotating them into an orthogonal configuration, reducing negative directional interference across views. We also introduce conflict-aware densification and pruning to stabilize Gaussian growth and remove persistently conflicting primitives. Extensive experiments on standard in-the-wild benchmarks demonstrate that our method achieves state-of-the-art rendering quality under complex transient distractors and cross-view inconsistencies.",
+      "authors": [
+        "Yulei Kang",
+        "Tianze Zhu",
+        "Jian-Fang Hu",
+        "Jianhuang Lai",
+        "Wei-Shi Zheng"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-13T06:47:09+00:00",
+      "link": "https://arxiv.org/pdf/2605.13073v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "robust 3D Gaussian Splatting for in-the-wild scene reconstruction",
+      "llm_evidence_cn": "用于野外场景重建的鲁棒3D高斯泼溅技术",
+      "llm_evidence": "用于野外场景重建的鲁棒3D高斯泼溅技术",
+      "canonical_evidence": "用于野外场景重建的鲁棒3D高斯泼溅技术",
+      "llm_tldr_en": "HarmoGS improves 3DGS reconstruction in complex environments by harmonizing conflicting cross-view gradients.",
+      "llm_tldr_cn": "HarmoGS通过协调冲突的跨视图梯度，改进了复杂环境下的3DGS重建效果。",
+      "llm_tldr": "HarmoGS通过协调冲突的跨视图梯度，改进了复杂环境下的3DGS重建效果。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.12198v1",
+      "title": "Enhancing Domain Generalization in 3D Human Pose Estimation through Controllable Generative Augmentation",
+      "abstract": "Pedestrian motion, due to its causal nature, is strongly influenced by domain gaps arising from discrepancies between training and testing data distributions. Focusing on 3D human pose estimation, this work presents a controllable human pose generation framework that synthesizes diverse video data by systematically varying poses, backgrounds, and camera viewpoints. This generative augmentation enriches training datasets, enhances model generalization, and alleviates the limitations of existing methods in handling domain discrepancies. By leveraging both indoor/real-world and outdoor/virtual datasets, we perform cross-domain data fusion and controllable video generation to construct enriched training data, tailored to realistic deployment settings. Extensive experiments show that the augmented datasets significantly improve model performance on unseen scenarios and datasets, validating the effectiveness of the proposed approach.",
+      "authors": [
+        "Xinhao Hu",
+        "Yiyi Zhang",
+        "Liqing Zhang",
+        "Jianfu Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-12T14:37:53+00:00",
+      "link": "https://arxiv.org/pdf/2605.12198v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "controllable generative augmentation for 3D human-scene data",
+      "llm_evidence_cn": "针对3D人景数据的可控生成式增强",
+      "llm_evidence": "针对3D人景数据的可控生成式增强",
+      "canonical_evidence": "针对3D人景数据的可控生成式增强",
+      "llm_tldr_en": "A framework that synthesizes diverse video data by varying poses and backgrounds to improve 3D pose estimation.",
+      "llm_tldr_cn": "一个通过改变姿态和背景来合成多样化视频数据以改进3D姿态估计的框架。",
+      "llm_tldr": "一个通过改变姿态和背景来合成多样化视频数据以改进3D姿态估计的框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.13465v1",
+      "title": "Z-Order Transformer for Feed-Forward Gaussian Splatting",
+      "abstract": "Recent advances in 3D Gaussian Splatting (3DGS) have enabled significant progress in photorealistic novel view synthesis. However, traditional 3DGS relies on a slow, iterative optimization process, which limits its use in scenarios demanding real-time results. To overcome this bottleneck, recent feed-forward methods aim to predict Gaussian attributes directly from images, but they often struggle with the redundancy of Gaussian primitives and rendering quality. In this work, we introduce a transformer-based architecture specifically designed for feed-forward Gaussian Splatting. Our key insight is that spatial and semantic relationships among Gaussians can be effectively captured through a sparse attention mechanism, enabled by a Z-order strategy that organizes the unstructured Gaussian set into a spatially coherent sequence. Furthermore, we incorporate this Z-order strategy to adaptively suppress redundancy while preserving critical structural details. This allows the transformer to efficiently model context, compress Gaussian primitives, and predict Gaussian attributes in a single forward pass. Comprehensive experiments demonstrate that our method achieves fast and high-quality novel view synthesis with fewer Gaussian primitives.",
+      "authors": [
+        "Can Wang",
+        "Lei Liu",
+        "Wei Jiang",
+        "Dong Xu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-13T12:54:59+00:00",
+      "link": "https://arxiv.org/pdf/2605.13465v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "feed-forward 3D Gaussian Splatting for scene synthesis",
+      "llm_evidence_cn": "用于场景合成的前馈3D高斯泼溅",
+      "llm_evidence": "用于场景合成的前馈3D高斯泼溅",
+      "canonical_evidence": "用于场景合成的前馈3D高斯泼溅",
+      "llm_tldr_en": "A transformer-based architecture for fast, feed-forward 3D Gaussian Splatting and view synthesis.",
+      "llm_tldr_cn": "一种基于Transformer的架构，用于快速前馈3D高斯泼溅和视图合成。",
+      "llm_tldr": "一种基于Transformer的架构，用于快速前馈3D高斯泼溅和视图合成。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.13838v1",
+      "title": "R-DMesh: Video-Guided 3D Animation via Rectified Dynamic Mesh Flow",
+      "abstract": "Video-guided 3D animation holds immense potential for content creation, offering intuitive and precise control over dynamic assets. However, practical deployment faces a critical yet frequently overlooked hurdle: the pose misalignment dilemma. In real-world scenarios, the initial pose of a user-provided static mesh rarely aligns with the starting frame of a reference video. Naively forcing a mesh to follow a mismatched trajectory inevitably leads to severe geometric distortion or animation failure. To address this, we present Rectified Dynamic Mesh (R-DMesh), a unified framework designed to generate high-fidelity 4D meshes that are ``rectified'' to align with video context. Unlike standard motion transfer approaches, our method introduces a novel VAE that explicitly disentangles the input into a conditional base mesh, relative motion trajectories, and a crucial rectification jump offset. This offset is learned to automatically transform the arbitrary pose of the input mesh to match the video's initial state before animation begins. We process these components via a Triflow Attention mechanism, which leverages vertex-wise geometric features to modulate the three orthogonal flows, ensuring physical consistency and local rigidity during the rectification and animation process. For generation, we employ a Rectified Flow-based Diffusion Transformer conditioned on pre-trained video latents, effectively transferring rich spatio-temporal priors to the 3D domain. To support this task, we construct Video-RDMesh, a large-scale dataset of over 500k dynamic mesh sequences specifically curated to simulate pose misalignment. Extensive experiments demonstrate that R-DMesh not only solves the alignment problem but also enables robust downstream applications, including pose retargeting and holistic 4D generation.",
+      "authors": [
+        "Zijie Wu",
+        "Lixin Xu",
+        "Puhua Jiang",
+        "Sicong Liu",
+        "Chunchao Guo",
+        "Xiang Bai"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR",
+        "cs.LG"
+      ],
+      "published": "2026-05-13T17:58:13+00:00",
+      "link": "https://arxiv.org/pdf/2605.13838v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "4D mesh generation and animation",
+      "llm_evidence_cn": "4D网格生成与动画",
+      "llm_evidence": "4D网格生成与动画",
+      "canonical_evidence": "4D网格生成与动画",
+      "llm_tldr_en": "Generates high-fidelity 4D meshes aligned with video context using a rectified dynamic mesh flow.",
+      "llm_tldr_cn": "通过修正动态网格流生成与视频上下文对齐的高保真4D网格动画。",
+      "llm_tldr": "通过修正动态网格流生成与视频上下文对齐的高保真4D网格动画。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.13600v1",
+      "title": "Sparse Code Uplifting for Efficient 3D Language Gaussian Splatting",
+      "abstract": "3D Language Gaussian Splatting (3DLGS) augments 3D Gaussian Splatting with language-aligned visual features for open-vocabulary 3D scene understanding. A core challenge is efficiently associating high-dimensional vision-language embeddings with millions of 3D Gaussians while preserving efficient feature rendering for text-based querying. Existing methods either store dense features directly on Gaussians, causing high storage costs and slow rendering, or learn compact representations through expensive per-scene optimization with repeated feature rasterization. No existing method simultaneously achieves fast 3D semantic reconstruction, efficient storage, and fast rendering. We propose SCOUP (Sparse COde UPlifting), which addresses all three by decoupling language representation learning from 3D Gaussian optimization. Rather than working directly in 3D, we learn sparse codebook-based representations entirely using features associated with 2D image regions, associating each region with a sparse set of codebook coefficients. We then uplift these coefficients to 3D Gaussians with our weighted sparse aggregation using Gaussian-to-pixel associations, where each Gaussian accumulates coefficients over codebook atoms across views. Top-$K$ filtering then extracts the most dominant multi-view coefficients per Gaussian, enabling efficient storage and fast rendering. Our method achieves up to $400\\times$ training speedup while being $3\\times$ more memory efficient during training compared to the state-of-the-art in rendering speed. Across multiple benchmarks, SCOUP matches or outperforms existing methods in open-vocabulary querying accuracy.",
+      "authors": [
+        "Lovre Antonio Budimir",
+        "Yushi Guan",
+        "Steve Ryhner",
+        "Sven Lončarić",
+        "Nandita Vijaykumar"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-13T14:35:31+00:00",
+      "link": "https://arxiv.org/pdf/2605.13600v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D scene understanding and semantic reconstruction",
+      "llm_evidence_cn": "3D场景理解与语义重建",
+      "llm_evidence": "3D场景理解与语义重建",
+      "canonical_evidence": "3D场景理解与语义重建",
+      "llm_tldr_en": "Introduces SCOUP for efficient 3D Language Gaussian Splatting to achieve fast semantic scene reconstruction.",
+      "llm_tldr_cn": "提出SCOUP方法，通过稀疏代码提升实现高效的3D语言高斯泼溅和语义场景重建。",
+      "llm_tldr": "提出SCOUP方法，通过稀疏代码提升实现高效的3D语言高斯泼溅和语义场景重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.14815v1",
+      "title": "Probing into Camera Control of Video Models",
+      "abstract": "Video is a rich and scalable source of 3D/4D visual observations, and camera control is a key capability for video generation models to produce geometrically meaningful content. Existing approaches typically learn a mapping from camera motion to video using additional camera modules and paired data. However, such datasets are often limited in scale, diversity, and scene dynamics, which can bias the model toward a narrow output distribution and compromise the strong prior learned by the base model. These limitations motivate a different perspective on camera control. In this paper, we show that camera control need not be modeled as an implicit mapping problem, but can instead be treated as a form of geometric guidance that induces displacements across frames. Specifically, we reformulate camera control into a set of displacement fields and apply them via differentiable resampling of latent features during denoising. Our simple approach achieves effective camera control with minimal degradation across diverse quality metrics compared to fine-tuned baselines. Since our method is applicable to most video diffusion models without training, it can also serve as a probe to study the camera control capabilities of base models. Using this probe, we identify universal biases shared by representative video models, as well as disparities in their responses to camera control. Finally, we benchmark their performance in multi-view generation, offering insights into their potential for 3D/4D tasks.",
+      "authors": [
+        "Chen Hou",
+        "Christian Rupprecht"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-14T13:27:33+00:00",
+      "link": "https://arxiv.org/pdf/2605.14815v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "camera control for geometrically meaningful video generation",
+      "llm_evidence_cn": "具有几何意义的视频生成的相机控制",
+      "llm_evidence": "具有几何意义的视频生成的相机控制",
+      "canonical_evidence": "具有几何意义的视频生成的相机控制",
+      "llm_tldr_en": "Explores camera control as geometric guidance to improve the 3D consistency of generated video content.",
+      "llm_tldr_cn": "将相机控制视为几何引导，以增强生成视频内容的3D一致性。",
+      "llm_tldr": "将相机控制视为几何引导，以增强生成视频内容的3D一致性。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.13794v1",
+      "title": "BlitzGS: City-Scale Gaussian Splatting at Lightning Speed",
+      "abstract": "We present BlitzGS, a distributed 3DGS framework that reduces active Gaussian workload for fast city-scale reconstruction. BlitzGS manages this workload at three coupled levels. At the system level, the framework shards Gaussians across GPUs by index parity rather than spatial blocks. This approach mitigates the cross-block visibility redundancy inherent in spatial partitioning. Furthermore, it distributes each rendering step through a single cross-GPU exchange that routes projected Gaussians to their tile owners. At the model level, scheduled importance-scoring passes shrink the global Gaussian population. During these passes, the framework generates a per-Gaussian visibility weight to bias density-control updates toward contributing primitives and a per-view importance mask for the view-level renderer. At the view level, BlitzGS trims each camera's active set with a distance-based LOD gate to exclude excessively fine primitives for the current frustum and the importance-based culling mask to skip Gaussians with negligible cross-view contribution.   On large-scale benchmarks, BlitzGS matches the rendering quality of recent large-scale baselines while delivering an order-of-magnitude speedup, training city-scale scenes in tens of minutes. Our code is available at https: //github.com/AkierRaee/BlitzGS.",
+      "authors": [
+        "Zhongtao Wang",
+        "Huishan Au",
+        "Yilong Li",
+        "Mai Su",
+        "Haojie Jin",
+        "Yisong Chen",
+        "Meng Gai",
+        "Fei Zhu",
+        "Guoping Wang"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR",
+        "cs.CV"
+      ],
+      "published": "2026-05-13T17:13:59+00:00",
+      "link": "https://arxiv.org/pdf/2605.13794v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "city-scale 3D scene reconstruction",
+      "llm_evidence_cn": "城市级3D场景重建",
+      "llm_evidence": "城市级3D场景重建",
+      "canonical_evidence": "城市级3D场景重建",
+      "llm_tldr_en": "Presents BlitzGS, a distributed framework for lightning-fast, city-scale 3D scene reconstruction using Gaussian Splatting.",
+      "llm_tldr_cn": "BlitzGS是一个分布式框架，利用高斯泼溅技术实现极速的城市级3D场景重建。",
+      "llm_tldr": "BlitzGS是一个分布式框架，利用高斯泼溅技术实现极速的城市级3D场景重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.14594v1",
+      "title": "TOPOS: High-Fidelity and Efficient Industry-Grade 3D Head Generation",
+      "abstract": "High-fidelity 3D head generation plays a crucial role in the film, animation and video game industries. In industrial pipelines, studios typically enforce a fixed reference topology across all head assets, as such a clean and uniform topology is a prerequisite for production-level rigging, skinning and animation. In this paper, we present TOPOS, a framework tailored for single image conditioned 3D head generation that jointly recovers geometry and appearance under such an industry-standard topology. In contrast to general 3D generative models which produce triangle meshes with inconsistent topology and numerous vertices, hindering semantic correspondence and asset-level reuse, TOPOS generates head meshes with a fixed, studio-style topology, enabling consistent vertex-level correspondence across all generated heads. To model heads under this unified topology, we proposed a novel variational autoencoder structure, termed TOPOS-VAE. Inspired by multi-model large language models (MLLMs), our TOPOS-VAE leverages the Perceiver Resampler to convert input pointclouds sampled from head meshes of diverse topologies into the target reference topology. Building upon TOPOS-VAE's structured latent space, we train a rectified flow transformer, TOPOS-DiT, to efficiently generate high-fidelity head meshes from a single image. We further present TOPOS-Texture, an end-to-end module that produces relightable UV texture maps from the same portrait image via fine-tuning a multimodal image generative model. The generated textures are spatially aligned with the underlying mesh geometry and faithfully preserve high-frequency appearance details. Extensive experiments demonstrate that TOPOS achieves state-of-the-art performance on 3D head generation, surpassing both classical face reconstruction methods and general 3D object generative models, highlighting its effectiveness for digital human creation.",
+      "authors": [
+        "Bojun Xiong",
+        "Zoubin Bi",
+        "Xinghui Peng",
+        "Yunmu Wang",
+        "Junchen Deng",
+        "Jun Liang",
+        "Jing Li",
+        "Bowen Cai",
+        "Huan Fu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-05-14T09:02:32+00:00",
+      "link": "https://arxiv.org/pdf/2605.14594v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D head generation and synthesis",
+      "llm_evidence_cn": "3D头部生成与合成",
+      "llm_evidence": "3D头部生成与合成",
+      "canonical_evidence": "3D头部生成与合成",
+      "llm_tldr_en": "Proposes TOPOS for high-fidelity 3D head generation with industry-standard fixed topology.",
+      "llm_tldr_cn": "提出TOPOS框架，用于生成符合工业标准固定拓扑的高保真3D头像。",
+      "llm_tldr": "提出TOPOS框架，用于生成符合工业标准固定拓扑的高保真3D头像。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
