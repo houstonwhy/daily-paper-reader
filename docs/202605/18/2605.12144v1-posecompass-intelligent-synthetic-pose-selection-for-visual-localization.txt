@@ -1,0 +1,336 @@
+Title: PoseCompass: Intelligent Synthetic Pose Selection for Visual Localization
+
+URL Source: https://arxiv.org/pdf/2605.12144v1
+
+Published Time: Wed, 13 May 2026 01:21:38 GMT
+
+Number of Pages: 6
+
+Markdown Content:
+# PoseCompass: Intelligent Synthetic Pose Selection for Visual Localization 
+
+Yanan Zhou 1, Zhaoyan Qian 1, Yanli Li 1, Nan Yang 1, Zhongliang Guo 2, Dong Yuan 1* 
+
+> 1
+
+The University of Sydney, Australia 
+
+> 2
+
+University of St Andrews, United Kingdom 
+
+{yzho5556, zqia6975 }@uni.sydney.edu.au, dong.yuan@sydney.edu.au 
+
+Abstract —In visual localization, Absolute Pose Regression (APR) enables real-time 6-DoF camera pose inference from single images, yet critically depends on fine-tuning data quality and coverage. While recent methods leverage 3D Gaussian Splat-ting (3DGS) for novel view synthesis–based data augmentation, random sampling generates redundant views and noisy samples from poorly reconstructed regions. To mitigate the research gap, we propose PoseCompass, an intelligent pose selection pipeline for 3DGS-based APR. PoseCompass starts from formulating synthetic pose selection and deriving a value-based pose ranking mechanism to identify informative poses. The ranking integrates three dimensions: (1) Localization Difficulty , favoring challenging regions; (2) Coverage Novelty , exploring under-sampled areas; and (3) Rendering Observability , filtering artifacts and noise. Then, PoseCompass generates trajectory-constrained candidates, selects the top-K ranked poses, and synthesizes views using 3DGS with lightweight diffusion-based alignment. Finally, the pose regressor is fine-tuned on mixed real and synthetic data. We evaluate our PoseCompass on 7-Scenes, PoseCompass reduces adaptation time from 15.2 to 5.1 minutes ( 3× speedup) while cutting median pose errors by 53.8%, significantly outperforming random baselines. 
+
+Index Terms —Visual localization, Absolute pose regression, 3D gaussian splatting 
+
+I. I NTRODUCTION 
+
+Visual localization is fundamental to embodied AI systems, including indoor navigation and autonomous driving. Abso-lute Pose Regression (APR) [1]–[4] predicts 6-DoF camera poses via end-to-end neural networks, circumventing the high computational overhead of feature matching [5], [6] and PnP solvers [7]. However, APR models often learn implicit image-to-pose retrieval rather than genuine geometric understand-ing [8], leading to poor generalization, particularly under sparse training data regimes. Novel View Synthesis (NVS) provides an effective mecha-nism for augmenting training data in absolute pose regression. While NeRF-based approaches [9]–[11] can expand viewpoint coverage, their high rendering cost limits scalability in prac-tical adaptation scenarios. Recently, 3D Gaussian Splatting (3DGS) [12] has emerged as a more efficient alternative, en-abling real-time novel view rendering. Despite this advantage, existing methods largely leave pose selection under-specified. In practice, synthetic poses are often sampled randomly, which 
+
+Yanan Zhou and Zhaoyan Qian contributed equally *Corresponding Author 
+
+Fig. 1. Value-Based Pose Selection. (a) Random sampling produces re-dundant and low-quality views. (b) Our value-based ranking selects diverse, high-quality poses. 
+
+leads to two systematic issues: redundant viewpoints that contribute limited additional supervision, and noisy samples arising from poorly reconstructed regions like texture-less sur-faces or scene boundaries. These effects reduce data efficiency under constrained rendering budgets, shown as Fig. 1(a). Data augmentation via NVS has shown promise for APR training. Recent work [4] leverages 3DGS for data augmen-tation and restricts sampling to trajectory-constrained neigh-borhoods around training poses to avoid severe extrapolation. However, within these constrained regions, pose selection remains random, and the issues of redundancy and rendering-induced noise are not explicitly addressed. In this paper, we introduce PoseCompass , an intelligent pipeline for synthetic pose selection in 3DGS-based abso-lute pose regression. Inspired by gradient-based active learn-ing [13], we formulate pose selection as a budget-constrained optimization problem that aims to maximize expected error reduction under limited rendering budgets. To this end, we derive a value-based pose ranking function that integrates three complementary dimensions: (1) Localization Difficulty , which captures model weaknesses through zero-shot prediction errors to prioritize challenging regions; (2) Coverage Novelty , which measures spatial distances to existing samples to encourage diverse viewpoint coverage; and (3) Rendering Observability ,which evaluates 3DGS reconstruction quality via geomet-ric consistency to suppress artifacts and unreliable render-ings [14]. Based on this value-based ranking, our pipeline generates trajectory-constrained pose candidates, selects infor-
+
+> arXiv:2605.12144v1 [cs.CV] 12 May 2026
+
+mative poses for 3DGS-based view synthesis with Syn2Real alignment, and fine-tunes the pose regressor on mixed real and synthetic data. The resulting synthetic views are illustrated in Fig. 1(b). Extensive experiments on indoor (7-Scenes [15]) and outdoor (Cambridge Landmarks [1]) benchmarks demonstrate that PoseCompass achieves state-of-the-art localization accu-racy, reducing median pose errors by over 50% while deliver-ing a 3× training speedup over random pose augmentation. In summary, our contributions are:  
+
+> •
+
+We formalize pose selection for 3DGS-based APR data augmentation as a budget-constrained optimization prob-lem and derive a value function grounded in active learning to identify the most valuable synthetic training poses.  
+
+> •
+
+We propose a value-based pose ranking mechanism with the multiplicative fusion of localization difficulty, cov-erage novelty, and rendering observability for intelligent subset selection.  
+
+> •
+
+We design PoseCompass, an pipeline integrating value-based ranking, 3DGS rendering, Syn2Real alignment, and efficient fine-tuning, setting a new benchmark for data-efficient APR training. II. R ELATED WORKS 
+
+Visual localization. Visual localization aims to estimate a camera’s translation and rotation in a 3D scene. Classical geometric approaches [5], [6]typically build point clouds and maintain a reference image database, then perform image retrieval with precomputed descriptors to establish 2D–3D correspondences. A closely related line of work, scene coor-dinate regression (SCR) [14], [16]–[18], uses neural networks to directly predict 2D–3D mappings. However, both families require solving PnP at inference time [7], which substantially increases computation. Absolute pose regression (APR) [1], [2], [4], [19]–[21] directly regresses poses from images in an end-to-end manner, enabling efficient inference, but still struggles to generalize across scenes due to long training and limited transfer. Within the APR paradigm, the latest map-relative pose regression method [3] pre-trains a pose regressor on hundreds of scenes and performs minute-level scene-specific adaptation, markedly improving deployability. 
+
+Data augmentation for pose regression. The effective-ness of APR highly depends on the scale and diversity of training data. Prior work [8] shows that APR models often learn an implicit “image-to-pose retrieval” relationship rather than genuine scene understanding. Motivated by this, many methods use novel view synthesis (NVS) to expand training viewpoints and increase correspondence coverage. Subsequent approaches, including LENS [9], DFNet [10], and PMNet [22], augment data via NeRF, but NeRF’s training and rendering inefficiency hinders deployment. With its efficient scene mod-eling and controllable appearance rendering, 3DGS [12] has emerged as a stronger alternative to NeRF. RAP [4] leverages 3DGS with controllable appearance to notably improve the robustness of synthesized views under appearance changes, yet it still lacks clear principles for selecting which viewpoints to synthesize. To select high valued synthesized view poses in 3DGS, our framework performs data-driven pose value estimation and sampling, enabling more efficient and robust augmentation for APR. III. M ETHOD 
+
+We formulate synthetic data augmentation for APR as selecting an optimal subset S∗ ⊆ Ppool of K poses that maximizes training improvement: 
+
+S∗ = arg max 
+
+> |S| =K
+
+X 
+
+> P∈S
+
+Value (P ), (1) where Value (P ) measures the expected error reduction from adding P to training set Dreal = {(Ii, Pi)}Ni=1 . Follow-ing gradient-based active learning [13], this decomposes as Value (P ) ∝ I(P ) × D(P ) × Q(P ), where I(P ), D(P ), Q(P )
+
+represent information gain, diversity, and quality gate. We ap-proximate these via efficient proxies— Localization Difficulty 
+
+(Fdiff ), Coverage Novelty (Fnov ), and Rendering Observability 
+
+(Fgs )—yielding: 
+
+V (P) = eFdiff (P)α × (1 + eFnov (P)) β × eFgs (P)γ , (2) where (α, β, γ ) are weighting exponents. This enables greedy top-K selection by ranking all candidates via V (·).We design the PoseCompass (Fig. 2) as a four-stage pipeline: (1) Trajectory-Constrained Candidate Generation (§III-A); (2) Value-Based Pose Ranking (§III-B); (3) 3DGS Rendering and Syn2Real Alignment (§III-C); (4) Fine-Tuning the Pose Regressor (§III-D). 
+
+A. Trajectory-Constrained Candidate Generation 
+
+As shown in Stage 1 of Fig. 2, the training set contains N
+
+real poses (red markers), which serve as trajectory constraints to delimit the scope of the synthetic pose pool. Following [4], for each real pose Pi ∈ P train , we generate M synthetic poses by adding uniform noise: translation δt ∈ [−0.20 , 0.20] m and rotation δr ∈ [−10 ◦, 10 ◦] for indoor (outdoor: δt=1 .50 m, 
+
+δr =4 ◦). This yields a candidate pool Ppool (orange markers) with M × N ≈ 10 K candidates. The zoom-in view visual-izes this process on Chess-seq-06, where candidates densely surround real training poses. 
+
+B. Value-Based Pose Ranking 
+
+Stage 2 of Fig. 2 illustrates our value-based ranking mech-anism. Random sampling from Ppool suffers from redundant poses and low-quality renderings. We evaluate candidates via a value function integrating three complementary dimensions (detailed in bottom panels of Fig. 2): localization difficulty, coverage novelty, and rendering observability. 
+
+1) Localization Difficulty: The bottom-left panel of Fig. 2 visualizes this dimension. We prioritize poses with high lo-calization difficulty using zero-shot prediction errors. The heatmap compares pose-good (near difficulty areas, exhibiting high Fdiff from 32 neighbors) with pose-bad (near easy areas with low scores). Following [8], we use the hybrid distance: 
+
+d(Pi, Pj ) = ∥ti − tj ∥2
+
+σt
+
++ λ ϑ (Ri, Rj ), (3) VAE            
+
+> Encoder
+> VAE
+> Decoder
+> U-Net
+> zero conv 3DGS Rendering Syn2Real Alignment (DIFIX3D ) Transormer
+> Feature
+> Encoder Regression
+> Head Stage A: Candidate Generation Stage C: 3DGS Rendering &Syn2Real Alignment Stage D: Fine-Tuning the Pose Regressor
+> Which poses should
+> I select for synthesis? Stage B: Value-Based
+> Pose Ranking Top-K poses
+> Pose-good: close to difficulty area 32 neighbors for pose-good Pose Regressor Synthesized Syn2Real aligned Syn2Real aligned Train ■Real Training Pose
+> ■Candidate Pose Pool Zoom in The visualized is Chess-seq-06
+> Ranking Top ‑KPoses Localization
+> Difficulty Coverage
+> Novelty Rendering
+> Observability
+
+Details             
+
+> Localization Difficulty Rendering Observability Coverage Novelty
+> Pose-bad: close to easy area
+> 32 neighbors for pose-bad
+> Pose-good: far away to train area
+> Pose-bad: close to train area Pose-good Pose-bad Photometric Stability
+> Texture Discriminability
+> Photometric Response
+> Visibility Gating ✔
+> ✔
+> ✔
+> ✔Photometric Stability
+> Texture Discriminability
+> Photometric Response
+> Visibility Gating ❌
+> ❌
+> ❌
+> ❌
+
+Fig. 2. The proposed PoseCompass stages. 
+
+where σt is the translation standard deviation, 
+
+ϑ(Ri, Rj )= arccos   tr (R⊤ 
+
+> i
+
+Rj )−12
+
+ measures rotation distance, and λ=1 .0 balances translation and rotation components. For candidate P, we aggregate zero-shot errors from k=32 
+
+nearest training poses via Gaussian kernel weighting, then apply quantile normalization to obtain eFdiff ∈ [0 , 1] .We emphasize that localization difficulty is computed in a zero-shot manner and used solely for offline pose ranking, rather than as a training signal. Fine-tuning on mixed real and synthetic data enables the regressor to correct initial biases, and the consistent gains across scenes indicate that the criterion captures transferable failure modes rather than model-specific artifacts. 
+
+2) Coverage Novelty: The bottom-middle panel of Fig. 2 demonstrates the novelty dimension. Pose-good (far from training area) receives higher Fnov scores, while pose-bad (close to training area) scores lower. To encourage spatial diversity, we define novelty as the minimum distance to exist-ing training poses: Fnov (P) = min j d(P, Pj ) using Eq. (3). Quantile normalization yields eFnov ∈ [0 , 1] .
+
+3) Rendering Observability in 3DGS: The bottom-right panel of Fig. 2 visualizes our quality assessment. Pose-good passes all four self-supervised checks (photometric stability ✓,texture discriminability ✓, photometric response ✓, visibility gating ✓), while pose-bad exhibits rendering artifacts (all ✗). The preceding scores operate solely in pose space, ignoring 3DGS rendering quality. We train original 3DGS [12] on 
+
+Dtrain . Since candidates lack ground truth, we assess quality via self-supervised geometric consistency: well-reconstructed regions exhibit smooth photometric transitions under small pose perturbations, while artifacts cause abrupt changes. For each candidate P, we render a central view I0 and perturbed views I± with ±2cm translation and ±2° rotation offsets. We quantify photometric stability via minimum SSIM: 
+
+s = min  SSIM (I+, I0), SSIM (I−, I0), (4) which vetoes poses where any perturbation reveals artifacts. We compute scene-normalized gradient magnitude at each pixel x ∈ Ω (where Ω denotes the image domain): 
+
+ˆg(x) = ∥∇ I0(x)∥
+
+g + ε , g = 1
+
+|Ω|
+
+X
+
+y∈Ω
+
+∥∇ I0(y)∥, (5) where ε=10 −8 ensures numerical stability and normalization by mean gradient g enables cross-scene comparability, priori-tizing textured regions. The symmetric photometric response: 
+
+r(x) = I+(x) − I−(x)
+
+I+(x) + I−(x) + ε (6) measures intensity variation rate under perturbations, where well-reconstructed regions exhibit moderate values reflecting geometric parallax while artifacts produce abnormally high or near-zero responses. To suppress unobserved pixels, the visibility mask w(x) = 
+
+στα
+
+ α(x) · στb
+
+ b(x) · στh
+
+ h(x) soft-gates by 3DGS opac-ity α(x), brightness b(x), and local entropy h(x) via sig-moid thresholds στ (z)=(1+ e−k(z−τ ))−1 with k=10 and 
+
+(τα, τ b, τ h)=(0 .5, 0.2, 3.0) . The observability score integrates these factors: 
+
+Fgs (P) = s · 1
+
+|Ω|
+
+X
+
+x∈Ω
+
+w(x) ˆ g(x) r(x), (7) TABLE I               
+
+> POSE ESTIMATION RESULTS ON 7-S CENES DATASET .WEREPORT MEDIAN TRANSLATION /R OTATION ERROR (CM /°). B EST RESULTS IN BOLD ,SECOND BEST UNDERLINED .
+
+Methods Source Chess Fire Heads Office Pumpkin Kitchen Stairs Average 
+
+PoseNet [1] ICCV15 32/8.12 47/14.4 29/1.20 48/7.68 47/8.42 59/8.64 47/13.80 44/10.4 MapNet [2] CVPR18 8/3.25 27/11.7 18/13.3 17/5.15 22/4.02 23/4.93 30/12.1 21/7.77 MS-Transformer [23] ICCV21 11/4.66 24/9.60 14/12.2 17/5.66 18/4.44 17/5.94 17/5.94 18/7.28 PAE [24] ECCV22 12/4.95 24/9.31 14/12.5 19/5.79 18/4.89 18/6.19 25/8.74 19/7.48 DFNet [10] ECCV22 5/1.88 17/6.45 6/3.63 8/2.48 10/2.78 22/5.45 16/3.29 12/3.71 PMNet [22] ECCV24 4/1.70 10/4.51 7/4.23 7/1.96 14/3.33 14/3.36 16/3.62 10/3.24 RAP [4] ICCV25 2/0.85 6/3.45 5/5.49 5/1.94 4/1.70 7/2.12 9/2.11 5/2.52 MaRepo [3] CVPR24 2.6/1.35 2.5/1.42 2.3/2.21 3.6/1.44 4.2/1.55 5.1/1.99 6.7/1.83 3.9/1.68 MaRepo s (Random Aug) [3] CVPR24 2.1/1.24 2.3/1.39 1.8/2.03 3.8/1.26 3.5/1.48 4.2/1.71 5.6/1.67 3.2/1.54 
+
+PoseCompass Ours 1.2/0.65 1.4/0.81 1.1/1.15 1.8/0.72 1.9/0.88 2.3/1.05 3.1/0.98 1.8/0.89 
+
+where global stability s vetoes unstable poses and the weighted sum evaluates discriminability-weighted photometric varia-tion under visibility constraints. This suppresses three failure modes: (i) textureless/underexposed regions (low w(x), ˆg(x)), (ii) artifacts causing inconsistent perturbations (high r(x) but low s, product vanishes), and (iii) unobserved areas (low 
+
+w(x)). Quantile normalization yields eFgs ∈ [0 , 1] for fusion with other dimensions. After computing the three normalized scores, we rank candidates by V (P) (Eq. (2)) and select the top-K poses as 
+
+Psyn .
+
+C. 3DGS Rendering and Syn2Real Alignment 
+
+Stage 3 of Fig. 2 shows the rendering and alignment process. After selecting Psyn , we render the views in 3DGS. To mitigate the appearance gap between renderings and real images, we apply Difix3D+ [25], a single-step diffusion aligner that im-proves photometric consistency while preserving pose labels: 
+
+Dsyn →real = Gθ (Dsyn ). (8) 
+
+D. Fine-Tuning the Pose Regressor 
+
+In Stage 4 (Fig. 2), we adopt MaRepo [3], a ViT-based pose regressor pre-trained on hundreds of scenes. We freeze the backbone and fine-tune only the lightweight regression head on Dmixed = Dtrain ∪ D syn →real using L1 pose loss: Lpose =
+
+E∥ ˆR−R∥1 +∥ˆt−t∥1
+
+. The syn2real aligner is used only for offline data preparation; inference retains the frozen backbone with the adapted head, preserving deployment efficiency. IV. E XPERIMENTS 
+
+A. Evaluation Setup 
+
+Datasets. Following prior works [3], [4], [22], we evaluate on 7-Scenes [15], an indoor dataset with seven scenes (1–18 m³) featuring texture-less regions, repetitive patterns, lighting changes, and occlusions. We use the standard split with SfM poses as ground truth [1], [16]. We also test on four scenes from Cambridge Landmarks [1] (about 875 m²), an outdoor dataset with long baselines, viewpoint/illumination variations, moving objects, and similar challenging conditions. 
+
+Baseline Methods. We compare the proposed PoseCompass method with state-of-the-art single-frame APR approaches. Among these, PMNet [22] and RAP [4] are the most relevant methods based on data augmentation, while MaRepo [3] rep-resents the most powerful absolute pose regression model. We also compare against MaRepo s (Random Aug), which applies the scene-specific fine-tuning with random augmentation as described in the original work. 
+
+Implementation Details. Following §III-A, we generate candidates with perturbations δt=20 cm, δr =10 ◦ (indoor) and 
+
+δt=150 cm, δr =4 ◦ (outdoor), yielding Ppool with M ×N ≈10 K
+
+poses per scene. We train 3DGS [12] on Dtrain . Using the value function (Eq. (2)) with exponents (α, β, γ )=(1 .5, 1.0, 2.0) , we rank and select top-K poses. Rendered views are aligned via frozen Difix3D+ [25] (§III-C), then we fine-tune MaRepo [3] for 5 epochs on Dmixed (§III-D). See supplementary for full details. 
+
+B. Benchmark Results 
+
+7-Scenes [15]. Table I presents the quantitative results on the 7-Scenes dataset. PoseCompass achieves state-of-the-art performance across all seven scenes, reducing the average median error to 1.8 cm / 0.89 ◦. Notably, our method signifi-cantly outperforms the previous SOTA method RAP [4] (5 cm / 2.52 ◦) and the random augmentation baseline MaRepo s
+
+(3.2 cm / 1.54 ◦). Specifically, PoseCompass yields a 50.4% relative improvement over the vanilla MaRepo baseline and a 43.0% improvement over MaRepo s. These consistent gains demonstrate that our value-based selection strategy effec-tively identifies high-quality, information-rich poses that target model weaknesses, offering superior supervision compared to random sampling. 
+
+Cambridge Landmarks [1]. On the outdoor dataset (Ta-ble II), PoseCompass reduces average error to 34.96 cm / 0.78°. The robust gains across diverse outdoor conditions validate that value-based selection generalizes beyond indoor scenes by balancing localization difficulty, coverage novelty, and rendering observability. TABLE II POSE ESTIMATION RESULTS ON CAMBRIDGE LANDMARKS . M EDIAN 
+
+TRANSLATION /R OTATION ERROR (CM /°). B EST IN BOLD , S ECOND BEST 
+
+UNDERLINED .
+
+Methods College Hospital Shop Church Avg. 
+
+PoseNet [1] 166/4.86 262/4.90 141/7.18 245/7.95 204/6.23 MapNet [2] 107/1.89 194/3.91 149/4.22 200/4.53 163/3.64 MS-Trans. [23] 83/1.47 181/2.39 86/3.07 162/3.99 128/2.73 PAE [24] 90/1.49 207/2.58 99/3.88 164/4.16 140/3.03 DFNet [10] 73/2.37 200/2.98 67/2.21 137/4.03 119/2.90 PMNet [22] 68/1.97 103/1.31 58/2.10 133/3.73 90/2.27 RAP [4] 52/0.90 87/1.21 35/1.64 53/1.52 57/1.32 MaRepo [3] 58.24/1.01 97.44/1.36 39.20/1.84 59.36/1.70 63.56/1.48 MaRepo s [3] 53.82/0.96 87.55/1.29 36.40/1.75 54.91/1.63 58.17/1.41 
+
+PoseCompass 32.03/0.53 53.59/0.72 21.56/0.97 32.65/0.90 34.96/0.78 
+
+TABLE III 
+
+ABLATION STUDY ON POSE COMPASS COMPONENTS . WE EVALUATE EACH COMPONENT ’S CONTRIBUTION ON THE CHESS SCENE FROM 
+
+7-S CENES . R ESULTS SHOW MEDIAN TRANSLATION /ROTATION ERROR 
+
+(CM /°). A LL VARIANTS USE K = 4000 SYNTHETIC POSES WITH MAREPO BACKBONE .
+
+Method Fdiff Fnov Fgs Difix3D+ t (cm) r (°) 
+
+Random sampling - - - - 2.1 1.24 Only Fdiff ✓ - - - 1.8 1.05 Only Fnov - ✓ - - 2.0 1.18 Only Fgs - - ✓ - 1.9 1.12 
+
+Fdiff + Fnov ✓ ✓ - - 1.6 0.95 
+
+Fdiff + Fgs ✓ - ✓ - 1.4 0.82 
+
+Fnov + Fgs - ✓ ✓ - 1.7 0.98 All three components ✓ ✓ ✓ - 1.3 0.72 
+
+PoseCompass ✓ ✓ ✓ ✓ 1.2 0.65 
+
+C. Ablation Study 
+
+Table III dissects PoseCompass on the Chess scene with 
+
+K=4000 (equal to training set size). Random sampling yields 2.1 cm / 1.24°. Using only Fdiff reduces error to 1.8 / 1.05, showing difficulty-driven selection targets model weaknesses. Dual-component variants achieve further gains: Fdiff +Fnov 
+
+(1.6 / 0.95) balances hard examples with spatial diversity; 
+
+Fdiff +Fgs (1.4 / 0.82) performs best by filtering low-quality renderings while prioritizing challenging regions. Combining all three dimensions achieves 1.3 / 0.72 (38.1% / 41.9% improvement over random), demonstrating complemen-tarity across difficulty, novelty, and quality. Adding Difix3D+ appearance alignment further reduces error to 1.2 / 0.65, con-firming that bridging the syn-to-real gap enhances supervision quality without altering pose selection. We further analyze the robustness of PoseCompass to the weighting exponents (α, β, γ ) in Eq. (2). Varying these values within a broad range around the default setting leads to con-sistent pose rankings and similar localization accuracy, with performance variations below 5% on Chess. This suggests that the exponents primarily encode relative preferences among difficulty, novelty, and observability, rather than requiring 
+
+TABLE IV 
+
+IMPACT OF REAL DATA RATIO AND SYNTHETIC BUDGET ON CHESS SCENE . WE REPORT MEDIAN TRANSLATION /ROTATION ERROR (CM /°) AND TRAINING TIME . N =4000 DENOTES THE FULL TRAINING SET SIZE , K IS THE SYNTHETIC POSE BUDGET . R ESULTS VALIDATE THAT BOTH REAL DATA QUALITY (FOR 3DGS RECONSTRUCTION ) AND INTELLIGENT SYNTHETIC SELECTION ARE ESSENTIAL .
+
+Configuration Error (cm/°) Time (min) Speedup 
+
+100% real, no aug 2.6/1.35 3.8 -
+
+Random Augmentation (baseline) 
+
+20% real + random ( K=N ) 2.8/1.52 12.5 -50% real + random ( K=N ) 2.4/1.38 13.8 -100% real + random ( K=N ) 2.1/1.24 15.2 1.0×
+
+PoseCompass: varying real data ratio 
+
+20% real + ( K=N ) 2.3/1.28 4.2 3.6×
+
+50% real + ( K=N ) 1.7/0.95 4.7 3.2×
+
+100% real + ( K=N ) 1.2/0.65 5.1 3.0×
+
+PoseCompass: varying synthetic budget 
+
+100% real + ( K=0 .2N ) 1.8/1.02 4.1 3.7×
+
+100% real + ( K=0 .5N ) 1.5/0.82 4.6 3.3×
+
+100% real + ( K=N ) 1.2/0.65 5.1 3.0×
+
+100% real + ( K=2 N ) 1.2/0.64 9.8 1.6×
+
+precise tuning. 
+
+D. Discussion on Data Synthesis 
+
+Rendering Budget and Real Data Efficiency. Table IV examines the interplay between real data ratio and synthetic budget on Chess. Two key findings emerge. First, while both methods benefit from more real data, PoseCompass exhibits steeper improvement curves than random augmentation. This reveals that intelligent selection better exploits high-quality 3DGS reconstruction—our observability filtering more effec-tively distinguishes artifact-free regions when the renderer is well-trained, and difficulty scoring more accurately identifies challenging viewpoints. Second, value-based selection consistently outperforms ran-dom augmentation at matched real data ratios, with amplified advantages under limited data. Under sparse conditions, 3DGS produces uneven reconstruction quality. Random sampling blindly includes degraded regions, introducing noisy gradients. Our Fgs actively filters these artifacts while Fdiff ensures coverage of challenging areas. The synthetic budget abla-tion shows diminishing returns beyond K=N , confirming efficient convergence. Consistent speedup stems from pose-level selection reducing redundant rendering while maintaining supervision quality. 
+
+Backbone Generalizability. Table V examines PoseCom-pass across four APR architectures with varying representation capacities. All backbones benefit from value-based selec-tion. However, the improvement magnitude exhibits a clear stratification. Lightweight models (PoseNet, MS-Transformer, DFNet) achieve consistent gains around 35%. In contrast, MaRepo demonstrates 53.8% improvement. This performance gap reveals a fundamental mechanism. Stronger pre-trained representations provide richer semantic TABLE V 
+
+GENERALIZATION ACROSS DIFFERENT APR BACKBONES ON CHESS SCENE . WE APPLY POSE COMPASS (K=N ) TO MULTIPLE POSE REGRESSION ARCHITECTURES . R ESULTS SHOW MEDIAN TRANSLATION /ROTATION ERROR (CM /°). 
+
+Backbone Baseline + PoseCompass t (cm) r (°) t (cm) r (°) 
+
+PoseNet [1] 32 8.12 20.8 5.3 MS-Transformer [23] 11 4.66 7.2 3.0 DFNet [10] 5 1.88 3.3 1.2 MaRepo [3] 2.6 1.35 1.2 0.65 
+
+features for localization. When combined with PoseCom-pass, such representations can better distinguish and exploit the complementary signals encoded in difficulty-driven and quality-filtered synthetic samples. Specifically, challenging viewpoints expose model blind spots through higher gradient magnitudes. Artifact-free renderings ensure these gradients re-main informative rather than noisy. MaRepo’s global attention mechanism amplifies this synergy by capturing long-range spatial dependencies that align with our value function’s multi-dimensional scoring. The consistent plug-and-play transfer-ability confirms that PoseCompass operates as a data-centric module independent of architectural inductive biases. V. C ONCLUSION 
+
+We propose PoseCompass, an intelligent synthetic pose selection pipeline for data-efficient APR training via 3D Gaussian Splatting. Our value function integrates Localization Difficulty to prioritize challenging regions, Coverage Novelty to ensure viewpoint diversity, and Rendering Observability to filter low-quality renderings, enabling efficient identifica-tion of high-value synthetic training poses while maintaining computational efficiency. Extensive experiments on 7-Scenes and Cambridge Landmarks demonstrate that PoseCompass significantly reduces median pose errors while achieving substantial training speedup over random augmentation. The pipeline is compatible with diverse renderers and backbones, demonstrating strong generalization across APR architectures. REFERENCES [1] Alex Kendall, Matthew Grimes, and Roberto Cipolla, “Posenet: A convolutional network for real-time 6-dof camera relocalization,” in 
+
+Proceedings of the IEEE international conference on computer vision ,2015, pp. 2938–2946. [2] Samarth Brahmbhatt, Jinwei Gu, Kihwan Kim, James Hays, and Jan Kautz, “Geometry-aware learning of maps for camera localization,” in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , 2018, pp. 2616–2625. [3] Shuai Chen, Tommaso Cavallari, Victor Adrian Prisacariu, and Eric Brachmann, “Map-relative pose regression for visual re-localization,” in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , 2024, pp. 20665–20674. [4] Sihang Li, Siqi Tan, Bowen Chang, Jing Zhang, Chen Feng, and Yiming Li, “Adversarial exploitation of data diversity improves visual localization,” in Proceedings of the IEEE/CVF International Conference on Computer Vision , 2025, pp. 26848–26858. [5] Paul-Edouard Sarlin, Daniel DeTone, Tomasz Malisiewicz, and Andrew Rabinovich, “Superglue: Learning feature matching with graph neural networks,” in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , 2020, pp. 4938–4947. [6] Philipp Lindenberger, Paul-Edouard Sarlin, and Marc Pollefeys, “Light-glue: Local feature matching at light speed,” in Proceedings of the IEEE/CVF International Conference on Computer Vision , 2023, pp. 17627–17638. [7] Xiao-Shan Gao, Xiao-Rong Hou, Jianliang Tang, and Hang-Fei Cheng, “Complete solution classification for the perspective-three-point prob-lem,” IEEE transactions on pattern analysis and machine intelligence ,vol. 25, no. 8, pp. 930–943, 2003. [8] Torsten Sattler, Qunjie Zhou, Marc Pollefeys, and Laura Leal-Taixe, “Understanding the limitations of cnn-based absolute camera pose regression,” in Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , 2019, pp. 3302–3312. [9] Arthur Moreau, Nathan Piasco, Dzmitry Tsishkou, Bogdan Stanciulescu, and Arnaud de La Fortelle, “Lens: Localization enhanced by nerf synthesis,” in Proceedings of the Conference on Robot Learning . PMLR, 2022, pp. 1347–1356. [10] Shuai Chen, Xinghui Li, Zirui Wang, and Victor A Prisacariu, “Dfnet: Enhance absolute pose regression with direct feature matching,” in 
+
+European Conference on Computer Vision . Springer, 2022, pp. 1–17. [11] Ben Mildenhall, Pratul P Srinivasan, Matthew Tancik, Jonathan TBarron, Ravi Ramamoorthi, and Ren Ng, “Nerf: Representing scenes as neural radiance fields for view synthesis,” in Proceedings of the European Conference on Computer Vision . Springer, 2020, pp. 405–421. [12] Bernhard Kerbl, Georgios Kopanas, Thomas Leimk¨ uhler, and George Drettakis, “3d gaussian splatting for real-time radiance field rendering.,” 
+
+ACM Trans. Graph. , vol. 42, no. 4, pp. 139–1, 2023. [13] Jordan T Ash, Chicheng Zhang, Akshay Krishnamurthy, John Langford, and Alekh Agarwal, “Deep batch active learning by diverse, uncertain gradient lower bounds,” 2019. [14] Eric Brachmann, Tommaso Cavallari, and Victor Adrian Prisacariu, “Accelerated coordinate encoding: Learning to relocalize in minutes using rgb and poses,” in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , 2023, pp. 5044–5053. [15] Jamie Shotton, Ben Glocker, Christopher Zach, Shahram Izadi, Antonio Criminisi, and Andrew Fitzgibbon, “Scene coordinate regression forests for camera relocalization in rgb-d images,” in Proceedings of the IEEE conference on computer vision and pattern recognition , 2013, pp. 2930– 2937. [16] Eric Brachmann, Alexander Krull, Sebastian Nowozin, Jamie Shotton, Frank Michel, Stefan Gumhold, and Carsten Rother, “Dsac-differentiable ransac for camera localization,” in Proceedings of the IEEE conference on computer vision and pattern recognition , 2017, pp. 6684–6692. [17] Fangjinhua Wang, Xudong Jiang, Silvano Galliani, Christoph Vogel, and Marc Pollefeys, “Glace: Global local accelerated coordinate encoding,” in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , 2024, pp. 21562–21571. [18] Eric Brachmann and Carsten Rother, “Visual camera re-localization from rgb and rgb-d images using dsac,” IEEE transactions on pattern analysis and machine intelligence , vol. 44, no. 9, pp. 5847–5865, 2021. [19] Alex Kendall and Roberto Cipolla, “Geometric loss functions for camera pose regression with deep learning,” in Proceedings of the IEEE conference on computer vision and pattern recognition , 2017, pp. 5974– 5983. [20] Arthur Moreau, Nathan Piasco, Dzmitry Tsishkou, Bogdan Stanciulescu, and Arnaud de La Fortelle, “Coordinet: uncertainty-aware pose regressor for reliable vehicle localization,” in Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision , 2022, pp. 2229–2238. [21] Shuai Chen, Zirui Wang, and Victor Prisacariu, “Direct-posenet: Abso-lute pose regression with photometric consistency,” in 2021 International Conference on 3D Vision (3DV) . IEEE, 2021, pp. 1175–1185. [22] Jingyu Lin, Jiaqi Gu, Bojian Wu, Lubin Fan, Renjie Chen, Ligang Liu, and Jieping Ye, “Learning neural volumetric pose features for camera localization,” pp. 198–214, 2024. [23] Yoli Shavit, Ron Ferens, and Yosi Keller, “Learning multi-scene absolute pose regression with transformers,” in Proceedings of the IEEE/CVF International Conference on Computer Vision , 2021, pp. 2733–2742. [24] Yoli Shavit and Yosi Keller, “Camera pose auto-encoders for improving pose regression,” in European Conference on Computer Vision . Springer, 2022, pp. 140–157. [25] Jay Zhangjie Wu, Yuxuan Zhang, Haithem Turki, Xuanchi Ren, Jun Gao, Mike Zheng Shou, Sanja Fidler, Zan Gojcic, and Huan Ling, “Difix3d+: Improving 3d reconstructions with single-step diffusion models,” in 
+
+Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , 2025, pp. 26024–26035.
