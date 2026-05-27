@@ -1,6 +1,687 @@
 {
-  "generated_at": "2026-05-26T20:10:45.863286+00:00",
-  "updated_date": "20260526",
+  "generated_at": "2026-05-27T19:34:57.109491+00:00",
+  "updated_date": "20260527",
   "carryover_days": 9,
-  "items": []
+  "items": [
+    {
+      "id": "2605.20837v1",
+      "title": "ArchSIBench: Benchmarking the Architectural Spatial Intelligence of Vision-Language Models",
+      "abstract": "Architectural spatial intelligence, the ability to recognize and infer architectural space, is fundamental to tasks such as robot navigation, embodied interaction, and 3D scene understanding and generation. Although extensive research has evaluated the basic spatial skills of Vision-Language Models (VLMs) such as relative orientation, distance comparison, and object counting, these tasks cover only the most elementary levels of spatial cognition and largely overlook higher-level cognition of architectural space, including layout understanding, circulation patterns, and functional zoning. In this work, we present ArchSIBench, a Benchmark for Architectural Spatial Intelligence based on the perspectives from architecture, cognitive science, and psychology. ArchSIBench covers five core dimensions: perception, reasoning, navigation, transformation, and configuration, comprising 17 fine-grained subtasks. Through careful manual annotation by experts with architectural backgrounds, we construct 3,000 question-answer pairs to enable comprehensive evaluation of architectural spatial intelligence. Based on ArchSIBench, we evaluate various VLMs and find that the architectural spatial intelligence of most models shows significant differences from human baselines; additionally, models exhibit substantial variability across capability dimensions. Some state-of-the-art models can approach the level of human evaluators without architectural training. However, a clear gap remains compared to human evaluators with architectural training, particularly in spatial transformation and configuration reasoning. We believe that ArchSIBench will provide important insights and systematic resources for measuring and advancing the architectural spatial intelligence of VLMs. The dataset and code are available at https://huggingface.co/datasets/ArchSIBench/ArchSIBench.",
+      "authors": [
+        "Qirui Shen",
+        "Wenda Wang",
+        "Jiachen Lu",
+        "Zilong Huang",
+        "Jin Bai",
+        "Lei He",
+        "Hongxuan Chen",
+        "Weixin Huang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-05-20T07:27:08+00:00",
+      "link": "https://arxiv.org/pdf/2605.20837v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Benchmarking 3D scene understanding and generation",
+      "llm_evidence_cn": "3D场景理解与生成的基准测试",
+      "llm_evidence": "3D场景理解与生成的基准测试",
+      "canonical_evidence": "3D场景理解与生成的基准测试",
+      "llm_tldr_en": "Presents ArchSIBench to evaluate Vision-Language Models on architectural spatial intelligence and scene layout.",
+      "llm_tldr_cn": "提出ArchSIBench基准，评估视觉语言模型在建筑空间智能和场景布局方面的能力。",
+      "llm_tldr": "提出ArchSIBench基准，评估视觉语言模型在建筑空间智能和场景布局方面的能力。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "carryover_cache",
+      "paper_id": "2605.20837v1",
+      "carry_days": 1
+    },
+    {
+      "id": "2605.23602v1",
+      "title": "GlowGS: Generative Semantic Feature Learning for 3D Gaussian Splatting in Nighttime Glow Scenes",
+      "abstract": "Existing 3DGS methods effectively render high-quality novel views in clear-day scenes. However, they struggle with night scenes, particularly in glow regions, due to the lack of structural features such as textures and edges, which are key cues for splatting-based reconstruction. To address this problem, we leverage a diffusion model and a Vision Foundation Model (VFM) to compensate for missing structural cues. Our method consists of two key novel ideas: semantic feature generation and novel-view semantic learning. First, semantic feature generation produces high-quality semantic features as implicit structural cues for novel views. Specifically, a diffusion model synthesizes novel views with unknown camera poses from training views, while a VFM evaluates their quality. Once high-quality novel views are identified, the VFM extracts robust features to construct the semantic feature bank. Second, novel-view semantic learning enables 3DGS to optimize rendered novel views without requiring ground truth. It achieves this by extracting semantic features from a rendered novel view, searching the feature bank for the most similar features, and minimizing their distance. This process enforces implicit structural constraints, ensuring semantically coherent, artifact-free rendered views. Extensive experiments demonstrate the effectiveness of our GlowGS in generating semantically accurate 3D views, showing significant improvements over existing methods.",
+      "authors": [
+        "Beibei Lin",
+        "Xiao Cao",
+        "Jingyuan Guo",
+        "Robby T. Tan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-22T13:11:23+00:00",
+      "link": "https://arxiv.org/pdf/2605.23602v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "generative semantic feature learning for 3D Gaussian Splatting in complex scenes",
+      "llm_evidence_cn": "复杂场景下 3D 高斯泼溅的生成式语义特征学习",
+      "llm_evidence": "复杂场景下 3D 高斯泼溅的生成式语义特征学习",
+      "canonical_evidence": "复杂场景下 3D 高斯泼溅的生成式语义特征学习",
+      "llm_tldr_en": "GlowGS uses diffusion models to generate structural cues for 3D reconstruction in nighttime scenes.",
+      "llm_tldr_cn": "GlowGS 利用扩散模型为夜间场景的 3D 重建生成结构化线索。",
+      "llm_tldr": "GlowGS 利用扩散模型为夜间场景的 3D 重建生成结构化线索。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "carryover_cache",
+      "paper_id": "2605.23602v1",
+      "carry_days": 1
+    },
+    {
+      "id": "2605.24700v1",
+      "title": "SRUG: Shadow-Guided Relightable Urban Scene with Generation Model",
+      "abstract": "Creating relightable urban scenes from images or videos is widely useful but highly ill-posed. Urban environments are typically unbounded and extend beyond the visible regions. As a result, many portions of the scene remain unobserved, yet these invisible regions can cast shadows onto visible areas. Reasonably modeling shadows cast by such invisible regions is challenging and poses a significant obstacle to creating relightable urban scenes. At the same time, sparse input views and complex illumination conditions further complicate relighting, as they introduce severe ambiguities in material decomposition. In this paper, we propose Shadow-guided Relightable Urban Scene with Generation model (SRUG), a novel framework designed to address relighting challenges in urban scenes. SRUG leverages shadows to guide a 3D completion model for recovering the geometry of invisible regions, promoting the synthesis of physically reasonable shadows. In addition, SRUG employs an iterative material decomposition scheme that applies the large material model (LMM) to provide material supervision and iteratively decompose the scene's material properties, enabling robust material decomposition. Building upon these components, we introduce a physically-based lighting model that captures the complex illumination of urban scenes and supports reliable relighting. Extensive quantitative evaluations and visual comparisons demonstrate that our method outperforms existing approaches in both novel view synthesis and relighting tasks.",
+      "authors": [
+        "Yonghao Zhao",
+        "Zexin Yin",
+        "Jian Yang",
+        "Beibei Wang",
+        "Jin Xie"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-05-23T18:37:46+00:00",
+      "link": "https://arxiv.org/pdf/2605.24700v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "relightable urban scene generation model",
+      "llm_evidence_cn": "可重光照的城市场景生成模型",
+      "llm_evidence": "可重光照的城市场景生成模型",
+      "canonical_evidence": "可重光照的城市场景生成模型",
+      "llm_tldr_en": "SRUG models shadows from unobserved regions to create relightable and generative urban 3D environments.",
+      "llm_tldr_cn": "SRUG 通过对未观测区域的阴影建模，创建可重光照的生成式城市 3D 环境。",
+      "llm_tldr": "SRUG 通过对未观测区域的阴影建模，创建可重光照的生成式城市 3D 环境。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "generative models for 3D environments",
+      "matched_requirement_id": "req-5",
+      "selection_source": "carryover_cache",
+      "paper_id": "2605.24700v1",
+      "carry_days": 1
+    },
+    {
+      "id": "2605.26831v1",
+      "title": "OSMa-Bench++: Toward Open-Ended Benchmarking of Semantic Mapping for Manipulation with Prompt-Generated Synthetic Scenes",
+      "abstract": "Semantic mapping methods are increasingly used as intermediate scene representations for downstream robotic reasoning and manipulation, yet their evaluation is still largely tied to fixed benchmark datasets with limited coverage of manipulation-relevant corner cases. In this work, we extend OSMa-Bench toward controllable benchmarking with prompt-generated synthetic indoor scenes. Our pipeline automatically generates scene descriptions, synthesizes corresponding environments with SceneSmith, and adapts the resulting assets into an OSMa-Bench-compatible simulation format. This adaptation requires a nontrivial intermediate layer, including semantic normalization, material and texture repair, shader fallback policies, floor handling, navigation setup, and controlled lighting configuration. A key advantage of the proposed setup is that the original scene-generation prompt is known in advance and can therefore serve as an auxiliary semantic specification of the intended scene. We use this property to extend the VQA component of OSMa-Bench with a prompt-grounded question category. The resulting framework supports targeted stress-testing of semantic scene representations under conditions such as clutter, small objects, partial occlusions, and lighting variation, and makes benchmarking more extensible and better aligned with downstream manipulation requirements. Our code is available at https://github.com/be2rlab/OSMa-Bench-v2.",
+      "authors": [
+        "Regina Kurkova",
+        "Maxim Popov",
+        "Sergey Kolyubin"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.RO"
+      ],
+      "published": "2026-05-26T10:51:36+00:00",
+      "link": "https://arxiv.org/pdf/2605.26831v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "prompt-generated synthetic indoor scenes for benchmarking",
+      "llm_evidence_cn": "用于基准测试的提示词生成合成室内场景",
+      "llm_evidence": "用于基准测试的提示词生成合成室内场景",
+      "canonical_evidence": "用于基准测试的提示词生成合成室内场景",
+      "llm_tldr_en": "OSMa-Bench++ uses prompt-based generation to create synthetic 3D scenes for robotic semantic mapping evaluation.",
+      "llm_tldr_cn": "OSMa-Bench++ 利用基于提示的生成技术创建合成 3D 场景，用于机器人语义地图评估。",
+      "llm_tldr": "OSMa-Bench++ 利用基于提示的生成技术创建合成 3D 场景，用于机器人语义地图评估。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "text-to-3D scene generation frameworks",
+      "matched_requirement_id": "req-2",
+      "selection_source": "carryover_cache",
+      "paper_id": "2605.26831v1",
+      "carry_days": 1
+    },
+    {
+      "id": "2605.21489v1",
+      "title": "Variance Reduction for Expectations with Diffusion Teachers",
+      "abstract": "Pretrained diffusion models serve as frozen teachers feeding downstream pipelines such as text-to-3D, single-step distillation, and data attribution. The teacher gradients these pipelines consume are Monte Carlo (MC) expectations over noise levels and Gaussian noise samples; their estimator variance dominates compute cost because each draw requires expensive upstream work (rendering, simulation, encoding). We introduce CARV, a compute-aware variance-accounting framework that motivates a hierarchical MC estimator: amortize the expensive upstream computation over cheap diffusion-noise resamples, sharpened by timestep importance sampling and a stratified-inverse-CDF construction. In our text-to-3D distillation and attribution experiments, CARV delivers 2-3x effective compute multipliers (most from amortized reuse; ~25% additional from IS+stratification) without changing the objective; in single-step distillation, the same techniques cut gradient variance by an order of magnitude but do not improve downstream FID, marking the regime where MC variance is no longer the bottleneck.",
+      "authors": [
+        "Jesse Bettencourt",
+        "Xindi Wu",
+        "Matan Atzmon",
+        "James Lucas",
+        "Jonathan Lorraine"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CV",
+        "stat.CO",
+        "stat.ML"
+      ],
+      "published": "2026-05-20T17:59:52+00:00",
+      "link": "https://arxiv.org/pdf/2605.21489v1",
+      "tags": [
+        "keyword:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "variance reduction for text-to-3D distillation",
+      "llm_evidence_cn": "文本转3D蒸馏的方差缩减",
+      "llm_evidence": "文本转3D蒸馏的方差缩减",
+      "canonical_evidence": "文本转3D蒸馏的方差缩减",
+      "llm_tldr_en": "A variance reduction framework that accelerates text-to-3D generation and attribution pipelines.",
+      "llm_tldr_cn": "一种加速文本到3D生成和归因流水线的方差缩减框架。",
+      "llm_tldr": "一种加速文本到3D生成和归因流水线的方差缩减框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "text-to-3D scene generation frameworks",
+      "matched_requirement_id": "req-2",
+      "selection_source": "carryover_cache",
+      "paper_id": "2605.21489v1",
+      "carry_days": 1
+    },
+    {
+      "id": "2605.21489v2",
+      "title": "Variance Reduction for Expectations with Diffusion Teachers",
+      "abstract": "Pretrained diffusion models serve as frozen teachers feeding downstream pipelines such as text-to-3D, single-step distillation, and data attribution. The teacher gradients these pipelines consume are Monte Carlo (MC) expectations over noise levels and Gaussian noise samples; their estimator variance dominates compute cost because each draw requires expensive upstream work (rendering, simulation, encoding). We introduce CARV, a compute-aware variance-accounting framework that motivates a hierarchical MC estimator: amortize the expensive upstream computation over cheap diffusion-noise resamples, sharpened by timestep importance sampling and a stratified-inverse-CDF construction. In our text-to-3D distillation and attribution experiments, CARV delivers 2-3x effective compute multipliers (most from amortized reuse; ~25% additional from IS+stratification) without changing the objective; in single-step distillation, the same techniques cut gradient variance by an order of magnitude but do not improve downstream FID, marking the regime where MC variance is no longer the bottleneck.",
+      "authors": [
+        "Jesse Bettencourt",
+        "Xindi Wu",
+        "Matan Atzmon",
+        "James Lucas",
+        "Jonathan Lorraine"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CV",
+        "stat.CO",
+        "stat.ML"
+      ],
+      "published": "2026-05-20T17:59:52+00:00",
+      "link": "https://arxiv.org/pdf/2605.21489v2",
+      "tags": [
+        "keyword:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "optimizing text-to-3D generation efficiency",
+      "llm_evidence_cn": "优化文本转3D生成效率",
+      "llm_evidence": "优化文本转3D生成效率",
+      "canonical_evidence": "优化文本转3D生成效率",
+      "llm_tldr_en": "A compute-aware framework to reduce variance and cost in text-to-3D diffusion distillation.",
+      "llm_tldr_cn": "一种用于降低文本到3D扩散蒸馏中方差和成本的计算感知框架。",
+      "llm_tldr": "一种用于降低文本到3D扩散蒸馏中方差和成本的计算感知框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "text-to-3D scene generation frameworks",
+      "matched_requirement_id": "req-2",
+      "selection_source": "carryover_cache",
+      "paper_id": "2605.21489v2",
+      "carry_days": 1
+    },
+    {
+      "id": "2605.24321v1",
+      "title": "Unified 3D Scene Understanding Through Physical World Modeling",
+      "abstract": "Understanding 3D scenes requires flexible combinations of visual reasoning tasks, including depth estimation, novel view synthesis, and object manipulation, all of which are essential for perception and interaction. Existing approaches have typically addressed these tasks in isolation, preventing them from sharing a common representation or transferring knowledge across tasks. A conceptually simpler but practically non-trivial alternative is to unify these diverse tasks into a single model, reducing different tasks from separate training objectives to merely different prompts and allowing for joint training across all datasets. In this work, we present a physical world model for unified 3D understanding and interaction (3WM), formulated as a probabilistic graphical model in which nodes represent multimodal scene elements such as RGB, optical flow, and camera pose. Diverse tasks emerge from different inference pathways through the graph: novel view synthesis from RGB and dense flow prompts, object manipulation from RGB and sparse flow prompts, and depth estimation from RGB and camera conditioning, all zero-shot without task-specific training. 3WM outperforms specialized baselines without the need for finetuning by offering precise controllability, strong geometric consistency, and robustness in real-world scenarios, achieving state-of-the-art performance on NVS and 3D object manipulation. Beyond predefined tasks, the model supports composable inference pathways, such as moving objects aside while navigating a 3D environment, enabling complex geometric reasoning. This demonstrates that a unified model can serve as a practical alternative to fragmented task-specific systems, taking a step towards a general-purpose visual world model.",
+      "authors": [
+        "Wanhee Lee",
+        "Klemen Kotar",
+        "Rahul Mysore Venkatesh",
+        "Jared Watrous",
+        "Honglin Chen",
+        "Khai Loong Aw",
+        "Daniel L. K. Yamins"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-23T01:01:35+00:00",
+      "link": "https://arxiv.org/pdf/2605.24321v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "unified 3D scene understanding and synthesis",
+      "llm_evidence_cn": "统一的3D场景理解与合成",
+      "llm_evidence": "统一的3D场景理解与合成",
+      "canonical_evidence": "统一的3D场景理解与合成",
+      "llm_tldr_en": "A unified physical world model for 3D scene understanding, view synthesis, and interaction.",
+      "llm_tldr_cn": "一种用于3D场景理解、视图合成和交互的统一物理世界模型。",
+      "llm_tldr": "一种用于3D场景理解、视图合成和交互的统一物理世界模型。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "carryover_cache",
+      "paper_id": "2605.24321v1",
+      "carry_days": 1
+    },
+    {
+      "id": "2605.23287v1",
+      "title": "LangFlash: Feed-forward 3D Language Gaussian Splatting from Sparse Unposed Images",
+      "abstract": "We present LangFlash, a feed-forward framework for 3D Language Gaussian Splatting that reconstructs 3D scenes parameterized by Gaussian primitives enriched with language-aligned semantic features from sparse unposed multi-view images. Unlike optimization-based 3D methods, LangFlash directly predicts the geometry and semantics in a single forward pass, enabling low-latency 3D reconstruction and language-consistent scene understanding. To support large-scale training, we enriched the RealEstate10k dataset with coherent and dense semantic information for 3D semantic supervision. Furthermore, we propose a sparse semantic encoding scheme that combines a global semantic dictionary with locally varying per-primitive weights, preserving high-level linguistic information, while reducing representation complexity. Experimental results show that LangFlash achieves superior novel view synthesis and semantic consistency compared with previous methods. This study establishes a new paradigm for pose-free, language-grounded 3D scene reconstruction, advancing generalizable 3D vision and multimodal scene understanding. Demo is available at https://liylo.github.io/langflash.github.io/.",
+      "authors": [
+        "Yilong Liu",
+        "Wanhua Li",
+        "Chen Zhu-Tian",
+        "Hanspeter Pfister"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-22T06:59:00+00:00",
+      "link": "https://arxiv.org/pdf/2605.23287v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "feed-forward framework for 3D language-aligned scene reconstruction",
+      "llm_evidence_cn": "3D语言对齐场景重建的前馈框架",
+      "llm_evidence": "3D语言对齐场景重建的前馈框架",
+      "canonical_evidence": "3D语言对齐场景重建的前馈框架",
+      "llm_tldr_en": "Presents LangFlash, a feed-forward framework for 3D Language Gaussian Splatting and scene understanding.",
+      "llm_tldr_cn": "提出LangFlash，一个用于3D语言高斯泼溅和场景理解的前馈框架。",
+      "llm_tldr": "提出LangFlash，一个用于3D语言高斯泼溅和场景理解的前馈框架。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "carryover_cache",
+      "paper_id": "2605.23287v1",
+      "carry_days": 1
+    },
+    {
+      "id": "2605.22190v1",
+      "title": "No Pose, No Problem in 4D: Feed-Forward Dynamic Gaussians from Unposed Multi-View Videos",
+      "abstract": "Recent feed-forward 3D gaussian splatting methods have made dramatic progress on individual aspects of 3D scene reconstruction, but no existing method jointly addresses dynamic content, multi-view input, and unknown camera poses in a single feed-forward pass. Methods that handle dynamics either require accurate camera poses or accept only monocular input; pose-free multi-view methods address only static scenes; and per-scene optimization methods bridge some of these gaps but at minutes-to-hours cost per scene. We introduce NoPo4D, the first feed-forward system that addresses this empty quadrant. Building on a pretrained geometry backbone and recent 4D Gaussian frameworks, NoPo4D introduces a velocity decomposition that splits Gaussian motion into per-pixel image-plane shifts and depth changes, allowing direct supervision from pseudo ground-truth optical flow on the 2D component. This sidesteps both the differentiable rendering that couples prior posed methods to pose accuracy and the 3D motion ground truth that prior pose-free methods require. The system is rounded out by a bidirectional motion encoder for cross-view and cross-frame feature aggregation, and view-dependent opacity that mitigates cross-view and cross-timestep Gaussian misalignments. On four multi-view dynamic benchmarks, NoPo4D consistently outperforms prior feed-forward baselines, and with an optional post-optimization stage surpasses per-scene optimization methods, while running orders of magnitude faster.",
+      "authors": [
+        "Matteo Balice",
+        "Yanik Kunzi",
+        "Chenyangguang Zhang",
+        "Matteo Matteucci",
+        "Marc Pollefeys",
+        "Sungwhan Hong"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-21T08:57:21+00:00",
+      "link": "https://arxiv.org/pdf/2605.22190v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Feed-forward 3D/4D scene reconstruction from unposed videos",
+      "llm_evidence_cn": "从无位姿视频中进行前馈3D/4D场景重建",
+      "llm_evidence": "从无位姿视频中进行前馈3D/4D场景重建",
+      "canonical_evidence": "从无位姿视频中进行前馈3D/4D场景重建",
+      "llm_tldr_en": "Introduces NoPo4D for rapid feed-forward dynamic 3D scene reconstruction without camera poses.",
+      "llm_tldr_cn": "引入 NoPo4D，用于在无相机位姿的情况下进行快速前馈动态 3D 场景重建。",
+      "llm_tldr": "引入 NoPo4D，用于在无相机位姿的情况下进行快速前馈动态 3D 场景重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "state of the art methods in 3D scene generation",
+      "matched_requirement_id": "req-7",
+      "selection_source": "carryover_cache",
+      "paper_id": "2605.22190v1",
+      "carry_days": 1
+    },
+    {
+      "id": "2605.25326v1",
+      "title": "Perceive-then-Plan: Layout-as-Policy for Monocular 3D Scene Layout Estimation",
+      "abstract": "Building structured 3D scene layouts from a single image requires reconciling visual observations with physical and spatial constraints, a challenge that is difficult to address with direct prediction alone. In this work, we formulate monocular 3D layout estimation as a perceive-then-plan problem with vision-language models, where a Perceiver first grounds the 3D objects and then a Planner iteratively refines the scene hypothesis through actions that improve physical plausibility while preserving consistency with the input image. We propose Layout-as-Policy (LaP), which casts the planning stage as a policy learning problem: 3D layouts are represented as structured states, and refined via discrete actions such as translation, rotation, and rescaling. Starting from an observation-aligned initialization with the geometry-enhanced Perceiver, the LaP Planner is trained to produce action sequences that progressively resolve geometric inconsistencies and enforce realistic spatial relations. To enable effective learning, we combine supervised trajectory initialization with preference-based optimization, allowing the model to learn corrective behaviors without requiring explicit reward engineering. This formulation transforms layout estimation from a one-shot prediction task into an iterative refinement process, enabling better handling of global constraints and complex object interactions. Experiments demonstrate that our approach produces layouts that are more physically coherent and better aligned with visual observations, while naturally supporting downstream tasks such as scene editing and manipulation.",
+      "authors": [
+        "Junwei Zhou",
+        "Yu-Wing Tai"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-25T01:16:19+00:00",
+      "link": "https://arxiv.org/pdf/2605.25326v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "monocular 3D scene layout estimation and refinement",
+      "llm_evidence_cn": "单目3D场景布局估计与优化",
+      "llm_evidence": "单目3D场景布局估计与优化",
+      "canonical_evidence": "单目3D场景布局估计与优化",
+      "llm_tldr_en": "Layout-as-Policy uses vision-language models to iteratively refine structured 3D scene layouts.",
+      "llm_tldr_cn": "Layout-as-Policy利用视觉语言模型迭代优化结构化的3D场景布局。",
+      "llm_tldr": "Layout-as-Policy利用视觉语言模型迭代优化结构化的3D场景布局。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "carryover_cache",
+      "paper_id": "2605.25326v1",
+      "carry_days": 1
+    },
+    {
+      "id": "2605.26115v1",
+      "title": "TriSplat: Simulation-Ready Feed-Forward 3D Scene Reconstruction",
+      "abstract": "Sparse-view 3D reconstruction is increasingly addressed with feed-forward splatting networks that predict explicit primitives directly from images. Yet most existing methods remain centered on Gaussian primitives and expose surfaces only indirectly: extracting a usable mesh for downstream simulation, physics reasoning, or embodied interaction still requires expensive post-hoc steps that break the feed-forward promise. This limitation is especially pronounced in pose-free settings, where scene structure and camera parameters must be estimated jointly from sparse observations. We present TriSplat, a feed-forward reconstruction network that represents scenes with oriented triangle primitives and directly exports simulation-ready mesh scenes from a single forward pass. Given input images, the network predicts local 3D point maps, triangle attributes, camera poses, and optional intrinsics. Rather than regressing triangle orientation as an unconstrained latent variable, our approach constructs geometry normals from the predicted point maps, refines them with an image-conditioned normal head, and converts them into stable local frames for triangle parameterization. A mono-normal bootstrap schedule further stabilizes early training, while opacity and blur scheduling progressively sharpens the learned surface representation for direct mesh extraction. Experiments on RealEstate10K and DL3DV show that this representation produces more geometry-faithful reconstructions than Gaussian feed-forward baselines while maintaining competitive novel-view rendering quality. Because the rendering primitives are themselves surface triangles, the output can be directly ingested by physics engines, collision detectors, and standard rendering pipelines without any conversion, making it a practical simulation-ready solution for feed-forward 3D scene reconstruction.",
+      "authors": [
+        "Weijie Wang",
+        "Zimu Li",
+        "Jinchuan Shi",
+        "Zeyu Zhang",
+        "Botao Ye",
+        "Marc Pollefeys",
+        "Donny Y. Chen",
+        "Bohan Zhuang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-25T17:59:53+00:00",
+      "link": "https://arxiv.org/pdf/2605.26115v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "feed-forward 3D scene reconstruction with triangle primitives",
+      "llm_evidence_cn": "使用三角形原语的前馈3D场景重建",
+      "llm_evidence": "使用三角形原语的前馈3D场景重建",
+      "canonical_evidence": "使用三角形原语的前馈3D场景重建",
+      "llm_tldr_en": "TriSplat directly exports simulation-ready 3D mesh scenes from sparse images in a single forward pass.",
+      "llm_tldr_cn": "TriSplat通过单次前馈从稀疏图像直接导出可供模拟的3D网格场景。",
+      "llm_tldr": "TriSplat通过单次前馈从稀疏图像直接导出可供模拟的3D网格场景。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "carryover_cache",
+      "paper_id": "2605.26115v1",
+      "carry_days": 1
+    },
+    {
+      "id": "2605.26149v1",
+      "title": "AnySurf: Any Surface Generation with Directed Edge",
+      "abstract": "Open surface components prevail in real industrial 3D content and support rendering, physical simulation and geometric editing. Garments serve as a typical open surface type, with numerous existing generation methods leveraging sewing patterns to generate 2D panels and stitch them into 3D shapes. Such domain-specific designs lack scalability and cannot generalize to shoes and accessories. Common field-based 3D generators prioritize watertight meshes and tend to create flawed double-layer structures on open surfaces. Though Trellis2 adopts field-free representation, its open surface results still contain normal and topology errors. We present AnySurf, a unified framework generating open, closed and hybrid 3D surfaces with accurate face orientation. Built on directed-edge enhanced Flexible Dual Grid (FDG-D), our representation retains normal direction information via oriented grid edges. We also propose ROS-FT post-training and a lightweight DE-Adapter with merely 1% extra parameters, facilitating directed edge learning while preserving original generation performance. We further construct Outfit3D dataset containing industrial garments and closed accessories. Our work transforms garment modeling into a universal 3D generation task. Experimental results demonstrate superior mesh quality and better practicality for downstream applications.",
+      "authors": [
+        "Wenda Shi",
+        "Chenyuan Pan",
+        "Dengming Zhang",
+        "Yiren Song",
+        "Biao Zhang",
+        "Xingxing Zou"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR",
+        "cs.CV"
+      ],
+      "published": "2026-05-23T03:20:11+00:00",
+      "link": "https://arxiv.org/pdf/2605.26149v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "unified framework for generating open and closed 3D surfaces",
+      "llm_evidence_cn": "生成开放和封闭3D表面的统一框架",
+      "llm_evidence": "生成开放和封闭3D表面的统一框架",
+      "canonical_evidence": "生成开放和封闭3D表面的统一框架",
+      "llm_tldr_en": "AnySurf generates diverse 3D surfaces using directed edges to handle open and hybrid geometries accurately.",
+      "llm_tldr_cn": "AnySurf利用有向边生成多样化的3D表面，准确处理开放和混合几何结构。",
+      "llm_tldr": "AnySurf利用有向边生成多样化的3D表面，准确处理开放和混合几何结构。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "carryover_cache",
+      "paper_id": "2605.26149v1",
+      "carry_days": 1
+    },
+    {
+      "id": "2605.25975v1",
+      "title": "F-RNG: Feed-Forward Relightable Neural Gaussians",
+      "abstract": "Capturing relightable 3D assets from real-world objects is a widely researched problem. Several per-scene optimization-based methods, based on 3D Gaussian splatting (3DGS), support relighting; however, they usually require dense input views, and their overfitting nature makes it difficult to generalize across scenes. Unlike per-scene optimization methods, generalized feed-forward models can directly reconstruct Gaussians from sparse input views. However, the resulting assets have baked-in illumination and cannot be easily used for relighting. In this paper, we present F-RNG, a feed-forward framework that directly generates relightable 3DGS assets from sparse-view inputs. Training such a model from scratch can require massive data and computing resources, and it is especially challenging to generate relightable assets in a feed-forward manner with acceptable cost. We develop F-RNG upon an existing large reconstruction model (LRM) to extract relightable representations, while also utilizing priors from an intrinsic decomposition model (IDM). Specifically, we first introduce a latent-interpolated fine-grained geometry synthesis to enhance the LRM's geometry representation. Second, we propose a prior-guided relightable appearance distillation to extract relightable neural representations by incorporating IDM priors. Finally, a universal neural renderer enables flexible and high-fidelity relighting. F-RNG requires neither re-training nor fine-tuning of the underlying LRMs, thus can automatically benefit from better LRMs and IDMs in the future. With only small networks that can be trained with affordable data and computational resources, F-RNG avoids the repetitive inference of large models under different light conditions. By comparison to the state-of-the-art LRM-based relighting method, F-RNG achieves ~25x faster relighting, as well as superior quality (~+2.0 dB).",
+      "authors": [
+        "Guangming Fu",
+        "Jiahui Fan",
+        "Jian Yang",
+        "Miloš Hašan",
+        "Beibei Wang"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR",
+        "cs.CV"
+      ],
+      "published": "2026-05-25T15:48:57+00:00",
+      "link": "https://arxiv.org/pdf/2605.25975v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "feed-forward framework generating relightable 3D assets",
+      "llm_evidence_cn": "生成可重光照3D资产的前馈框架",
+      "llm_evidence": "生成可重光照3D资产的前馈框架",
+      "canonical_evidence": "生成可重光照3D资产的前馈框架",
+      "llm_tldr_en": "F-RNG is a feed-forward model that reconstructs relightable 3D Gaussian assets from sparse input views.",
+      "llm_tldr_cn": "F-RNG是一个从稀疏视图重建可重光照3D高斯资产的前馈模型。",
+      "llm_tldr": "F-RNG是一个从稀疏视图重建可重光照3D高斯资产的前馈模型。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "carryover_cache",
+      "paper_id": "2605.25975v1",
+      "carry_days": 1
+    },
+    {
+      "id": "2605.26629v1",
+      "title": "DelowlightSplat: Feed-Forward Gaussian Splatting for Lowlight 3D Scene Reconstruction",
+      "abstract": "Novel-view synthesis and 3D reconstruction from sparse posed images are central to robotics and AR/VR. Yet, feed-forward 3D Gaussian reconstruction fails under lowlight due to noise, color shifts, and unreliable correspondence. We propose DelowlightSplat, a lowlight-aware feed-forward Gaussian splatting framework for clean novel-view rendering. We build a controllable multi-view lowlight benchmark by degrading only context views while keeping target views clean. We introduce a lightweight Lowlight Adapter for residual enhancement to improve matchability, and couple it with cost-volume-based multi-view inference to directly predict clean 3D Gaussians. Experiments show that DelowlightSplat significantly outperforms previous feed-forward method and two-stage pipeline under lowlight conditions.",
+      "authors": [
+        "Fuzhen Jiang",
+        "Zengtian Xie",
+        "Zhuoran Li"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-26T07:05:10+00:00",
+      "link": "https://arxiv.org/pdf/2605.26629v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Feed-forward Gaussian Splatting for 3D scene reconstruction",
+      "llm_evidence_cn": "用于3D场景重建的前馈高斯泼溅技术",
+      "llm_evidence": "用于3D场景重建的前馈高斯泼溅技术",
+      "canonical_evidence": "用于3D场景重建的前馈高斯泼溅技术",
+      "llm_tldr_en": "DelowlightSplat improves feed-forward 3D Gaussian reconstruction in lowlight conditions via a specialized adapter.",
+      "llm_tldr_cn": "DelowlightSplat通过专用适配器改进了低光照条件下的前馈3D高斯重建。",
+      "llm_tldr": "DelowlightSplat通过专用适配器改进了低光照条件下的前馈3D高斯重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "carryover_cache",
+      "paper_id": "2605.26629v1",
+      "carry_days": 1
+    },
+    {
+      "id": "2605.26368v1",
+      "title": "Unified Panoramic Geometry Estimation via Multi-View Foundation Models",
+      "abstract": "Geometry estimation from perspective images has greatly advanced, maturing to the point where off-the-shelf foundation models are able to reconstruct 3D scene structure not only from multi-view imagery, but even from a single view. A natural extension is 3D reconstruction from panoramas, with the exciting prospect of recovering a full 360-degree scene from a single panoramic image. In this work, we introduce PaGeR (Panoramic Geometry Reconstruction), a framework to lift powerful 3D foundation models designed for perspective imagery to the panorama domain. Our strategy is to start from a pre-trained transformer for 3D reconstruction and turn it into a unified high-performance model that predicts scale-invariant depth, metric depth, surface normals, and sky masks from both perspective and omnidirectional images, in a single forward pass. By keeping architectural changes to a minimum and mixing perspective and panoramic images during training, PaGeR retains the rich 3D prior of the underlying foundation model while learning to also estimate geometrically consistent 360-degree scenes from single panoramas. We extensively test our method in both indoor and outdoor environments and find that it delivers state-of-the-art performance and excellent zero-shot performance across a wide range of scenes.",
+      "authors": [
+        "Vukasin Bozic",
+        "Isidora Slavkovic",
+        "Dominik Narnhofer",
+        "Nando Metzger",
+        "Denis Rozumny",
+        "Konrad Schindler",
+        "Nikolai Kalischek"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-05-25T22:32:42+00:00",
+      "link": "https://arxiv.org/pdf/2605.26368v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "3D scene structure reconstruction from single panoramic images",
+      "llm_evidence_cn": "从单张全景图像重建3D场景结构",
+      "llm_evidence": "从单张全景图像重建3D场景结构",
+      "canonical_evidence": "从单张全景图像重建3D场景结构",
+      "llm_tldr_en": "PaGeR lifts 3D foundation models to the panorama domain for full 360-degree scene geometry estimation.",
+      "llm_tldr_cn": "PaGeR将3D基础模型提升到全景领域，用于全360度场景几何估计。",
+      "llm_tldr": "PaGeR将3D基础模型提升到全景领域，用于全360度场景几何估计。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "carryover_cache",
+      "paper_id": "2605.26368v1",
+      "carry_days": 1
+    },
+    {
+      "id": "2605.27351v1",
+      "title": "Feedforward 3D Editing Learns from Semantic-Part Transformation",
+      "abstract": "3D editing is a fundamental capability for scalable 3D content creation. While image editing has rapidly evolved toward large-scale feedforward generative paradigms, 3D AI generation remains dominated by training-free editing pipelines. A central challenge of feedforward 3D editing lies in the lack of high-quality paired supervision. Editable 3D assets require simultaneous preservation of geometry, multi-view consistency, structural coherence, and localized edit controllability. Existing 3D editing datasets often rely on independently generated assets, image-mediated reconstruction or narrow edit taxonomies, leading to inaccurate localization, weak preservation, blurred edit boundaries, and limited semantic consistency. In this work, we introduce a new perspective: scalable feedforward 3D editing should be learned from semantic-part transformations. Based on this insight, we propose Pxform, a high-quality 3D editing dataset with over 100K consistent before/after editing pairs across seven edit types. Instead of treating objects as unstructured shapes, our pipeline grounds edits directly in semantic 3D parts. Built upon Pxform, we further propose PartFlow, a feedforward 3D editing network that injects source-aware latent control into pretrained 3D generative priors. PartFlow introduces mask-aware velocity preservation and render-space consistency supervision to jointly improve edit fidelity and source preservation, while requiring no 3D edit mask during inference. Extensive experiments demonstrate that high-quality semantic-part supervision substantially improves scalable 3D editing, enabling PartFlow to achieve state-of-the-art performance on both geometric and appearance editing benchmarks.",
+      "authors": [
+        "Jiawei Weng",
+        "Saining Zhang",
+        "Zhenxin Diao",
+        "Peishuo Li",
+        "Henghaofan Zhang",
+        "Junhao Chen",
+        "Hao Zhao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-26T17:51:59+00:00",
+      "link": "https://arxiv.org/pdf/2605.27351v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Feedforward 3D editing for scalable content creation",
+      "llm_evidence_cn": "用于可扩展内容创作的前馈3D编辑",
+      "llm_evidence": "用于可扩展内容创作的前馈3D编辑",
+      "canonical_evidence": "用于可扩展内容创作的前馈3D编辑",
+      "llm_tldr_en": "A new perspective on feedforward 3D editing using semantic-part transformations for better controllability.",
+      "llm_tldr_cn": "一种利用语义部件变换进行前馈3D编辑的新方法，提升了可控性。",
+      "llm_tldr": "一种利用语义部件变换进行前馈3D编辑的新方法，提升了可控性。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "research papers about 3D scene generation, including different methods, representations, and applications",
+      "matched_requirement_id": "req-6",
+      "selection_source": "carryover_cache",
+      "paper_id": "2605.27351v1",
+      "carry_days": 1
+    },
+    {
+      "id": "2605.22069v1",
+      "title": "TWINGS: Thin Plate Splines Warp-aligned Initialization for Sparse-View Gaussian Splatting",
+      "abstract": "Novel view synthesis from sparse-view inputs poses a significant challenge in 3D computer vision, particularly for achieving high-quality scene reconstructions with limited viewpoints. We introduce TWINGS, a framework that enhances 3D Gaussian Splatting (3DGS) by directly addressing point sparsity. We employ Thin Plate Splines (TPS), a smooth non-rigid deformation model that minimizes bending energy to estimate a globally coherent warp from control-point correspondences, to align backprojected points from estimated depth with triangulated 3D control points, yielding calibrated backprojected points. By sampling these calibrated points near the control points, TWINGS provides a fast and geometrically accurate initialization for 3DGS, ultimately improving structural detail preservation and color fidelity in reconstructed scenes. Extensive experiments on DTU, LLFF, and Mip-NeRF360 demonstrate that TWINGS consistently outperforms existing methods, delivering detailed and accurate reconstructions under sparse-view scenarios.",
+      "authors": [
+        "Hyeseong Kim",
+        "Geonhui Son",
+        "Deukhee Lee",
+        "Dosik Hwang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-05-21T07:07:37+00:00",
+      "link": "https://arxiv.org/pdf/2605.22069v1",
+      "tags": [
+        "keyword:3DGEN",
+        "query:3DGEN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Sparse-view Gaussian Splatting for scene reconstruction",
+      "llm_evidence_cn": "用于场景重建的稀疏视图高斯泼溅",
+      "llm_evidence": "用于场景重建的稀疏视图高斯泼溅",
+      "canonical_evidence": "用于场景重建的稀疏视图高斯泼溅",
+      "llm_tldr_en": "TWINGS provides a warp-aligned initialization to improve 3D Gaussian Splatting from limited viewpoints.",
+      "llm_tldr_cn": "TWINGS提供了一种变形对齐的初始化方法，以改进有限视角下的3D高斯泼溅重建。",
+      "llm_tldr": "TWINGS提供了一种变形对齐的初始化方法，以改进有限视角下的3D高斯泼溅重建。",
+      "llm_tags": [
+        "query:3dgen"
+      ],
+      "matched_query_tag": "query:3dgen",
+      "matched_query_text": "3D scene generation and synthesis methods",
+      "matched_requirement_id": "req-4",
+      "selection_source": "carryover_cache",
+      "paper_id": "2605.22069v1",
+      "carry_days": 1
+    }
+  ]
 }
